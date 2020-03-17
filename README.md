@@ -10,6 +10,7 @@ As bibliotecas de terceiros utilizadas no projeto foram as seguintes:
 * [Koin](https://insert-koin.io/): biblioteca de injeção de dependências.
 * [Retrofit](https://square.github.io/retrofit/): cliente HTTP utilizado nas chamadas REST.
 * [Glide](https://bumptech.github.io/glide/): biblioteca de cacheamento e carregamento de imagens para Android.
+* [Material Design](https://material.io/): biblioteca de componentes baseados no Material Design
 
 ## Serviços
 
