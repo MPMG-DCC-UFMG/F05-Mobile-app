@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="org.mpmg.mpapp.ui.login.LoginFragment"
+        android:name="org.mpmg.mpapp.ui.fragments.login.LoginFragment"
         android:label="LoginFragment" />
 </navigation>
