@@ -82,6 +82,7 @@ class LoginFragment : Fragment() {
     private fun handleGoogleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
+            loginViewModel.addUserToDb(account)
             setupSignInButtonVisibility()
         } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.
             Log.w(TAG, "signInResult:failed code=" + e.statusCode)
