@@ -3,10 +3,8 @@ package org.mpmg.mpapp.domain.database.dao
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals
-import org.hamcrest.CoreMatchers.equalTo
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -39,7 +37,7 @@ class TypeWorkDAOTest {
 
     @Test
     @Throws(Exception::class)
-    fun test1_writeTypeWorkAndListAll() {
+    fun test1writeTypeWorkAndListAll() {
         val typeWork1 = TypeWork(flag = 1,name = "TEST1")
         val typeWork2 = TypeWork(flag = 2,name = "TEST2")
 

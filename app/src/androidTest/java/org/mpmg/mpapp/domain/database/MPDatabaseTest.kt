@@ -11,7 +11,7 @@ import org.junit.runner.RunWith
 class MPDatabaseTest {
 
     @Test
-    fun test1_creationOfDb(){
+    fun test1creationOfDb(){
         val context = ApplicationProvider.getApplicationContext<Context>()
         val db = Room.inMemoryDatabaseBuilder(context, MPDatabase::class.java).build()
         assert(db.isOpen)

@@ -6,7 +6,7 @@ import org.junit.Test
 class TypeWorkTest {
 
     @Test
-    fun testTypeWork_creation() {
+    fun testTypeWorkCreation() {
         val typeWork = TypeWork(
             flag = 1,
             name = "Test"

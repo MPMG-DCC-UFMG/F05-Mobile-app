@@ -6,7 +6,7 @@ import org.junit.Test
 class PublicWorkTest {
 
     @Test
-    fun testPublicWork_creation() {
+    fun testPublicWorkCreation() {
         val publicWork = PublicWork(
             id = "ID1",
             name = "TEST1",
@@ -17,7 +17,7 @@ class PublicWorkTest {
         assertEquals("ID1", publicWork.id)
         assertEquals("TEST1", publicWork.name)
         assertEquals(1, publicWork.typeWorkFlag)
-        assertEquals(0.0, publicWork.latitude)
-        assertEquals(0.0, publicWork.longitude)
+        assert(0.0 == publicWork.latitude)
+        assert(0.0 == publicWork.longitude)
     }
 }

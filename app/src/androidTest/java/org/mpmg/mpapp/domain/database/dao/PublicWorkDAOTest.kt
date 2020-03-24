@@ -43,7 +43,7 @@ class PublicWorkDAOTest {
 
     @Test
     @Throws(Exception::class)
-    fun test1_writePublicWorkAndListAll() {
+    fun test1writePublicWorkAndListAll() {
         val publicWork1 = PublicWork(
             id = "T1",
             name = "Test",

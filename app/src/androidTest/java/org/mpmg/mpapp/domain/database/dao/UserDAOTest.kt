@@ -38,7 +38,7 @@ class UserDAOTest {
 
     @Test
     @Throws(Exception::class)
-    fun test1_writeUserAndListAll() {
+    fun test1writeUserAndListAll() {
         val user = User(name = "Test", email = "test@test.com")
         val user2 = User(name = "Test", email = "test2@test.com")
         userDao.insert(user)
@@ -49,7 +49,7 @@ class UserDAOTest {
 
     @Test
     @Throws(Exception::class)
-    fun test2_insertAll() {
+    fun test2insertAll() {
         val user = User(name = "Test", email = "test3@test.com")
         val user2 = User(name = "Test", email = "test4@test.com")
         userDao.insertAll(arrayOf(user, user2))
@@ -60,7 +60,7 @@ class UserDAOTest {
 
     @Test
     @Throws(Exception::class)
-    fun test3_writeUserAndFindByEmail() {
+    fun test3writeUserAndFindByEmail() {
         val user = User(name = "Test", email = "test5@test.com")
         userDao.insert(user)
         val byName = userDao.getUserByEmail("test3@test.com")
