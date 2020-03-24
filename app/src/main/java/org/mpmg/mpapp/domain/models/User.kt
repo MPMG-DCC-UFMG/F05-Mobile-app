@@ -14,5 +14,6 @@ data class User(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = DatabaseConstants.User.id) val id: Int? = null,
     @ColumnInfo(name = DatabaseConstants.User.name) val name: String,
-    @ColumnInfo(name = DatabaseConstants.User.email) val email: String
+    @ColumnInfo(name = DatabaseConstants.User.email) val email: String,
+    @ColumnInfo(name = DatabaseConstants.User.cpf) val cpf: String? = null
 )

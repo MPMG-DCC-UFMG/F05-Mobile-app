@@ -4,13 +4,23 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import org.mpmg.mpapp.domain.database.dao.PublicWorkDAO
+import org.mpmg.mpapp.domain.database.dao.TypeWorkDAO
 import org.mpmg.mpapp.domain.database.dao.UserDAO
+import org.mpmg.mpapp.domain.models.PublicWork
+import org.mpmg.mpapp.domain.models.TypeWork
 import org.mpmg.mpapp.domain.models.User
 
-@Database(entities = [User::class], version = 1, exportSchema = false)
+@Database(
+    entities = [User::class, TypeWork::class, PublicWork::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class MPDatabase : RoomDatabase() {
 
     abstract fun userDAO(): UserDAO
+    abstract fun typeWorkDAO(): TypeWorkDAO
+    abstract fun publicWorkDAO(): PublicWorkDAO
 
     companion object {
         private var INSTANCE: MPDatabase? = null

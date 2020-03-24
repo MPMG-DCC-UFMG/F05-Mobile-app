@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.After
 import org.junit.Before
@@ -44,13 +44,24 @@ class UserDAOTest {
         userDao.insert(user)
         userDao.insert(user2)
         val usersList = userDao.listAllUsers()
-        assertEquals(2,usersList.size)
+        assertEquals(2, usersList.size)
     }
 
     @Test
     @Throws(Exception::class)
-    fun test2_writeUserAndFindByEmail() {
+    fun test2_insertAll() {
         val user = User(name = "Test", email = "test3@test.com")
+        val user2 = User(name = "Test", email = "test4@test.com")
+        userDao.insertAll(arrayOf(user, user2))
+        val usersList = userDao.listAllUsers()
+        assert(usersList.find { user.email == "test3@test.com" } != null)
+        assert(usersList.find { user.email == "test4@test.com" } != null)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun test3_writeUserAndFindByEmail() {
+        val user = User(name = "Test", email = "test5@test.com")
         userDao.insert(user)
         val byName = userDao.getUserByEmail("test3@test.com")
         byName?.let {

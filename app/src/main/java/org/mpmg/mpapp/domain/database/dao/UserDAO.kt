@@ -8,23 +8,20 @@ import org.mpmg.mpapp.domain.database.DatabaseConstants
 import org.mpmg.mpapp.domain.models.User
 
 @Dao
-interface UserDAO {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(user: User)
+abstract class UserDAO : BaseDAO<User> {
 
     @Query(
         "SELECT * FROM ${DatabaseConstants.User.tableName} " +
                 "WHERE ${DatabaseConstants.User.id} = :userId"
     )
-    fun getUserById(userId: Int): User?
+    abstract fun getUserById(userId: Int): User?
 
     @Query(
         "SELECT * FROM ${DatabaseConstants.User.tableName} " +
                 "WHERE ${DatabaseConstants.User.email} = :email"
     )
-    fun getUserByEmail(email: String): User?
+    abstract fun getUserByEmail(email: String): User?
 
     @Query("SELECT * FROM ${DatabaseConstants.User.tableName}")
-    fun listAllUsers(): List<User>
+    abstract fun listAllUsers(): List<User>
 }
