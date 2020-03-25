@@ -10,7 +10,7 @@ object DatabaseConstants {
         const val cpf = "user_cpf"
     }
 
-    object PublicWork{
+    object PublicWork {
         const val tableName = "public_work_table"
         const val id = "public_work_id"
         const val name = "public_work_name"
@@ -20,9 +20,18 @@ object DatabaseConstants {
         const val typeWorkFlag = "public_work_type_work_flag"
     }
 
-    object TypeWork{
+    object TypeWork {
         const val tableName = "type_work_table"
         const val flag = "type_work_flag"
         const val name = "type_work_name"
+    }
+
+    object Collect {
+        const val tableName = "collect_table"
+        const val id = "collect_id"
+        const val idWork = "collect_work_id"
+        const val idUser = "collect_user_id"
+        const val date = "collect_date"
+        const val comments = "collenct_comments"
     }
 }
