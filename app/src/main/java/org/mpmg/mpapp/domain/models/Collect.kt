@@ -29,5 +29,6 @@ data class Collect(
     @ColumnInfo(name = DatabaseConstants.Collect.idWork) val idWork: String,
     @ColumnInfo(name = DatabaseConstants.Collect.idUser) val idUser: String,
     @ColumnInfo(name = DatabaseConstants.Collect.date) val date: Long,
+    @ColumnInfo(name = DatabaseConstants.Collect.isSent) val isSent: Boolean = false,
     @ColumnInfo(name = DatabaseConstants.Collect.comments) val comments: String? = null
 )

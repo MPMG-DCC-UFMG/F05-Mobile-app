@@ -32,6 +32,19 @@ object DatabaseConstants {
         const val idWork = "collect_work_id"
         const val idUser = "collect_user_id"
         const val date = "collect_date"
-        const val comments = "collenct_comments"
+        const val comments = "collect_comments"
+        const val isSent = "collect_is_sent"
+    }
+
+    object Photo {
+        const val tableName = "photo_table"
+        const val id = "photo_id"
+        const val idCollect = "photo_id_collect"
+        const val isSent = "photo_is_sent"
+        const val latitude = "photo_latitude"
+        const val longitude = "photo_longitude"
+        const val timestamp = "photo_timestamp"
+        const val comment = "photo_comment"
+        const val filename = "photo_filename"
     }
 }

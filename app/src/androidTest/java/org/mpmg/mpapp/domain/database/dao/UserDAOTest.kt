@@ -63,9 +63,9 @@ class UserDAOTest {
     fun test3writeUserAndFindByEmail() {
         val user = User(name = "Test", email = "test5@test.com")
         userDao.insert(user)
-        val byName = userDao.getUserByEmail("test3@test.com")
+        val byName = userDao.getUserByEmail("test5@test.com")
         byName?.let {
-            assertThat(byName.email, equalTo(user.email))
+            assert(byName.email == user.email)
         } ?: assert(false)
     }
 }
