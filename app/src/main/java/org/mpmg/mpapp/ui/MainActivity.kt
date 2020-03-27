@@ -1,14 +1,14 @@
 package org.mpmg.mpapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.mpmg.mpapp.R
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var navController : NavController
+    lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         setupNavigationController()
     }
 
-    private fun setupNavigationController(){
+    private fun setupNavigationController() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
     }
 }

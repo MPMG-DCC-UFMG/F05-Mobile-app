@@ -21,10 +21,11 @@ import org.mpmg.mpapp.ui.viewmodels.LoginViewModel
 
 class LoginFragment : Fragment() {
 
+    private val TAG = LoginFragment::class.java.name
+
     private val loginViewModel: LoginViewModel by sharedViewModel()
 
     private val RC_GOOGLE_SIGN_IN = 607
-    private val TAG = LoginFragment::class.java.name
 
     override fun onCreateView(
         inflater: LayoutInflater,

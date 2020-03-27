@@ -3,6 +3,7 @@ package org.mpmg.mpapp.core.services
 import android.app.Service
 import android.content.Intent
 import android.location.Location
+import android.os.Binder
 import android.os.IBinder
 import android.util.Log
 import com.google.android.gms.location.*
@@ -15,8 +16,15 @@ class LocationService : Service() {
     private var mLocation: Location? = null
     private lateinit var mFusedLocationUpdateCallback: LocationCallback
 
-    override fun onBind(intent: Intent?): IBinder? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private val mBinder: IBinder = LocalBinder()
+
+    inner class LocalBinder : Binder() {
+        internal val service: LocationService
+            get() = this@LocationService
+    }
+
+    override fun onBind(intent: Intent): IBinder {
+        return mBinder
     }
 
     override fun onCreate() {
