@@ -16,6 +16,8 @@ class LocationService : Service() {
     private var mLocation: Location? = null
     private lateinit var mFusedLocationUpdateCallback: LocationCallback
 
+    private var mListener: LocationServiceListener? = null
+
     private val mBinder: IBinder = LocalBinder()
 
     inner class LocalBinder : Binder() {
@@ -37,6 +39,8 @@ class LocationService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+
+        mListener = null
 
         try {
             mFusedLocationClient.removeLocationUpdates(mFusedLocationUpdateCallback)
@@ -61,6 +65,7 @@ class LocationService : Service() {
 
     private fun updateLocation(location: Location) {
         mLocation = location
+        mListener?.onNewLocation(location)
     }
 
     private fun setupFusedLocationClient() {
@@ -78,5 +83,14 @@ class LocationService : Service() {
             mFusedLocationUpdateCallback,
             null
         )
+    }
+
+    fun setLocationServiceListener(listener: LocationServiceListener) {
+        mListener = listener
+    }
+
+    interface LocationServiceListener {
+
+        fun onNewLocation(location: Location)
     }
 }

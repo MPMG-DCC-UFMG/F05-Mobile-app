@@ -13,22 +13,12 @@ class MPApp : Application() {
         super.onCreate()
 
         setupKoin()
-        startLocationService()
     }
 
     private fun setupKoin() {
         startKoin {
             androidContext(this@MPApp)
             modules(viewModelModules, repositoriesModules, dataSourceModules)
-        }
-    }
-
-    private fun startLocationService() {
-        val intent = Intent(this, LocationService::class.java)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(intent)
-        } else {
-            startService(intent)
         }
     }
 }

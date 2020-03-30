@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -38,7 +39,12 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val userSigned = loginViewModel.checkGoogleSignedAccount()
+        if (userSigned) {
+            navigateToMap()
+        }
         setupSignInButton()
+
     }
 
     private fun setupSignInButton() {
@@ -46,12 +52,6 @@ class LoginFragment : Fragment() {
         button_loginFragment_googleSignIn.setOnClickListener {
             signInGoogle()
         }
-        setupSignInButtonVisibility()
-    }
-
-    private fun setupSignInButtonVisibility() {
-        val userSigned = loginViewModel.checkGoogleSignedAccount()
-        button_loginFragment_googleSignIn.visibility = if (userSigned) View.GONE else View.VISIBLE
     }
 
     private fun signInGoogle() {
@@ -84,9 +84,13 @@ class LoginFragment : Fragment() {
         try {
             val account = completedTask.getResult(ApiException::class.java)
             loginViewModel.addUserToDb(account)
-            setupSignInButtonVisibility()
+            navigateToMap()
         } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.
             Log.w(TAG, "signInResult:failed code=" + e.statusCode)
         }
+    }
+
+    private fun navigateToMap() {
+        findNavController().navigate(R.id.action_loginFragment_to_mapFragment)
     }
 }
