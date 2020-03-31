@@ -7,10 +7,12 @@ import org.mpmg.mpapp.domain.repositories.user.IUserRepository
 import org.mpmg.mpapp.domain.repositories.user.UserRepository
 import org.mpmg.mpapp.domain.repositories.user.local.ILocalUserDataSource
 import org.mpmg.mpapp.domain.repositories.user.local.LocalUserDataSource
+import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 import org.mpmg.mpapp.ui.viewmodels.LoginViewModel
 
 val viewModelModules = module {
     viewModel { LoginViewModel(androidApplication(), get()) }
+    viewModel { LocationViewModel() }
 }
 
 val repositoriesModules = module {
