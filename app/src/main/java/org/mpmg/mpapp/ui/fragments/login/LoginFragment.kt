@@ -48,7 +48,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupSignInButton() {
-        button_loginFragment_googleSignIn.setSize(SignInButton.SIZE_STANDARD)
+        button_loginFragment_googleSignIn.setSize(SignInButton.SIZE_WIDE)
         button_loginFragment_googleSignIn.setOnClickListener {
             signInGoogle()
         }
