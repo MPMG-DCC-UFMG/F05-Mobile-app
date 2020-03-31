@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MPApp</string>
+
+    <string name="title_login_email">EMAIL</string>
+    <string name="title_login_password">SENHA</string>
+    <string name="hint_login_email">Entre um email válido</string>
+    <string name="hint_login_password">Digite sua senha …</string>
+
+    <string name="button_login">Entrar</string>
 </resources>

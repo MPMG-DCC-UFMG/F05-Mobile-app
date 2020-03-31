@@ -7,7 +7,6 @@ interface BaseDAO<T> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg obj: T)
 
-
     @Insert
     fun insertAll(obj: Array<T>)
 }
