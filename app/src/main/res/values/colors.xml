@@ -6,5 +6,6 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="title1">#828282</color>
+    <color name="title2">#333333</color>
     <color name="button1">#2F80ED</color>
 </resources>

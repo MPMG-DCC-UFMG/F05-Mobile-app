@@ -18,6 +18,18 @@
         <item name="android:textColor">@color/title1</item>
     </style>
 
+    <style name="MPAppTheme.Title1" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:textColor">@color/title2</item>
+    </style>
+
+    <style name="MPAppTheme.PublicWorkName" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+        <item name="android:textColor">@color/title2</item>
+    </style>
+
     <style name="MPAppTheme.EditText1" parent="TextAppearance.AppCompat">
         <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/background_input</item>

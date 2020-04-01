@@ -1,4 +1,4 @@
-package org.mpmg.mpapp.domain.database.dao
+package org.mpmg.mpapp.core.interfaces
 
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy

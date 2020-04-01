@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import org.mpmg.mpapp.core.interfaces.BaseModel
 import org.mpmg.mpapp.domain.database.DatabaseConstants
 
 @Entity(
@@ -26,4 +27,4 @@ data class Photo(
     @ColumnInfo(name = DatabaseConstants.Photo.latitude) val latitude: Double,
     @ColumnInfo(name = DatabaseConstants.Photo.longitude) val longitude: Double,
     @ColumnInfo(name = DatabaseConstants.Photo.comment) val comment: String? = null
-)
+): BaseModel

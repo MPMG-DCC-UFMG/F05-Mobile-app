@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
     app:startDestination="@id/loginFragment">
 
@@ -9,11 +10,13 @@
         android:name="org.mpmg.mpapp.ui.fragments.login.LoginFragment"
         android:label="LoginFragment" >
         <action
-            android:id="@+id/action_loginFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
+            android:id="@+id/action_loginFragment_to_publicWorkListFragment"
+            app:destination="@id/publicWorkListFragment" />
     </fragment>
+
     <fragment
-        android:id="@+id/mapFragment"
-        android:name="org.mpmg.mpapp.ui.fragments.map.MapFragment"
-        android:label="MapFragment" />
+        android:id="@+id/publicWorkListFragment"
+        android:name="org.mpmg.mpapp.ui.fragments.publicwork.PublicWorkListFragment"
+        android:label="fragment_public_work_list"
+        tools:layout="@layout/fragment_public_work_list" />
 </navigation>
