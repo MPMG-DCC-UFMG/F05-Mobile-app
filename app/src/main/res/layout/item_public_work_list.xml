@@ -6,23 +6,54 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/margin_default"
     android:layout_marginVertical="@dimen/margin_small"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/textView_itemPublicWorkList_name"
             style="@style/MPAppTheme.PublicWorkName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:singleLine="true"
             android:text="E.E. Maurício Murgel"
+            app:layout_constraintEnd_toStartOf="@+id/textView_itemPublicWorkList_distance"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/textView_itemPublicWorkList_distance"
+            style="@style/MPAppTheme.PublicWorkAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:text="300 m"
+            android:textSize="@dimen/font_default"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_itemPublicWorkList_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView_itemPublicWorkList_name" />
+
+        <TextView
+            android:id="@+id/textView_itemPublicWorkList_address"
+            style="@style/MPAppTheme.PublicWorkAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:maxLines="2"
+            android:text="Av. Amazonas, 5154 - Nova Suíça Belo Horizonte - 30421-056"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView_itemPublicWorkList_name"
+            app:layout_constraintStart_toStartOf="@+id/textView_itemPublicWorkList_name"
+            app:layout_constraintTop_toBottomOf="@+id/textView_itemPublicWorkList_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

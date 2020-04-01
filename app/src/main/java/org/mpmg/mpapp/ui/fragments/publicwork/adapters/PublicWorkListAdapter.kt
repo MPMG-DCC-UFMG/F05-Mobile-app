@@ -4,31 +4,34 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.core.interfaces.BaseDelegate
-import org.mpmg.mpapp.core.interfaces.BaseModel
 import org.mpmg.mpapp.domain.models.PublicWork
-import org.mpmg.mpapp.ui.fragments.publicwork.adapters.PublicWorkListAdapter.PublicWorkListState.*
 import org.mpmg.mpapp.ui.fragments.publicwork.delegates.PublicWorkItemDelegate
 import org.mpmg.mpapp.ui.shared.delegates.StatusAdapterDelegate
 
-class PublicWorkListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PublicWorkListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+    PublicWorkItemDelegate.PublicWorkItemDelegateListener {
 
     private val publicWorksList = mutableListOf<PublicWork>()
 
-    enum class PublicWorkListState {
-        EMPTY_PUBLIC_WORK_LIST {
-            override fun delegate() = StatusAdapterDelegate(R.layout.item_empty_list)
-        },
-        DEFAULT_PUBLIC_WORK_LIST {
-            override fun delegate() = PublicWorkItemDelegate()
-        };
+    private var mListener: PublicWorkListAdapterListener? = null
 
-        abstract fun delegate(): BaseDelegate<BaseModel>
+    private val delegates = listOf(
+        StatusAdapterDelegate(R.layout.item_empty_list),
+        PublicWorkItemDelegate()
+    )
+
+    init {
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        val publicWorkItemDelegate = delegates[1] as PublicWorkItemDelegate
+        publicWorkItemDelegate.setPublicWorkItemDelegateListener(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val type = PublicWorkListState.values()[viewType]
-        return type.delegate().onCreateViewHolder(
+        val delegate = delegates[viewType]
+        return delegate.onCreateViewHolder(
             LayoutInflater.from(parent.context),
             parent
         )
@@ -39,19 +42,29 @@ class PublicWorkListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val type = PublicWorkListState.values()[holder.itemViewType]
-        type.delegate().onBindViewHolder(holder, publicWorksList[position])
+        val delegate = delegates[holder.itemViewType]
+        delegate.onBindViewHolder(holder, publicWorksList[position])
     }
 
     override fun getItemViewType(position: Int): Int {
-        val type =
-            if (publicWorksList.isEmpty()) EMPTY_PUBLIC_WORK_LIST else DEFAULT_PUBLIC_WORK_LIST
-        return type.ordinal
+        return if (publicWorksList.isEmpty()) 0 else 1
     }
 
     fun updatePublicWorksList(list: List<PublicWork>) {
         publicWorksList.clear()
         publicWorksList.addAll(list)
         notifyDataSetChanged()
+    }
+
+    override fun onPublicWorkClicked(publicWorkId: String) {
+        mListener?.onPublicWorkClicked(publicWorkId)
+    }
+
+    fun setPublicWorkListAdapterListener(listener: PublicWorkListAdapterListener) {
+        mListener = listener
+    }
+
+    interface PublicWorkListAdapterListener {
+        fun onPublicWorkClicked(publicWorkId: String)
     }
 }

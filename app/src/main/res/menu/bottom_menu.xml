@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/publicWorkFilterFragment"
+        android:icon="@drawable/ic_search"
+        android:orderInCategory="1"
+        android:title="@string/menu_filter"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/publicWorkListFragment"
+        android:icon="@drawable/ic_list"
+        android:orderInCategory="2"
+        android:title="@string/menu_list"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/publicWorkAddFragment"
+        android:icon="@drawable/ic_add"
+        android:orderInCategory="3"
+        android:title="@string/menu_add"
+        app:showAsAction="always" />
+
+</menu>

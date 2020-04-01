@@ -8,15 +8,27 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="org.mpmg.mpapp.ui.fragments.login.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="LoginFragment">
         <action
-            android:id="@+id/action_loginFragment_to_publicWorkListFragment"
-            app:destination="@id/publicWorkListFragment" />
+            android:id="@+id/action_loginFragment_to_baseFragment"
+            app:destination="@id/baseFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/publicWorkListFragment"
-        android:name="org.mpmg.mpapp.ui.fragments.publicwork.PublicWorkListFragment"
-        android:label="fragment_public_work_list"
-        tools:layout="@layout/fragment_public_work_list" />
+        android:id="@+id/baseFragment"
+        android:name="org.mpmg.mpapp.ui.fragments.base.BaseFragment"
+        android:label="fragment_base"
+        tools:layout="@layout/fragment_base">
+        <action
+            android:id="@+id/action_baseFragment_to_collectMainFragment"
+            app:destination="@id/collectMainFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/collectMainFragment"
+        android:name="org.mpmg.mpapp.ui.fragments.collect.CollectMainFragment"
+        android:label="fragment_collect_main"
+        tools:layout="@layout/fragment_collect_main" />
+
+
 </navigation>

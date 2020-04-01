@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_graph"
+    app:startDestination="@id/publicWorkListFragment">
+
+    <fragment
+        android:id="@+id/publicWorkListFragment"
+        android:name="org.mpmg.mpapp.ui.fragments.publicwork.fragments.PublicWorkListFragment"
+        android:label="fragment_public_work_list"
+        tools:layout="@layout/fragment_public_work_list" />
+
+    <fragment
+        android:id="@+id/publicWorkFilterFragment"
+        android:name="org.mpmg.mpapp.ui.fragments.publicwork.fragments.PublicWorkFilterFragment"
+        android:label="fragment_public_work_filter"
+        tools:layout="@layout/fragment_public_work_filter" />
+
+    <fragment
+        android:id="@+id/publicWorkAddFragment"
+        android:name="org.mpmg.mpapp.ui.fragments.publicwork.fragments.PublicWorkAddFragment"
+        android:label="fragment_public_work_add"
+        tools:layout="@layout/fragment_public_work_add" />
+
+
+</navigation>
