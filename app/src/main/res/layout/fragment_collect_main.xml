@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_main"
+    tools:context=".ui.fragments.collect.CollectMainFragment">
+
+    <TextView
+        android:id="@+id/textView_collectMainFragment_name"
+        style="@style/MPAppTheme.Title1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_xlarge"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:singleLine="true"
+        android:text="E.E. Maurício Murgel"
+        app:layout_constraintEnd_toStartOf="@+id/materialButton_collectMainFragment_edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton_collectMainFragment_edit"
+        style="@style/MPAppTheme.Button2"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_default"
+        android:layout_marginTop="@dimen/margin_xxlarge"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:backgroundTint="@color/button2"
+        android:text="@string/title_public_work_edit"
+        android:textColor="@color/buttonText1"
+        app:icon="@drawable/ic_edit"
+        app:iconTint="@color/buttonText1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

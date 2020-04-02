@@ -18,6 +18,30 @@
         <item name="android:textColor">@color/title1</item>
     </style>
 
+    <style name="MPAppTheme.Title1" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:textColor">@color/title2</item>
+    </style>
+
+    <style name="MPAppTheme.PublicWorkName" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+        <item name="android:textColor">@color/title2</item>
+    </style>
+
+    <style name="MPAppTheme.PublicWorkAddress" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_default</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:textColor">@color/textAddress</item>
+    </style>
+
+    <style name="MPAppTheme.PublicWorkDistance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_default</item>
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+        <item name="android:textColor">@color/textAddress</item>
+    </style>
+
     <style name="MPAppTheme.EditText1" parent="TextAppearance.AppCompat">
         <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/background_input</item>
@@ -31,5 +55,15 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:fontFamily">@font/nunito_bold</item>
         <item name="android:textSize">@dimen/font_large</item>
+    </style>
+
+    <style name="MPAppTheme.Button2" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="borderWidth">0dp</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:textSize">@dimen/font_default</item>
     </style>
 </resources>

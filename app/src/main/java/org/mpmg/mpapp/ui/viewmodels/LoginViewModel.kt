@@ -17,7 +17,6 @@ class LoginViewModel(
     private val userRepository: IUserRepository
 ) : AndroidViewModel(applicationContext) {
 
-
     private val ioScope = CoroutineScope(Dispatchers.IO + Job())
 
     fun checkGoogleSignedAccount(): Boolean {

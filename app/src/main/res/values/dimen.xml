@@ -16,4 +16,6 @@
     <dimen name="font_xlarge">20sp</dimen>
 
     <dimen name="height_default">48dp</dimen>
+
+    <dimen name="button_default">40dp</dimen>
 </resources>

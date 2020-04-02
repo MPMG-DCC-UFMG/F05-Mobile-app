@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import org.mpmg.mpapp.core.interfaces.BaseModel
 import org.mpmg.mpapp.domain.database.DatabaseConstants
 
 @Entity(
@@ -25,4 +26,4 @@ data class PublicWork(
     @ColumnInfo(name = DatabaseConstants.PublicWork.longitude) val longitude: Double,
     @ColumnInfo(name = DatabaseConstants.PublicWork.lastCollect) val lastCollect: Long? = null,
     @ColumnInfo(name = DatabaseConstants.PublicWork.typeWorkFlag) val typeWorkFlag: Int
-)
+) : BaseModel

@@ -6,9 +6,7 @@ import org.mpmg.mpapp.domain.models.User
 
 class LocalUserDataSource(val applicationContext: Context) : ILocalUserDataSource {
 
-    private fun mpDatabase(): MPDatabase? {
-        return MPDatabase.getInstance(applicationContext)
-    }
+    private fun mpDatabase(): MPDatabase? = MPDatabase.getInstance(applicationContext)
 
     override fun insertUser(user: User) {
         mpDatabase()?.userDAO()?.insert(user)

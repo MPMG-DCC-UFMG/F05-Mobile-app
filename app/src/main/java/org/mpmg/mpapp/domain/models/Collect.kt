@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import org.mpmg.mpapp.core.interfaces.BaseModel
 import org.mpmg.mpapp.domain.database.DatabaseConstants
 
 @Entity(
@@ -31,4 +32,4 @@ data class Collect(
     @ColumnInfo(name = DatabaseConstants.Collect.date) val date: Long,
     @ColumnInfo(name = DatabaseConstants.Collect.isSent) val isSent: Boolean = false,
     @ColumnInfo(name = DatabaseConstants.Collect.comments) val comments: String? = null
-)
+): BaseModel

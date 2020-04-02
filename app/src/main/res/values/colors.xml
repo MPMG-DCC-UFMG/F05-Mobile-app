@@ -6,5 +6,13 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="title1">#828282</color>
+    <color name="title2">#333333</color>
+
     <color name="button1">#2F80ED</color>
+    <color name="button2">#E0E0E0</color>
+
+    <color name="buttonText1">#2F80ED</color>
+
+    <color name="textAddress">#828282</color>
+
 </resources>
