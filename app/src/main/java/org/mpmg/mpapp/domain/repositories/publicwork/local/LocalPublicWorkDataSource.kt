@@ -19,54 +19,6 @@ class LocalPublicWorkDataSource(val applicationContext: Context) : ILocalPublicW
     }
 
     override fun listAllPublicWorksLive(): LiveData<List<PublicWork>> {
-//        return mpDatabase()!!.publicWorkDAO().listAllPublicWorkLive()
-        val liveData = MutableLiveData<List<PublicWork>>()
-        liveData.value = listOf(
-            PublicWork(
-                id = "PW1",
-                name = "E.E. Maurício Murgel",
-                latitude = -19.9293798,
-                longitude = -43.9804877,
-                typeWorkFlag = 2
-            ), PublicWork(
-                id = "PW2",
-                name = "E.E. Francisco Menezes Filho",
-                latitude = -19.8735893,
-                longitude = -43.9852848,
-                typeWorkFlag = 2
-            ), PublicWork(
-                id = "PW3",
-                name = "E.E. Jornalista Jorge Paes Sardinha",
-                latitude = -19.8906198,
-                longitude = -43.9934177,
-                typeWorkFlag = 2
-            ),PublicWork(
-                id = "PW4",
-                name = "E.E. Maurício Murgel",
-                latitude = -19.9293798,
-                longitude = -43.9804877,
-                typeWorkFlag = 2
-            ), PublicWork(
-                id = "PW5",
-                name = "E.E. Francisco Menezes Filho",
-                latitude = -19.8735893,
-                longitude = -43.9852848,
-                typeWorkFlag = 2
-            ), PublicWork(
-                id = "PW6",
-                name = "E.E. Jornalista Jorge Paes Sardinha",
-                latitude = -19.8906198,
-                longitude = -43.9934177,
-                typeWorkFlag = 2
-            ),
-            PublicWork(
-                id = "PW7",
-                name = "E.E. Jornalista Jorge Paes Sardinha",
-                latitude = -19.8906198,
-                longitude = -43.9934177,
-                typeWorkFlag = 2
-            )
-        )
-        return liveData
+        return mpDatabase()!!.publicWorkDAO().listAllPublicWorkLive()
     }
 }

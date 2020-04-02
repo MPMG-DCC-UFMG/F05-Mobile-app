@@ -11,12 +11,6 @@ import org.mpmg.mpapp.domain.database.DatabaseConstants
     tableName = DatabaseConstants.Collect.tableName,
     foreignKeys = [
         ForeignKey(
-            entity = PublicWork::class,
-            parentColumns = [DatabaseConstants.PublicWork.id],
-            childColumns = [DatabaseConstants.Collect.idWork],
-            onDelete = ForeignKey.CASCADE
-        ),
-        ForeignKey(
             entity = User::class,
             parentColumns = [DatabaseConstants.User.email],
             childColumns = [DatabaseConstants.Collect.idUser],
@@ -27,9 +21,8 @@ import org.mpmg.mpapp.domain.database.DatabaseConstants
 data class Collect(
     @PrimaryKey
     @ColumnInfo(name = DatabaseConstants.Collect.id) val id: String,
-    @ColumnInfo(name = DatabaseConstants.Collect.idWork) val idWork: String,
     @ColumnInfo(name = DatabaseConstants.Collect.idUser) val idUser: String,
     @ColumnInfo(name = DatabaseConstants.Collect.date) val date: Long,
     @ColumnInfo(name = DatabaseConstants.Collect.isSent) val isSent: Boolean = false,
     @ColumnInfo(name = DatabaseConstants.Collect.comments) val comments: String? = null
-): BaseModel
+) : BaseModel

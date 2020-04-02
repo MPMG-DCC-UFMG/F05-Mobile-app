@@ -11,10 +11,6 @@ class UserRepository(val localUserDataSource: ILocalUserDataSource) : IUserRepos
         localUserDataSource.insertUser(user)
     }
 
-    override fun getUserById(userId: Int): User? {
-        return localUserDataSource.getUserById(userId)
-    }
-
     override fun getUserByEmail(email: String): User? {
         return localUserDataSource.getUserByEmail(email)
     }
