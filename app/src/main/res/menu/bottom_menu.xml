@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/publicWorkFilterFragment"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/ic_filter"
         android:orderInCategory="1"
         android:title="@string/menu_filter"
         app:showAsAction="always" />
@@ -22,5 +22,12 @@
         android:orderInCategory="3"
         android:title="@string/menu_add"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/publicWorkSendFragment"
+        android:icon="@drawable/ic_send"
+        android:orderInCategory="3"
+        android:title="@string/menu_send"
+        app:showAsAction="always"/>
 
 </menu>

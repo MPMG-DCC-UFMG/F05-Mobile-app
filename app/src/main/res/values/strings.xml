@@ -7,6 +7,7 @@
     <string name="title_public_work_filter">Filtros</string>
     <string name="title_public_work_add">Adicionar</string>
     <string name="title_public_work_edit">Editar</string>
+    <string name="title_public_work_send">Enviar</string>
 
     <string name="hint_login_email">Entre um email válido</string>
     <string name="hint_login_password">Digite sua senha …</string>
@@ -15,7 +16,7 @@
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_filter">Filtrar</string>
-    <string name="menu_sent">Enviar</string>
+    <string name="menu_send">Enviar</string>
     <string name="menu_add">Adicionar</string>
     <string name="menu_list">Lista de Obras</string>
 
