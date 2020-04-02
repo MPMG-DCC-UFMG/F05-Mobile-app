@@ -12,10 +12,6 @@ class LocalUserDataSource(val applicationContext: Context) : ILocalUserDataSourc
         mpDatabase()?.userDAO()?.insert(user)
     }
 
-    override fun getUserById(userId: Int): User? {
-        return mpDatabase()?.userDAO()?.getUserById(userId)
-    }
-
     override fun getUserByEmail(email: String): User? {
         return mpDatabase()?.userDAO()?.getUserByEmail(email)
     }

@@ -11,12 +11,6 @@ abstract class UserDAO : BaseDAO<User> {
 
     @Query(
         "SELECT * FROM ${DatabaseConstants.User.tableName} " +
-                "WHERE ${DatabaseConstants.User.id} = :userId"
-    )
-    abstract fun getUserById(userId: Int): User?
-
-    @Query(
-        "SELECT * FROM ${DatabaseConstants.User.tableName} " +
                 "WHERE ${DatabaseConstants.User.email} = :email"
     )
     abstract fun getUserByEmail(email: String): User?

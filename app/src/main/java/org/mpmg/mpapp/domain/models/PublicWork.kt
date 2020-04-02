@@ -1,11 +1,9 @@
 package org.mpmg.mpapp.domain.models
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 import org.mpmg.mpapp.core.interfaces.BaseModel
 import org.mpmg.mpapp.domain.database.DatabaseConstants
+import java.util.*
 
 @Entity(
     tableName = DatabaseConstants.PublicWork.tableName,
@@ -15,15 +13,26 @@ import org.mpmg.mpapp.domain.database.DatabaseConstants
             parentColumns = [DatabaseConstants.TypeWork.flag],
             childColumns = [DatabaseConstants.PublicWork.typeWorkFlag],
             onDelete = ForeignKey.CASCADE
+        ), ForeignKey(
+            entity = Address::class,
+            parentColumns = [DatabaseConstants.Address.id],
+            childColumns = [DatabaseConstants.PublicWork.idAddress],
+            onDelete = ForeignKey.CASCADE
+        ), ForeignKey(
+            entity = Collect::class,
+            parentColumns = [DatabaseConstants.Collect.id],
+            childColumns = [DatabaseConstants.PublicWork.idCollect],
+            onDelete = ForeignKey.CASCADE
         )
     ]
 )
 data class PublicWork(
     @PrimaryKey
-    @ColumnInfo(name = DatabaseConstants.PublicWork.id) val id: String,
-    @ColumnInfo(name = DatabaseConstants.PublicWork.name) val name: String,
-    @ColumnInfo(name = DatabaseConstants.PublicWork.latitude) val latitude: Double,
-    @ColumnInfo(name = DatabaseConstants.PublicWork.longitude) val longitude: Double,
-    @ColumnInfo(name = DatabaseConstants.PublicWork.lastCollect) val lastCollect: Long? = null,
-    @ColumnInfo(name = DatabaseConstants.PublicWork.typeWorkFlag) val typeWorkFlag: Int
+    @ColumnInfo(name = DatabaseConstants.PublicWork.id) var id: String = UUID.randomUUID()
+        .toString(),
+    @ColumnInfo(name = DatabaseConstants.PublicWork.name) var name: String = "",
+    @ColumnInfo(name = DatabaseConstants.PublicWork.idCollect) var idCollect: String? = null,
+    @ColumnInfo(name = DatabaseConstants.PublicWork.typeWorkFlag) var typeWorkFlag: Int = 0,
+    @ColumnInfo(name = DatabaseConstants.PublicWork.idAddress) var idAddress: String = "",
+    @Ignore var address: Address? = null
 ) : BaseModel
