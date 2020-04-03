@@ -29,7 +29,7 @@
         android:layout_marginTop="@dimen/margin_xxlarge"
         android:layout_marginEnd="@dimen/margin_default"
         android:backgroundTint="@color/button2"
-        android:text="@string/title_public_work_edit"
+        android:text="@string/button_edit"
         android:textColor="@color/buttonText1"
         app:icon="@drawable/ic_edit"
         app:iconTint="@color/buttonText1"

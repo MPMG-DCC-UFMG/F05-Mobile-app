@@ -27,7 +27,7 @@ class PublicWorkItemDelegate : BaseDelegate<BaseModel> {
         )
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, delegateObject: BaseModel) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, delegateObject: BaseModel?) {
         delegateObject as PublicWork
         with(holder as AreaItemViewHolder) {
             mName.text = delegateObject.name

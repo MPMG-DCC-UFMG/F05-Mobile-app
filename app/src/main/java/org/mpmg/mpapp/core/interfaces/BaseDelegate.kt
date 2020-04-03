@@ -8,5 +8,5 @@ interface BaseDelegate<T : BaseModel> {
 
     fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): RecyclerView.ViewHolder
 
-    fun onBindViewHolder(holder: RecyclerView.ViewHolder, delegateObject: T)
+    fun onBindViewHolder(holder: RecyclerView.ViewHolder, delegateObject: T?)
 }

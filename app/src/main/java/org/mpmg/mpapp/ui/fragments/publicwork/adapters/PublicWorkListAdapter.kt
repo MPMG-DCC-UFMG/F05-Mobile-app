@@ -38,12 +38,15 @@ class PublicWorkListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     }
 
     override fun getItemCount(): Int {
-        return publicWorksList.size
+        return if (publicWorksList.isEmpty()) 1 else publicWorksList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val delegate = delegates[holder.itemViewType]
-        delegate.onBindViewHolder(holder, publicWorksList[position])
+        when (holder.itemViewType) {
+            0 -> delegate.onBindViewHolder(holder, null)
+            else -> delegate.onBindViewHolder(holder, publicWorksList[position])
+        }
     }
 
     override fun getItemViewType(position: Int): Int {

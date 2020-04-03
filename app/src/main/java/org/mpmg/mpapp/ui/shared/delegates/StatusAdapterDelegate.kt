@@ -22,7 +22,7 @@ class StatusAdapterDelegate(val layout: Int) : BaseDelegate<BaseModel> {
         )
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, delegateObject: BaseModel) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, delegateObject: BaseModel?) {
         //ignore
     }
 
