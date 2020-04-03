@@ -6,6 +6,8 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import org.mpmg.mpapp.core.interfaces.BaseModel
 import org.mpmg.mpapp.domain.database.DatabaseConstants
+import java.sql.Timestamp
+import java.util.*
 
 @Entity(
     tableName = DatabaseConstants.Photo.tableName,
@@ -26,5 +28,6 @@ data class Photo(
     @ColumnInfo(name = DatabaseConstants.Photo.isSent) val isSent: Boolean = false,
     @ColumnInfo(name = DatabaseConstants.Photo.latitude) val latitude: Double,
     @ColumnInfo(name = DatabaseConstants.Photo.longitude) val longitude: Double,
+    @ColumnInfo(name = DatabaseConstants.Photo.timestamp) val timestamp: Long = Calendar.getInstance().timeInMillis,
     @ColumnInfo(name = DatabaseConstants.Photo.comment) val comment: String? = null
-): BaseModel
+) : BaseModel

@@ -14,10 +14,9 @@ object DatabaseConstants {
         const val tableName = "public_work_table"
         const val id = "public_work_id"
         const val name = "public_work_name"
-        const val latitude = "public_work_latitude"
-        const val longitude = "public_work_longitude"
-        const val lastCollect = "public_work_last_collect"
+        const val idAddress = "public_work_address_id"
         const val typeWorkFlag = "public_work_type_work_flag"
+        const val idCollect = "public_work_id_collect"
     }
 
     object TypeWork {
@@ -29,7 +28,6 @@ object DatabaseConstants {
     object Collect {
         const val tableName = "collect_table"
         const val id = "collect_id"
-        const val idWork = "collect_work_id"
         const val idUser = "collect_user_id"
         const val date = "collect_date"
         const val comments = "collect_comments"
@@ -46,5 +44,18 @@ object DatabaseConstants {
         const val timestamp = "photo_timestamp"
         const val comment = "photo_comment"
         const val filename = "photo_filename"
+    }
+
+    object Address {
+        const val tableName = "address_table"
+        const val id = "address_id"
+        const val street = "address_street"
+        const val neighborhood = "address_neighborhood"
+        const val number = "address_number"
+        const val city = "address_city"
+        const val state = "address_state"
+        const val latitude = "address_latitude"
+        const val longitude = "address_longitude"
+        const val cep = "address_cep"
     }
 }

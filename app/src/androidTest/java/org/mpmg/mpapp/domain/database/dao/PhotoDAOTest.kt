@@ -16,17 +16,8 @@ class PhotoDAOTest {
     private lateinit var photoDAO: PhotoDAO
     private lateinit var db: MPDatabase
 
-    private val typeWork = TypeWork(flag = 1, name = "TEST1")
-    private val publicWork = PublicWork(
-        id = "T1",
-        name = "Test",
-        latitude = 0.0,
-        longitude = 0.0,
-        typeWorkFlag = typeWork.flag
-    )
     private val user = User(name = "test", email = "test@test.com")
-    private val collect =
-        Collect(id = "t32", idWork = publicWork.id, idUser = user.email, date = 980L)
+    private val collect = Collect(id = "t32", idUser = user.email, date = 980L)
 
     @Before
     fun createDb() {
@@ -35,8 +26,6 @@ class PhotoDAOTest {
             context, MPDatabase::class.java
         ).build()
         photoDAO = db.photoDAO()
-        db.typeWorkDAO().insert(typeWork)
-        db.publicWorkDAO().insert(publicWork)
         db.userDAO().insert(user)
         db.collectDAO().insert(collect)
     }

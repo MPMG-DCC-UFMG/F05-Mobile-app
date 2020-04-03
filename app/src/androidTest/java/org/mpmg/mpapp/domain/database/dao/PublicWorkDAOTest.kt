@@ -11,6 +11,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mpmg.mpapp.domain.database.MPDatabase
+import org.mpmg.mpapp.domain.models.Address
 import org.mpmg.mpapp.domain.models.PublicWork
 import org.mpmg.mpapp.domain.models.TypeWork
 import org.mpmg.mpapp.domain.models.User
@@ -24,6 +25,17 @@ class PublicWorkDAOTest {
     private lateinit var db: MPDatabase
 
     private val typeWork = TypeWork(flag = 1, name = "TEST1")
+    private val address = Address(
+        id = "1",
+        number = "23",
+        street = "test",
+        neighborhood = "Test",
+        latitude = 0.0,
+        longitude = 0.0,
+        city = "BH",
+        state = "MG",
+        cep = "34453-344"
+    )
 
     @Before
     fun createDb() {
@@ -33,6 +45,7 @@ class PublicWorkDAOTest {
         ).build()
         publicWorkDAO = db.publicWorkDAO()
         db.typeWorkDAO().insert(typeWork)
+        db.addressDAO().insert(address)
     }
 
     @After
@@ -47,16 +60,16 @@ class PublicWorkDAOTest {
         val publicWork1 = PublicWork(
             id = "T1",
             name = "Test",
-            latitude = 0.0,
-            longitude = 0.0,
-            typeWorkFlag = typeWork.flag
+            typeWorkFlag = typeWork.flag,
+            idAddress = address.id,
+            address = address
         )
         val publicWork2 = PublicWork(
             id = "T2",
             name = "Test",
-            latitude = 0.0,
-            longitude = 0.0,
-            typeWorkFlag = typeWork.flag
+            typeWorkFlag = typeWork.flag,
+            idAddress = address.id,
+            address = address
         )
         publicWorkDAO.insertAll(arrayOf(publicWork1, publicWork2))
         val publicWorks = publicWorkDAO.listAllPublicWork()
