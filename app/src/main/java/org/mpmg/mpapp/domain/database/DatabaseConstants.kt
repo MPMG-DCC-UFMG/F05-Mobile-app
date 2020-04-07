@@ -1,6 +1,6 @@
 package org.mpmg.mpapp.domain.database
 
-object DatabaseConstants {
+object  DatabaseConstants {
 
     object User {
         const val tableName = "user_table"
@@ -14,7 +14,6 @@ object DatabaseConstants {
         const val tableName = "public_work_table"
         const val id = "public_work_id"
         const val name = "public_work_name"
-        const val idAddress = "public_work_address_id"
         const val typeWorkFlag = "public_work_type_work_flag"
         const val idCollect = "public_work_id_collect"
     }
@@ -32,6 +31,7 @@ object DatabaseConstants {
         const val date = "collect_date"
         const val comments = "collect_comments"
         const val isSent = "collect_is_sent"
+        const val idPublicWork = "collect_public_work_id"
     }
 
     object Photo {
@@ -57,5 +57,6 @@ object DatabaseConstants {
         const val latitude = "address_latitude"
         const val longitude = "address_longitude"
         const val cep = "address_cep"
+        const val idPublicWork = "address_public_work_id"
     }
 }

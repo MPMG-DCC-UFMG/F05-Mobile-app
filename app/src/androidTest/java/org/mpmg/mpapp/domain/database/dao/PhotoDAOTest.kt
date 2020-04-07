@@ -17,7 +17,14 @@ class PhotoDAOTest {
     private lateinit var db: MPDatabase
 
     private val user = User(name = "test", email = "test@test.com")
-    private val collect = Collect(id = "t32", idUser = user.email, date = 980L)
+    private val typeWork = TypeWork(flag = 1, name = "TEST1")
+    private val publicWork1 = PublicWork(
+        id = "T1",
+        name = "Test",
+        typeWorkFlag = typeWork.flag
+    )
+    private val collect =
+        Collect(id = "t32", idUser = user.email, date = 980L, idPublicWork = publicWork1.id)
 
     @Before
     fun createDb() {
@@ -27,6 +34,8 @@ class PhotoDAOTest {
         ).build()
         photoDAO = db.photoDAO()
         db.userDAO().insert(user)
+        db.typeWorkDAO().insert(typeWork)
+        db.publicWorkDAO().insert(publicWork1)
         db.collectDAO().insert(collect)
     }
 

@@ -9,6 +9,7 @@ import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.interfaces.BaseDelegate
 import org.mpmg.mpapp.core.interfaces.BaseModel
 import org.mpmg.mpapp.domain.models.PublicWork
+import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
 
 class PublicWorkItemDelegate : BaseDelegate<BaseModel> {
 
@@ -28,12 +29,13 @@ class PublicWorkItemDelegate : BaseDelegate<BaseModel> {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, delegateObject: BaseModel?) {
-        delegateObject as PublicWork
+        delegateObject as PublicWorkAndAdress
         with(holder as AreaItemViewHolder) {
-            mName.text = delegateObject.name
+            mName.text = delegateObject.publicWork.name
+            mAddress.text = delegateObject.address.toString()
 
             mContainer.setOnClickListener {
-                mPublicWorkItemDelegateListener?.onPublicWorkClicked(delegateObject.id)
+                mPublicWorkItemDelegateListener?.onPublicWorkClicked(delegateObject.publicWork.id)
             }
         }
     }
@@ -48,6 +50,7 @@ class PublicWorkItemDelegate : BaseDelegate<BaseModel> {
 
     class AreaItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val mName = itemView.textView_itemPublicWorkList_name
+        val mAddress = itemView.textView_itemPublicWorkList_address
         val mContainer = itemView.cardView_itemPublicWorkList_mainContainer
     }
 }

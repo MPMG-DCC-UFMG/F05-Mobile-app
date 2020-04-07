@@ -25,7 +25,17 @@ class PublicWorkDAOTest {
     private lateinit var db: MPDatabase
 
     private val typeWork = TypeWork(flag = 1, name = "TEST1")
-    private val address = Address(
+    private val publicWork1 = PublicWork(
+        id = "T1",
+        name = "Test",
+        typeWorkFlag = typeWork.flag
+    )
+    private val publicWork2 = PublicWork(
+        id = "T2",
+        name = "Test",
+        typeWorkFlag = typeWork.flag
+    )
+    private val address1 = Address(
         id = "1",
         number = "23",
         street = "test",
@@ -34,7 +44,20 @@ class PublicWorkDAOTest {
         longitude = 0.0,
         city = "BH",
         state = "MG",
-        cep = "34453-344"
+        cep = "34453-344",
+        idPublicWork = publicWork1.id
+    )
+    private val address2 = Address(
+        id = "2",
+        number = "23",
+        street = "test2",
+        neighborhood = "Test2",
+        latitude = 0.0,
+        longitude = 0.0,
+        city = "BH",
+        state = "MG",
+        cep = "34453-344",
+        idPublicWork = publicWork2.id
     )
 
     @Before
@@ -45,7 +68,8 @@ class PublicWorkDAOTest {
         ).build()
         publicWorkDAO = db.publicWorkDAO()
         db.typeWorkDAO().insert(typeWork)
-        db.addressDAO().insert(address)
+        publicWorkDAO.insertAll(arrayOf(publicWork1, publicWork2))
+        db.addressDAO().insertAll(arrayOf(address1, address2))
     }
 
     @After
@@ -56,23 +80,24 @@ class PublicWorkDAOTest {
 
     @Test
     @Throws(Exception::class)
-    fun test1writePublicWorkAndListAll() {
-        val publicWork1 = PublicWork(
-            id = "T1",
-            name = "Test",
-            typeWorkFlag = typeWork.flag,
-            idAddress = address.id,
-            address = address
-        )
-        val publicWork2 = PublicWork(
-            id = "T2",
-            name = "Test",
-            typeWorkFlag = typeWork.flag,
-            idAddress = address.id,
-            address = address
-        )
-        publicWorkDAO.insertAll(arrayOf(publicWork1, publicWork2))
+    fun test1ListAll() {
         val publicWorks = publicWorkDAO.listAllPublicWork()
         assertEquals(2, publicWorks.size)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun test2getPublicWorkAndAddressById() {
+        val publicWorkAndAdress = publicWorkDAO.getPublicWorkAndAddressById(publicWork1.id)
+        publicWorkAndAdress?.let {
+            assertEquals(address1.street, publicWorkAndAdress.address.street)
+        } ?: assert(false)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun test3ListAllPublicWorkAndAddress() {
+        val publicWorksAndAdress = publicWorkDAO.listAllPublicWorkAndAddress()
+        assertEquals(2, publicWorksAndAdress.size)
     }
 }

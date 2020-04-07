@@ -41,7 +41,7 @@ class LoginFragment : Fragment() {
 
         val userSigned = loginViewModel.checkGoogleSignedAccount()
         if (userSigned) {
-            navigateBaseFragment()
+            navigateSetupAppFragment()
         }
         setupSignInButton()
 
@@ -84,13 +84,13 @@ class LoginFragment : Fragment() {
         try {
             val account = completedTask.getResult(ApiException::class.java)
             loginViewModel.addUserToDb(account)
-            navigateBaseFragment()
+            navigateSetupAppFragment()
         } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.
             Log.w(TAG, "signInResult:failed code=" + e.statusCode)
         }
     }
 
-    private fun navigateBaseFragment() {
-        findNavController().navigate(R.id.action_loginFragment_to_baseFragment)
+    private fun navigateSetupAppFragment() {
+        findNavController().navigate(R.id.action_loginFragment_to_setupApplicationFragment)
     }
 }

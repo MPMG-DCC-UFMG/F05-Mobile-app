@@ -19,6 +19,12 @@ class CollectDAOTest {
     private lateinit var collectDAO: CollectDAO
     private lateinit var db: MPDatabase
     private val user = User(name = "test", email = "test@test.com")
+    private val typeWork = TypeWork(flag = 1, name = "TEST1")
+    private val publicWork1 = PublicWork(
+        id = "T1",
+        name = "Test",
+        typeWorkFlag = typeWork.flag
+    )
 
     @Before
     fun createDb() {
@@ -28,6 +34,8 @@ class CollectDAOTest {
         ).build()
         collectDAO = db.collectDAO()
         db.userDAO().insert(user)
+        db.typeWorkDAO().insert(typeWork)
+        db.publicWorkDAO().insert(publicWork1)
     }
 
     @After
@@ -41,9 +49,19 @@ class CollectDAOTest {
     fun test1writeCollectAndListAll() {
 
         val collect1 =
-            Collect(id = "8U8UAD", idUser = user.email, date = 898892L)
+            Collect(
+                id = "8U8UAD",
+                idUser = user.email,
+                date = 898892L,
+                idPublicWork = publicWork1.id
+            )
         val collect2 =
-            Collect(id = "8U8UADT", idUser = user.email, date = 8988923L)
+            Collect(
+                id = "8U8UADT",
+                idUser = user.email,
+                date = 8988923L,
+                idPublicWork = publicWork1.id
+            )
         collectDAO.insertAll(arrayOf(collect1, collect2))
         val collects = collectDAO.listAllCollects()
         assertEquals(2, collects.size)

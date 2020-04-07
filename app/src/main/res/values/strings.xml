@@ -30,6 +30,7 @@
     <string name="label_city">Cidade</string>
 
     <string name="text_empty_public_work_list">Lista de obras vazia, tente adicionar uma nova obra manualmente.</string>
+    <string name="text_loading">Carregando …</string>
 
 
 </resources>
