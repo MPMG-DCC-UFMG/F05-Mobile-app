@@ -28,4 +28,9 @@ data class PublicWork(
     @ColumnInfo(name = DatabaseConstants.PublicWork.name) var name: String = "",
     @ColumnInfo(name = DatabaseConstants.PublicWork.idCollect) var idCollect: String? = null,
     @ColumnInfo(name = DatabaseConstants.PublicWork.typeWorkFlag) var typeWorkFlag: Int = 1
-) : BaseModel
+) : BaseModel {
+
+    fun isValid(): Boolean {
+        return name.isNotBlank()
+    }
+}

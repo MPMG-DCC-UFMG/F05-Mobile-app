@@ -1,7 +1,6 @@
 package org.mpmg.mpapp.ui.fragments.publicwork.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.extensions.observeOnce
 import org.mpmg.mpapp.databinding.FragmentPublicWorkAddBinding
+import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
 
@@ -22,6 +22,7 @@ class PublicWorkAddFragment : Fragment() {
 
     private val publicWorkViewModel: PublicWorkViewModel by sharedViewModel()
     private val typeWorkViewModel: TypeWorkViewModel by sharedViewModel()
+    private val locationViewModel: LocationViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +32,7 @@ class PublicWorkAddFragment : Fragment() {
         val binding: FragmentPublicWorkAddBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_public_work_add, container, false)
         binding.publicWorkViewModel = publicWorkViewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -39,6 +41,7 @@ class PublicWorkAddFragment : Fragment() {
 
         setupListeners()
         initTypeWork()
+        setupObservers()
     }
 
     private fun initTypeWork() {
@@ -51,6 +54,23 @@ class PublicWorkAddFragment : Fragment() {
     private fun setupListeners() {
         materialButton_addPublicWorkFragment_add.setOnClickListener {
             publicWorkViewModel.addPublicWork()
+            clearForm()
         }
+    }
+
+    private fun clearForm(){
+        editText_addPublicWorkFragment_name.text.clear()
+        editText_addPublicWorkFragment_street.text.clear()
+        editText_addPublicWorkFragment_cep.text.clear()
+        editText_addPublicWorkFragment_number.text.clear()
+        editText_addPublicWorkFragment_neighborhood.text.clear()
+        editText_addPublicWorkFragment_city.text.clear()
+    }
+
+    private fun setupObservers() {
+        locationViewModel.getCurrentLocationLiveData()
+            .observeOnce(viewLifecycleOwner, Observer { location ->
+                publicWorkViewModel.updateCurrPublicWorkLocation(location)
+            })
     }
 }

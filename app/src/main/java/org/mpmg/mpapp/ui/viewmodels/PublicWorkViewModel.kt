@@ -1,8 +1,12 @@
 package org.mpmg.mpapp.ui.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.location.Location
+import android.util.Log
+import android.view.View
+import android.view.animation.Transformation
+import android.widget.EditText
+import androidx.databinding.Observable
+import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -12,50 +16,81 @@ import org.mpmg.mpapp.domain.models.PublicWork
 import org.mpmg.mpapp.domain.models.TypeWork
 import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
+import org.mpmg.mpapp.ui.fragments.publicwork.models.AddressUI
+import org.mpmg.mpapp.ui.fragments.publicwork.models.PublicWorkUI
 
 class PublicWorkViewModel(
     private val publicWorkRepository: IPublicWorkRepository
 ) : ViewModel() {
 
-    private var publicWorkList: LiveData<List<PublicWorkAndAdress>> = publicWorkRepository.listAllPublicWorksLive()
-    private val _currentPublicWorkAdress = MutableLiveData<PublicWorkAndAdress>()
-    private val _currentTypeWork = MutableLiveData<TypeWork>()
+    private val TAG = PublicWorkViewModel::class.java.name
+
+    private var publicWorkList: LiveData<List<PublicWorkAndAdress>> =
+        publicWorkRepository.listAllPublicWorksLive()
 
     private val ioScope = CoroutineScope(Dispatchers.IO + Job())
 
-    val currentPublicWorkAndAddress: LiveData<PublicWorkAndAdress> = _currentPublicWorkAdress
-    val currentTypeWork: LiveData<TypeWork> = _currentTypeWork
+    lateinit var currentPublicWork: PublicWorkUI
+    lateinit var currentAddress: AddressUI
 
-    init {
-        newCurrentPublicWork()
+    val currentTypeWork: MutableLiveData<TypeWork> = MutableLiveData<TypeWork>()
+
+    val isPublicWorkValid: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+
+    private val observableCallback = object : Observable.OnPropertyChangedCallback() {
+        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+            isPublicWorkValid.value = isFormValid()
+        }
     }
 
-    private fun newCurrentPublicWork() {
-        val publicWork = PublicWork()
-        _currentPublicWorkAdress.postValue(
-            PublicWorkAndAdress(
-                publicWork = publicWork,
-                address = Address(idPublicWork = publicWork.id)
-            )
-        )
+    init {
+        newCurrentPublicWorkAddress()
+    }
+
+    private fun newCurrentPublicWorkAddress() {
+        val publicWork = PublicWorkUI()
+        val address = AddressUI()
+
+        publicWork.addOnPropertyChangedCallback(observableCallback)
+        address.addOnPropertyChangedCallback(observableCallback)
+
+        currentPublicWork = publicWork
+        currentAddress = address
+    }
+
+    private fun clearForm() {
+        currentPublicWork.name = ""
+        currentAddress.cep = ""
+    }
+
+    fun isFormValid(): Boolean {
+        return currentAddress.isValid() && currentPublicWork.isValid()
     }
 
     fun setCurrentTypeWork(typeWork: TypeWork) {
-        _currentTypeWork.value = typeWork
-        _currentPublicWorkAdress.value?.let {
-            it.publicWork.typeWorkFlag = typeWork.flag
-            _currentPublicWorkAdress.value = it
-        }
+        currentTypeWork.value = typeWork
     }
 
     fun getPublicWorkList() = publicWorkList
 
     fun addPublicWork() {
+        val publicWork = currentPublicWork.toPublicWorkDB()
+        val address = currentAddress.toAddressDB()
+
         ioScope.launch {
-            currentPublicWorkAndAddress.value?.let {
-                publicWorkRepository.insertPublicWork(it.publicWork, it.address)
-                newCurrentPublicWork()
-            }
+            val typeWork = currentTypeWork.value ?: return@launch
+
+            address.idPublicWork = publicWork.id
+            publicWork.typeWorkFlag = typeWork.flag
+
+            publicWorkRepository.insertPublicWork(publicWork, address)
+        }
+    }
+
+    fun updateCurrPublicWorkLocation(location: Location) {
+        currentAddress.apply {
+            latitude = location.latitude
+            longitude = location.longitude
         }
     }
 }

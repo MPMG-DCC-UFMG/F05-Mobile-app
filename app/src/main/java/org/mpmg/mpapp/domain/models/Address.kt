@@ -35,4 +35,8 @@ data class Address(
     override fun toString(): String {
         return "$street, $number - $neighborhood $city - $cep"
     }
+
+    fun isValid(): Boolean {
+        return idPublicWork.isNotBlank() && number.isNotBlank() && city.isNotBlank() && state.isNotBlank() && cep.isNotBlank() && latitude != 0.0 && longitude != 0.0
+    }
 }

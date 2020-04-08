@@ -1,5 +1,6 @@
 package org.mpmg.mpapp.domain.models.relations
 
+import androidx.databinding.Bindable
 import androidx.room.Embedded
 import androidx.room.Relation
 import org.mpmg.mpapp.core.interfaces.BaseModel
@@ -14,4 +15,9 @@ data class PublicWorkAndAdress(
         entityColumn = DatabaseConstants.Address.idPublicWork
     )
     val address: Address
-) : BaseModel
+) : BaseModel {
+
+    fun isValid(): Boolean {
+        return address.isValid() && publicWork.isValid() && address.idPublicWork == publicWork.id
+    }
+}
