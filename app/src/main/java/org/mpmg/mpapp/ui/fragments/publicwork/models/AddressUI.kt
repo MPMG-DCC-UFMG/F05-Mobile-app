@@ -6,6 +6,7 @@ import androidx.databinding.library.baseAdapters.BR
 import org.mpmg.mpapp.domain.models.Address
 
 data class AddressUI(
+    var id: String? = null,
     private var _street: String = "",
     private var _neighborhood: String = "",
     private var _number: String = "",
@@ -69,7 +70,7 @@ data class AddressUI(
     }
 
     fun toAddressDB(): Address {
-        return Address(
+        val addressDB = Address(
             street = this.street,
             neighborhood = this.neighborhood,
             cep = this.cep,
@@ -78,5 +79,9 @@ data class AddressUI(
             number = this.number,
             city = this.city
         )
+
+        id?.let { addressDB.id = it }
+
+        return addressDB
     }
 }

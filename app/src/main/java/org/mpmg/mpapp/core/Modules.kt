@@ -26,6 +26,7 @@ val viewModelModules = module {
     viewModel { PublicWorkViewModel(get()) }
     viewModel { ConfigurationViewModel(get(), get()) }
     viewModel { TypeWorkViewModel(get()) }
+    viewModel { CollectViewModel() }
 }
 
 val repositoriesModules = module {

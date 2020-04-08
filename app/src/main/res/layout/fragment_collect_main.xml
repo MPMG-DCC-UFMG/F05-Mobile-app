@@ -1,40 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background_main"
-    tools:context=".ui.fragments.collect.CollectMainFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/textView_collectMainFragment_name"
-        style="@style/MPAppTheme.Title1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_default"
-        android:layout_marginTop="@dimen/margin_xlarge"
-        android:layout_marginEnd="@dimen/margin_default"
-        android:singleLine="true"
-        android:text="E.E. Maurício Murgel"
-        app:layout_constraintEnd_toStartOf="@+id/materialButton_collectMainFragment_edit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton_collectMainFragment_edit"
-        style="@style/MPAppTheme.Button2"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/button_default"
-        android:layout_marginTop="@dimen/margin_xxlarge"
-        android:layout_marginEnd="@dimen/margin_default"
-        android:backgroundTint="@color/button2"
-        android:text="@string/button_edit"
-        android:textColor="@color/buttonText1"
-        app:icon="@drawable/ic_edit"
-        app:iconTint="@color/buttonText1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <variable
+            name="collectViewModel"
+            type="org.mpmg.mpapp.ui.viewmodels.CollectViewModel" />
+    </data>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_main"
+        tools:context=".ui.fragments.collect.CollectMainFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textView_collectMainFragment_name"
+            style="@style/MPAppTheme.Title1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_xlarge"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:singleLine="true"
+            android:text="@{collectViewModel.publicWork.publicWork.name}"
+            app:layout_constraintEnd_toStartOf="@+id/materialButton_collectMainFragment_edit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_collectMainFragment_address"
+            style="@style/MPAppTheme.PublicWorkAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:text="@{collectViewModel.publicWork.address.toString()}"
+            app:layout_constraintEnd_toStartOf="@+id/materialButton_collectMainFragment_edit"
+            app:layout_constraintStart_toStartOf="@+id/textView_collectMainFragment_name"
+            app:layout_constraintTop_toBottomOf="@+id/textView_collectMainFragment_name" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton_collectMainFragment_edit"
+            style="@style/MPAppTheme.Button2"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_default"
+            android:layout_marginTop="@dimen/margin_xxlarge"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:backgroundTint="@color/button2"
+            android:text="@string/button_edit"
+            android:textColor="@color/buttonText1"
+            app:icon="@drawable/ic_edit"
+            app:iconTint="@color/buttonText1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_collectMainFragment_photoList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_default"
+            app:layout_constraintBottom_toTopOf="@+id/materialButton_collectMainFragment_addPhoto"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_collectMainFragment_address" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton_collectMainFragment_addPhoto"
+            style="@style/MPAppTheme.Button1"
+            android:layout_width="300dp"
+            android:layout_height="@dimen/height_default"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:backgroundTint="@color/button1"
+            android:text="@string/button_add_photo"
+            app:icon="@drawable/ic_camera"
+            app:iconGravity="textStart"
+            app:layout_constraintBottom_toTopOf="@+id/materialButton_collectMainFragment_addComment"
+            app:layout_constraintEnd_toEndOf="@+id/materialButton_collectMainFragment_addComment"
+            app:layout_constraintStart_toStartOf="@+id/materialButton_collectMainFragment_addComment" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton_collectMainFragment_addComment"
+            style="@style/MPAppTheme.Button1"
+            android:layout_width="300dp"
+            android:layout_height="@dimen/height_default"
+            android:layout_marginBottom="@dimen/margin_xxlarge"
+            android:backgroundTint="@color/button1"
+            android:text="@string/button_add_comment"
+            app:icon="@drawable/ic_comment"
+            app:iconGravity="textStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

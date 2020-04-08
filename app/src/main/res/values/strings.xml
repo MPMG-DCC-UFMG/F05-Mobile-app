@@ -12,6 +12,8 @@
 
     <string name="button_login">Entrar</string>
     <string name="button_edit">Editar</string>
+    <string name="button_add_comment">Adicionar comentário</string>
+    <string name="button_add_photo">Adicionar foto</string>
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_filter">Filtrar</string>

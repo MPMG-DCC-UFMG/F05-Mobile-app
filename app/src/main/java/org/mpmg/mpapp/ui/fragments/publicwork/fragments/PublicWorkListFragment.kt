@@ -15,7 +15,9 @@ import kotlinx.android.synthetic.main.fragment_base.*
 import kotlinx.android.synthetic.main.fragment_public_work_list.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.ui.fragments.publicwork.adapters.PublicWorkListAdapter
+import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 
 class PublicWorkListFragment : Fragment(), PublicWorkListAdapter.PublicWorkListAdapterListener {
@@ -23,6 +25,7 @@ class PublicWorkListFragment : Fragment(), PublicWorkListAdapter.PublicWorkListA
     private val TAG = PublicWorkListFragment::class.java.name
 
     private val publicWorkViewModel: PublicWorkViewModel by sharedViewModel()
+    private val collectViewModel: CollectViewModel by sharedViewModel()
 
     private lateinit var publicWorkListAdapter: PublicWorkListAdapter
 
@@ -61,7 +64,8 @@ class PublicWorkListFragment : Fragment(), PublicWorkListAdapter.PublicWorkListA
         publicWorkListAdapter.setPublicWorkListAdapterListener(this)
     }
 
-    override fun onPublicWorkClicked(publicWorkId: String) {
+    override fun onPublicWorkClicked(publicWork: PublicWorkAndAdress) {
+        collectViewModel.setPublicWork(publicWork)
         activity?.findNavController(R.id.nav_host_fragment)?.navigate(R.id.action_baseFragment_to_collectMainFragment)
     }
 }

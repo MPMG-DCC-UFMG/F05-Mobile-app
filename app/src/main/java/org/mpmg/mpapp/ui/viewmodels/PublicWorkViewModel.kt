@@ -1,18 +1,12 @@
 package org.mpmg.mpapp.ui.viewmodels
 
 import android.location.Location
-import android.util.Log
-import android.view.View
-import android.view.animation.Transformation
-import android.widget.EditText
 import androidx.databinding.Observable
 import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.mpmg.mpapp.domain.models.Address
-import org.mpmg.mpapp.domain.models.PublicWork
 import org.mpmg.mpapp.domain.models.TypeWork
 import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
@@ -56,11 +50,6 @@ class PublicWorkViewModel(
 
         currentPublicWork = publicWork
         currentAddress = address
-    }
-
-    private fun clearForm() {
-        currentPublicWork.name = ""
-        currentAddress.cep = ""
     }
 
     fun isFormValid(): Boolean {
