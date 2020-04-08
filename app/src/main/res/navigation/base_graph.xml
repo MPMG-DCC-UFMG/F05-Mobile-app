@@ -22,6 +22,11 @@
         android:name="org.mpmg.mpapp.ui.fragments.publicwork.fragments.PublicWorkAddFragment"
         android:label="fragment_public_work_add"
         tools:layout="@layout/fragment_public_work_add" />
+    <fragment
+        android:id="@+id/publicWorkSendFragment"
+        android:name="org.mpmg.mpapp.ui.fragments.publicwork.fragments.PublicWorkSendFragment"
+        android:label="fragment_public_work_send"
+        tools:layout="@layout/fragment_public_work_send" />
 
 
 </navigation>

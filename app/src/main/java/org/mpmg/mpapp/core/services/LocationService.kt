@@ -76,6 +76,8 @@ class LocationService : Service() {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         mFusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            location ?: return@addOnSuccessListener
+
             updateLocation(location)
         }
         mFusedLocationClient.requestLocationUpdates(

@@ -14,11 +14,6 @@ import java.util.*
             childColumns = [DatabaseConstants.PublicWork.typeWorkFlag],
             onDelete = ForeignKey.CASCADE
         ), ForeignKey(
-            entity = Address::class,
-            parentColumns = [DatabaseConstants.Address.id],
-            childColumns = [DatabaseConstants.PublicWork.idAddress],
-            onDelete = ForeignKey.CASCADE
-        ), ForeignKey(
             entity = Collect::class,
             parentColumns = [DatabaseConstants.Collect.id],
             childColumns = [DatabaseConstants.PublicWork.idCollect],
@@ -32,7 +27,10 @@ data class PublicWork(
         .toString(),
     @ColumnInfo(name = DatabaseConstants.PublicWork.name) var name: String = "",
     @ColumnInfo(name = DatabaseConstants.PublicWork.idCollect) var idCollect: String? = null,
-    @ColumnInfo(name = DatabaseConstants.PublicWork.typeWorkFlag) var typeWorkFlag: Int = 0,
-    @ColumnInfo(name = DatabaseConstants.PublicWork.idAddress) var idAddress: String = "",
-    @Ignore var address: Address? = null
-) : BaseModel
+    @ColumnInfo(name = DatabaseConstants.PublicWork.typeWorkFlag) var typeWorkFlag: Int = 1
+) : BaseModel {
+
+    fun isValid(): Boolean {
+        return name.isNotBlank()
+    }
+}

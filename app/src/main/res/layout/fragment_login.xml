@@ -30,7 +30,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="86dp"
             android:labelFor="@id/editText_loginFragment_userInput"
-            android:text="@string/title_login_email"
+            android:text="@string/label_email"
             app:layout_constraintStart_toStartOf="@+id/editText_loginFragment_userInput"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
             android:labelFor="@id/editText_loginFragment_passwordInput"
-            android:text="@string/title_login_password"
+            android:text="@string/label_password"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/editText_loginFragment_userInput" />
 

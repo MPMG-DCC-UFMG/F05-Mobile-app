@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.domain.models.PublicWork
+import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.ui.fragments.publicwork.delegates.PublicWorkItemDelegate
 import org.mpmg.mpapp.ui.shared.delegates.StatusAdapterDelegate
 
 class PublicWorkListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     PublicWorkItemDelegate.PublicWorkItemDelegateListener {
 
-    private val publicWorksList = mutableListOf<PublicWork>()
+    private val publicWorksList = mutableListOf<PublicWorkAndAdress>()
 
     private var mListener: PublicWorkListAdapterListener? = null
 
@@ -38,19 +39,22 @@ class PublicWorkListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     }
 
     override fun getItemCount(): Int {
-        return publicWorksList.size
+        return if (publicWorksList.isEmpty()) 1 else publicWorksList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val delegate = delegates[holder.itemViewType]
-        delegate.onBindViewHolder(holder, publicWorksList[position])
+        when (holder.itemViewType) {
+            0 -> delegate.onBindViewHolder(holder, null)
+            else -> delegate.onBindViewHolder(holder, publicWorksList[position])
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
         return if (publicWorksList.isEmpty()) 0 else 1
     }
 
-    fun updatePublicWorksList(list: List<PublicWork>) {
+    fun updatePublicWorksList(list: List<PublicWorkAndAdress>) {
         publicWorksList.clear()
         publicWorksList.addAll(list)
         notifyDataSetChanged()

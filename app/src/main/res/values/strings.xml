@@ -1,22 +1,36 @@
 <resources>
     <string name="app_name">MPApp</string>
 
-    <string name="title_login_email">EMAIL</string>
-    <string name="title_login_password">SENHA</string>
     <string name="title_public_work_list">Lista de obras</string>
     <string name="title_public_work_filter">Filtros</string>
-    <string name="title_public_work_add">Adicionar</string>
-    <string name="title_public_work_edit">Editar</string>
+    <string name="title_public_work_add">Adicionar obra</string>
+    <string name="title_public_work_edit">Editar obra</string>
+    <string name="title_public_work_send">Enviar</string>
 
     <string name="hint_login_email">Entre um email válido</string>
     <string name="hint_login_password">Digite sua senha …</string>
 
     <string name="button_login">Entrar</string>
+    <string name="button_edit">Editar</string>
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_filter">Filtrar</string>
-    <string name="menu_sent">Enviar</string>
+    <string name="menu_send">Enviar</string>
     <string name="menu_add">Adicionar</string>
     <string name="menu_list">Lista de Obras</string>
+
+    <string name="label_email">Email</string>
+    <string name="label_password">Senha</string>
+    <string name="label_type_of_work">Tipo de obra</string>
+    <string name="label_name_of_work">Nome da obra</string>
+    <string name="label_street">Rua</string>
+    <string name="label_cep">CEP</string>
+    <string name="label_number">Número</string>
+    <string name="label_neighborhood">Bairro</string>
+    <string name="label_city">Cidade</string>
+
+    <string name="text_empty_public_work_list">Lista de obras vazia, tente adicionar uma nova obra manualmente.</string>
+    <string name="text_loading">Carregando …</string>
+
 
 </resources>

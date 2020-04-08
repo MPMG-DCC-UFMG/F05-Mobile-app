@@ -15,7 +15,8 @@
     <style name="MPAppTheme.InputTitle1" parent="TextAppearance.AppCompat">
         <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/nunito_bold</item>
-        <item name="android:textColor">@color/title1</item>
+        <item name="android:textColor">@color/label1</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="MPAppTheme.Title1" parent="TextAppearance.AppCompat">
@@ -46,6 +47,13 @@
         <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/background_input</item>
         <item name="android:fontFamily">@font/nunito_regular</item>
+    </style>
+
+    <style name="MPAppTheme.EditText2" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/background_input2</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:singleLine">true</item>
     </style>
 
     <style name="MPAppTheme.Button1" parent="Widget.MaterialComponents.Button.UnelevatedButton">

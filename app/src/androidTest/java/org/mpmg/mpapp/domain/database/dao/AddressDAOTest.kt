@@ -11,6 +11,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mpmg.mpapp.domain.database.MPDatabase
 import org.mpmg.mpapp.domain.models.Address
+import org.mpmg.mpapp.domain.models.PublicWork
+import org.mpmg.mpapp.domain.models.TypeWork
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
@@ -18,6 +20,12 @@ class AddressDAOTest {
 
     private lateinit var addressDAO: AddressDAO
     private lateinit var db: MPDatabase
+    private val typeWork = TypeWork(flag = 1, name = "TEST1")
+    private val publicWork1 = PublicWork(
+        id = "T1",
+        name = "Test",
+        typeWorkFlag = typeWork.flag
+    )
 
     @Before
     fun createDb() {
@@ -25,6 +33,8 @@ class AddressDAOTest {
         db = Room.inMemoryDatabaseBuilder(
             context, MPDatabase::class.java
         ).build()
+        db.typeWorkDAO().insert(typeWork)
+        db.publicWorkDAO().insert(publicWork1)
         addressDAO = db.addressDAO()
         val address1 = Address(
             id = "1",
@@ -35,7 +45,8 @@ class AddressDAOTest {
             longitude = 0.0,
             city = "BH",
             state = "MG",
-            cep = "34453-344"
+            cep = "34453-344",
+            idPublicWork = publicWork1.id
         )
         val address2 = Address(
             id = "2",
@@ -46,7 +57,8 @@ class AddressDAOTest {
             longitude = 0.0,
             city = "BH",
             state = "MG",
-            cep = "34453-344"
+            cep = "34453-344",
+            idPublicWork = publicWork1.id
         )
         addressDAO.insertAll(arrayOf(address1, address2))
     }
