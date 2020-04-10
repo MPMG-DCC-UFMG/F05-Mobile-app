@@ -26,7 +26,7 @@ class LoginFragment : Fragment() {
 
     private val loginViewModel: LoginViewModel by sharedViewModel()
 
-    private val RC_GOOGLE_SIGN_IN = 607
+    private val RC_GOOGLE_SIGN_IN = 601
 
     override fun onCreateView(
         inflater: LayoutInflater,

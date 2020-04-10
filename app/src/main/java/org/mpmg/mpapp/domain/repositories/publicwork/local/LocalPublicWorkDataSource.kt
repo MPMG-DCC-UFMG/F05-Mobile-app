@@ -8,10 +8,9 @@ import org.mpmg.mpapp.domain.database.MPDatabase
 import org.mpmg.mpapp.domain.models.Address
 import org.mpmg.mpapp.domain.models.PublicWork
 import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 
-class LocalPublicWorkDataSource(val applicationContext: Context) : ILocalPublicWorkDataSource {
-
-    private fun mpDatabase(): MPDatabase? = MPDatabase.getInstance(applicationContext)
+class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(applicationContext), ILocalPublicWorkDataSource {
 
     @Transaction
     override fun insertPublicWork(publicWork: PublicWork, address: Address) {

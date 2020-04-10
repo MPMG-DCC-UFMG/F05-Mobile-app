@@ -6,6 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import org.mpmg.mpapp.core.interfaces.BaseModel
 import org.mpmg.mpapp.domain.database.DatabaseConstants
+import java.util.*
 
 @Entity(
     tableName = DatabaseConstants.Collect.tableName,
@@ -26,10 +27,10 @@ import org.mpmg.mpapp.domain.database.DatabaseConstants
 )
 data class Collect(
     @PrimaryKey
-    @ColumnInfo(name = DatabaseConstants.Collect.id) val id: String,
-    @ColumnInfo(name = DatabaseConstants.Collect.idUser) val idUser: String,
-    @ColumnInfo(name = DatabaseConstants.Collect.idPublicWork) val idPublicWork: String,
-    @ColumnInfo(name = DatabaseConstants.Collect.date) val date: Long,
-    @ColumnInfo(name = DatabaseConstants.Collect.isSent) val isSent: Boolean = false,
-    @ColumnInfo(name = DatabaseConstants.Collect.comments) val comments: String? = null
+    @ColumnInfo(name = DatabaseConstants.Collect.id) var id: String = UUID.randomUUID().toString(),
+    @ColumnInfo(name = DatabaseConstants.Collect.idUser) var idUser: String = "",
+    @ColumnInfo(name = DatabaseConstants.Collect.idPublicWork) var idPublicWork: String = "",
+    @ColumnInfo(name = DatabaseConstants.Collect.date) var date: Long = Calendar.getInstance().timeInMillis,
+    @ColumnInfo(name = DatabaseConstants.Collect.isSent) var isSent: Boolean = false,
+    @ColumnInfo(name = DatabaseConstants.Collect.comments) var comments: String? = null
 ) : BaseModel
