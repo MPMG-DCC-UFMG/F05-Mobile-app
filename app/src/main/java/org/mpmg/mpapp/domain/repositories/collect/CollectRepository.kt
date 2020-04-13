@@ -34,4 +34,12 @@ class CollectRepository(
     override fun getCollect(collectId: String): Collect? {
         return localCollectDataSource.getCollectById(collectId)
     }
+
+    override fun getCollectByPublicWork(publicWorkId: String): Collect? {
+        return localCollectDataSource.getCollectByPublicIdAndStatus(publicWorkId, false)
+    }
+
+    override fun listPhotosByCollectionID(collectionId: String): List<Photo> {
+        return localPhotoDataSource.listPhotosByCollectionID(collectionId)
+    }
 }

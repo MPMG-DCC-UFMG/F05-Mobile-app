@@ -27,12 +27,12 @@ import org.mpmg.mpapp.domain.repositories.user.local.LocalUserDataSource
 import org.mpmg.mpapp.ui.viewmodels.*
 
 val viewModelModules = module {
-    viewModel { LoginViewModel(androidApplication(), get()) }
+    viewModel { LoginViewModel(androidApplication(), get(), get()) }
     viewModel { LocationViewModel() }
     viewModel { PublicWorkViewModel(get()) }
     viewModel { ConfigurationViewModel(get(), get()) }
     viewModel { TypeWorkViewModel(get()) }
-    viewModel { CollectViewModel() }
+    viewModel { CollectViewModel(get(), get()) }
     viewModel { PhotoViewModel() }
 }
 

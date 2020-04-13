@@ -8,6 +8,8 @@ interface ICollectRepository {
 
     fun listPhotosByCollectionIDLive(collectionId: String): LiveData<List<Photo>>
 
+    fun listPhotosByCollectionID(collectionId: String): List<Photo>
+
     fun getPhotoByID(photoId: String): Photo
 
     fun insertPhotos(photos: List<Photo>)
@@ -15,4 +17,6 @@ interface ICollectRepository {
     fun insertCollect(collect: Collect, photos: List<Photo>)
 
     fun getCollect(collectId: String): Collect?
+
+    fun getCollectByPublicWork(publicWorkId: String): Collect?
 }

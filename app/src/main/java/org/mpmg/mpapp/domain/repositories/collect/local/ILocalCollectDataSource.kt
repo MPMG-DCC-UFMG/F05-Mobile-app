@@ -8,5 +8,5 @@ interface ILocalCollectDataSource {
 
     fun getCollectById(collectId: String): Collect?
 
-    fun getCollectByPublicIdAndStatus(publicId: String, status: Boolean): Collect?
+    fun getCollectByPublicIdAndStatus(publicId: String, sent: Boolean): Collect?
 }

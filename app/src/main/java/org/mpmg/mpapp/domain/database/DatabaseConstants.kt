@@ -43,7 +43,8 @@ object  DatabaseConstants {
         const val longitude = "photo_longitude"
         const val timestamp = "photo_timestamp"
         const val comment = "photo_comment"
-        const val filename = "photo_filename"
+        const val filepath = "photo_filepath"
+        const val type = "photo_type"
     }
 
     object Address {

@@ -22,7 +22,7 @@ abstract class CollectDAO : BaseDAO<Collect> {
     @Query(
         "SELECT * FROM ${DatabaseConstants.Collect.tableName} " +
                 "WHERE ${DatabaseConstants.Collect.idPublicWork} = :publicId " +
-                "AND ${DatabaseConstants.Collect.isSent} = :status"
+                "AND ${DatabaseConstants.Collect.isSent} = :sent"
     )
-    abstract fun getCollectByPublicIdAndStatus(publicId: String, status: Boolean): Collect?
+    abstract fun getCollectByPublicIdAndStatus(publicId: String, sent: Boolean): Collect?
 }

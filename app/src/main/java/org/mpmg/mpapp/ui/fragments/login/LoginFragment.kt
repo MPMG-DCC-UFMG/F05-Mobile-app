@@ -82,7 +82,10 @@ class LoginFragment : Fragment() {
 
     private fun handleGoogleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            val account = completedTask.getResult(ApiException::class.java)
+            val account =
+                completedTask.getResult(ApiException::class.java) ?: throw NullPointerException()
+            val email = account.email ?: throw NullPointerException()
+            loginViewModel.logIn(email)
             loginViewModel.addUserToDb(account)
             navigateSetupAppFragment()
         } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.

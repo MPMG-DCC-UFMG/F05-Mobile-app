@@ -7,6 +7,8 @@ interface ILocalPhotoDataSource {
 
     fun listPhotosByCollectionIDLive(collectionId: String): LiveData<List<Photo>>
 
+    fun listPhotosByCollectionID(collectionId: String): List<Photo>
+
     fun getPhotoByID(photoId: String): Photo
 
     fun insertPhotos(photos: List<Photo>)

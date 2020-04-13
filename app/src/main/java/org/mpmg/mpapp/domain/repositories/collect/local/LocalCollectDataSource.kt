@@ -15,7 +15,7 @@ class LocalCollectDataSource(applicationContext: Context) : BaseDataSource(appli
         return mpDatabase()!!.collectDAO().getCollectById(collectId)
     }
 
-    override fun getCollectByPublicIdAndStatus(publicId: String, status: Boolean): Collect? {
-        return mpDatabase()!!.collectDAO().getCollectByPublicIdAndStatus(publicId, status)
+    override fun getCollectByPublicIdAndStatus(publicId: String, sent: Boolean): Collect? {
+        return mpDatabase()!!.collectDAO().getCollectByPublicIdAndStatus(publicId, sent)
     }
 }

@@ -35,11 +35,16 @@ class PhotoViewModel : ViewModel() {
     @Throws(IOException::class)
     fun createPhotoFile(context: Context): File? {
         mCurrentPhoto.value?.let {
-            val storageDir: File =
-                context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) ?: return null
-            return File.createTempFile("MP_${it.id}", ".jpg", storageDir).apply {
-                it.filename = absolutePath
-                mCurrentPhoto.value = it
+            val filePath = it.filepath
+            return if (filePath != null) {
+                File(filePath)
+            } else {
+                val storageDir: File =
+                    context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) ?: return null
+                File.createTempFile("MP_${it.id}", ".jpg", storageDir).apply {
+                    it.filepath = absolutePath
+                    mCurrentPhoto.value = it
+                }
             }
         } ?: return null
     }

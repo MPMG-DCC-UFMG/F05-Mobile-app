@@ -8,7 +8,6 @@ import kotlinx.android.synthetic.main.item_public_work_list.view.*
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.interfaces.BaseDelegate
 import org.mpmg.mpapp.core.interfaces.BaseModel
-import org.mpmg.mpapp.domain.models.PublicWork
 import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
 
 class PublicWorkItemDelegate : BaseDelegate<BaseModel> {
@@ -19,7 +18,7 @@ class PublicWorkItemDelegate : BaseDelegate<BaseModel> {
         inflater: LayoutInflater,
         parent: ViewGroup
     ): RecyclerView.ViewHolder {
-        return AreaItemViewHolder(
+        return PublicWorkItemViewHolder(
             inflater.inflate(
                 R.layout.item_public_work_list,
                 parent,
@@ -30,7 +29,7 @@ class PublicWorkItemDelegate : BaseDelegate<BaseModel> {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, delegateObject: BaseModel?) {
         delegateObject as PublicWorkAndAdress
-        with(holder as AreaItemViewHolder) {
+        with(holder as PublicWorkItemViewHolder) {
             mName.text = delegateObject.publicWork.name
             mAddress.text = delegateObject.address.toString()
 
@@ -48,7 +47,7 @@ class PublicWorkItemDelegate : BaseDelegate<BaseModel> {
         fun onPublicWorkClicked(publicWorkId: String)
     }
 
-    class AreaItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class PublicWorkItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val mName = itemView.textView_itemPublicWorkList_name
         val mAddress = itemView.textView_itemPublicWorkList_address
         val mContainer = itemView.cardView_itemPublicWorkList_mainContainer

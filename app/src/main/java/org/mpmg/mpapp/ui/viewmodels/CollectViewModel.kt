@@ -1,42 +1,73 @@
 package org.mpmg.mpapp.ui.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.annotation.WorkerThread
+import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.models.Collect
 import org.mpmg.mpapp.domain.models.Photo
 import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository
+import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
 
-class CollectViewModel : ViewModel() {
+class CollectViewModel(
+    private val collectRepository: ICollectRepository,
+    private val configRepository: IConfigRepository
+) : ViewModel() {
 
     private val mSelectedPublicWork = MutableLiveData<PublicWorkAndAdress>()
-    private val mPhotoMap = MutableLiveData<HashMap<String, Photo>>()
+    private var mPhotoList = MutableLiveData<MutableList<Photo>>()
 
-    private val currentCollection = MutableLiveData<Collect>()
+    private val currentCollect = MutableLiveData<Collect>()
 
-    init {
-        newCollect()
-    }
-
-    private fun newCollect() {
-        currentCollection.value = Collect()
-        mPhotoMap.value = hashMapOf()
+    private fun newCollect(publicWorkId: String) {
+        val currentUser = configRepository.getLoggedUserEmail()
+        currentCollect.postValue(Collect(idPublicWork = publicWorkId, idUser = currentUser))
+        mPhotoList.postValue(mutableListOf())
     }
 
     fun setPublicWork(publicWork: PublicWorkAndAdress) {
-        newCollect()
         mSelectedPublicWork.value = publicWork
-        currentCollection.value?.idPublicWork = publicWork.publicWork.id
+        viewModelScope.launch(Dispatchers.IO) {
+            loadCollectFromPublicWork(publicWork.publicWork.id)
+        }
+    }
+
+    @WorkerThread
+    private fun loadPhotoForCollect(collectId: String) {
+        val photos = collectRepository.listPhotosByCollectionID(collectId)
+        mPhotoList.postValue(photos.toMutableList())
+    }
+
+    @WorkerThread
+    private fun loadCollectFromPublicWork(publicWorkId: String) {
+        val collect = collectRepository.getCollectByPublicWork(publicWorkId)
+        if (collect != null) {
+            currentCollect.postValue(collect)
+            loadPhotoForCollect(collect.id)
+        } else {
+            newCollect(publicWorkId)
+        }
     }
 
     fun getPublicWork(): LiveData<PublicWorkAndAdress> = mSelectedPublicWork
 
-    fun getPhotoMap(): LiveData<HashMap<String, Photo>> = mPhotoMap
+    fun getPhotoList(): LiveData<MutableList<Photo>> = mPhotoList
 
     fun addPhoto(photo: Photo) {
-        mPhotoMap.value?.let {
-            it[photo.id] = photo
-            mPhotoMap.value = it
+        mPhotoList.value?.let {
+            val currentCollect = currentCollect.value ?: return@let
+            photo.idCollect = currentCollect.id
+            it.add(photo)
+            mPhotoList.value = it
+        }
+    }
+
+    fun updateCollect() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val collection = currentCollect.value ?: return@launch
+            val photos = mPhotoList.value ?: return@launch
+            collectRepository.insertCollect(collection, photos)
         }
     }
 

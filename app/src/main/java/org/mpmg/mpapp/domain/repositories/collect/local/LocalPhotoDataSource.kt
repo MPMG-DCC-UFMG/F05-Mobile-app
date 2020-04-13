@@ -19,4 +19,8 @@ class LocalPhotoDataSource(applicationContext: Context) : BaseDataSource(applica
     override fun insertPhotos(photos: List<Photo>) {
         mpDatabase()!!.photoDAO().insertAll(photos.toTypedArray())
     }
+
+    override fun listPhotosByCollectionID(collectionId: String): List<Photo> {
+        return mpDatabase()!!.photoDAO().listAllPhotosByCollectId(collectionId)
+    }
 }

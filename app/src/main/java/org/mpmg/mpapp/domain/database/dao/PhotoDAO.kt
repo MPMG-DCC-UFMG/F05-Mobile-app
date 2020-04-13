@@ -13,11 +13,22 @@ abstract class PhotoDAO : BaseDAO<Photo> {
     @Query("SELECT * FROM ${DatabaseConstants.Photo.tableName}")
     abstract fun listAllPhotos(): List<Photo>
 
-    @Query("SELECT * FROM ${DatabaseConstants.Photo.tableName} " +
-            "WHERE ${DatabaseConstants.Photo.idCollect} = :collectId")
+    @Query(
+        "SELECT * FROM ${DatabaseConstants.Photo.tableName} " +
+                "WHERE ${DatabaseConstants.Photo.idCollect} = :collectId"
+    )
     abstract fun listAllPhotosByCollectIdLive(collectId: String): LiveData<List<Photo>>
 
-    @Query("SELECT * FROM ${DatabaseConstants.Photo.tableName} " +
-            "WHERE ${DatabaseConstants.Photo.id} = :photoId")
+    @Query(
+        "SELECT * FROM ${DatabaseConstants.Photo.tableName} " +
+                "WHERE ${DatabaseConstants.Photo.idCollect} = :collectId"
+    )
+    abstract fun listAllPhotosByCollectId(collectId: String): List<Photo>
+
+    @Query(
+        "SELECT * FROM ${DatabaseConstants.Photo.tableName} " +
+                "WHERE ${DatabaseConstants.Photo.id} = :photoId"
+    )
     abstract fun getPhotoById(photoId: String): Photo
+
 }

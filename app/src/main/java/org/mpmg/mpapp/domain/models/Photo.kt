@@ -24,7 +24,8 @@ data class Photo(
     @PrimaryKey
     @ColumnInfo(name = DatabaseConstants.Photo.id) var id: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = DatabaseConstants.Photo.idCollect) var idCollect: String = "",
-    @ColumnInfo(name = DatabaseConstants.Photo.filename) var filename: String = "",
+    @ColumnInfo(name = DatabaseConstants.Photo.filepath) var filepath: String? = null,
+    @ColumnInfo(name = DatabaseConstants.Photo.type) var type: String? = null,
     @ColumnInfo(name = DatabaseConstants.Photo.isSent) var isSent: Boolean = false,
     @ColumnInfo(name = DatabaseConstants.Photo.latitude) var latitude: Double = 0.0,
     @ColumnInfo(name = DatabaseConstants.Photo.longitude) var longitude: Double = 0.0,
