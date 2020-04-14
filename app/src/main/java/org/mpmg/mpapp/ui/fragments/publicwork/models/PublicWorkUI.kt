@@ -6,6 +6,7 @@ import androidx.databinding.library.baseAdapters.BR
 import org.mpmg.mpapp.domain.models.PublicWork
 
 data class PublicWorkUI(
+    var id: String? = null,
     private var _name: String = ""
 ) : BaseObservable() {
 
@@ -19,8 +20,12 @@ data class PublicWorkUI(
     fun isValid() = this.name.isNotBlank()
 
     fun toPublicWorkDB(): PublicWork {
-        return PublicWork(
+        val publicWorkDB = PublicWork(
             name = this.name
         )
+
+        id?.let { publicWorkDB.id = it }
+
+        return publicWorkDB
     }
 }

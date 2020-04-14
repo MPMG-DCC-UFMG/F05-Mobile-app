@@ -6,12 +6,16 @@
     <string name="title_public_work_add">Adicionar obra</string>
     <string name="title_public_work_edit">Editar obra</string>
     <string name="title_public_work_send">Enviar</string>
+    <string name="title_add_photo">Adicionar mais fotos</string>
 
     <string name="hint_login_email">Entre um email válido</string>
     <string name="hint_login_password">Digite sua senha …</string>
 
     <string name="button_login">Entrar</string>
     <string name="button_edit">Editar</string>
+    <string name="button_add_comment">Adicionar comentário</string>
+    <string name="button_add_photo">Adicionar foto</string>
+    <string name="button_confirm_photo">Confirmar foto</string>
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_filter">Filtrar</string>
@@ -31,6 +35,11 @@
 
     <string name="text_empty_public_work_list">Lista de obras vazia, tente adicionar uma nova obra manualmente.</string>
     <string name="text_loading">Carregando …</string>
+
+    <string name="dialog_type_photo_title">Escolha o tipo da foto para adicionar</string>
+
+    <string name="snackbar_photo_add_success">Foto atualizada com sucesso</string>
+    <string name="snackbar_photo_add_canceled">Usuário cancelou ação</string>
 
 
 </resources>

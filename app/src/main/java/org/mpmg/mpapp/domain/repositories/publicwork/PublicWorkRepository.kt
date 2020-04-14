@@ -7,7 +7,7 @@ import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.domain.repositories.publicwork.local.ILocalPublicWorkDataSource
 
 class PublicWorkRepository(
-    val localPublicWorkDataSource: ILocalPublicWorkDataSource
+    private val localPublicWorkDataSource: ILocalPublicWorkDataSource
 ) :
     IPublicWorkRepository {
 

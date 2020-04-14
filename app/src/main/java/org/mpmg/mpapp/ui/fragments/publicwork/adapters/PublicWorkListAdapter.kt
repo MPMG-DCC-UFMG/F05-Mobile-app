@@ -61,7 +61,8 @@ class PublicWorkListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     }
 
     override fun onPublicWorkClicked(publicWorkId: String) {
-        mListener?.onPublicWorkClicked(publicWorkId)
+        val publicWork = publicWorksList.find { it.publicWork.id == publicWorkId } ?: return
+        mListener?.onPublicWorkClicked(publicWork)
     }
 
     fun setPublicWorkListAdapterListener(listener: PublicWorkListAdapterListener) {
@@ -69,6 +70,6 @@ class PublicWorkListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     }
 
     interface PublicWorkListAdapterListener {
-        fun onPublicWorkClicked(publicWorkId: String)
+        fun onPublicWorkClicked(publicWork: PublicWorkAndAdress)
     }
 }

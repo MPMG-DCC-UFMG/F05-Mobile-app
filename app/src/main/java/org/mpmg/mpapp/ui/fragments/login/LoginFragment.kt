@@ -26,7 +26,7 @@ class LoginFragment : Fragment() {
 
     private val loginViewModel: LoginViewModel by sharedViewModel()
 
-    private val RC_GOOGLE_SIGN_IN = 607
+    private val RC_GOOGLE_SIGN_IN = 601
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -82,7 +82,10 @@ class LoginFragment : Fragment() {
 
     private fun handleGoogleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            val account = completedTask.getResult(ApiException::class.java)
+            val account =
+                completedTask.getResult(ApiException::class.java) ?: throw NullPointerException()
+            val email = account.email ?: throw NullPointerException()
+            loginViewModel.logIn(email)
             loginViewModel.addUserToDb(account)
             navigateSetupAppFragment()
         } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.

@@ -22,12 +22,13 @@ import java.util.*
 )
 data class Photo(
     @PrimaryKey
-    @ColumnInfo(name = DatabaseConstants.Photo.id) val id: String,
-    @ColumnInfo(name = DatabaseConstants.Photo.idCollect) val idCollect: String,
-    @ColumnInfo(name = DatabaseConstants.Photo.filename) val filename: String,
-    @ColumnInfo(name = DatabaseConstants.Photo.isSent) val isSent: Boolean = false,
-    @ColumnInfo(name = DatabaseConstants.Photo.latitude) val latitude: Double,
-    @ColumnInfo(name = DatabaseConstants.Photo.longitude) val longitude: Double,
-    @ColumnInfo(name = DatabaseConstants.Photo.timestamp) val timestamp: Long = Calendar.getInstance().timeInMillis,
-    @ColumnInfo(name = DatabaseConstants.Photo.comment) val comment: String? = null
+    @ColumnInfo(name = DatabaseConstants.Photo.id) var id: String = UUID.randomUUID().toString(),
+    @ColumnInfo(name = DatabaseConstants.Photo.idCollect) var idCollect: String = "",
+    @ColumnInfo(name = DatabaseConstants.Photo.filepath) var filepath: String? = null,
+    @ColumnInfo(name = DatabaseConstants.Photo.type) var type: String? = null,
+    @ColumnInfo(name = DatabaseConstants.Photo.isSent) var isSent: Boolean = false,
+    @ColumnInfo(name = DatabaseConstants.Photo.latitude) var latitude: Double = 0.0,
+    @ColumnInfo(name = DatabaseConstants.Photo.longitude) var longitude: Double = 0.0,
+    @ColumnInfo(name = DatabaseConstants.Photo.timestamp) var timestamp: Long = Calendar.getInstance().timeInMillis,
+    @ColumnInfo(name = DatabaseConstants.Photo.comment) var comment: String? = null
 ) : BaseModel

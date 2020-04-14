@@ -26,9 +26,20 @@
 
     <fragment
         android:id="@+id/collectMainFragment"
-        android:name="org.mpmg.mpapp.ui.fragments.collect.CollectMainFragment"
+        android:name="org.mpmg.mpapp.ui.fragments.collect.fragments.CollectMainFragment"
         android:label="fragment_collect_main"
-        tools:layout="@layout/fragment_collect_main" />
+        tools:layout="@layout/fragment_collect_main">
+        <action
+            android:id="@+id/action_collectMainFragment_to_publicWorkAddFragment2"
+            app:destination="@id/publicWorkAddFragment2" />
+        <action
+            android:id="@+id/action_collectMainFragment_to_photoAddFragment"
+            app:destination="@id/photoAddFragment" />
+        <action
+            android:id="@+id/action_collectMainFragment_pop"
+            app:popUpTo="@id/collectMainFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/setupApplicationFragment"
         android:name="org.mpmg.mpapp.ui.fragments.setup.SetupApplicationFragment"
@@ -38,6 +49,16 @@
             android:id="@+id/action_setupApplicationFragment_to_baseFragment"
             app:destination="@id/baseFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/publicWorkAddFragment2"
+        android:name="org.mpmg.mpapp.ui.fragments.publicwork.fragments.PublicWorkAddFragment"
+        android:label="PublicWorkAddFragment" />
+
+    <fragment
+        android:id="@+id/photoAddFragment"
+        android:name="org.mpmg.mpapp.ui.fragments.photo.PhotoAddFragment"
+        android:label="fragment_add_photo"
+        tools:layout="@layout/fragment_add_photo" />
 
 
 </navigation>

@@ -3,10 +3,9 @@ package org.mpmg.mpapp.domain.repositories.typework.local
 import android.content.Context
 import org.mpmg.mpapp.domain.database.MPDatabase
 import org.mpmg.mpapp.domain.models.TypeWork
+import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 
-class LocalTypeWorkDataSource(val applicationContext: Context) : ILocalTypeWorkDataSource {
-
-    private fun mpDatabase(): MPDatabase? = MPDatabase.getInstance(applicationContext)
+class LocalTypeWorkDataSource(applicationContext: Context) : BaseDataSource(applicationContext), ILocalTypeWorkDataSource {
 
     override fun insertTypeWork(typeWork: TypeWork) {
         mpDatabase()!!.typeWorkDAO().insert(typeWork)

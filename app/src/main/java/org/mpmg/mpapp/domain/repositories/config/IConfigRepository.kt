@@ -11,4 +11,8 @@ interface IConfigRepository {
     fun saveConfigFilesVersion(configVersion: Int)
 
     fun currentFilesVersion(): Int
+
+    fun setLoggedUserEmail(email : String)
+
+    fun getLoggedUserEmail():String
 }

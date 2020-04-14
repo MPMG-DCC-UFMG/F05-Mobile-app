@@ -7,4 +7,5 @@ object Constants {
 
     val PREFERENCES_CONFIG_FILES_VERSION_KEY = "config_files_version"
     val PREFERENCES_MPPAPP_NAME = "mpapp_shared_preferences"
+    val PREFERENCES_LOGGED_USER_EMAIL = "config_logged_user_email"
 }

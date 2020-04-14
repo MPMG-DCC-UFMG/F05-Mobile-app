@@ -3,7 +3,7 @@ package org.mpmg.mpapp.domain.repositories.typework
 import org.mpmg.mpapp.domain.models.TypeWork
 import org.mpmg.mpapp.domain.repositories.typework.local.ILocalTypeWorkDataSource
 
-class TypeWorkRepository(val localTypeWorkDataSource: ILocalTypeWorkDataSource) :
+class TypeWorkRepository(private val localTypeWorkDataSource: ILocalTypeWorkDataSource) :
     ITypeWorkRepository {
 
     override fun insertTypeWork(typeWork: TypeWork) {
