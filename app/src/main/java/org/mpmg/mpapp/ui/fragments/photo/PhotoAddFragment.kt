@@ -2,6 +2,8 @@ package org.mpmg.mpapp.ui.fragments.photo
 
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -20,7 +22,9 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_add_photo.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.domain.models.Photo
 import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
+import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 import org.mpmg.mpapp.ui.viewmodels.PhotoViewModel
 import java.io.File
 import java.io.IOException
@@ -34,6 +38,7 @@ class PhotoAddFragment : Fragment() {
 
     private val photoViewModel: PhotoViewModel by sharedViewModel()
     private val collectViewModel: CollectViewModel by sharedViewModel()
+    private val locationViewModel: LocationViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,10 +68,45 @@ class PhotoAddFragment : Fragment() {
 
     private fun setupObservers() {
         photoViewModel.getPhoto().observe(viewLifecycleOwner, Observer { photo ->
-            photo?.filepath ?: return@Observer
+            photo ?: return@Observer
 
-            Glide.with(this).load(photo.filepath).into(imageView_addPhotoFragment_thumbnail)
+            handlePhotoType(photo)
+            handlePhotoTumbnail(photo)
         })
+
+        locationViewModel.getCurrentLocationLiveData()
+            .observe(viewLifecycleOwner, Observer { location ->
+                location ?: return@Observer
+
+
+            })
+    }
+
+    private fun handlePhotoTumbnail(photo: Photo) {
+        photo.filepath?.let {
+            Glide.with(this).load(it).into(imageView_addPhotoFragment_thumbnail)
+        }
+    }
+
+    private fun handlePhotoType(photo: Photo) {
+        photo.type?.let {
+            textView_addPhotoFragment_photoType.text = it
+        } ?: run {
+            launchTypeSelectDialog()
+        }
+    }
+
+    private fun launchTypeSelectDialog() {
+        activity?.let {
+            val optionsArray = arrayOf("Outros")
+            val builder = AlertDialog.Builder(it)
+            builder.setTitle(getString(R.string.dialog_type_photo_title))
+                .setItems(optionsArray) { _, which ->
+                    photoViewModel.setPhotoType(optionsArray[which])
+                }
+
+            builder.create().show()
+        }
     }
 
     private fun dispatchTakePictureIntent() {
@@ -103,10 +143,10 @@ class PhotoAddFragment : Fragment() {
         if (requestCode == RC_IMAGE_CAPTURE) {
             when (resultCode) {
                 RESULT_OK -> {
-                    showSnackbar("Foto atualizada com sucesso")
+                    showSnackbar(getString(R.string.snackbar_photo_add_success))
                 }
                 RESULT_CANCELED -> {
-                    showSnackbar("Usuário cancelou ação")
+                    showSnackbar(getString(R.string.snackbar_photo_add_canceled))
                 }
             }
         }

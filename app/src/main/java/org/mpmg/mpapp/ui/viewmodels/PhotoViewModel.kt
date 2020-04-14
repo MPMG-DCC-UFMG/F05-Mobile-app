@@ -2,6 +2,7 @@ package org.mpmg.mpapp.ui.viewmodels
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.location.Location
 import android.os.Environment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,13 +25,21 @@ class PhotoViewModel : ViewModel() {
         }
     }
 
-    fun setBitmap(bitmap: Bitmap) {
-        mCurrentBitmap.value = bitmap
-    }
-
     fun getPhoto(): LiveData<Photo> = mCurrentPhoto
 
-    fun getBitmap(): LiveData<Bitmap> = mCurrentBitmap
+    fun setPhotoType(type: String) {
+        mCurrentPhoto.value?.let {
+            it.type = type
+            mCurrentPhoto.value = it
+        }
+    }
+
+    fun updatePhotoLocation(location: Location) {
+        mCurrentPhoto.value?.let {
+            it.latitude = location.latitude
+            it.longitude = location.longitude
+        }
+    }
 
     @Throws(IOException::class)
     fun createPhotoFile(context: Context): File? {
