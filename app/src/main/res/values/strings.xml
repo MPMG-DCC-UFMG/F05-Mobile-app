@@ -18,6 +18,7 @@
     <string name="button_add_photo">Adicionar foto</string>
     <string name="button_confirm_photo">Confirmar foto</string>
     <string name="button_add">Adicionar</string>
+    <string name="button_add_location_invalid">Validar localização</string>
     <string name="button_confirm_location">Confirmar localização</string>
     <string name="button_cancel">Cancelar</string>
 
@@ -36,6 +37,7 @@
     <string name="label_number">Número</string>
     <string name="label_neighborhood">Bairro</string>
     <string name="label_city">Cidade</string>
+    <string name="label_loading_address">Carregando endereço …</string>
 
     <string name="text_empty_public_work_list">Lista de obras vazia, tente adicionar uma nova obra manualmente.</string>
     <string name="text_loading">Carregando …</string>

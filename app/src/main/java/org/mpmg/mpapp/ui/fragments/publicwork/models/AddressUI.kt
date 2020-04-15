@@ -10,8 +10,8 @@ data class AddressUI(
     private var _street: String = "",
     private var _neighborhood: String = "",
     private var _number: String = "",
-    private var _latitude: Double = 0.0,
-    private var _longitude: Double = 0.0,
+    private var _latitude: Double? = null,
+    private var _longitude: Double? = null,
     private var _city: String = "",
     private var _cep: String = ""
 ) : BaseObservable() {
@@ -21,8 +21,8 @@ data class AddressUI(
         _street = address.street
         _neighborhood = address.neighborhood
         _number = address.number
-        _latitude = address.latitude ?: 0.0
-        _longitude = address.longitude ?: 0.0
+        _latitude = address.latitude
+        _longitude = address.longitude
         _city = address.city
         _cep = address.cep
     }
@@ -48,14 +48,14 @@ data class AddressUI(
             notifyPropertyChanged(BR.number)
         }
 
-    var latitude: Double
+    var latitude: Double?
         @Bindable get() = _latitude
         set(value) {
             _latitude = value
             notifyPropertyChanged(BR.latitude)
         }
 
-    var longitude: Double
+    var longitude: Double?
         @Bindable get() = _longitude
         set(value) {
             _longitude = value
@@ -77,7 +77,11 @@ data class AddressUI(
         }
 
     fun isValid(): Boolean {
-        return number.isNotBlank() && city.isNotBlank() && cep.isNotBlank() && latitude != 0.0 && longitude != 0.0
+        return number.isNotBlank() && city.isNotBlank() && cep.isNotBlank() && latitude != null && longitude != null
+    }
+
+    fun isLocationValid(): Boolean {
+        return longitude != null && latitude != null
     }
 
     fun toAddressDB(): Address {

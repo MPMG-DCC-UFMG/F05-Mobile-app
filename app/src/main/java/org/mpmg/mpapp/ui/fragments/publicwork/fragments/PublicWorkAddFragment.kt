@@ -1,5 +1,6 @@
 package org.mpmg.mpapp.ui.fragments.publicwork.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -64,6 +65,24 @@ class PublicWorkAddFragment : Fragment() {
 
         materialButton_addPublicWorkFragment_map.setOnClickListener {
             navigateToMap()
+        }
+
+        textView_addPublicWorkFragment_typeOfWork.setOnClickListener {
+            launchTypeWorkDialog()
+        }
+    }
+
+    private fun launchTypeWorkDialog() {
+        activity?.let {
+            val typesWork = typeWorkViewModel.getTypeOfWorkList().value ?: return@let
+            val optionsArray = typesWork.map { it.name }.toTypedArray()
+            val builder = AlertDialog.Builder(it)
+            builder.setTitle(getString(R.string.dialog_type_photo_title))
+                .setItems(optionsArray) { _, which ->
+                    publicWorkViewModel.setCurrentTypeWork(typesWork[which])
+                }
+
+            builder.create().show()
         }
     }
 

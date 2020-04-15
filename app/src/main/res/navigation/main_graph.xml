@@ -78,7 +78,12 @@
         android:id="@+id/mapFragment"
         android:name="org.mpmg.mpapp.ui.fragments.map.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_pop"
+            app:popUpTo="@id/mapFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 
 </navigation>

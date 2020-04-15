@@ -3,7 +3,7 @@ package org.mpmg.mpapp.core
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import org.mpmg.mpapp.domain.apis.MPApi
+import org.mpmg.mpapp.domain.network.MPApi
 import org.mpmg.mpapp.domain.repositories.config.ConfigRepository
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
 import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository

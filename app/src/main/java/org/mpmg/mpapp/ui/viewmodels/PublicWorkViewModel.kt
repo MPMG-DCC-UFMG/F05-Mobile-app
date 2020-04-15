@@ -3,6 +3,7 @@ package org.mpmg.mpapp.ui.viewmodels
 import android.location.Location
 import androidx.databinding.Observable
 import androidx.lifecycle.*
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -68,6 +69,10 @@ class PublicWorkViewModel(
         return currentAddress.isValid() && currentPublicWork.isValid()
     }
 
+    fun isLocationValid(): Boolean {
+        return currentAddress.isLocationValid()
+    }
+
     fun setCurrentTypeWork(typeWork: TypeWork) {
         currentTypeWork.value = typeWork
     }
@@ -88,7 +93,7 @@ class PublicWorkViewModel(
         }
     }
 
-    fun updateCurrPublicWorkLocation(location: Location) {
+    fun updateCurrPublicWorkLocation(location: LatLng) {
         currentAddress.apply {
             latitude = location.latitude
             longitude = location.longitude
