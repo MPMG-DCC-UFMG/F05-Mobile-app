@@ -32,7 +32,7 @@ val viewModelModules = module {
     viewModel { PublicWorkViewModel(get()) }
     viewModel { ConfigurationViewModel(get(), get()) }
     viewModel { TypeWorkViewModel(get()) }
-    viewModel { CollectViewModel(get(), get()) }
+    viewModel { CollectViewModel(get(), get(), get()) }
     viewModel { PhotoViewModel() }
 }
 

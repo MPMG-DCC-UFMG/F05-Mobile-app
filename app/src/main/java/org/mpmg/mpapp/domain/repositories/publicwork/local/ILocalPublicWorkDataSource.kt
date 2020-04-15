@@ -12,4 +12,6 @@ interface ILocalPublicWorkDataSource {
     fun listAllPublicWorks(): List<PublicWorkAndAdress>
 
     fun listAllPublicWorksLive(): LiveData<List<PublicWorkAndAdress>>
+
+    fun getPublicWorkByIdLive(publicWorkId: String): LiveData<PublicWorkAndAdress>
 }

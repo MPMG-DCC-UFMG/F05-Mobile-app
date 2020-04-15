@@ -20,6 +20,7 @@ import org.mpmg.mpapp.domain.models.Photo
 import org.mpmg.mpapp.ui.fragments.collect.adapters.PhotoListAdapter
 import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
 import org.mpmg.mpapp.ui.viewmodels.PhotoViewModel
+import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 
 class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListener {
 
@@ -27,6 +28,7 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
 
     private val collectViewModel: CollectViewModel by sharedViewModel()
     private val photoViewModel: PhotoViewModel by sharedViewModel()
+    private val publicWorkViewModel: PublicWorkViewModel by sharedViewModel()
 
     private var navigationController: NavController? = null
     private lateinit var photoListAdapter: PhotoListAdapter
@@ -82,7 +84,8 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
 
     private fun setupListeners() {
         materialButton_collectMainFragment_edit.setOnClickListener {
-            navigateTo(R.id.action_collectMainFragment_to_publicWorkAddFragment2)
+            setSelectPublicWorkToEdit()
+            navigateTo(R.id.action_collectMainFragment_to_publicWorkAddFragment)
         }
 
         materialButton_collectMainFragment_addPhoto.setOnClickListener {
@@ -95,6 +98,12 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         }
     }
 
+    private fun setSelectPublicWorkToEdit() {
+        collectViewModel.getPublicWork().value?.let {
+            publicWorkViewModel.setCurrentPublicWorkAddress(it)
+        }
+    }
+
     private fun navigateTo(actionId: Int) {
         navigationController?.navigate(actionId)
     }
@@ -103,6 +112,4 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         photoViewModel.setPhoto(photo)
         navigateTo(R.id.action_collectMainFragment_to_photoAddFragment)
     }
-
-
 }

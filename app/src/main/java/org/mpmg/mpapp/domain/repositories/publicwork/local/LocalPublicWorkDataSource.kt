@@ -10,7 +10,8 @@ import org.mpmg.mpapp.domain.models.PublicWork
 import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 
-class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(applicationContext), ILocalPublicWorkDataSource {
+class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(applicationContext),
+    ILocalPublicWorkDataSource {
 
     @Transaction
     override fun insertPublicWork(publicWork: PublicWork, address: Address) {
@@ -24,5 +25,9 @@ class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(ap
 
     override fun listAllPublicWorksLive(): LiveData<List<PublicWorkAndAdress>> {
         return mpDatabase()!!.publicWorkDAO().listAllPublicWorkAndAddressLive()
+    }
+
+    override fun getPublicWorkByIdLive(publicWorkId: String): LiveData<PublicWorkAndAdress> {
+        return mpDatabase()!!.publicWorkDAO().getPublicWorkAndAddressByIdLive(publicWorkId)
     }
 }

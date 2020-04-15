@@ -13,4 +13,6 @@ interface IPublicWorkRepository {
 
     fun listAllPublicWorksLive(): LiveData<List<PublicWorkAndAdress>>
 
+    fun getPublicWorkByIdLive(publicWorkId: String): LiveData<PublicWorkAndAdress>
+
 }

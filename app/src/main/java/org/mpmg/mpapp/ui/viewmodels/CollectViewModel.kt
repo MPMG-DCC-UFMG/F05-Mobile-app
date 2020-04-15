@@ -9,13 +9,15 @@ import org.mpmg.mpapp.domain.models.Photo
 import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
+import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
 
 class CollectViewModel(
     private val collectRepository: ICollectRepository,
-    private val configRepository: IConfigRepository
+    private val configRepository: IConfigRepository,
+    private val publicWorkRepository: IPublicWorkRepository
 ) : ViewModel() {
 
-    private val mSelectedPublicWork = MutableLiveData<PublicWorkAndAdress>()
+    private var mSelectedPublicWork: LiveData<PublicWorkAndAdress> = MutableLiveData()
     private var mPhotoList = MutableLiveData<MutableList<Photo>>()
 
     private val currentCollect = MutableLiveData<Collect>()
@@ -27,10 +29,16 @@ class CollectViewModel(
     }
 
     fun setPublicWork(publicWork: PublicWorkAndAdress) {
-        mSelectedPublicWork.value = publicWork
         viewModelScope.launch(Dispatchers.IO) {
+            loadPublicWork(publicWork.publicWork.id)
             loadCollectFromPublicWork(publicWork.publicWork.id)
         }
+    }
+
+    @WorkerThread
+    private fun loadPublicWork(publicWorkId: String) {
+        mSelectedPublicWork =
+            publicWorkRepository.getPublicWorkByIdLive(publicWorkId)
     }
 
     @WorkerThread

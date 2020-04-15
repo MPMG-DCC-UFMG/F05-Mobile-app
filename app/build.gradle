@@ -19,6 +19,8 @@ android {
                 arguments = ["room.incremental": "true"]
             }
         }
+
+        resValue "string", "google_maps_key", (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
     }
     buildTypes {
         release {
@@ -31,6 +33,7 @@ android {
         enabled true
     }
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -89,7 +92,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.7.2'
 
     // Google Sign In
-    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
     // Fused Location
     implementation 'com.google.android.gms:play-services-location:17.0.0'
@@ -104,5 +107,6 @@ dependencies {
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
 }

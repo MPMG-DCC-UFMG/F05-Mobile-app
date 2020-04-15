@@ -43,11 +43,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/materialButton_collectMainFragment_confirmPhoto"
-        style="@style/MPAppTheme.Button1"
+        style="@style/MPAppTheme.ButtonBigBlue"
         android:layout_width="300dp"
         android:layout_height="@dimen/height_default"
         android:layout_marginBottom="@dimen/margin_default"
-        android:backgroundTint="@color/button1"
         android:text="@string/button_confirm_photo"
         app:icon="@drawable/ic_camera"
         app:iconGravity="textStart"
@@ -57,11 +56,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/materialButton_addPhotoFragment_addComment"
-        style="@style/MPAppTheme.Button1"
+        style="@style/MPAppTheme.ButtonBigBlue"
         android:layout_width="300dp"
         android:layout_height="@dimen/height_default"
         android:layout_marginBottom="@dimen/margin_xxlarge"
-        android:backgroundTint="@color/button1"
         android:text="@string/button_add_comment"
         app:icon="@drawable/ic_comment"
         app:iconGravity="textStart"

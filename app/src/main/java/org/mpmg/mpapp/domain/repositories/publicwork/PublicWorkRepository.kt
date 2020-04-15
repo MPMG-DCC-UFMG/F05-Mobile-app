@@ -24,4 +24,8 @@ class PublicWorkRepository(
     override fun listAllPublicWorksLive(): LiveData<List<PublicWorkAndAdress>> {
         return localPublicWorkDataSource.listAllPublicWorksLive()
     }
+
+    override fun getPublicWorkByIdLive(publicWorkId: String): LiveData<PublicWorkAndAdress> {
+        return localPublicWorkDataSource.getPublicWorkByIdLive(publicWorkId)
+    }
 }

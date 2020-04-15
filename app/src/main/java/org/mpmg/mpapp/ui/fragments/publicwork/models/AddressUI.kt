@@ -16,6 +16,17 @@ data class AddressUI(
     private var _cep: String = ""
 ) : BaseObservable() {
 
+    constructor(address: Address) : this() {
+        id = address.id
+        _street = address.street
+        _neighborhood = address.neighborhood
+        _number = address.number
+        _latitude = address.latitude ?: 0.0
+        _longitude = address.longitude ?: 0.0
+        _city = address.city
+        _cep = address.cep
+    }
+
     var street: String
         @Bindable get() = _street
         set(value) {

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment_public_work_add.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
@@ -22,13 +24,17 @@ class PublicWorkAddFragment : Fragment() {
 
     private val publicWorkViewModel: PublicWorkViewModel by sharedViewModel()
     private val typeWorkViewModel: TypeWorkViewModel by sharedViewModel()
-    private val locationViewModel: LocationViewModel by sharedViewModel()
+
+    private var navigationController: NavController? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        navigationController = activity?.findNavController(R.id.nav_host_fragment)
+
         val binding: FragmentPublicWorkAddBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_public_work_add, container, false)
         binding.publicWorkViewModel = publicWorkViewModel
@@ -41,7 +47,6 @@ class PublicWorkAddFragment : Fragment() {
 
         setupListeners()
         initTypeWork()
-        setupObservers()
     }
 
     private fun initTypeWork() {
@@ -54,23 +59,21 @@ class PublicWorkAddFragment : Fragment() {
     private fun setupListeners() {
         materialButton_addPublicWorkFragment_add.setOnClickListener {
             publicWorkViewModel.addPublicWork()
-            clearForm()
+            navigateBack()
+        }
+
+        materialButton_addPublicWorkFragment_map.setOnClickListener {
+            navigateToMap()
         }
     }
 
-    private fun clearForm(){
-        editText_addPublicWorkFragment_name.text.clear()
-        editText_addPublicWorkFragment_street.text.clear()
-        editText_addPublicWorkFragment_cep.text.clear()
-        editText_addPublicWorkFragment_number.text.clear()
-        editText_addPublicWorkFragment_neighborhood.text.clear()
-        editText_addPublicWorkFragment_city.text.clear()
+    private fun navigateBack() {
+        navigationController?.navigate(R.id.action_publicWorkAddFragment_pop)
     }
 
-    private fun setupObservers() {
-        locationViewModel.getCurrentLocationLiveData()
-            .observeOnce(viewLifecycleOwner, Observer { location ->
-                publicWorkViewModel.updateCurrPublicWorkLocation(location)
-            })
+    private fun navigateToMap() {
+        navigationController?.navigate(R.id.action_publicWorkAddFragment_to_mapFragment)
     }
+
+
 }

@@ -10,6 +10,11 @@ data class PublicWorkUI(
     private var _name: String = ""
 ) : BaseObservable() {
 
+    constructor(publicWork: PublicWork) : this() {
+        id = publicWork.id
+        _name = publicWork.name
+    }
+
     var name: String
         @Bindable get() = _name
         set(value) {

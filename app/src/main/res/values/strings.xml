@@ -10,12 +10,16 @@
 
     <string name="hint_login_email">Entre um email válido</string>
     <string name="hint_login_password">Digite sua senha …</string>
+    <string name="hint_search_field">Pesquisar por alguma obra específica</string>
 
     <string name="button_login">Entrar</string>
     <string name="button_edit">Editar</string>
     <string name="button_add_comment">Adicionar comentário</string>
     <string name="button_add_photo">Adicionar foto</string>
     <string name="button_confirm_photo">Confirmar foto</string>
+    <string name="button_add">Adicionar</string>
+    <string name="button_confirm_location">Confirmar localização</string>
+    <string name="button_cancel">Cancelar</string>
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_filter">Filtrar</string>

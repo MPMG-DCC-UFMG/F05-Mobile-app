@@ -41,15 +41,27 @@ class PublicWorkViewModel(
         newCurrentPublicWorkAddress()
     }
 
-    private fun newCurrentPublicWorkAddress() {
+    fun newCurrentPublicWorkAddress() {
         val publicWork = PublicWorkUI()
         val address = AddressUI()
 
-        publicWork.addOnPropertyChangedCallback(observableCallback)
-        address.addOnPropertyChangedCallback(observableCallback)
+        updateCurrentPublicWorkAddress(publicWork, address)
+    }
 
-        currentPublicWork = publicWork
-        currentAddress = address
+    private fun updateCurrentPublicWorkAddress(publicWorkUI: PublicWorkUI, addressUI: AddressUI) {
+        publicWorkUI.addOnPropertyChangedCallback(observableCallback)
+        addressUI.addOnPropertyChangedCallback(observableCallback)
+
+        currentPublicWork = publicWorkUI
+        currentAddress = addressUI
+    }
+
+    fun setCurrentPublicWorkAddress(publicWorkAndAddress: PublicWorkAndAdress) {
+        val publicWorkUI = PublicWorkUI(publicWorkAndAddress.publicWork)
+        val addressUI = AddressUI(publicWorkAndAddress.address)
+
+        updateCurrentPublicWorkAddress(publicWorkUI, addressUI)
+
     }
 
     fun isFormValid(): Boolean {
