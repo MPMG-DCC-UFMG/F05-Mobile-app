@@ -87,7 +87,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            style="@style/MPAppTheme.Button1"
+            style="@style/MPAppTheme.ButtonBigBlue"
             android:layout_width="300dp"
             android:layout_height="@dimen/height_default"
             android:layout_marginBottom="16dp"

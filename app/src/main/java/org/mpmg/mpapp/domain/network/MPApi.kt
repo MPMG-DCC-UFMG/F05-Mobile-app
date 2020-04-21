@@ -1,4 +1,4 @@
-package org.mpmg.mpapp.domain.apis
+package org.mpmg.mpapp.domain.network
 
 import org.mpmg.mpapp.domain.models.TypeWork
 

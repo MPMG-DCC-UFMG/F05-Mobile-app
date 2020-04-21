@@ -18,11 +18,6 @@
         tools:layout="@layout/fragment_public_work_filter" />
 
     <fragment
-        android:id="@+id/publicWorkAddFragment"
-        android:name="org.mpmg.mpapp.ui.fragments.publicwork.fragments.PublicWorkAddFragment"
-        android:label="fragment_public_work_add"
-        tools:layout="@layout/fragment_public_work_add" />
-    <fragment
         android:id="@+id/publicWorkSendFragment"
         android:name="org.mpmg.mpapp.ui.fragments.publicwork.fragments.PublicWorkSendFragment"
         android:label="fragment_public_work_send"

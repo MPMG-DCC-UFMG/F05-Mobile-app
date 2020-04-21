@@ -78,7 +78,6 @@ class PhotoAddFragment : Fragment() {
             .observe(viewLifecycleOwner, Observer { location ->
                 location ?: return@Observer
 
-
             })
     }
 

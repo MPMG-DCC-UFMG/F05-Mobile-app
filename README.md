@@ -2,6 +2,22 @@
 
 Project of an application for the MP
 
+## Necessary steps
+
+Before you run your application, you need a Google Maps API key.
+
+follow the directions here:
+https://developers.google.com/maps/documentation/android/start#get-key
+
+Once you have your key (it starts with "AIza"), create a file "google_maps_key.xml" with the following  
+content inside the folder **app/src/debug/res/values**. If the folder don't exist, create it. 
+
+```bash
+<resources>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">YOUR_API_KEY</string>
+</resources>
+```
+
 ## Third Party Libraries
 
 The third party libraries used in the project were as follows:

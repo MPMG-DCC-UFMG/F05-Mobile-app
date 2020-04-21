@@ -44,16 +44,16 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton_collectMainFragment_edit"
-            style="@style/MPAppTheme.Button2"
+            style="@style/MPAppTheme.ButtonSmallBlue"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/button_default"
             android:layout_marginTop="@dimen/margin_xxlarge"
             android:layout_marginEnd="@dimen/margin_default"
             android:backgroundTint="@color/button2"
             android:text="@string/button_edit"
-            android:textColor="@color/buttonText1"
+            android:textColor="@color/buttonValid1"
             app:icon="@drawable/ic_edit"
-            app:iconTint="@color/buttonText1"
+            app:iconTint="@color/buttonValid1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,7 +70,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton_collectMainFragment_addPhoto"
-            style="@style/MPAppTheme.Button1"
+            style="@style/MPAppTheme.ButtonBigBlue"
             android:layout_width="300dp"
             android:layout_height="@dimen/height_default"
             android:layout_marginBottom="@dimen/margin_default"
@@ -84,7 +84,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton_collectMainFragment_addComment"
-            style="@style/MPAppTheme.Button1"
+            style="@style/MPAppTheme.ButtonBigBlue"
             android:layout_width="300dp"
             android:layout_height="@dimen/height_default"
             android:layout_marginBottom="@dimen/margin_xxlarge"

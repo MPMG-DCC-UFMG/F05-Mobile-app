@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -29,11 +30,16 @@ class PublicWorkListFragment : Fragment(), PublicWorkListAdapter.PublicWorkListA
 
     private lateinit var publicWorkListAdapter: PublicWorkListAdapter
 
+    private var navigationController: NavController? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        navigationController = activity?.findNavController(R.id.nav_host_fragment)
+
         return inflater.inflate(R.layout.fragment_public_work_list, container, false)
     }
 
@@ -42,6 +48,14 @@ class PublicWorkListFragment : Fragment(), PublicWorkListAdapter.PublicWorkListA
 
         setupRecyclerView()
         setupViewModels()
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        materialButton_publicWorkListFragment_add.setOnClickListener {
+            publicWorkViewModel.newCurrentPublicWorkAddress()
+            navigationController?.navigate(R.id.action_baseFragment_to_publicWorkAddFragment)
+        }
     }
 
     private fun setupViewModels() {
@@ -66,6 +80,6 @@ class PublicWorkListFragment : Fragment(), PublicWorkListAdapter.PublicWorkListA
 
     override fun onPublicWorkClicked(publicWork: PublicWorkAndAdress) {
         collectViewModel.setPublicWork(publicWork)
-        activity?.findNavController(R.id.nav_host_fragment)?.navigate(R.id.action_baseFragment_to_collectMainFragment)
+        navigationController?.navigate(R.id.action_baseFragment_to_collectMainFragment)
     }
 }

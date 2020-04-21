@@ -14,3 +14,5 @@
 .cxx
 /.idea/*
 .idea
+
+/app/src/debug/google_maps_api.xml

@@ -25,8 +25,8 @@ data class Address(
     @ColumnInfo(name = DatabaseConstants.Address.street) var street: String = "",
     @ColumnInfo(name = DatabaseConstants.Address.neighborhood) var neighborhood: String = "",
     @ColumnInfo(name = DatabaseConstants.Address.number) var number: String = "",
-    @ColumnInfo(name = DatabaseConstants.Address.latitude) var latitude: Double = 0.0,
-    @ColumnInfo(name = DatabaseConstants.Address.longitude) var longitude: Double = 0.0,
+    @ColumnInfo(name = DatabaseConstants.Address.latitude) var latitude: Double? = null,
+    @ColumnInfo(name = DatabaseConstants.Address.longitude) var longitude: Double? = null,
     @ColumnInfo(name = DatabaseConstants.Address.city) var city: String = "",
     @ColumnInfo(name = DatabaseConstants.Address.state) var state: String = "MG",
     @ColumnInfo(name = DatabaseConstants.Address.cep) var cep: String = ""
@@ -37,6 +37,6 @@ data class Address(
     }
 
     fun isValid(): Boolean {
-        return idPublicWork.isNotBlank() && number.isNotBlank() && city.isNotBlank() && state.isNotBlank() && cep.isNotBlank() && latitude != 0.0 && longitude != 0.0
+        return idPublicWork.isNotBlank() && number.isNotBlank() && city.isNotBlank() && state.isNotBlank() && cep.isNotBlank() && latitude != null && longitude != null
     }
 }

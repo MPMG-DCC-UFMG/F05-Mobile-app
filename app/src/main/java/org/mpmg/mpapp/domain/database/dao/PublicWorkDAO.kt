@@ -26,6 +26,13 @@ abstract class PublicWorkDAO :
     @Transaction
     abstract fun getPublicWorkAndAddressById(publicWorkId: String): PublicWorkAndAdress?
 
+    @Query(
+        "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +
+                "WHERE ${DatabaseConstants.PublicWork.id} = :publicWorkId"
+    )
+    @Transaction
+    abstract fun getPublicWorkAndAddressByIdLive(publicWorkId: String): LiveData<PublicWorkAndAdress>
+
     @Query("SELECT * FROM ${DatabaseConstants.PublicWork.tableName}")
     @Transaction
     abstract fun listAllPublicWorkAndAddress(): List<PublicWorkAndAdress>

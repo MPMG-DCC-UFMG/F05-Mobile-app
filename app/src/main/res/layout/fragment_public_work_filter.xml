@@ -8,6 +8,7 @@
     tools:context=".ui.fragments.publicwork.fragments.PublicWorkFilterFragment">
 
     <TextView
+        android:id="@+id/textView11"
         style="@style/MPAppTheme.Title1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,5 +17,134 @@
         android:text="@string/title_public_work_filter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        style="@style/MPAppTheme.Title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_xlarge"
+        android:text="@string/label_type_of_work"
+        android:textAllCaps="true"
+        android:textColor="@color/label1"
+        android:textSize="@dimen/font_default"
+        app:layout_constraintStart_toStartOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView_filterFragment_typeOfWork"
+        style="@style/MPAppTheme.EditText2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_xsmall"
+        android:layout_marginEnd="@dimen/margin_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:src="@drawable/ic_down_chevron"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_filterFragment_typeOfWork"
+        app:layout_constraintEnd_toEndOf="@+id/textView_filterFragment_typeOfWork"
+        app:layout_constraintTop_toTopOf="@+id/textView_filterFragment_typeOfWork"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textView13"
+        style="@style/MPAppTheme.Title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_xlarge"
+        android:text="@string/label_order_by"
+        android:textAllCaps="true"
+        android:textColor="@color/label1"
+        android:textSize="@dimen/font_default"
+        app:layout_constraintStart_toStartOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView_filterFragment_typeOfWork" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup_filterFragment_orderBy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        app:layout_constraintEnd_toEndOf="@+id/textView_filterFragment_typeOfWork"
+        app:layout_constraintStart_toStartOf="@+id/textView_filterFragment_typeOfWork"
+        app:layout_constraintTop_toBottomOf="@+id/textView13">
+
+        <RadioButton
+            android:id="@+id/radioButton_filterFragment_a_z"
+            style="@style/MPAppTheme.RadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:text="@string/radio_order_by_name_a_z" />
+
+        <RadioButton
+            android:id="@+id/radioButton_filterFragment_z_a"
+            style="@style/MPAppTheme.RadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:text="@string/radio_order_by_name_z_a" />
+
+        <RadioButton
+            android:id="@+id/radioButton_filterFragment_distance"
+            style="@style/MPAppTheme.RadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_order_by_name_distance" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView14"
+        style="@style/MPAppTheme.Title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_xlarge"
+        android:text="@string/lavel_public_work_state"
+        android:textAllCaps="true"
+        android:textColor="@color/label1"
+        android:textSize="@dimen/font_default"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup_filterFragment_orderBy" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkbox_filterFragment_complete"
+        style="@style/MPAppTheme.CheckBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:text="@string/checkbox_complete"
+        app:layout_constraintEnd_toEndOf="@+id/radioGroup_filterFragment_orderBy"
+        app:layout_constraintStart_toStartOf="@+id/radioGroup_filterFragment_orderBy"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkbox_filterFragment_sent"
+        style="@style/MPAppTheme.CheckBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:text="@string/checkbox_sent"
+        app:layout_constraintEnd_toEndOf="@+id/checkbox_filterFragment_complete"
+        app:layout_constraintStart_toStartOf="@+id/checkbox_filterFragment_complete"
+        app:layout_constraintTop_toBottomOf="@+id/checkbox_filterFragment_complete" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkbox_filterFragment_incompleteNotSent"
+        style="@style/MPAppTheme.CheckBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:text="@string/checkbox_incomplete_not_sent"
+        app:layout_constraintEnd_toEndOf="@+id/checkbox_filterFragment_sent"
+        app:layout_constraintStart_toStartOf="@+id/checkbox_filterFragment_sent"
+        app:layout_constraintTop_toBottomOf="@+id/checkbox_filterFragment_sent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

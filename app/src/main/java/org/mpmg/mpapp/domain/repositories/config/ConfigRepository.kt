@@ -2,7 +2,7 @@ package org.mpmg.mpapp.domain.repositories.config
 
 import android.content.Context
 import org.mpmg.mpapp.core.Constants
-import org.mpmg.mpapp.domain.apis.MPApi
+import org.mpmg.mpapp.domain.network.MPApi
 import org.mpmg.mpapp.domain.models.TypeWork
 
 class ConfigRepository(val mpApi: MPApi, val applicationContext: Context) : IConfigRepository {

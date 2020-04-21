@@ -4,16 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_main"
     tools:context=".ui.fragments.map.MapFragment">
 
-    <TextView
-        android:id="@+id/textView_mapFragment_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Location"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView_mapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/margin_default"
+        app:layout_constraintBottom_toTopOf="@+id/textView_mapFragment_reverseGeocoding"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_map_marker"
+        app:layout_constraintBottom_toBottomOf="@+id/mapView_mapFragment"
+        app:layout_constraintEnd_toEndOf="@+id/mapView_mapFragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.49"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textView_mapFragment_reverseGeocoding"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_default"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:layout_marginBottom="16dp"
+        android:background="#FFFFFF"
+        android:drawableStart="@drawable/ic_location"
+        android:drawablePadding="@dimen/margin_small"
+        android:drawableTint="@color/label1"
+        android:fontFamily="@font/nunito_regular"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:paddingStart="@dimen/margin_small"
+        android:paddingEnd="@dimen/margin_small"
+        android:text="@string/label_search_address"
+        android:textSize="@dimen/font_default"
+        app:layout_constraintBottom_toTopOf="@+id/materialButton_mapFragment_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton_mapFragment_confirm"
+        style="@style/MPAppTheme.ButtonBigBlue"
+        android:layout_width="300dp"
+        android:layout_height="@dimen/height_default"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:text="@string/button_confirm_location"
+        app:layout_constraintBottom_toTopOf="@+id/materialButton_mapFragment_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton_mapFragment_cancel"
+        style="@style/MPAppTheme.ButtonBigGrey"
+        android:layout_width="300dp"
+        android:layout_height="@dimen/height_default"
+        android:layout_marginBottom="@dimen/margin_xlarge"
+        android:text="@string/button_cancel"
+        android:textColor="@color/title2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

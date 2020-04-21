@@ -3,6 +3,7 @@ package org.mpmg.mpapp.ui.viewmodels
 import android.location.Location
 import androidx.databinding.Observable
 import androidx.lifecycle.*
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -41,19 +42,35 @@ class PublicWorkViewModel(
         newCurrentPublicWorkAddress()
     }
 
-    private fun newCurrentPublicWorkAddress() {
+    fun newCurrentPublicWorkAddress() {
         val publicWork = PublicWorkUI()
         val address = AddressUI()
 
-        publicWork.addOnPropertyChangedCallback(observableCallback)
-        address.addOnPropertyChangedCallback(observableCallback)
+        updateCurrentPublicWorkAddress(publicWork, address)
+    }
 
-        currentPublicWork = publicWork
-        currentAddress = address
+    private fun updateCurrentPublicWorkAddress(publicWorkUI: PublicWorkUI, addressUI: AddressUI) {
+        publicWorkUI.addOnPropertyChangedCallback(observableCallback)
+        addressUI.addOnPropertyChangedCallback(observableCallback)
+
+        currentPublicWork = publicWorkUI
+        currentAddress = addressUI
+    }
+
+    fun setCurrentPublicWorkAddress(publicWorkAndAddress: PublicWorkAndAdress) {
+        val publicWorkUI = PublicWorkUI(publicWorkAndAddress.publicWork)
+        val addressUI = AddressUI(publicWorkAndAddress.address)
+
+        updateCurrentPublicWorkAddress(publicWorkUI, addressUI)
+
     }
 
     fun isFormValid(): Boolean {
         return currentAddress.isValid() && currentPublicWork.isValid()
+    }
+
+    fun isLocationValid(): Boolean {
+        return currentAddress.isLocationValid()
     }
 
     fun setCurrentTypeWork(typeWork: TypeWork) {
@@ -76,7 +93,7 @@ class PublicWorkViewModel(
         }
     }
 
-    fun updateCurrPublicWorkLocation(location: Location) {
+    fun updateCurrPublicWorkLocation(location: LatLng) {
         currentAddress.apply {
             latitude = location.latitude
             longitude = location.longitude
