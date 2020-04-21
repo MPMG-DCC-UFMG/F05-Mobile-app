@@ -38,9 +38,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.MainActivity"
-            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.MainActivity" />
 
         <service
             android:name=".core.services.LocationService"

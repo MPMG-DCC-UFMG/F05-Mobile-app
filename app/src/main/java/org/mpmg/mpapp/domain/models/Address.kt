@@ -39,6 +39,4 @@ data class Address(
     fun isValid(): Boolean {
         return idPublicWork.isNotBlank() && number.isNotBlank() && city.isNotBlank() && state.isNotBlank() && cep.isNotBlank() && latitude != null && longitude != null
     }
-
-    fun isLocationValid(): Boolean = latitude != null && longitude != null
 }

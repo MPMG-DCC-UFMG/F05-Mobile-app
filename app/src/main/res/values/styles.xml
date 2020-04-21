@@ -67,8 +67,8 @@
 
     <style name="MPAppTheme.ButtonBigBlue" parent="MPAppTheme.ButtonBase">
         <item name="borderWidth">0dp</item>
+        <item name="android:backgroundTint">@color/button_primary_blue</item>
         <item name="android:textSize">@dimen/font_large</item>
-        <item name="android:backgroundTint">@color/button1</item>
     </style>
 
     <style name="MPAppTheme.ButtonBigGrey" parent="MPAppTheme.ButtonBase">
@@ -89,5 +89,17 @@
         <item name="android:backgroundTint">@color/button2</item>
         <item name="android:textColor">@color/buttonInvalid1</item>
         <item name="iconTint">@color/buttonInvalid1</item>
+    </style>
+
+    <style name="MPAppTheme.RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/radio_button_isset</item>
+        <item name="android:background">@drawable/radio_button_background</item>
+        <item name="fontFamily">@font/nunito_regular</item>
+    </style>
+
+    <style name="MPAppTheme.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_isset</item>
+        <item name="android:background">@drawable/radio_button_background</item>
+        <item name="fontFamily">@font/nunito_regular</item>
     </style>
 </resources>

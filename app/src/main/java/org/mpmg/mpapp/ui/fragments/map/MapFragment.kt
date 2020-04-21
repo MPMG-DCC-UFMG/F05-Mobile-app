@@ -74,6 +74,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         materialButton_mapFragment_cancel.setOnClickListener {
             navigateBack()
         }
+
+        textView_mapFragment_reverseGeocoding.setOnClickListener {
+            it.textView_mapFragment_reverseGeocoding.text = getText(R.string.label_loading_address)
+        }
     }
 
     private fun removeFirstLocationObserver() {

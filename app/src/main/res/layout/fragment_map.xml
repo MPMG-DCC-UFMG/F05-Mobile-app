@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/margin_default"
-        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintBottom_toTopOf="@+id/textView_mapFragment_reverseGeocoding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/textView_mapFragment_reverseGeocoding"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_default"
         android:layout_marginStart="@dimen/margin_default"
@@ -45,7 +45,7 @@
         android:maxLines="2"
         android:paddingStart="@dimen/margin_small"
         android:paddingEnd="@dimen/margin_small"
-        android:text="@string/label_loading_address"
+        android:text="@string/label_search_address"
         android:textSize="@dimen/font_default"
         app:layout_constraintBottom_toTopOf="@+id/materialButton_mapFragment_confirm"
         app:layout_constraintEnd_toEndOf="parent"

@@ -70,6 +70,10 @@ class PublicWorkAddFragment : Fragment() {
         textView_addPublicWorkFragment_typeOfWork.setOnClickListener {
             launchTypeWorkDialog()
         }
+
+        materialButton_addPublicWorkFragment_cancel.setOnClickListener {
+            navigateBack()
+        }
     }
 
     private fun launchTypeWorkDialog() {

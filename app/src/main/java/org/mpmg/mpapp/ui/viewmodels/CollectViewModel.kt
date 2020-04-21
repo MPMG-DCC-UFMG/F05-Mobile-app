@@ -18,14 +18,14 @@ class CollectViewModel(
 ) : ViewModel() {
 
     private var mSelectedPublicWork: LiveData<PublicWorkAndAdress> = MutableLiveData()
-    private var mPhotoList = MutableLiveData<MutableList<Photo>>()
+    private var mPhotoList = MutableLiveData<MutableMap<String, Photo>>()
 
     private val currentCollect = MutableLiveData<Collect>()
 
     private fun newCollect(publicWorkId: String) {
         val currentUser = configRepository.getLoggedUserEmail()
         currentCollect.postValue(Collect(idPublicWork = publicWorkId, idUser = currentUser))
-        mPhotoList.postValue(mutableListOf())
+        mPhotoList.postValue(mutableMapOf())
     }
 
     fun setPublicWork(publicWork: PublicWorkAndAdress) {
@@ -44,7 +44,7 @@ class CollectViewModel(
     @WorkerThread
     private fun loadPhotoForCollect(collectId: String) {
         val photos = collectRepository.listPhotosByCollectionID(collectId)
-        mPhotoList.postValue(photos.toMutableList())
+        mPhotoList.postValue(photos.map { it.id to it }.toMap().toMutableMap())
     }
 
     @WorkerThread
@@ -60,13 +60,13 @@ class CollectViewModel(
 
     fun getPublicWork(): LiveData<PublicWorkAndAdress> = mSelectedPublicWork
 
-    fun getPhotoList(): LiveData<MutableList<Photo>> = mPhotoList
+    fun getPhotoList(): LiveData<MutableMap<String, Photo>> = mPhotoList
 
     fun addPhoto(photo: Photo) {
         mPhotoList.value?.let {
             val currentCollect = currentCollect.value ?: return@let
             photo.idCollect = currentCollect.id
-            it.add(photo)
+            it[photo.id] = photo
             mPhotoList.value = it
         }
     }
@@ -75,7 +75,7 @@ class CollectViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val collection = currentCollect.value ?: return@launch
             val photos = mPhotoList.value ?: return@launch
-            collectRepository.insertCollect(collection, photos)
+            collectRepository.insertCollect(collection, photos.values.toList())
         }
     }
 

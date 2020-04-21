@@ -11,7 +11,11 @@
         android:label="LoginFragment">
         <action
             android:id="@+id/action_loginFragment_to_setupApplicationFragment"
-            app:destination="@id/setupApplicationFragment" />
+            app:destination="@id/setupApplicationFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <fragment
@@ -21,10 +25,18 @@
         tools:layout="@layout/fragment_base">
         <action
             android:id="@+id/action_baseFragment_to_collectMainFragment"
-            app:destination="@id/collectMainFragment" />
+            app:destination="@id/collectMainFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_out"
+            app:popExitAnim="@android:anim/fade_in" />
         <action
             android:id="@+id/action_baseFragment_to_publicWorkAddFragment"
-            app:destination="@id/publicWorkAddFragment" />
+            app:destination="@id/publicWorkAddFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <fragment
@@ -34,12 +46,24 @@
         tools:layout="@layout/fragment_collect_main">
         <action
             android:id="@+id/action_collectMainFragment_to_publicWorkAddFragment"
-            app:destination="@id/publicWorkAddFragment" />
+            app:destination="@id/publicWorkAddFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
         <action
             android:id="@+id/action_collectMainFragment_to_photoAddFragment"
-            app:destination="@id/photoAddFragment" />
+            app:destination="@id/photoAddFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
         <action
             android:id="@+id/action_collectMainFragment_pop"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/collectMainFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -51,6 +75,10 @@
         <action
             android:id="@+id/action_setupApplicationFragment_to_baseFragment"
             app:destination="@id/baseFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/setupApplicationFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -58,15 +86,23 @@
     <fragment
         android:id="@+id/publicWorkAddFragment"
         android:name="org.mpmg.mpapp.ui.fragments.publicwork.fragments.PublicWorkAddFragment"
-        android:label="PublicWorkAddFragment" >
+        android:label="PublicWorkAddFragment">
 
         <action
             android:id="@+id/action_publicWorkAddFragment_pop"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/publicWorkAddFragment"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_publicWorkAddFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
+            app:destination="@id/mapFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <fragment
@@ -78,9 +114,13 @@
         android:id="@+id/mapFragment"
         android:name="org.mpmg.mpapp.ui.fragments.map.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" >
+        tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_mapFragment_pop"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/mapFragment"
             app:popUpToInclusive="true" />
     </fragment>

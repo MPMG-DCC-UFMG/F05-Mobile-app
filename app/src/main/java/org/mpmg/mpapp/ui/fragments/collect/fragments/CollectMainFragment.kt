@@ -64,10 +64,10 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
 
     private fun setupViewModels() {
         collectViewModel.getPhotoList()
-            .observe(viewLifecycleOwner, Observer { photoList ->
-                photoList ?: return@Observer
+            .observe(viewLifecycleOwner, Observer { photoMap ->
+                photoMap ?: return@Observer
 
-                photoListAdapter.updatePhotoList(photoList.toList())
+                photoListAdapter.updatePhotoList(photoMap.values.toList())
             })
     }
 

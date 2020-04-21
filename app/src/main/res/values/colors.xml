@@ -11,6 +11,8 @@
     <color name="label1">#4F4F4F</color>
 
     <color name="button1">#2F80ED</color>
+    <color name="button1Disabled">#33828282</color>
+
     <color name="button2">#E0E0E0</color>
     <color name="button3">#F2F2F2</color>
 
@@ -20,5 +22,7 @@
     <color name="textAddress">#828282</color>
 
     <color name="backgroundImage1">#E0E0E0</color>
+
+    <color name="radioButtonNormal">#BDBDBD</color>
 
 </resources>
