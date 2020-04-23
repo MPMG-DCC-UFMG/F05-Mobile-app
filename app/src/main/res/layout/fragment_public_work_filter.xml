@@ -36,6 +36,7 @@
         android:id="@+id/textView_filterFragment_typeOfWork"
         style="@style/MPAppTheme.EditText2"
         android:layout_width="0dp"
+        android:hint="@string/label_click_to_select_type_of_work"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_default"
         android:layout_marginTop="@dimen/margin_xsmall"
@@ -73,6 +74,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_medium"
+        android:checkedButton="@id/radioButton_filterFragment_a_z"
         app:layout_constraintEnd_toEndOf="@+id/textView_filterFragment_typeOfWork"
         app:layout_constraintStart_toStartOf="@+id/textView_filterFragment_typeOfWork"
         app:layout_constraintTop_toBottomOf="@+id/textView13">
@@ -125,6 +127,16 @@
         app:layout_constraintStart_toStartOf="@+id/radioGroup_filterFragment_orderBy"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:src="@drawable/ic_check"
+        app:layout_constraintBottom_toBottomOf="@+id/checkbox_filterFragment_complete"
+        app:layout_constraintEnd_toEndOf="@+id/checkbox_filterFragment_complete"
+        app:layout_constraintTop_toTopOf="@+id/checkbox_filterFragment_complete"
+        tools:ignore="ContentDescription" />
+
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/checkbox_filterFragment_sent"
         style="@style/MPAppTheme.CheckBox"
@@ -136,15 +148,13 @@
         app:layout_constraintStart_toStartOf="@+id/checkbox_filterFragment_complete"
         app:layout_constraintTop_toBottomOf="@+id/checkbox_filterFragment_complete" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/checkbox_filterFragment_incompleteNotSent"
-        style="@style/MPAppTheme.CheckBox"
-        android:layout_width="0dp"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
-        android:text="@string/checkbox_incomplete_not_sent"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:src="@drawable/ic_sent"
+        app:layout_constraintBottom_toBottomOf="@+id/checkbox_filterFragment_sent"
         app:layout_constraintEnd_toEndOf="@+id/checkbox_filterFragment_sent"
-        app:layout_constraintStart_toStartOf="@+id/checkbox_filterFragment_sent"
-        app:layout_constraintTop_toBottomOf="@+id/checkbox_filterFragment_sent" />
+        app:layout_constraintTop_toTopOf="@+id/checkbox_filterFragment_sent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

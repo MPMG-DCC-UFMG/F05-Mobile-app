@@ -95,11 +95,13 @@
         <item name="android:button">@drawable/radio_button_isset</item>
         <item name="android:background">@drawable/radio_button_background</item>
         <item name="fontFamily">@font/nunito_regular</item>
+        <item name="android:buttonTint">@color/base_checkbox</item>
     </style>
 
     <style name="MPAppTheme.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox_isset</item>
         <item name="android:background">@drawable/radio_button_background</item>
         <item name="fontFamily">@font/nunito_regular</item>
+        <item name="android:buttonTint">@color/base_checkbox</item>
     </style>
 </resources>
