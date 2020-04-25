@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,6 +20,7 @@ import org.mpmg.mpapp.databinding.FragmentPublicWorkListBinding
 import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.ui.fragments.publicwork.adapters.PublicWorkListAdapter
 import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
+import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 
 class PublicWorkListFragment : Fragment(), PublicWorkListAdapter.PublicWorkListAdapterListener {
@@ -27,6 +29,7 @@ class PublicWorkListFragment : Fragment(), PublicWorkListAdapter.PublicWorkListA
 
     private val publicWorkViewModel: PublicWorkViewModel by sharedViewModel()
     private val collectViewModel: CollectViewModel by sharedViewModel()
+    private val locationViewModel: LocationViewModel by sharedViewModel()
 
     private lateinit var publicWorkListAdapter: PublicWorkListAdapter
 
@@ -69,6 +72,10 @@ class PublicWorkListFragment : Fragment(), PublicWorkListAdapter.PublicWorkListA
 
                 publicWorkListAdapter.updatePublicWorksList(publicWorkList)
             })
+
+        locationViewModel.getCurrentLocationLiveData().observe(viewLifecycleOwner, Observer {
+            publicWorkViewModel.updateCurrentLocation(it)
+        })
     }
 
     private fun setupRecyclerView() {
@@ -78,7 +85,7 @@ class PublicWorkListFragment : Fragment(), PublicWorkListAdapter.PublicWorkListA
     }
 
     private fun initPublicWorkAdapter() {
-        publicWorkListAdapter = PublicWorkListAdapter()
+        publicWorkListAdapter = PublicWorkListAdapter(locationViewModel)
         publicWorkListAdapter.setPublicWorkListAdapterListener(this)
     }
 

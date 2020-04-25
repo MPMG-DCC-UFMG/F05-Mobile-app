@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_public_work_filter.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.databinding.FragmentPublicWorkFilterBinding
 import org.mpmg.mpapp.ui.shared.filters.SyncStatus
 import org.mpmg.mpapp.ui.shared.filters.SyncStatus.*
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
@@ -26,7 +28,11 @@ class PublicWorkFilterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_public_work_filter, container, false)
+        val binding: FragmentPublicWorkFilterBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_public_work_filter, container, false)
+        binding.publicWorkViewModel = publicWorkViewModel
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

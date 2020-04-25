@@ -15,7 +15,9 @@
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit" />
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -60,10 +62,6 @@
             app:popExitAnim="@anim/fragment_fade_exit" />
         <action
             android:id="@+id/action_collectMainFragment_pop"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/collectMainFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -80,7 +78,8 @@
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/setupApplicationFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"/>
     </fragment>
 
     <fragment

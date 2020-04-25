@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.domain.models.PublicWork
 import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.ui.fragments.publicwork.delegates.PublicWorkItemDelegate
 import org.mpmg.mpapp.ui.shared.delegates.StatusAdapterDelegate
+import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 
-class PublicWorkListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+class PublicWorkListAdapter(locationViewModel: LocationViewModel) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     PublicWorkItemDelegate.PublicWorkItemDelegateListener {
 
     private val publicWorksList = mutableListOf<PublicWorkAndAdress>()
@@ -18,7 +19,7 @@ class PublicWorkListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
 
     private val delegates = listOf(
         StatusAdapterDelegate(R.layout.item_empty_list),
-        PublicWorkItemDelegate()
+        PublicWorkItemDelegate(locationViewModel)
     )
 
     init {
@@ -60,8 +61,7 @@ class PublicWorkListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
         notifyDataSetChanged()
     }
 
-    override fun onPublicWorkClicked(publicWorkId: String) {
-        val publicWork = publicWorksList.find { it.publicWork.id == publicWorkId } ?: return
+    override fun onPublicWorkClicked(publicWork: PublicWorkAndAdress) {
         mListener?.onPublicWorkClicked(publicWork)
     }
 

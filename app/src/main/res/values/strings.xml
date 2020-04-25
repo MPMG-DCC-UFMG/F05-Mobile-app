@@ -42,6 +42,8 @@
     <string name="label_click_to_select_type_of_work">Clique para selecionar tipo de obra …</string>
     <string name="label_loading_address">Buscando endereço</string>
     <string name="lavel_public_work_state">Estado dos dados das obras</string>
+    <string name="label_add_comment_hint">Adicionar comentário …</string>
+    <string name="label_default_distance">-- m</string>
 
     <string name="radio_order_by_name_a_z">Ordem alfabética (A-Z)</string>
     <string name="radio_order_by_name_z_a">Ordem alfabética (Z-A)</string>

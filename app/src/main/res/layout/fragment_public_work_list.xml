@@ -9,6 +9,7 @@
         <variable
             name="publicWorkViewModel"
             type="org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +43,8 @@
                     android:text="@={publicWorkViewModel.query}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:importantForAutofill="no" />
 
                 <TextView
                     android:id="@+id/textView3"

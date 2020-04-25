@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView_itemPublicWorkList_mainContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -24,10 +25,10 @@
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_medium"
             android:singleLine="true"
-            android:text="E.E. Maurício Murgel"
             app:layout_constraintEnd_toStartOf="@+id/textView_itemPublicWorkList_distance"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="E.E. Maurício Murgel" />
 
         <TextView
             android:id="@+id/textView_itemPublicWorkList_distance"
@@ -35,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_default"
-            android:text="300 m"
+            android:text="@string/label_default_distance"
             android:textSize="@dimen/font_default"
             app:layout_constraintBottom_toBottomOf="@+id/textView_itemPublicWorkList_name"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,11 +50,33 @@
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginBottom="@dimen/margin_medium"
             android:maxLines="2"
-            android:text="Av. Amazonas, 5154 - Nova Suíça Belo Horizonte - 30421-056"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView_itemPublicWorkList_name"
             app:layout_constraintStart_toStartOf="@+id/textView_itemPublicWorkList_name"
-            app:layout_constraintTop_toBottomOf="@+id/textView_itemPublicWorkList_name" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_itemPublicWorkList_name"
+            tools:text="Av. Amazonas, 5154 - Nova Suíça Belo Horizonte - 30421-056" />
+
+        <ImageView
+            android:id="@+id/imageView_itemPublicWorkList_sent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:src="@drawable/ic_sent"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_itemPublicWorkList_distance" />
+
+        <ImageView
+            android:id="@+id/imageView_itemPublicWorkList_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xsmall"
+            android:src="@drawable/ic_check"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/imageView_itemPublicWorkList_sent"
+            app:layout_constraintStart_toStartOf="@+id/imageView_itemPublicWorkList_sent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_itemPublicWorkList_sent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

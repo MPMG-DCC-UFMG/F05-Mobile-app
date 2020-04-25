@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.FileProvider
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -22,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_add_photo.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.databinding.FragmentAddPhotoBinding
 import org.mpmg.mpapp.domain.models.Photo
 import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
@@ -45,7 +47,12 @@ class PhotoAddFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_add_photo, container, false)
+
+        val binding: FragmentAddPhotoBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_add_photo, container, false)
+        binding.photoViewModel = photoViewModel
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,7 +67,7 @@ class PhotoAddFragment : Fragment() {
             dispatchTakePictureIntent()
         }
 
-        materialButton_collectMainFragment_confirmPhoto.setOnClickListener {
+        materialButton_addPhotoFragment_confirmPhoto.setOnClickListener {
             addPhotoToCollect()
             activity?.onBackPressed()
         }

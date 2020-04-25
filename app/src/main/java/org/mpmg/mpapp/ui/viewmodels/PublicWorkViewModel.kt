@@ -3,7 +3,6 @@ package org.mpmg.mpapp.ui.viewmodels
 import android.location.Location
 import androidx.databinding.Observable
 import androidx.lifecycle.*
-import androidx.recyclerview.widget.SortedList
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +14,7 @@ import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
 import org.mpmg.mpapp.ui.fragments.publicwork.models.AddressUI
 import org.mpmg.mpapp.ui.fragments.publicwork.models.PublicWorkUI
 import org.mpmg.mpapp.ui.shared.filters.*
+import org.mpmg.mpapp.R
 
 class PublicWorkViewModel(
     private val publicWorkRepository: IPublicWorkRepository
@@ -36,10 +36,11 @@ class PublicWorkViewModel(
     lateinit var currentAddress: AddressUI
 
     val currentTypeWork: MutableLiveData<TypeWork> = MutableLiveData<TypeWork>()
-
     val isPublicWorkValid: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+    val query: MutableLiveData<String> = MutableLiveData<String>()
+    val sortedCheckedId: MutableLiveData<Int> = MutableLiveData<Int>()
 
-    val query: MutableLiveData<String> = MutableLiveData()
+    private var currentLocation: Location? = null
 
     private val publicWorkMediatedList = MediatorLiveData<List<PublicWorkAndAdress>>()
 
@@ -54,7 +55,7 @@ class PublicWorkViewModel(
         filterManager.addFilter(filterSyncStatus.filterKey, filterSyncStatus)
         filterManager.addFilter(filterTypeWork.filterKey, filterTypeWork)
         filterManager.addFilter(filterByName.filterKey, filterByName)
-
+        sortedCheckedId.postValue(R.id.radioButton_filterFragment_a_z)
         initMediator()
     }
 
@@ -70,6 +71,10 @@ class PublicWorkViewModel(
             publicWorkList.value?.let {
                 publicWorkMediatedList.value = filterManager.filter(it)
             }
+        }
+
+        publicWorkMediatedList.addSource(sortedCheckedId) {
+            sortList()
         }
     }
 
@@ -164,6 +169,27 @@ class PublicWorkViewModel(
     private fun filter() {
         publicWorkList.value?.let {
             publicWorkMediatedList.postValue(filterManager.filter(it))
+        }
+    }
+
+    fun updateCurrentLocation(location: Location) {
+        currentLocation = location
+        if (sortedCheckedId.value == R.id.radioButton_filterFragment_distance) {
+            sortList()
+        }
+    }
+
+    private fun sortList() {
+        publicWorkMediatedList.value?.let { publicWorkList ->
+            publicWorkMediatedList.value =
+                when (sortedCheckedId.value) {
+                    R.id.radioButton_filterFragment_a_z -> publicWorkList.sortedBy { it.publicWork.name }
+                    R.id.radioButton_filterFragment_z_a -> publicWorkList.sortedByDescending { it.publicWork.name }
+                    R.id.radioButton_filterFragment_distance -> publicWorkList.sortedBy {
+                        it.address.getLocation()?.distanceTo(currentLocation)
+                    }
+                    else -> publicWorkList
+                }
         }
     }
 }
