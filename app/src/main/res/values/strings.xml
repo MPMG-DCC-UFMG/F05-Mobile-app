@@ -39,14 +39,17 @@
     <string name="label_city">Cidade</string>
     <string name="label_order_by">Ordenar por</string>
     <string name="label_search_address">Clique para buscar endereço</string>
+    <string name="label_click_to_select_type_of_work">Clique para selecionar tipo de obra …</string>
     <string name="label_loading_address">Buscando endereço</string>
     <string name="lavel_public_work_state">Estado dos dados das obras</string>
+    <string name="label_add_comment_hint">Adicionar comentário …</string>
+    <string name="label_default_distance">-- m</string>
 
     <string name="radio_order_by_name_a_z">Ordem alfabética (A-Z)</string>
     <string name="radio_order_by_name_z_a">Ordem alfabética (Z-A)</string>
     <string name="radio_order_by_name_distance">Distância da obra</string>
 
-    <string name="checkbox_complete">Completos</string>
+    <string name="checkbox_complete">Coletados</string>
     <string name="checkbox_sent">Enviados</string>
     <string name="checkbox_incomplete_not_sent">Incompletos e não enviados</string>
 
@@ -54,6 +57,8 @@
     <string name="text_loading">Carregando …</string>
 
     <string name="dialog_type_photo_title">Escolha o tipo da foto para adicionar</string>
+    <string name="dialog_type_work_title">Escolha o tipo da obra para adicionar</string>
+    <string name="dialog_type_work_filter_title">Escolha o tipo da obra para filtrar</string>
 
     <string name="snackbar_photo_add_success">Foto atualizada com sucesso</string>
     <string name="snackbar_photo_add_canceled">Usuário cancelou ação</string>

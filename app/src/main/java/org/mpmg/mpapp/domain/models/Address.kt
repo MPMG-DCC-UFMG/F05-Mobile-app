@@ -1,5 +1,6 @@
 package org.mpmg.mpapp.domain.models
 
+import android.location.Location
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -38,5 +39,13 @@ data class Address(
 
     fun isValid(): Boolean {
         return idPublicWork.isNotBlank() && number.isNotBlank() && city.isNotBlank() && state.isNotBlank() && cep.isNotBlank() && latitude != null && longitude != null
+    }
+
+    fun getLocation(): Location? {
+        val location = Location("ROOM")
+        location.longitude = longitude ?: return null
+        location.latitude = latitude ?: return null
+
+        return location
     }
 }

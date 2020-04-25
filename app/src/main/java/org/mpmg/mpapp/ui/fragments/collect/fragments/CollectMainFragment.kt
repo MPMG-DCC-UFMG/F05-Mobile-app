@@ -12,7 +12,6 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_collect_main.*
-import kotlinx.android.synthetic.main.fragment_public_work_list.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentCollectMainBinding

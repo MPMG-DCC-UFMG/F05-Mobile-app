@@ -81,7 +81,7 @@ class PublicWorkAddFragment : Fragment() {
             val typesWork = typeWorkViewModel.getTypeOfWorkList().value ?: return@let
             val optionsArray = typesWork.map { it.name }.toTypedArray()
             val builder = AlertDialog.Builder(it)
-            builder.setTitle(getString(R.string.dialog_type_photo_title))
+            builder.setTitle(getString(R.string.dialog_type_work_title))
                 .setItems(optionsArray) { _, which ->
                     publicWorkViewModel.setCurrentTypeWork(typesWork[which])
                 }

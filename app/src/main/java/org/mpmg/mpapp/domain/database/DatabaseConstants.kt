@@ -1,6 +1,6 @@
 package org.mpmg.mpapp.domain.database
 
-object  DatabaseConstants {
+object DatabaseConstants {
 
     object User {
         const val tableName = "user_table"
@@ -16,6 +16,7 @@ object  DatabaseConstants {
         const val name = "public_work_name"
         const val typeWorkFlag = "public_work_type_work_flag"
         const val idCollect = "public_work_id_collect"
+        const val sent = "public_work_sent"
     }
 
     object TypeWork {
