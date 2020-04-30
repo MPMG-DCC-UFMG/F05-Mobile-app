@@ -1,5 +1,6 @@
 package org.mpmg.mpapp.ui.viewmodels
 
+import android.location.Address
 import android.location.Location
 import androidx.databinding.Observable
 import androidx.lifecycle.*
@@ -191,5 +192,13 @@ class PublicWorkViewModel(
                     else -> publicWorkList
                 }
         }
+    }
+
+    fun fromGeocoding(address: Address) {
+        currentAddress.city = address.subAdminArea ?: ""
+        currentAddress.street = address.thoroughfare ?: ""
+        currentAddress.neighborhood = address.subLocality ?: ""
+        currentAddress.number = address.subThoroughfare ?: ""
+        currentAddress.cep = address.postalCode ?: ""
     }
 }

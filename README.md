@@ -4,12 +4,15 @@ Project of an application for the MP
 
 ## Necessary steps
 
+
+### Google Maps
+
 Before you run your application, you need a Google Maps API key.
 
 follow the directions here:
 https://developers.google.com/maps/documentation/android/start#get-key
 
-Once you have your key (it starts with "AIza"), create a file "google_maps_key.xml" with the following  
+Once you have your key (it starts with "AIza"), create a file "services_keys.xml" with the following  
 content inside the folder **app/src/debug/res/values**. If the folder don't exist, create it. 
 
 ```bash
@@ -18,6 +21,15 @@ content inside the folder **app/src/debug/res/values**. If the folder don't exis
 </resources>
 ```
 
+### Sentry
+
+To track all errors this application it's configure to use [Sentry]() services.
+
+To enable it, go to the same file you created in the previous section and add the following entry:
+
+```bash
+<string name="sentry_key" templateMergeStrategy="preserve" translatable="false">SENTRY_DSN_FOUND_IN_DOCUMENTATION</string>
+```
 ## Third Party Libraries
 
 The third party libraries used in the project were as follows:

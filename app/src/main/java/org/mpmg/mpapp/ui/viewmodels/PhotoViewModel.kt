@@ -50,7 +50,7 @@ class PhotoViewModel : ViewModel() {
             } else {
                 val storageDir: File =
                     context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) ?: return null
-                File.createTempFile("MP_${it.id}", ".jpg", storageDir).apply {
+                File(storageDir, "MP_${it.id}.jpg").apply {
                     it.filepath = absolutePath
                     mCurrentPhoto.value = it
                 }

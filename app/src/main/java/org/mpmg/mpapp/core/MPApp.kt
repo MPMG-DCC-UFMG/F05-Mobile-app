@@ -1,11 +1,11 @@
 package org.mpmg.mpapp.core
 
 import android.app.Application
-import android.content.Intent
-import android.os.Build
+import io.sentry.Sentry
+import io.sentry.android.AndroidSentryClientFactory
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import org.mpmg.mpapp.core.services.LocationService
+import org.mpmg.mpapp.R
 
 class MPApp : Application() {
 
@@ -13,6 +13,7 @@ class MPApp : Application() {
         super.onCreate()
 
         setupKoin()
+        initSentry()
     }
 
     private fun setupKoin() {
@@ -20,5 +21,9 @@ class MPApp : Application() {
             androidContext(this@MPApp)
             modules(viewModelModules, repositoriesModules, dataSourceModules, apiModules)
         }
+    }
+
+    private fun initSentry() {
+        Sentry.init(getString(R.string.sentry_key), AndroidSentryClientFactory(this))
     }
 }

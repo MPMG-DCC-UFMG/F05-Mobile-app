@@ -18,9 +18,12 @@
     <string name="button_add_photo">Adicionar foto</string>
     <string name="button_confirm_photo">Confirmar foto</string>
     <string name="button_add">Adicionar</string>
+    <string name="button_add_location_valid">Atualizar localização</string>
     <string name="button_add_location_invalid">Validar localização</string>
     <string name="button_confirm_location">Confirmar localização</string>
     <string name="button_cancel">Cancelar</string>
+    <string name="button_delete_photo">Deletar foto</string>
+    <string name="button_change_photo">Trocar foto</string>
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_filter">Filtrar</string>

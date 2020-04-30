@@ -77,6 +77,12 @@
         <item name="android:backgroundTint">@color/button3</item>
     </style>
 
+    <style name="MPAppTheme.ButtonBigWhite" parent="MPAppTheme.ButtonBase">
+        <item name="borderWidth">0dp</item>
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:backgroundTint">@color/colorWhite</item>
+    </style>
+
     <style name="MPAppTheme.ButtonSmallBlue" parent="MPAppTheme.ButtonBase">
         <item name="android:textSize">@dimen/font_default</item>
         <item name="android:backgroundTint">@color/button2</item>
