@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_add_photo.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.mpmg.mpapp.BuildConfig
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentAddPhotoBinding
 import org.mpmg.mpapp.domain.models.Photo
@@ -84,7 +85,7 @@ class PhotoAddFragment : Fragment() {
         locationViewModel.getCurrentLocationLiveData()
             .observe(viewLifecycleOwner, Observer { location ->
                 location ?: return@Observer
-
+                photoViewModel.updatePhotoLocation(location)
             })
     }
 
@@ -129,7 +130,7 @@ class PhotoAddFragment : Fragment() {
                     photoFile?.also {
                         val photoURI: Uri = FileProvider.getUriForFile(
                             currContext,
-                            "org.mpmg.mpapp.fileprovider",
+                            "${BuildConfig.APPLICATION_ID}.fileprovider",
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
