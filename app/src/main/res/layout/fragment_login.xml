@@ -87,24 +87,88 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton"
             style="@style/MPAppTheme.ButtonBigBlue"
             android:layout_width="300dp"
             android:layout_height="@dimen/height_default"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="@dimen/margin_xxlarge"
             android:backgroundTint="@color/button1"
             android:text="@string/button_login"
-            app:layout_constraintBottom_toTopOf="@+id/button_loginFragment_googleSignIn"
             app:layout_constraintEnd_toEndOf="@+id/button_loginFragment_googleSignIn"
-            app:layout_constraintStart_toStartOf="@+id/button_loginFragment_googleSignIn" />
+            app:layout_constraintStart_toStartOf="@+id/button_loginFragment_googleSignIn"
+            app:layout_constraintTop_toBottomOf="@+id/inputTextLayout_loginFormFragment_password" />
 
-        <com.google.android.gms.common.SignInButton
+        <View
+            android:id="@+id/view"
+            android:layout_width="24dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/margin_xsmall"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:background="@color/label1"
+            app:layout_constraintBottom_toBottomOf="@+id/textView15"
+            app:layout_constraintEnd_toStartOf="@+id/textView15"
+            app:layout_constraintTop_toTopOf="@+id/textView15" />
+
+        <View
+            android:layout_width="24dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_xsmall"
+            android:background="@color/label1"
+            app:layout_constraintBottom_toBottomOf="@+id/textView15"
+            app:layout_constraintStart_toEndOf="@+id/textView15"
+            app:layout_constraintTop_toTopOf="@+id/textView15" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xlarge"
+            android:fontFamily="@font/nunito_italic"
+            android:text="@string/label_if_prefer"
+            app:layout_constraintEnd_toEndOf="@+id/materialButton"
+            app:layout_constraintStart_toStartOf="@+id/materialButton"
+            app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_loginFragment_googleSignIn"
+            style="@style/MPAppTheme.ButtonBigBlue"
             android:layout_width="300dp"
             android:layout_height="@dimen/height_default"
-            android:layout_marginBottom="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/margin_default"
+            android:backgroundTint="@color/colorWhite"
+            android:drawableLeft="@drawable/ic_google_logo"
+            android:text="@string/button_enter_with_google"
+            android:textColor="@color/label1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_loginFragment_facebookSignIn"
+            style="@style/MPAppTheme.ButtonBigBlue"
+            android:layout_width="300dp"
+            android:layout_height="@dimen/height_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:backgroundTint="@color/buttonFacebookLogin"
+            android:drawableLeft="@drawable/ic_facebook_logo"
+            android:text="@string/button_enter_with_facebook"
+            app:layout_constraintEnd_toEndOf="@+id/button_loginFragment_googleSignIn"
+            app:layout_constraintStart_toStartOf="@+id/button_loginFragment_googleSignIn"
+            app:layout_constraintTop_toBottomOf="@+id/button_loginFragment_googleSignIn" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_loginFragment_twitterSignIn"
+            style="@style/MPAppTheme.ButtonBigBlue"
+            android:layout_width="300dp"
+            android:layout_height="@dimen/height_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:backgroundTint="@color/buttonTwitterLogin"
+            android:drawableLeft="@drawable/ic_twitter_logo"
+            android:text="@string/button_enter_with_twitter"
+            app:layout_constraintEnd_toEndOf="@+id/button_loginFragment_facebookSignIn"
+            app:layout_constraintStart_toStartOf="@+id/button_loginFragment_facebookSignIn"
+            app:layout_constraintTop_toBottomOf="@+id/button_loginFragment_facebookSignIn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

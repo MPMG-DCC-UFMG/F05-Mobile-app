@@ -24,6 +24,9 @@
     <string name="button_cancel">Cancelar</string>
     <string name="button_delete_photo">Deletar foto</string>
     <string name="button_change_photo">Trocar foto</string>
+    <string name="button_enter_with_google">Entre com Google</string>
+    <string name="button_enter_with_facebook">Entre com Facebook</string>
+    <string name="button_enter_with_twitter">Entre com Twitter</string>
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_filter">Filtrar</string>
@@ -47,6 +50,7 @@
     <string name="lavel_public_work_state">Estado dos dados das obras</string>
     <string name="label_add_comment_hint">Adicionar comentário …</string>
     <string name="label_default_distance">-- m</string>
+    <string name="label_if_prefer">se preferir</string>
 
     <string name="radio_order_by_name_a_z">Ordem alfabética (A-Z)</string>
     <string name="radio_order_by_name_z_a">Ordem alfabética (Z-A)</string>
