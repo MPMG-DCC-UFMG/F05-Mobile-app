@@ -43,6 +43,14 @@ class LoginFragment : Fragment() {
         if (userSigned) {
             navigateSetupAppFragment()
         }
+
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        button_loginFragment_googleSignIn.setOnClickListener {
+            signInGoogle()
+        }
     }
 
     private fun signInGoogle() {

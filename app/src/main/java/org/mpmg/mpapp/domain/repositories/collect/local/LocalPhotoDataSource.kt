@@ -23,4 +23,8 @@ class LocalPhotoDataSource(applicationContext: Context) : BaseDataSource(applica
     override fun listPhotosByCollectionID(collectionId: String): List<Photo> {
         return mpDatabase()!!.photoDAO().listAllPhotosByCollectId(collectionId)
     }
+
+    override fun deletePhotoById(photoId: String) {
+        mpDatabase()!!.photoDAO().deleteById(photoId)
+    }
 }

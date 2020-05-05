@@ -19,4 +19,6 @@ interface ICollectRepository {
     fun getCollect(collectId: String): Collect?
 
     fun getCollectByPublicWork(publicWorkId: String): Collect?
+
+    fun deletePhotoById(photoId: String)
 }

@@ -108,7 +108,12 @@
         android:id="@+id/photoAddFragment"
         android:name="org.mpmg.mpapp.ui.fragments.photo.PhotoAddFragment"
         android:label="fragment_add_photo"
-        tools:layout="@layout/fragment_add_photo" />
+        tools:layout="@layout/fragment_add_photo" >
+        <action
+            android:id="@+id/action_photoAddFragment_pop"
+            app:popUpTo="@id/photoAddFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="org.mpmg.mpapp.ui.fragments.map.MapFragment"

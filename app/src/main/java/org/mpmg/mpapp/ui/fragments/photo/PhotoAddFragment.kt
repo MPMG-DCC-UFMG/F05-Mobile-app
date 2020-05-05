@@ -18,6 +18,8 @@ import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_add_photo.*
@@ -43,11 +45,15 @@ class PhotoAddFragment : Fragment() {
     private val collectViewModel: CollectViewModel by sharedViewModel()
     private val locationViewModel: LocationViewModel by sharedViewModel()
 
+    private var navigationController: NavController? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        navigationController = activity?.findNavController(R.id.nav_host_fragment)
 
         val binding: FragmentAddPhotoBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_add_photo, container, false)
@@ -70,7 +76,10 @@ class PhotoAddFragment : Fragment() {
 
         materialButton_addPhotoFragment_confirmPhoto.setOnClickListener {
             addPhotoToCollect()
-            activity?.onBackPressed()
+        }
+
+        materialButton_addPhotoFragment_deletePhoto.setOnClickListener {
+            deletePhoto()
         }
     }
 
@@ -141,9 +150,16 @@ class PhotoAddFragment : Fragment() {
         }
     }
 
+    private fun deletePhoto() {
+        val photo = photoViewModel.getPhoto().value ?: return
+        collectViewModel.deletePhoto(photo)
+        navigateBack()
+    }
+
     private fun addPhotoToCollect() {
         val photo = photoViewModel.getPhoto().value ?: return
         collectViewModel.addPhoto(photo)
+        navigateBack()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -165,5 +181,9 @@ class PhotoAddFragment : Fragment() {
             message,
             Snackbar.LENGTH_SHORT
         ).show()
+    }
+
+    private fun navigateBack() {
+        navigationController?.navigate(R.id.action_photoAddFragment_pop)
     }
 }
