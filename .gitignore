@@ -16,3 +16,4 @@
 .idea
 
 /app/src/debug/google_maps_api.xml
+/app/google-services.json

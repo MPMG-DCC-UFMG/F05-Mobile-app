@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MPApp</string>
+    <string name="app_name">eFiscaliza</string>
 
     <string name="title_public_work_list">Lista de obras</string>
     <string name="title_public_work_filter">Filtrar</string>
@@ -62,6 +62,7 @@
 
     <string name="text_empty_public_work_list">Lista de obras vazia, tente adicionar uma nova obra manualmente.</string>
     <string name="text_loading">Carregando …</string>
+    <string name="text_move_map">Mova o mapa para selecionar\na localização da obra.</string>
 
     <string name="dialog_type_photo_title">Escolha o tipo da foto para adicionar</string>
     <string name="dialog_type_work_title">Escolha o tipo da obra para adicionar</string>

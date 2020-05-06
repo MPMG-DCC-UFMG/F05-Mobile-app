@@ -14,6 +14,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.OAuthProvider
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
@@ -39,7 +41,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userSigned = loginViewModel.checkGoogleSignedAccount()
+        val userSigned = loginViewModel.checkUserLogged()
         if (userSigned) {
             navigateSetupAppFragment()
         }
@@ -50,6 +52,10 @@ class LoginFragment : Fragment() {
     private fun setupListeners() {
         button_loginFragment_googleSignIn.setOnClickListener {
             signInGoogle()
+        }
+
+        button_loginFragment_twitterSignIn.setOnClickListener {
+            signInTwitter()
         }
     }
 
@@ -64,6 +70,27 @@ class LoginFragment : Fragment() {
 
             val signInIntent: Intent = mGoogleSignInClient.getSignInIntent()
             startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN)
+        }
+    }
+
+    private fun signInTwitter() {
+        context?.let {
+            try {
+                val provider = OAuthProvider.newBuilder("twitter.com")
+                val firebaseAuth = FirebaseAuth.getInstance()
+                firebaseAuth.startActivityForSignInWithProvider(requireActivity(), provider.build())
+                    .addOnSuccessListener {
+                        val userName = it.user?.displayName ?: throw NullPointerException()
+                        val email = it.user?.email ?: ""
+                        storeUser(userEmail = email, userName = userName)
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w(TAG, "signInResult to twitter:failed " + e.message)
+                    }
+            } catch (e: Exception) {
+                Log.w(TAG, "signInResult:failed code=" + e.message)
+            }
+
         }
     }
 
@@ -84,12 +111,16 @@ class LoginFragment : Fragment() {
             val account =
                 completedTask.getResult(ApiException::class.java) ?: throw NullPointerException()
             val email = account.email ?: throw NullPointerException()
-            loginViewModel.logIn(email)
-            loginViewModel.addUserToDb(account)
-            navigateSetupAppFragment()
-        } catch (e: ApiException) { // The ApiException status code indicates the detailed failure reason.
+            storeUser(email, account.displayName ?: throw NullPointerException())
+        } catch (e: ApiException) {
             Log.w(TAG, "signInResult:failed code=" + e.statusCode)
         }
+    }
+
+    private fun storeUser(userEmail: String, userName: String) {
+        loginViewModel.logIn(userEmail)
+        loginViewModel.addUserToDb(userName, userEmail)
+        navigateSetupAppFragment()
     }
 
     private fun navigateSetupAppFragment() {
