@@ -7,6 +7,9 @@ import android.os.Environment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.models.Photo
 import java.io.File
 import java.io.IOException

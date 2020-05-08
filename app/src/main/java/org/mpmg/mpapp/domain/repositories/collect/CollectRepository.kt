@@ -42,4 +42,8 @@ class CollectRepository(
     override fun listPhotosByCollectionID(collectionId: String): List<Photo> {
         return localPhotoDataSource.listPhotosByCollectionID(collectionId)
     }
+
+    override fun deletePhotoById(photoId: String) {
+        localPhotoDataSource
+    }
 }

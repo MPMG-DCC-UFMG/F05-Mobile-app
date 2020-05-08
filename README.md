@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MPMG-DCC-UFMG_Mobile&metric=alert_status)](https://sonarcloud.io/dashboard?id=MPMG-DCC-UFMG_Mobile)
+
 # Mobile
 
 Project of an application for the MP
@@ -23,13 +25,22 @@ content inside the folder **app/src/debug/res/values**. If the folder don't exis
 
 ### Sentry
 
-To track all errors this application it's configure to use [Sentry]() services.
+To track all errors this application it's configure to use [Sentry](https://sentry.io) services.
 
 To enable it, go to the same file you created in the previous section and add the following entry:
 
 ```bash
 <string name="sentry_key" templateMergeStrategy="preserve" translatable="false">SENTRY_DSN_FOUND_IN_DOCUMENTATION</string>
 ```
+
+### Firebase
+
+To authenticate in Twitter and Facebook the Firebase was used for this application. First it's necessary to create a project
+in Firebase and download the file **google_services.json**. All the service setup can be done following the steps in
+[Setup firebase](https://firebase.google.com/docs/android/setup)
+
+Follow this steps to enable [Sign In with Twitter](https://firebase.google.com/docs/auth/android/twitter-login)
+
 ## Third Party Libraries
 
 The third party libraries used in the project were as follows:
@@ -65,3 +76,12 @@ The following diagram represents how most of the app components relate to each o
 * Views (activities and fragments) should only handle interactions, like clicks or animations. 
 * ViewModels are responsible for handling business logic.
 * Repositories abstract the complexities of loading and storing data.
+
+## Sponsors
+
+<h1 align="center">
+  <a href="https://www.mpmg.mp.br/"><img src="../Mobile/app/src/main/res/drawable/mmpg_logo.png" alt="MPMG"></a>
+  <br>
+  <a href="https://sentry.io/"><img src="../Mobile/assets/sentry-logo-black.png" alt="Sentry"></a>
+  <br>
+</h1>

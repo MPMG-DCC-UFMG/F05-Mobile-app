@@ -25,7 +25,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/background_main">
+                android:background="@drawable/background_main"
+                android:paddingBottom="@dimen/margin_default">
 
                 <TextView
                     android:id="@+id/textView_addPublicWorkFragment_title"
@@ -39,11 +40,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:layout_marginTop="@dimen/margin_medium"
                     android:id="@+id/materialButton_addPublicWorkFragment_map"
                     style="@style/MPAppTheme.ButtonSmallBlue"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_default"
+                    android:layout_marginTop="@dimen/margin_medium"
                     android:backgroundTint="@{publicWorkViewModel.locationValid ? @color/buttonValid1 : @color/buttonInvalid1}"
                     android:text="@{publicWorkViewModel.locationValid ? @string/button_add_location_valid : @string/button_add_location_invalid}"
                     android:textColor="@color/colorWhite"

@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import io.sentry.Sentry
 import org.mpmg.mpapp.R
 
 

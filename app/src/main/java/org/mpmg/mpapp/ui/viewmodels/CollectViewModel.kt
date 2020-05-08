@@ -10,6 +10,7 @@ import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
+import java.io.File
 
 class CollectViewModel(
     private val collectRepository: ICollectRepository,
@@ -68,6 +69,24 @@ class CollectViewModel(
             photo.idCollect = currentCollect.id
             it[photo.id] = photo
             mPhotoList.value = it
+        }
+    }
+
+    fun deletePhoto(photo: Photo) {
+        mPhotoList.value?.let {
+            it.remove(photo.id)
+            photo.filepath?.let {
+                deleteFile(it)
+            }
+            collectRepository.deletePhotoById(photoId = photo.id)
+            mPhotoList.value = it
+        }
+    }
+
+    private fun deleteFile(filePath: String) {
+        val file = File(filePath)
+        if (file.exists()) {
+            file.delete()
         }
     }
 

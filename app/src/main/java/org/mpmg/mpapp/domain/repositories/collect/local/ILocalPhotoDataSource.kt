@@ -12,4 +12,7 @@ interface ILocalPhotoDataSource {
     fun getPhotoByID(photoId: String): Photo
 
     fun insertPhotos(photos: List<Photo>)
+
+    fun deletePhotoById(photoId: String)
+
 }
