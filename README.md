@@ -80,8 +80,8 @@ The following diagram represents how most of the app components relate to each o
 ## Sponsors
 
 <h1 align="center">
-  <a href="https://www.mpmg.mp.br/"><img src="../Mobile/app/src/main/res/drawable/mmpg_logo.png" alt="App architecture"></a>
+  <a href="https://www.mpmg.mp.br/"><img src="../Mobile/app/src/main/res/drawable/mmpg_logo.png" alt="MPMG"></a>
   <br>
-  <a href="https://sentry.io/"><img src="../Mobile/assets/sentry-logo-black.png" alt="App architecture"></a>
+  <a href="https://sentry.io/"><img src="../Mobile/assets/sentry-logo-black.png" alt="Sentry"></a>
   <br>
 </h1>
