@@ -4,9 +4,9 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.mpmg.mpapp.domain.models.Collect
-import org.mpmg.mpapp.domain.models.Photo
-import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.Collect
+import org.mpmg.mpapp.domain.database.models.Photo
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
@@ -25,7 +25,12 @@ class CollectViewModel(
 
     private fun newCollect(publicWorkId: String) {
         val currentUser = configRepository.getLoggedUserEmail()
-        currentCollect.postValue(Collect(idPublicWork = publicWorkId, idUser = currentUser))
+        currentCollect.postValue(
+            Collect(
+                idPublicWork = publicWorkId,
+                idUser = currentUser
+            )
+        )
         mPhotoList.postValue(mutableMapOf())
     }
 
@@ -94,7 +99,14 @@ class CollectViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val collection = currentCollect.value ?: return@launch
             val photos = mPhotoList.value ?: return@launch
+            val currentPublicWorkAndAddress = mSelectedPublicWork.value ?: return@launch
+
+            currentPublicWorkAndAddress.publicWork.idCollect = collection.id
             collectRepository.insertCollect(collection, photos.values.toList())
+            publicWorkRepository.insertPublicWork(
+                currentPublicWorkAndAddress.publicWork,
+                currentPublicWorkAndAddress.address
+            )
         }
     }
 

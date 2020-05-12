@@ -85,8 +85,8 @@ class PublicWorkFilterFragment : Fragment() {
                 publicWorkViewModel.getFilteredTypeOfWorks(typesWork.map { it.flag }.toTypedArray())
             val builder =
                 AlertDialog.Builder(it).setTitle(getString(R.string.dialog_type_work_filter_title))
-                    .setMultiChoiceItems(optionsArray, checkedOptions) { dialog, which, isChecked ->
-                        val checked = typesWork.get(which)
+                    .setMultiChoiceItems(optionsArray, checkedOptions) { _, which, isChecked ->
+                        val checked = typesWork[which]
                         publicWorkViewModel.updateTypeWorkFilter(checked.flag, isChecked)
                         updateFilterTypeOfWorksText()
                     }

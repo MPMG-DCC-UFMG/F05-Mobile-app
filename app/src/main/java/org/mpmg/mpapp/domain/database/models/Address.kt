@@ -1,4 +1,4 @@
-package org.mpmg.mpapp.domain.models
+package org.mpmg.mpapp.domain.database.models
 
 import android.location.Location
 import androidx.room.ColumnInfo

@@ -1,6 +1,6 @@
 package org.mpmg.mpapp.ui.shared.filters
 
-import org.mpmg.mpapp.domain.models.PublicWork
+import org.mpmg.mpapp.domain.database.models.PublicWork
 import org.mpmg.mpapp.ui.shared.filters.SyncStatus.*
 
 class FilterSyncStatus : IPublicWorkFilter() {

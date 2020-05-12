@@ -1,6 +1,6 @@
 package org.mpmg.mpapp.domain.repositories.typework
 
-import org.mpmg.mpapp.domain.models.TypeWork
+import org.mpmg.mpapp.domain.database.models.TypeWork
 
 interface ITypeWorkRepository {
 

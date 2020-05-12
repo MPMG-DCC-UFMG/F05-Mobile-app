@@ -1,8 +1,7 @@
-package org.mpmg.mpapp.domain.repositories.user.local
+package org.mpmg.mpapp.domain.repositories.user.datasources
 
 import android.content.Context
-import org.mpmg.mpapp.domain.database.MPDatabase
-import org.mpmg.mpapp.domain.models.User
+import org.mpmg.mpapp.domain.database.models.User
 import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 
 class LocalUserDataSource(applicationContext: Context) : BaseDataSource(applicationContext),

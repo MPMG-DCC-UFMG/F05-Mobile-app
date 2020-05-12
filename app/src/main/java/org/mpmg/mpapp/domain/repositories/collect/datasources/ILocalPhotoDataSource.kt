@@ -1,7 +1,7 @@
-package org.mpmg.mpapp.domain.repositories.collect.local
+package org.mpmg.mpapp.domain.repositories.collect.datasources
 
 import androidx.lifecycle.LiveData
-import org.mpmg.mpapp.domain.models.Photo
+import org.mpmg.mpapp.domain.database.models.Photo
 
 interface ILocalPhotoDataSource {
 

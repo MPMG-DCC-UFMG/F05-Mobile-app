@@ -4,10 +4,11 @@
 
 Project of an application for the MP
 
-## Necessary steps
+## 1. Necessary steps
 
+This section explain all the necessary setup to run the application
 
-### Google Maps
+### 1.1. Google Maps
 
 Before you run your application, you need a Google Maps API key.
 
@@ -23,7 +24,7 @@ content inside the folder **app/src/debug/res/values**. If the folder don't exis
 </resources>
 ```
 
-### Sentry
+### 1.2. Sentry
 
 To track all errors this application it's configure to use [Sentry](https://sentry.io) services.
 
@@ -33,7 +34,7 @@ To enable it, go to the same file you created in the previous section and add th
 <string name="sentry_key" templateMergeStrategy="preserve" translatable="false">SENTRY_DSN_FOUND_IN_DOCUMENTATION</string>
 ```
 
-### Firebase
+### 1.3. Firebase
 
 To authenticate in Twitter and Facebook the Firebase was used for this application. First it's necessary to create a project
 in Firebase and download the file **google_services.json**. All the service setup can be done following the steps in
@@ -41,7 +42,7 @@ in Firebase and download the file **google_services.json**. All the service setu
 
 Follow this steps to enable [Sign In with Twitter](https://firebase.google.com/docs/auth/android/twitter-login)
 
-## Third Party Libraries
+## 2. Third Party Libraries
 
 The third party libraries used in the project were as follows:
 
@@ -51,14 +52,15 @@ The third party libraries used in the project were as follows:
 * [Glide](https://bumptech.github.io/glide/): image caching and loading library for Android.
 * [Material Design](https://material.io/): library of components based on Material Design
 
-## Services
+## 3. Services
 
 The services used in this application were:
 
-* [OpenCage](https://opencagedata.com/api#forward): service used to decode latitude and longitude to address.
+* [Google Geocoding](https://developers.google.com/maps/documentation/geocoding/start?hl=pt): service used to decode latitude and longitude to address.
+* [BigData Cloud](https://www.bigdatacloud.com/geocoding-apis): possible service to be used for reverse geocoding
 * [ViaCEP](https://viacep.com.br/): API used to identify the address via zip code
 
-## App Architecture (Project Structure)
+## 4. App Architecture (Project Structure)
 
 The design of Protector Scout V4 mobile app is based on SOLID principles and on Clean architecture model. Also, many of the project dependencies come from Android Jetpack.
 
@@ -77,7 +79,7 @@ The following diagram represents how most of the app components relate to each o
 * ViewModels are responsible for handling business logic.
 * Repositories abstract the complexities of loading and storing data.
 
-## Sponsors
+## 5. Sponsors
 
 <h1 align="center">
   <a href="https://www.mpmg.mp.br/">

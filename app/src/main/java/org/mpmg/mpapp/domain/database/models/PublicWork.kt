@@ -1,4 +1,4 @@
-package org.mpmg.mpapp.domain.models
+package org.mpmg.mpapp.domain.database.models
 
 import androidx.room.*
 import org.mpmg.mpapp.core.interfaces.BaseModel
@@ -12,11 +12,6 @@ import java.util.*
             entity = TypeWork::class,
             parentColumns = [DatabaseConstants.TypeWork.flag],
             childColumns = [DatabaseConstants.PublicWork.typeWorkFlag],
-            onDelete = ForeignKey.CASCADE
-        ), ForeignKey(
-            entity = Collect::class,
-            parentColumns = [DatabaseConstants.Collect.id],
-            childColumns = [DatabaseConstants.PublicWork.idCollect],
             onDelete = ForeignKey.CASCADE
         )
     ]

@@ -1,10 +1,10 @@
 package org.mpmg.mpapp.domain.repositories.publicwork
 
 import androidx.lifecycle.LiveData
-import org.mpmg.mpapp.domain.models.Address
-import org.mpmg.mpapp.domain.models.PublicWork
-import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
-import org.mpmg.mpapp.domain.repositories.publicwork.local.ILocalPublicWorkDataSource
+import org.mpmg.mpapp.domain.database.models.Address
+import org.mpmg.mpapp.domain.database.models.PublicWork
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.repositories.publicwork.datasources.ILocalPublicWorkDataSource
 
 class PublicWorkRepository(
     private val localPublicWorkDataSource: ILocalPublicWorkDataSource

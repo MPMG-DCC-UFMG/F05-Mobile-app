@@ -33,16 +33,16 @@ class SetupApplicationFragment : Fragment() {
     }
 
     private fun setupViewModels() {
-        configurationViewModel.getSetupSteps().observe(viewLifecycleOwner, Observer { setup ->
+        configurationViewModel.getStepsFinished().observe(viewLifecycleOwner, Observer { setup ->
             setup ?: return@Observer
 
-            if (configurationViewModel.isConfigurationDone()) {
+            if (setup.all { true }) {
                 navigateToList()
             }
         })
     }
 
-    private fun navigateToList(){
+    private fun navigateToList() {
         findNavController().navigate(R.id.action_setupApplicationFragment_to_baseFragment)
     }
 }

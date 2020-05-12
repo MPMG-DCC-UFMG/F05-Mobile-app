@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import org.mpmg.mpapp.domain.database.dao.*
-import org.mpmg.mpapp.domain.models.*
+import org.mpmg.mpapp.domain.database.models.*
 
 @Database(
     entities = [User::class, TypeWork::class, PublicWork::class, Collect::class, Photo::class, Address::class],

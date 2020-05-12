@@ -1,12 +1,12 @@
-package org.mpmg.mpapp.domain.models.relations
+package org.mpmg.mpapp.domain.database.models.relations
 
 import androidx.databinding.Bindable
 import androidx.room.Embedded
 import androidx.room.Relation
 import org.mpmg.mpapp.core.interfaces.BaseModel
 import org.mpmg.mpapp.domain.database.DatabaseConstants
-import org.mpmg.mpapp.domain.models.Address
-import org.mpmg.mpapp.domain.models.PublicWork
+import org.mpmg.mpapp.domain.database.models.Address
+import org.mpmg.mpapp.domain.database.models.PublicWork
 
 data class PublicWorkAndAdress(
     @Embedded val publicWork: PublicWork,

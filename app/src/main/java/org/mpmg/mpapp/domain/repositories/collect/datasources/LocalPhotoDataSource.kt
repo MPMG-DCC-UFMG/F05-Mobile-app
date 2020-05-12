@@ -1,8 +1,8 @@
-package org.mpmg.mpapp.domain.repositories.collect.local
+package org.mpmg.mpapp.domain.repositories.collect.datasources
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import org.mpmg.mpapp.domain.models.Photo
+import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 
 class LocalPhotoDataSource(applicationContext: Context) : BaseDataSource(applicationContext),

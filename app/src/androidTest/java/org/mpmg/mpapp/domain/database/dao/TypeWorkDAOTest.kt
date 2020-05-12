@@ -10,8 +10,8 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mpmg.mpapp.domain.database.MPDatabase
-import org.mpmg.mpapp.domain.models.TypeWork
-import org.mpmg.mpapp.domain.models.User
+import org.mpmg.mpapp.domain.database.models.TypeWork
+import org.mpmg.mpapp.domain.database.models.User
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
@@ -38,8 +38,14 @@ class TypeWorkDAOTest {
     @Test
     @Throws(Exception::class)
     fun test1writeTypeWorkAndListAll() {
-        val typeWork1 = TypeWork(flag = 1,name = "TEST1")
-        val typeWork2 = TypeWork(flag = 2,name = "TEST2")
+        val typeWork1 = TypeWork(
+            flag = 1,
+            name = "TEST1"
+        )
+        val typeWork2 = TypeWork(
+            flag = 2,
+            name = "TEST2"
+        )
 
         typeWorkDAO.insertAll(arrayOf(typeWork1,typeWork2))
         val typeWorks = typeWorkDAO.listAllTypeWork()

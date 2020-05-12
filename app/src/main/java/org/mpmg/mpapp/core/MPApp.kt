@@ -19,7 +19,7 @@ class MPApp : Application() {
     private fun setupKoin() {
         startKoin {
             androidContext(this@MPApp)
-            modules(viewModelModules, repositoriesModules, dataSourceModules, apiModules)
+            modules(viewModelModules, repositoriesModules, dataSourceModules, networkModule)
         }
     }
 

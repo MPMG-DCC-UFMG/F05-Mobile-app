@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.ui.fragments.publicwork.delegates.PublicWorkItemDelegate
 import org.mpmg.mpapp.ui.shared.delegates.StatusAdapterDelegate
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel

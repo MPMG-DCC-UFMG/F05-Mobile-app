@@ -17,7 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentPublicWorkAddBinding
 import org.mpmg.mpapp.databinding.FragmentPublicWorkListBinding
-import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.ui.fragments.publicwork.adapters.PublicWorkListAdapter
 import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel

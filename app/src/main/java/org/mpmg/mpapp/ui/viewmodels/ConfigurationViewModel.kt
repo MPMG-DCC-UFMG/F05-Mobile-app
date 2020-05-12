@@ -1,11 +1,15 @@
 package org.mpmg.mpapp.ui.viewmodels
 
+import android.util.Log
+import androidx.annotation.WorkerThread
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.mpmg.mpapp.domain.database.models.TypeWork
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
 import org.mpmg.mpapp.domain.repositories.typework.ITypeWorkRepository
 
@@ -14,54 +18,48 @@ class ConfigurationViewModel(
     private val configRepository: IConfigRepository
 ) : ViewModel() {
 
-    private val numberOfSteps = 2
-    private val steps = MutableLiveData<MutableList<Boolean>>()
+    private val TAG = ConfigurationViewModel::class.java.name
+
+    private val stepsFinished = MutableLiveData<MutableList<Boolean>>()
 
     init {
-        steps.value = mutableListOf()
+        stepsFinished.value = MutableList(1) { false }
     }
 
-    private val ioScope = CoroutineScope(Dispatchers.IO + Job())
-
     fun startConfigFilesDownload() {
-        ioScope.launch {
-            val currentVersion = configRepository.currentFilesVersion()
-            val serverVersion = configRepository.getServerConfigFilesVersion()
-
-            if (currentVersion == serverVersion) {
-                setConfigurationDone()
-            } else {
-
-                val stepsResult = mutableListOf<Boolean>()
-
-                stepsResult.add(downloadTaskTypeList())
-
-                if (allStepsDone()) {
-                    configRepository.saveConfigFilesVersion(serverVersion)
-                }
-
-                stepsResult.add(allStepsDone())
-                steps.postValue(stepsResult)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            downloadTaskTypeList()
         }
     }
 
-    fun getSetupSteps() = steps
+    fun getStepsFinished() = stepsFinished
 
-    private fun setConfigurationDone() {
-        steps.postValue(MutableList(numberOfSteps) { true })
+    private fun setTaskDone(index: Int) {
+        stepsFinished.value?.let {
+            val newList = it
+            newList[index] = true
+            stepsFinished.postValue(newList)
+        }
     }
 
-    private fun downloadTaskTypeList(): Boolean {
-        val typesWorks = configRepository.loadListTypeWorks()
-        typeWorkRepository.insertTypeWorks(typesWorks)
-        return true
-    }
+    @WorkerThread
+    private suspend fun downloadTaskTypeList() {
+        val currentVersion = configRepository.currentTypeWorksVersion()
+        val serverVersionResult = kotlin.runCatching { configRepository.getTypeWorkVersion() }
 
-    private fun allStepsDone(): Boolean {
-        return steps.value?.contains(false) == false
-    }
+        serverVersionResult.onSuccess {
+            if (currentVersion != it.version) {
+                kotlin.runCatching {
+                    configRepository.loadTypeWorks()
+                }.onSuccess {
+                    typeWorkRepository.insertTypeWorks(it.map { it.toTypeWorkDB() })
+                }
+            }
+        }.onFailure {
+            Log.d(TAG, "failed to download type of works")
+        }
 
-    fun isConfigurationDone() = (steps.value?.size ?: 0) >= numberOfSteps
+        setTaskDone(0)
+    }
 
 }

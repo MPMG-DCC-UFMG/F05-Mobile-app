@@ -1,6 +1,6 @@
-package org.mpmg.mpapp.domain.repositories.typework.local
+package org.mpmg.mpapp.domain.repositories.typework.datasources
 
-import org.mpmg.mpapp.domain.models.TypeWork
+import org.mpmg.mpapp.domain.database.models.TypeWork
 
 interface ILocalTypeWorkDataSource {
 

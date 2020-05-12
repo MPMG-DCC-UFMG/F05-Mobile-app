@@ -1,13 +1,11 @@
-package org.mpmg.mpapp.domain.repositories.publicwork.local
+package org.mpmg.mpapp.domain.repositories.publicwork.datasources
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Transaction
-import org.mpmg.mpapp.domain.database.MPDatabase
-import org.mpmg.mpapp.domain.models.Address
-import org.mpmg.mpapp.domain.models.PublicWork
-import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.Address
+import org.mpmg.mpapp.domain.database.models.PublicWork
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 
 class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(applicationContext),

@@ -1,7 +1,7 @@
-package org.mpmg.mpapp.domain.repositories.collect.local
+package org.mpmg.mpapp.domain.repositories.collect.datasources
 
 import android.content.Context
-import org.mpmg.mpapp.domain.models.Collect
+import org.mpmg.mpapp.domain.database.models.Collect
 import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 
 class LocalCollectDataSource(applicationContext: Context) : BaseDataSource(applicationContext),

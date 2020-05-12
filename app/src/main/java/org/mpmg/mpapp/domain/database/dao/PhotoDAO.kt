@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import org.mpmg.mpapp.core.interfaces.BaseDAO
 import org.mpmg.mpapp.domain.database.DatabaseConstants
-import org.mpmg.mpapp.domain.models.Photo
+import org.mpmg.mpapp.domain.database.models.Photo
 
 @Dao
 abstract class PhotoDAO : BaseDAO<Photo> {

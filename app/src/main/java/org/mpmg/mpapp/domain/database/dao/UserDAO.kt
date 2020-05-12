@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import org.mpmg.mpapp.core.interfaces.BaseDAO
 import org.mpmg.mpapp.domain.database.DatabaseConstants
-import org.mpmg.mpapp.domain.models.User
+import org.mpmg.mpapp.domain.database.models.User
 
 @Dao
 abstract class UserDAO : BaseDAO<User> {

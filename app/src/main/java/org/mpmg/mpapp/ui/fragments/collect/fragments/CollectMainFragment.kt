@@ -15,11 +15,12 @@ import kotlinx.android.synthetic.main.fragment_collect_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentCollectMainBinding
-import org.mpmg.mpapp.domain.models.Photo
+import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.ui.fragments.collect.adapters.PhotoListAdapter
 import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
 import org.mpmg.mpapp.ui.viewmodels.PhotoViewModel
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
+import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
 
 class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListener {
 
@@ -28,6 +29,7 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
     private val collectViewModel: CollectViewModel by sharedViewModel()
     private val photoViewModel: PhotoViewModel by sharedViewModel()
     private val publicWorkViewModel: PublicWorkViewModel by sharedViewModel()
+    private val typeWorkViewModel: TypeWorkViewModel by sharedViewModel()
 
     private var navigationController: NavController? = null
     private lateinit var photoListAdapter: PhotoListAdapter
@@ -99,7 +101,9 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
 
     private fun setSelectPublicWorkToEdit() {
         collectViewModel.getPublicWork().value?.let {
+            val typeWork = typeWorkViewModel.getTypeOfWorkFromFlag(it.publicWork.typeWorkFlag)
             publicWorkViewModel.setCurrentPublicWorkAddress(it)
+            publicWorkViewModel.setCurrentTypeWork(typeWork)
         }
     }
 

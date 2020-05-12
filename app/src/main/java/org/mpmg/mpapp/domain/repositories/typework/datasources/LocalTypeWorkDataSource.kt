@@ -1,8 +1,7 @@
-package org.mpmg.mpapp.domain.repositories.typework.local
+package org.mpmg.mpapp.domain.repositories.typework.datasources
 
 import android.content.Context
-import org.mpmg.mpapp.domain.database.MPDatabase
-import org.mpmg.mpapp.domain.models.TypeWork
+import org.mpmg.mpapp.domain.database.models.TypeWork
 import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 
 class LocalTypeWorkDataSource(applicationContext: Context) : BaseDataSource(applicationContext), ILocalTypeWorkDataSource {

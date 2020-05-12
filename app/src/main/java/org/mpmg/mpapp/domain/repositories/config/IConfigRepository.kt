@@ -1,18 +1,20 @@
 package org.mpmg.mpapp.domain.repositories.config
 
-import org.mpmg.mpapp.domain.models.TypeWork
+import org.mpmg.mpapp.domain.database.models.TypeWork
+import org.mpmg.mpapp.domain.network.models.EntityVersion
+import org.mpmg.mpapp.domain.network.models.TypeWorkRemote
 
 interface IConfigRepository {
 
-    fun loadListTypeWorks(): List<TypeWork>
+    suspend fun loadTypeWorks(): List<TypeWorkRemote>
 
-    fun getServerConfigFilesVersion(): Int
+    suspend fun getTypeWorkVersion(): EntityVersion
 
-    fun saveConfigFilesVersion(configVersion: Int)
+    fun saveTypeWorksVersion(typeWorksVersion: Int)
 
-    fun currentFilesVersion(): Int
+    fun currentTypeWorksVersion(): Int
 
-    fun setLoggedUserEmail(email : String)
+    fun setLoggedUserEmail(email: String)
 
-    fun getLoggedUserEmail():String
+    fun getLoggedUserEmail(): String
 }

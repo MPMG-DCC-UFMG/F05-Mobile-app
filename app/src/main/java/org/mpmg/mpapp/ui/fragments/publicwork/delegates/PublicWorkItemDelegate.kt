@@ -13,7 +13,7 @@ import org.koin.core.KoinComponent
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.interfaces.BaseDelegate
 import org.mpmg.mpapp.core.interfaces.BaseModel
-import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 
 class PublicWorkItemDelegate(val locationViewModel: LocationViewModel) : BaseDelegate<BaseModel>,

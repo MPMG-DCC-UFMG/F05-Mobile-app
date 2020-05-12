@@ -1,44 +1,36 @@
 package org.mpmg.mpapp.domain.repositories.config
 
-import android.content.Context
-import org.mpmg.mpapp.core.Constants
-import org.mpmg.mpapp.domain.network.MPApi
-import org.mpmg.mpapp.domain.models.TypeWork
+import org.mpmg.mpapp.domain.network.api.MPApi
+import org.mpmg.mpapp.domain.database.models.TypeWork
+import org.mpmg.mpapp.domain.network.models.EntityVersion
+import org.mpmg.mpapp.domain.network.models.TypeWorkRemote
+import org.mpmg.mpapp.domain.repositories.config.datasources.ILocalConfigDataSource
 
-class ConfigRepository(val mpApi: MPApi, val applicationContext: Context) : IConfigRepository {
+class ConfigRepository(val mpApi: MPApi, val localConfigDataSource: ILocalConfigDataSource) :
+    IConfigRepository {
 
-    private val sharedPreferences = applicationContext.getSharedPreferences(
-        Constants.PREFERENCES_MPPAPP_NAME,
-        Context.MODE_PRIVATE
-    )
 
-    override fun loadListTypeWorks(): List<TypeWork> {
-        return mpApi.loadTypeWorkAPI()
+    override suspend fun loadTypeWorks(): List<TypeWorkRemote> {
+        return mpApi.loadTypeWorks()
     }
 
-    override fun getServerConfigFilesVersion(): Int {
-        return mpApi.getConfigFilesVersion()
+    override suspend fun getTypeWorkVersion(): EntityVersion {
+        return mpApi.getTypeWorkVersion()
     }
 
-    override fun saveConfigFilesVersion(configVersion: Int) {
-        with(sharedPreferences.edit()) {
-            putInt(Constants.PREFERENCES_CONFIG_FILES_VERSION_KEY, configVersion)
-            commit()
-        }
+    override fun saveTypeWorksVersion(typeWorksVersion: Int) {
+        localConfigDataSource.saveTypeWorksVersion(typeWorksVersion)
     }
 
-    override fun currentFilesVersion(): Int {
-        return sharedPreferences.getInt(Constants.PREFERENCES_CONFIG_FILES_VERSION_KEY, 0)
+    override fun currentTypeWorksVersion(): Int {
+        return localConfigDataSource.currentTypeWorksVersion()
     }
 
     override fun setLoggedUserEmail(email: String) {
-        with(sharedPreferences.edit()) {
-            putString(Constants.PREFERENCES_LOGGED_USER_EMAIL, email)
-            commit()
-        }
+        localConfigDataSource.setLoggedUserEmail(email)
     }
 
     override fun getLoggedUserEmail(): String {
-        return sharedPreferences.getString(Constants.PREFERENCES_LOGGED_USER_EMAIL, "") ?: ""
+        return localConfigDataSource.getLoggedUserEmail()
     }
 }

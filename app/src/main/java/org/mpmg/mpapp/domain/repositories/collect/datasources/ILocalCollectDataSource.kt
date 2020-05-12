@@ -1,6 +1,6 @@
-package org.mpmg.mpapp.domain.repositories.collect.local
+package org.mpmg.mpapp.domain.repositories.collect.datasources
 
-import org.mpmg.mpapp.domain.models.Collect
+import org.mpmg.mpapp.domain.database.models.Collect
 
 interface ILocalCollectDataSource {
 
