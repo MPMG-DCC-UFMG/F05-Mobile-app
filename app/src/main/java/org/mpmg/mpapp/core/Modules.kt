@@ -16,7 +16,9 @@ import org.mpmg.mpapp.domain.repositories.collect.datasources.ILocalPhotoDataSou
 import org.mpmg.mpapp.domain.repositories.collect.datasources.LocalCollectDataSource
 import org.mpmg.mpapp.domain.repositories.collect.datasources.LocalPhotoDataSource
 import org.mpmg.mpapp.domain.repositories.config.datasources.ILocalConfigDataSource
+import org.mpmg.mpapp.domain.repositories.config.datasources.IRemoteConfigDataSource
 import org.mpmg.mpapp.domain.repositories.config.datasources.LocalConfigDataSource
+import org.mpmg.mpapp.domain.repositories.config.datasources.RemoteConfigDataSource
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.datasources.ILocalPublicWorkDataSource
@@ -35,7 +37,7 @@ val viewModelModules = module {
     viewModel { LoginViewModel(androidApplication(), get(), get()) }
     viewModel { LocationViewModel() }
     viewModel { PublicWorkViewModel(get()) }
-    viewModel { ConfigurationViewModel(get(), get()) }
+    viewModel { ConfigurationViewModel(get(), get(), get()) }
     viewModel { TypeWorkViewModel(get()) }
     viewModel { CollectViewModel(get(), get(), get()) }
     viewModel { PhotoViewModel() }
@@ -62,4 +64,5 @@ val dataSourceModules = module {
     single { LocalPhotoDataSource(androidApplication()) as ILocalPhotoDataSource }
     single { LocalCollectDataSource(androidApplication()) as ILocalCollectDataSource }
     single { LocalConfigDataSource(androidApplication()) as ILocalConfigDataSource }
+    single { RemoteConfigDataSource(get()) as IRemoteConfigDataSource }
 }

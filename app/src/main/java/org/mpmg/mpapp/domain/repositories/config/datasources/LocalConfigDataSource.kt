@@ -31,4 +31,15 @@ class LocalConfigDataSource(val applicationContext: Context) : ILocalConfigDataS
     override fun getLoggedUserEmail(): String {
         return sharedPreferences.getString(Constants.PREFERENCES_LOGGED_USER_EMAIL, "") ?: ""
     }
+
+    override fun savePublicWorkVersion(publicWorkVersion: Int) {
+        with(sharedPreferences.edit()) {
+            putInt(Constants.PREFERENCES_PUBLIC_WORK_VERSION_KEY, publicWorkVersion)
+            commit()
+        }
+    }
+
+    override fun currentPublicWorkVersion(): Int {
+        return sharedPreferences.getInt(Constants.PREFERENCES_PUBLIC_WORK_VERSION_KEY, -1)
+    }
 }

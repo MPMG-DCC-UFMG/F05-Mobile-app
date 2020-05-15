@@ -3,19 +3,32 @@ package org.mpmg.mpapp.domain.repositories.config
 import org.mpmg.mpapp.domain.network.api.MPApi
 import org.mpmg.mpapp.domain.database.models.TypeWork
 import org.mpmg.mpapp.domain.network.models.EntityVersion
+import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
 import org.mpmg.mpapp.domain.network.models.TypeWorkRemote
 import org.mpmg.mpapp.domain.repositories.config.datasources.ILocalConfigDataSource
+import org.mpmg.mpapp.domain.repositories.config.datasources.IRemoteConfigDataSource
+import org.mpmg.mpapp.domain.repositories.config.datasources.RemoteConfigDataSource
 
-class ConfigRepository(val mpApi: MPApi, val localConfigDataSource: ILocalConfigDataSource) :
+class ConfigRepository(
+    private val remoteConfigDataSource: IRemoteConfigDataSource,
+    private val localConfigDataSource: ILocalConfigDataSource
+) :
     IConfigRepository {
 
-
     override suspend fun loadTypeWorks(): List<TypeWorkRemote> {
-        return mpApi.loadTypeWorks()
+        return remoteConfigDataSource.loadTypeWorks()
     }
 
     override suspend fun getTypeWorkVersion(): EntityVersion {
-        return mpApi.getTypeWorkVersion()
+        return remoteConfigDataSource.getTypeWorkVersion()
+    }
+
+    override suspend fun loadPublicWorks(): List<PublicWorkRemote> {
+        return remoteConfigDataSource.loadPublicWorks()
+    }
+
+    override suspend fun getPublicWorkVersion(): EntityVersion {
+        return remoteConfigDataSource.getPublicWorkVersion()
     }
 
     override fun saveTypeWorksVersion(typeWorksVersion: Int) {
@@ -32,5 +45,13 @@ class ConfigRepository(val mpApi: MPApi, val localConfigDataSource: ILocalConfig
 
     override fun getLoggedUserEmail(): String {
         return localConfigDataSource.getLoggedUserEmail()
+    }
+
+    override fun savePublicWorkVersion(publicWorkVersion: Int) {
+        localConfigDataSource.savePublicWorkVersion(publicWorkVersion)
+    }
+
+    override fun currentPublicWorkVersion(): Int {
+        return localConfigDataSource.currentPublicWorkVersion()
     }
 }

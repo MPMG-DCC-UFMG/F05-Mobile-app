@@ -40,6 +40,7 @@ class PublicWorkViewModel(
     val isPublicWorkValid: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     val query: MutableLiveData<String> = MutableLiveData<String>()
     val sortedCheckedId: MutableLiveData<Int> = MutableLiveData<Int>()
+    val isNewPublicWork: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 
     private var currentLocation: Location? = null
 
@@ -82,6 +83,7 @@ class PublicWorkViewModel(
     fun newCurrentPublicWorkAddress() {
         val publicWork = PublicWorkUI()
         val address = AddressUI()
+        isNewPublicWork.value = true
 
         updateCurrentPublicWorkAddress(publicWork, address)
     }
@@ -97,6 +99,7 @@ class PublicWorkViewModel(
     fun setCurrentPublicWorkAddress(publicWorkAndAddress: PublicWorkAndAdress) {
         val publicWorkUI = PublicWorkUI(publicWorkAndAddress.publicWork)
         val addressUI = AddressUI(publicWorkAndAddress.address)
+        isNewPublicWork.value = false
 
         updateCurrentPublicWorkAddress(publicWorkUI, addressUI)
     }

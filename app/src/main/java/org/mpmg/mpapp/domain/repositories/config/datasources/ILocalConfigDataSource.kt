@@ -6,6 +6,10 @@ interface ILocalConfigDataSource {
 
     fun currentTypeWorksVersion(): Int
 
+    fun savePublicWorkVersion(publicWorkVersion: Int)
+
+    fun currentPublicWorkVersion(): Int
+
     fun setLoggedUserEmail(email: String)
 
     fun getLoggedUserEmail(): String

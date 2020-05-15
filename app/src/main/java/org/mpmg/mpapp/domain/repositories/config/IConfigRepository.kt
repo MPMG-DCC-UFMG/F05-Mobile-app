@@ -1,20 +1,8 @@
 package org.mpmg.mpapp.domain.repositories.config
 
-import org.mpmg.mpapp.domain.database.models.TypeWork
-import org.mpmg.mpapp.domain.network.models.EntityVersion
-import org.mpmg.mpapp.domain.network.models.TypeWorkRemote
+import org.mpmg.mpapp.domain.repositories.config.datasources.ILocalConfigDataSource
+import org.mpmg.mpapp.domain.repositories.config.datasources.IRemoteConfigDataSource
 
-interface IConfigRepository {
+interface IConfigRepository : IRemoteConfigDataSource, ILocalConfigDataSource {
 
-    suspend fun loadTypeWorks(): List<TypeWorkRemote>
-
-    suspend fun getTypeWorkVersion(): EntityVersion
-
-    fun saveTypeWorksVersion(typeWorksVersion: Int)
-
-    fun currentTypeWorksVersion(): Int
-
-    fun setLoggedUserEmail(email: String)
-
-    fun getLoggedUserEmail(): String
 }

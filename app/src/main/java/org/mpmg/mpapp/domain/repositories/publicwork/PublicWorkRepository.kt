@@ -28,4 +28,10 @@ class PublicWorkRepository(
     override fun getPublicWorkByIdLive(publicWorkId: String): LiveData<PublicWorkAndAdress> {
         return localPublicWorkDataSource.getPublicWorkByIdLive(publicWorkId)
     }
+
+    override fun insertPublicWorks(publicWorkAndAddress: List<PublicWorkAndAdress>) {
+        publicWorkAndAddress.forEach {
+            insertPublicWork(it.publicWork, it.address)
+        }
+    }
 }

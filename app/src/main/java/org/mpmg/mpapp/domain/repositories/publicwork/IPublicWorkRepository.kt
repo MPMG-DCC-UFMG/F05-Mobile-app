@@ -9,6 +9,8 @@ interface IPublicWorkRepository {
 
     fun insertPublicWork(publicWork: PublicWork, address: Address)
 
+    fun insertPublicWorks(publicWorkAndAddress: List<PublicWorkAndAdress>)
+
     fun listAllPublicWorks(): List<PublicWorkAndAdress>
 
     fun listAllPublicWorksLive(): LiveData<List<PublicWorkAndAdress>>
