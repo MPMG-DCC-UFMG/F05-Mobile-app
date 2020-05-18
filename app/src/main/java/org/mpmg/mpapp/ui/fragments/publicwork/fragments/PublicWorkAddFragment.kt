@@ -15,6 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.extensions.observeOnce
 import org.mpmg.mpapp.databinding.FragmentPublicWorkAddBinding
+import org.mpmg.mpapp.domain.database.models.TypeWork
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
@@ -53,7 +54,7 @@ class PublicWorkAddFragment : Fragment() {
     private fun initTypeWork() {
         typeWorkViewModel.getTypeOfWorkList()
             .observeOnce(viewLifecycleOwner, Observer { typeWorkList ->
-                publicWorkViewModel.setCurrentTypeWork(typeWorkList.first())
+                publicWorkViewModel.setInitialTypeWork(typeWorkList[0])
             })
     }
 

@@ -3,7 +3,7 @@ package org.mpmg.mpapp.ui.fragments.publicwork.models
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
-import org.mpmg.mpapp.domain.models.PublicWork
+import org.mpmg.mpapp.domain.database.models.PublicWork
 
 data class PublicWorkUI(
     var id: String? = null,

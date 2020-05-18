@@ -10,9 +10,9 @@ import kotlinx.android.synthetic.main.item_public_work_list.view.*
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.interfaces.BaseDelegate
 import org.mpmg.mpapp.core.interfaces.BaseModel
-import org.mpmg.mpapp.domain.models.Photo
-import org.mpmg.mpapp.domain.models.PublicWork
-import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.Photo
+import org.mpmg.mpapp.domain.database.models.PublicWork
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
 
 class PhotoItemDelegate : BaseDelegate<BaseModel> {
 

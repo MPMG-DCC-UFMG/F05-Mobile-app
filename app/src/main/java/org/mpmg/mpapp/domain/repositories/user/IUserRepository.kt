@@ -1,6 +1,6 @@
 package org.mpmg.mpapp.domain.repositories.user
 
-import org.mpmg.mpapp.domain.models.User
+import org.mpmg.mpapp.domain.database.models.User
 
 interface IUserRepository {
 

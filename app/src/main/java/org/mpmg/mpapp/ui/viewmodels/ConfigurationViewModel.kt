@@ -1,67 +1,89 @@
 package org.mpmg.mpapp.ui.viewmodels
 
+import android.util.Log
+import androidx.annotation.WorkerThread
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.mpmg.mpapp.domain.database.models.TypeWork
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
+import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
 import org.mpmg.mpapp.domain.repositories.typework.ITypeWorkRepository
 
 class ConfigurationViewModel(
     private val typeWorkRepository: ITypeWorkRepository,
-    private val configRepository: IConfigRepository
+    private val configRepository: IConfigRepository,
+    private val publicWorkRepository: IPublicWorkRepository
 ) : ViewModel() {
 
-    private val numberOfSteps = 2
-    private val steps = MutableLiveData<MutableList<Boolean>>()
+    private val TAG = ConfigurationViewModel::class.java.name
+
+    private val stepsFinished = MutableLiveData<MutableList<Boolean>>()
 
     init {
-        steps.value = mutableListOf()
+        stepsFinished.value = MutableList(2) { false }
     }
 
-    private val ioScope = CoroutineScope(Dispatchers.IO + Job())
-
     fun startConfigFilesDownload() {
-        ioScope.launch {
-            val currentVersion = configRepository.currentFilesVersion()
-            val serverVersion = configRepository.getServerConfigFilesVersion()
-
-            if (currentVersion == serverVersion) {
-                setConfigurationDone()
-            } else {
-
-                val stepsResult = mutableListOf<Boolean>()
-
-                stepsResult.add(downloadTaskTypeList())
-
-                if (allStepsDone()) {
-                    configRepository.saveConfigFilesVersion(serverVersion)
-                }
-
-                stepsResult.add(allStepsDone())
-                steps.postValue(stepsResult)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            downloadTaskTypeList()
+            downloadPublicWorkList()
         }
     }
 
-    fun getSetupSteps() = steps
+    fun getStepsFinished() = stepsFinished
 
-    private fun setConfigurationDone() {
-        steps.postValue(MutableList(numberOfSteps) { true })
+    private fun setTaskDone(index: Int) {
+        stepsFinished.value?.let {
+            val newList = it
+            newList[index] = true
+            stepsFinished.postValue(newList)
+        }
     }
 
-    private fun downloadTaskTypeList(): Boolean {
-        val typesWorks = configRepository.loadListTypeWorks()
-        typeWorkRepository.insertTypeWorks(typesWorks)
-        return true
+    private suspend fun downloadPublicWorkList() {
+        val currentVersion = configRepository.currentPublicWorkVersion()
+        val serverVersionResult = kotlin.runCatching { configRepository.getPublicWorkVersion() }
+
+        serverVersionResult.onSuccess { publicWorkVersion ->
+            if (currentVersion != publicWorkVersion.version) {
+                kotlin.runCatching {
+                    configRepository.loadPublicWorks()
+                }.onSuccess { listPublicWorkRemote ->
+                    publicWorkRepository.insertPublicWorks(listPublicWorkRemote.map { it.toPublicWorkAndAddressDB() })
+                    configRepository.savePublicWorkVersion(currentVersion)
+                }
+            }
+        }.onFailure {
+            Log.d(TAG, "failed to download type of works")
+        }
+
+        setTaskDone(1)
     }
 
-    private fun allStepsDone(): Boolean {
-        return steps.value?.contains(false) == false
-    }
+    @WorkerThread
+    private suspend fun downloadTaskTypeList() {
+        val currentVersion = configRepository.currentTypeWorksVersion()
+        val serverVersionResult = kotlin.runCatching { configRepository.getTypeWorkVersion() }
 
-    fun isConfigurationDone() = (steps.value?.size ?: 0) >= numberOfSteps
+        serverVersionResult.onSuccess {
+            if (currentVersion != it.version) {
+                kotlin.runCatching {
+                    configRepository.loadTypeWorks()
+                }.onSuccess {
+                    typeWorkRepository.insertTypeWorks(it.map { it.toTypeWorkDB() })
+                    configRepository.saveTypeWorksVersion(currentVersion)
+                }
+            }
+        }.onFailure {
+            Log.d(TAG, "failed to download type of works")
+        }
+
+        setTaskDone(0)
+    }
 
 }

@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_default"
                     android:layout_marginTop="@dimen/margin_xxlarge"
-                    android:text="@string/title_public_work_add"
+                    android:text="@{publicWorkViewModel.isNewPublicWork ? @string/title_public_work_add : @string/title_public_work_edit }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -236,7 +236,7 @@
                     android:layout_width="146dp"
                     android:layout_height="@dimen/height_default"
                     android:enabled="@{publicWorkViewModel.isPublicWorkValid}"
-                    android:text="@string/title_public_work_add"
+                    android:text="@{publicWorkViewModel.isNewPublicWork ? @string/title_public_work_add : @string/title_public_work_edit }"
                     app:layout_constraintBottom_toBottomOf="@+id/materialButton_addPublicWorkFragment_cancel"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"

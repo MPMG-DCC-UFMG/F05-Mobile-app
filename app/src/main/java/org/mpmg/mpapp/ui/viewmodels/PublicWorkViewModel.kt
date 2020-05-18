@@ -9,8 +9,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.mpmg.mpapp.domain.models.TypeWork
-import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.TypeWork
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
 import org.mpmg.mpapp.ui.fragments.publicwork.models.AddressUI
 import org.mpmg.mpapp.ui.fragments.publicwork.models.PublicWorkUI
@@ -40,6 +40,7 @@ class PublicWorkViewModel(
     val isPublicWorkValid: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     val query: MutableLiveData<String> = MutableLiveData<String>()
     val sortedCheckedId: MutableLiveData<Int> = MutableLiveData<Int>()
+    val isNewPublicWork: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 
     private var currentLocation: Location? = null
 
@@ -82,6 +83,7 @@ class PublicWorkViewModel(
     fun newCurrentPublicWorkAddress() {
         val publicWork = PublicWorkUI()
         val address = AddressUI()
+        isNewPublicWork.value = true
 
         updateCurrentPublicWorkAddress(publicWork, address)
     }
@@ -97,6 +99,7 @@ class PublicWorkViewModel(
     fun setCurrentPublicWorkAddress(publicWorkAndAddress: PublicWorkAndAdress) {
         val publicWorkUI = PublicWorkUI(publicWorkAndAddress.publicWork)
         val addressUI = AddressUI(publicWorkAndAddress.address)
+        isNewPublicWork.value = false
 
         updateCurrentPublicWorkAddress(publicWorkUI, addressUI)
     }
@@ -109,7 +112,13 @@ class PublicWorkViewModel(
         return currentAddress.isLocationValid()
     }
 
-    fun setCurrentTypeWork(typeWork: TypeWork) {
+    fun setInitialTypeWork(typeWork: TypeWork) {
+        if(currentTypeWork.value == null){
+            currentTypeWork.value = typeWork
+        }
+    }
+
+    fun setCurrentTypeWork(typeWork: TypeWork?) {
         currentTypeWork.value = typeWork
     }
 

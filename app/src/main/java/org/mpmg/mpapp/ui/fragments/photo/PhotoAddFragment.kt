@@ -27,7 +27,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.BuildConfig
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentAddPhotoBinding
-import org.mpmg.mpapp.domain.models.Photo
+import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 import org.mpmg.mpapp.ui.viewmodels.PhotoViewModel

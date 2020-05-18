@@ -12,7 +12,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mpmg.mpapp.domain.database.MPDatabase
-import org.mpmg.mpapp.domain.models.User
+import org.mpmg.mpapp.domain.database.models.User
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
@@ -39,8 +39,14 @@ class UserDAOTest {
     @Test
     @Throws(Exception::class)
     fun test1writeUserAndListAll() {
-        val user = User(name = "Test", email = "test@test.com")
-        val user2 = User(name = "Test", email = "test2@test.com")
+        val user = User(
+            name = "Test",
+            email = "test@test.com"
+        )
+        val user2 = User(
+            name = "Test",
+            email = "test2@test.com"
+        )
         userDao.insert(user)
         userDao.insert(user2)
         val usersList = userDao.listAllUsers()
@@ -50,8 +56,14 @@ class UserDAOTest {
     @Test
     @Throws(Exception::class)
     fun test2insertAll() {
-        val user = User(name = "Test", email = "test3@test.com")
-        val user2 = User(name = "Test", email = "test4@test.com")
+        val user = User(
+            name = "Test",
+            email = "test3@test.com"
+        )
+        val user2 = User(
+            name = "Test",
+            email = "test4@test.com"
+        )
         userDao.insertAll(arrayOf(user, user2))
         val usersList = userDao.listAllUsers()
         assert(usersList.find { user.email == "test3@test.com" } != null)
@@ -61,7 +73,10 @@ class UserDAOTest {
     @Test
     @Throws(Exception::class)
     fun test3writeUserAndFindByEmail() {
-        val user = User(name = "Test", email = "test5@test.com")
+        val user = User(
+            name = "Test",
+            email = "test5@test.com"
+        )
         userDao.insert(user)
         val byName = userDao.getUserByEmail("test5@test.com")
         byName?.let {

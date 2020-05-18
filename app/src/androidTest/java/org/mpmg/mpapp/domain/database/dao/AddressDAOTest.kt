@@ -10,9 +10,9 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mpmg.mpapp.domain.database.MPDatabase
-import org.mpmg.mpapp.domain.models.Address
-import org.mpmg.mpapp.domain.models.PublicWork
-import org.mpmg.mpapp.domain.models.TypeWork
+import org.mpmg.mpapp.domain.database.models.Address
+import org.mpmg.mpapp.domain.database.models.PublicWork
+import org.mpmg.mpapp.domain.database.models.TypeWork
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
@@ -20,7 +20,8 @@ class AddressDAOTest {
 
     private lateinit var addressDAO: AddressDAO
     private lateinit var db: MPDatabase
-    private val typeWork = TypeWork(flag = 1, name = "TEST1")
+    private val typeWork =
+        TypeWork(flag = 1, name = "TEST1")
     private val publicWork1 = PublicWork(
         id = "T1",
         name = "Test",

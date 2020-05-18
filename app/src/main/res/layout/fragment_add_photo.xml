@@ -22,14 +22,15 @@
             android:id="@+id/constraintLayout_addPhotoFragment_mainContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_main">
+            android:background="@drawable/background_main"
+            android:paddingBottom="@dimen/margin_xxlarge">
 
             <TextView
                 android:id="@+id/textView_addPhotoFragment_photoType"
                 style="@style/MPAppTheme.Title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_xlarge"
+                android:layout_marginTop="@dimen/margin_xxxlarge"
                 android:text="@string/title_add_photo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +41,7 @@
                 android:layout_width="0dp"
                 android:layout_height="300dp"
                 android:layout_marginStart="@dimen/margin_xxlarge"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="@dimen/margin_xxlarge"
                 android:layout_marginEnd="@dimen/margin_xxlarge"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -61,16 +62,14 @@
                 android:id="@+id/editText_addPhotoFragment_comments"
                 style="@style/MPAppTheme.EditText2"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="@dimen/margin_xxlarge"
-                android:layout_marginBottom="@dimen/margin_xxlarge"
+                android:layout_height="100dp"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:gravity="top|start"
                 android:hint="@string/label_add_comment_hint"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
                 android:maxLength="200"
                 android:text="@={photoViewModel.photo.comment}"
-                app:layout_constraintBottom_toTopOf="@+id/materialButton_addPhotoFragment_confirmPhoto"
                 app:layout_constraintEnd_toEndOf="@+id/cardView"
                 app:layout_constraintStart_toStartOf="@+id/cardView"
                 app:layout_constraintTop_toBottomOf="@+id/cardView"
@@ -81,29 +80,29 @@
                 style="@style/MPAppTheme.ButtonBigBlue"
                 android:layout_width="300dp"
                 android:layout_height="@dimen/height_default"
-                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_xxlarge"
                 android:text="@string/button_confirm_photo"
                 app:icon="@drawable/ic_camera"
                 app:iconGravity="textStart"
-                app:layout_constraintBottom_toTopOf="@+id/materialButton_addPhotoFragment_deletePhoto"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText_addPhotoFragment_comments" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/materialButton_addPhotoFragment_deletePhoto"
                 style="@style/MPAppTheme.ButtonBigWhite"
                 android:layout_width="300dp"
                 android:layout_height="@dimen/height_default"
-                android:layout_marginBottom="@dimen/margin_xxxlarge"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:text="@string/button_delete_photo"
                 android:textColor="@color/buttonInvalid1"
                 android:visibility="@{photoViewModel.photo.filepath !=null ? View.VISIBLE : View.GONE}"
                 app:icon="@drawable/ic_trash"
                 app:iconGravity="textStart"
                 app:iconTint="@color/buttonInvalid1"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialButton_addPhotoFragment_confirmPhoto" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

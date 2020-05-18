@@ -1,44 +1,57 @@
 package org.mpmg.mpapp.domain.repositories.config
 
-import android.content.Context
-import org.mpmg.mpapp.core.Constants
-import org.mpmg.mpapp.domain.network.MPApi
-import org.mpmg.mpapp.domain.models.TypeWork
+import org.mpmg.mpapp.domain.network.api.MPApi
+import org.mpmg.mpapp.domain.database.models.TypeWork
+import org.mpmg.mpapp.domain.network.models.EntityVersion
+import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
+import org.mpmg.mpapp.domain.network.models.TypeWorkRemote
+import org.mpmg.mpapp.domain.repositories.config.datasources.ILocalConfigDataSource
+import org.mpmg.mpapp.domain.repositories.config.datasources.IRemoteConfigDataSource
+import org.mpmg.mpapp.domain.repositories.config.datasources.RemoteConfigDataSource
 
-class ConfigRepository(val mpApi: MPApi, val applicationContext: Context) : IConfigRepository {
+class ConfigRepository(
+    private val remoteConfigDataSource: IRemoteConfigDataSource,
+    private val localConfigDataSource: ILocalConfigDataSource
+) :
+    IConfigRepository {
 
-    private val sharedPreferences = applicationContext.getSharedPreferences(
-        Constants.PREFERENCES_MPPAPP_NAME,
-        Context.MODE_PRIVATE
-    )
-
-    override fun loadListTypeWorks(): List<TypeWork> {
-        return mpApi.loadTypeWorkAPI()
+    override suspend fun loadTypeWorks(): List<TypeWorkRemote> {
+        return remoteConfigDataSource.loadTypeWorks()
     }
 
-    override fun getServerConfigFilesVersion(): Int {
-        return mpApi.getConfigFilesVersion()
+    override suspend fun getTypeWorkVersion(): EntityVersion {
+        return remoteConfigDataSource.getTypeWorkVersion()
     }
 
-    override fun saveConfigFilesVersion(configVersion: Int) {
-        with(sharedPreferences.edit()) {
-            putInt(Constants.PREFERENCES_CONFIG_FILES_VERSION_KEY, configVersion)
-            commit()
-        }
+    override suspend fun loadPublicWorks(): List<PublicWorkRemote> {
+        return remoteConfigDataSource.loadPublicWorks()
     }
 
-    override fun currentFilesVersion(): Int {
-        return sharedPreferences.getInt(Constants.PREFERENCES_CONFIG_FILES_VERSION_KEY, 0)
+    override suspend fun getPublicWorkVersion(): EntityVersion {
+        return remoteConfigDataSource.getPublicWorkVersion()
+    }
+
+    override fun saveTypeWorksVersion(typeWorksVersion: Int) {
+        localConfigDataSource.saveTypeWorksVersion(typeWorksVersion)
+    }
+
+    override fun currentTypeWorksVersion(): Int {
+        return localConfigDataSource.currentTypeWorksVersion()
     }
 
     override fun setLoggedUserEmail(email: String) {
-        with(sharedPreferences.edit()) {
-            putString(Constants.PREFERENCES_LOGGED_USER_EMAIL, email)
-            commit()
-        }
+        localConfigDataSource.setLoggedUserEmail(email)
     }
 
     override fun getLoggedUserEmail(): String {
-        return sharedPreferences.getString(Constants.PREFERENCES_LOGGED_USER_EMAIL, "") ?: ""
+        return localConfigDataSource.getLoggedUserEmail()
+    }
+
+    override fun savePublicWorkVersion(publicWorkVersion: Int) {
+        localConfigDataSource.savePublicWorkVersion(publicWorkVersion)
+    }
+
+    override fun currentPublicWorkVersion(): Int {
+        return localConfigDataSource.currentPublicWorkVersion()
     }
 }

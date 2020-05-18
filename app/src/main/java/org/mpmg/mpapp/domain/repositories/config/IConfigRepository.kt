@@ -1,18 +1,8 @@
 package org.mpmg.mpapp.domain.repositories.config
 
-import org.mpmg.mpapp.domain.models.TypeWork
+import org.mpmg.mpapp.domain.repositories.config.datasources.ILocalConfigDataSource
+import org.mpmg.mpapp.domain.repositories.config.datasources.IRemoteConfigDataSource
 
-interface IConfigRepository {
+interface IConfigRepository : IRemoteConfigDataSource, ILocalConfigDataSource {
 
-    fun loadListTypeWorks(): List<TypeWork>
-
-    fun getServerConfigFilesVersion(): Int
-
-    fun saveConfigFilesVersion(configVersion: Int)
-
-    fun currentFilesVersion(): Int
-
-    fun setLoggedUserEmail(email : String)
-
-    fun getLoggedUserEmail():String
 }

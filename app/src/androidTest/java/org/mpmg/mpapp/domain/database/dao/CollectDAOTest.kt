@@ -10,6 +10,10 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mpmg.mpapp.domain.database.MPDatabase
+import org.mpmg.mpapp.domain.database.models.Collect
+import org.mpmg.mpapp.domain.database.models.PublicWork
+import org.mpmg.mpapp.domain.database.models.TypeWork
+import org.mpmg.mpapp.domain.database.models.User
 import org.mpmg.mpapp.domain.models.*
 import java.io.IOException
 
@@ -18,8 +22,12 @@ class CollectDAOTest {
 
     private lateinit var collectDAO: CollectDAO
     private lateinit var db: MPDatabase
-    private val user = User(name = "test", email = "test@test.com")
-    private val typeWork = TypeWork(flag = 1, name = "TEST1")
+    private val user = User(
+        name = "test",
+        email = "test@test.com"
+    )
+    private val typeWork =
+        TypeWork(flag = 1, name = "TEST1")
     private val publicWork1 = PublicWork(
         id = "T1",
         name = "Test",

@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Query
 import org.mpmg.mpapp.core.interfaces.BaseDAO
 import org.mpmg.mpapp.domain.database.DatabaseConstants
-import org.mpmg.mpapp.domain.models.Collect
+import org.mpmg.mpapp.domain.database.models.Collect
 
 @Dao
 abstract class CollectDAO : BaseDAO<Collect> {

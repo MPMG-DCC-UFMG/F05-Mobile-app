@@ -2,6 +2,7 @@ package org.mpmg.mpapp.domain.models
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.mpmg.mpapp.domain.database.models.TypeWork
 
 class TypeWorkTest {
 

@@ -6,7 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.mpmg.mpapp.domain.models.TypeWork
+import org.mpmg.mpapp.domain.database.models.TypeWork
 import org.mpmg.mpapp.domain.repositories.typework.ITypeWorkRepository
 
 class TypeWorkViewModel(private val typeWorkRepository: ITypeWorkRepository) : ViewModel() {
@@ -22,4 +22,7 @@ class TypeWorkViewModel(private val typeWorkRepository: ITypeWorkRepository) : V
     }
 
     fun getTypeOfWorkList() = typeOfWorkList
+
+    fun getTypeOfWorkFromFlag(typeWorkFlag: Int) =
+        typeOfWorkList.value?.first { it.flag == typeWorkFlag }
 }

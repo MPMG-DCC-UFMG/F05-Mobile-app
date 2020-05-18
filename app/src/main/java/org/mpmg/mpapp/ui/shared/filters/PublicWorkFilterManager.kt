@@ -1,6 +1,6 @@
 package org.mpmg.mpapp.ui.shared.filters
 
-import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
 
 class PublicWorkFilterManager {
 

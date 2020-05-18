@@ -1,8 +1,8 @@
 package org.mpmg.mpapp.domain.repositories.collect
 
 import androidx.lifecycle.LiveData
-import org.mpmg.mpapp.domain.models.Collect
-import org.mpmg.mpapp.domain.models.Photo
+import org.mpmg.mpapp.domain.database.models.Collect
+import org.mpmg.mpapp.domain.database.models.Photo
 
 interface ICollectRepository {
 

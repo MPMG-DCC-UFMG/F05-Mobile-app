@@ -7,7 +7,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.mpmg.mpapp.domain.models.User
+import org.mpmg.mpapp.domain.database.models.User
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
 import org.mpmg.mpapp.domain.repositories.user.IUserRepository
 
@@ -43,7 +43,10 @@ class LoginViewModel(
     fun addUserToDb(userName: String, userEmail: String) {
         viewModelScope.launch(Dispatchers.IO) {
             userRepository.insertUser(
-                User(name = userName, email = userEmail)
+                User(
+                    name = userName,
+                    email = userEmail
+                )
             )
         }
     }

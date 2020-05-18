@@ -21,6 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/MPAppTheme">
 
         <meta-data
@@ -43,7 +44,7 @@
         <activity android:name=".ui.MainActivity" />
 
         <service
-            android:name=".core.services.LocationService"
+            android:name="org.mpmg.mpapp.services.LocationService"
             android:enabled="true"
             android:exported="false" />
 

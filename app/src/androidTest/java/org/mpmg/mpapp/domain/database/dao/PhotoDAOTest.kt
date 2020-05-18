@@ -8,6 +8,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mpmg.mpapp.domain.database.MPDatabase
+import org.mpmg.mpapp.domain.database.models.*
 import org.mpmg.mpapp.domain.models.*
 import java.io.IOException
 
@@ -16,15 +17,24 @@ class PhotoDAOTest {
     private lateinit var photoDAO: PhotoDAO
     private lateinit var db: MPDatabase
 
-    private val user = User(name = "test", email = "test@test.com")
-    private val typeWork = TypeWork(flag = 1, name = "TEST1")
+    private val user = User(
+        name = "test",
+        email = "test@test.com"
+    )
+    private val typeWork =
+        TypeWork(flag = 1, name = "TEST1")
     private val publicWork1 = PublicWork(
         id = "T1",
         name = "Test",
         typeWorkFlag = typeWork.flag
     )
     private val collect =
-        Collect(id = "t32", idUser = user.email, date = 980L, idPublicWork = publicWork1.id)
+        Collect(
+            id = "t32",
+            idUser = user.email,
+            date = 980L,
+            idPublicWork = publicWork1.id
+        )
 
     @Before
     fun createDb() {
@@ -52,7 +62,7 @@ class PhotoDAOTest {
             Photo(
                 id = "8789Y",
                 idCollect = collect.id,
-                filename = "test",
+                filepath = "test",
                 latitude = 0.0,
                 longitude = 0.0
             )
@@ -60,7 +70,7 @@ class PhotoDAOTest {
             Photo(
                 id = "8789Z",
                 idCollect = collect.id,
-                filename = "test",
+                filepath = "test",
                 latitude = 0.0,
                 longitude = 0.0
             )

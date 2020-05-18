@@ -6,8 +6,8 @@ import androidx.room.Query
 import androidx.room.Transaction
 import org.mpmg.mpapp.core.interfaces.BaseDAO
 import org.mpmg.mpapp.domain.database.DatabaseConstants
-import org.mpmg.mpapp.domain.models.PublicWork
-import org.mpmg.mpapp.domain.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.PublicWork
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
 
 @Dao
 abstract class PublicWorkDAO :
@@ -25,6 +25,13 @@ abstract class PublicWorkDAO :
     )
     @Transaction
     abstract fun getPublicWorkAndAddressById(publicWorkId: String): PublicWorkAndAdress?
+
+    @Query(
+        "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +
+                "WHERE ${DatabaseConstants.PublicWork.id} = :publicWorkId"
+    )
+    @Transaction
+    abstract fun getPublicWorkById(publicWorkId: String): PublicWork?
 
     @Query(
         "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +

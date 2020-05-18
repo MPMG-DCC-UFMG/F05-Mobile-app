@@ -2,10 +2,10 @@ package org.mpmg.mpapp.domain.repositories.collect
 
 import androidx.lifecycle.LiveData
 import androidx.room.Transaction
-import org.mpmg.mpapp.domain.models.Collect
-import org.mpmg.mpapp.domain.models.Photo
-import org.mpmg.mpapp.domain.repositories.collect.local.ILocalCollectDataSource
-import org.mpmg.mpapp.domain.repositories.collect.local.ILocalPhotoDataSource
+import org.mpmg.mpapp.domain.database.models.Collect
+import org.mpmg.mpapp.domain.database.models.Photo
+import org.mpmg.mpapp.domain.repositories.collect.datasources.ILocalCollectDataSource
+import org.mpmg.mpapp.domain.repositories.collect.datasources.ILocalPhotoDataSource
 
 class CollectRepository(
     private val localPhotoDataSource: ILocalPhotoDataSource,

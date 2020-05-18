@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import org.mpmg.mpapp.core.interfaces.BaseDAO
 import org.mpmg.mpapp.domain.database.DatabaseConstants
-import org.mpmg.mpapp.domain.models.Address
+import org.mpmg.mpapp.domain.database.models.Address
 
 @Dao
 abstract class AddressDAO : BaseDAO<Address> {

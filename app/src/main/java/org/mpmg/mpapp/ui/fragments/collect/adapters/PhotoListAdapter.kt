@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.domain.models.Photo
+import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.ui.fragments.collect.delegates.PhotoItemDelegate
 import org.mpmg.mpapp.ui.shared.delegates.StatusAdapterDelegate
 
