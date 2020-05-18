@@ -44,7 +44,7 @@
         <activity android:name=".ui.MainActivity" />
 
         <service
-            android:name=".core.services.LocationService"
+            android:name="org.mpmg.mpapp.services.LocationService"
             android:enabled="true"
             android:exported="false" />
 

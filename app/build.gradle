@@ -124,6 +124,9 @@ dependencies {
     // Fused Location
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
+    // Worker
+    implementation "androidx.work:work-runtime-ktx:$worker_version"
+
     // Testing Fragments in Isolation
     debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
 

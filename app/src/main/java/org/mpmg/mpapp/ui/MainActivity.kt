@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.core.services.LocationService
+import org.mpmg.mpapp.services.LocationService
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 
 class MainActivity : AppCompatActivity() {

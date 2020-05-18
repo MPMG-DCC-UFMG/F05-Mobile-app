@@ -1,4 +1,4 @@
-package org.mpmg.mpapp.core.services
+package org.mpmg.mpapp.services
 
 import android.app.Service
 import android.content.Intent
