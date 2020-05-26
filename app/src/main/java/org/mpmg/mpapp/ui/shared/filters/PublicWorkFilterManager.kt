@@ -1,6 +1,6 @@
 package org.mpmg.mpapp.ui.shared.filters
 
-import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 
 class PublicWorkFilterManager {
 
@@ -14,7 +14,7 @@ class PublicWorkFilterManager {
         filters.remove(key)
     }
 
-    fun filter(list: List<PublicWorkAndAdress>): List<PublicWorkAndAdress> {
+    fun filter(list: List<PublicWorkAndAddress>): List<PublicWorkAndAddress> {
         if (filters.isEmpty()) return list
 
         return list.filter { publicWorkAddress ->

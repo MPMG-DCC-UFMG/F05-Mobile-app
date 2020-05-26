@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.database.models.TypeWork
-import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
 import org.mpmg.mpapp.ui.fragments.publicwork.models.AddressUI
 import org.mpmg.mpapp.ui.fragments.publicwork.models.PublicWorkUI
@@ -23,7 +23,7 @@ class PublicWorkViewModel(
 
     private val TAG = PublicWorkViewModel::class.java.name
 
-    private var publicWorkList: LiveData<List<PublicWorkAndAdress>> =
+    private var publicWorkList: LiveData<List<PublicWorkAndAddress>> =
         publicWorkRepository.listAllPublicWorksLive()
 
     private val ioScope = CoroutineScope(Dispatchers.IO + Job())
@@ -44,7 +44,7 @@ class PublicWorkViewModel(
 
     private var currentLocation: Location? = null
 
-    private val publicWorkMediatedList = MediatorLiveData<List<PublicWorkAndAdress>>()
+    private val publicWorkMediatedList = MediatorLiveData<List<PublicWorkAndAddress>>()
 
     private val observableCallback = object : Observable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -96,7 +96,7 @@ class PublicWorkViewModel(
         currentAddress = addressUI
     }
 
-    fun setCurrentPublicWorkAddress(publicWorkAndAddress: PublicWorkAndAdress) {
+    fun setCurrentPublicWorkAddress(publicWorkAndAddress: PublicWorkAndAddress) {
         val publicWorkUI = PublicWorkUI(publicWorkAndAddress.publicWork)
         val addressUI = AddressUI(publicWorkAndAddress.address)
         isNewPublicWork.value = false

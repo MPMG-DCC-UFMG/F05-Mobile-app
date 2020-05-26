@@ -22,7 +22,9 @@ import org.mpmg.mpapp.domain.repositories.config.datasources.RemoteConfigDataSou
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.datasources.ILocalPublicWorkDataSource
+import org.mpmg.mpapp.domain.repositories.publicwork.datasources.IRemotePublicWorkDataSource
 import org.mpmg.mpapp.domain.repositories.publicwork.datasources.LocalPublicWorkDataSource
+import org.mpmg.mpapp.domain.repositories.publicwork.datasources.RemotePublicWorkDataSource
 import org.mpmg.mpapp.domain.repositories.typework.ITypeWorkRepository
 import org.mpmg.mpapp.domain.repositories.typework.TypeWorkRepository
 import org.mpmg.mpapp.domain.repositories.typework.datasources.ILocalTypeWorkDataSource
@@ -41,11 +43,12 @@ val viewModelModules = module {
     viewModel { TypeWorkViewModel(get()) }
     viewModel { CollectViewModel(get(), get(), get()) }
     viewModel { PhotoViewModel() }
+    viewModel { SendViewModel(androidApplication()) }
 }
 
 val repositoriesModules = module {
     single { UserRepository(get()) as IUserRepository }
-    single { PublicWorkRepository(get()) as IPublicWorkRepository }
+    single { PublicWorkRepository(get(), get()) as IPublicWorkRepository }
     single { TypeWorkRepository(get()) as ITypeWorkRepository }
     single { ConfigRepository(get(), get()) as IConfigRepository }
     single { CollectRepository(get(), get()) as ICollectRepository }
@@ -65,4 +68,5 @@ val dataSourceModules = module {
     single { LocalCollectDataSource(androidApplication()) as ILocalCollectDataSource }
     single { LocalConfigDataSource(androidApplication()) as ILocalConfigDataSource }
     single { RemoteConfigDataSource(get()) as IRemoteConfigDataSource }
+    single { RemotePublicWorkDataSource(get()) as IRemotePublicWorkDataSource }
 }

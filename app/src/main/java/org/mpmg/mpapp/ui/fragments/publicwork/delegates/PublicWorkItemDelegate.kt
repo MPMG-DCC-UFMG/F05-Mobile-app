@@ -13,7 +13,7 @@ import org.koin.core.KoinComponent
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.interfaces.BaseDelegate
 import org.mpmg.mpapp.core.interfaces.BaseModel
-import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 
 class PublicWorkItemDelegate(val locationViewModel: LocationViewModel) : BaseDelegate<BaseModel>,
@@ -35,7 +35,7 @@ class PublicWorkItemDelegate(val locationViewModel: LocationViewModel) : BaseDel
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, delegateObject: BaseModel?) {
-        delegateObject as PublicWorkAndAdress
+        delegateObject as PublicWorkAndAddress
         with(holder as PublicWorkItemViewHolder) {
             mName.text = delegateObject.publicWork.name
             mAddress.text = delegateObject.address.toString()
@@ -89,7 +89,7 @@ class PublicWorkItemDelegate(val locationViewModel: LocationViewModel) : BaseDel
     }
 
     interface PublicWorkItemDelegateListener {
-        fun onPublicWorkClicked(publicWork: PublicWorkAndAdress)
+        fun onPublicWorkClicked(publicWork: PublicWorkAndAddress)
     }
 
     class PublicWorkItemViewHolder(itemView: View) :

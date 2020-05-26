@@ -26,7 +26,8 @@ data class PublicWorkUI(
 
     fun toPublicWorkDB(): PublicWork {
         val publicWorkDB = PublicWork(
-            name = this.name
+            name = this.name,
+            isSent = false
         )
 
         id?.let { publicWorkDB.id = it }

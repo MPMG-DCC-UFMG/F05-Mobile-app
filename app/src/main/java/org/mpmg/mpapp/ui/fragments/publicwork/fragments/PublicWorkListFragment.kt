@@ -1,11 +1,9 @@
 package org.mpmg.mpapp.ui.fragments.publicwork.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,9 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_public_work_list.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.databinding.FragmentPublicWorkAddBinding
 import org.mpmg.mpapp.databinding.FragmentPublicWorkListBinding
-import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.ui.fragments.publicwork.adapters.PublicWorkListAdapter
 import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
@@ -89,7 +86,7 @@ class PublicWorkListFragment : Fragment(), PublicWorkListAdapter.PublicWorkListA
         publicWorkListAdapter.setPublicWorkListAdapterListener(this)
     }
 
-    override fun onPublicWorkClicked(publicWork: PublicWorkAndAdress) {
+    override fun onPublicWorkClicked(publicWork: PublicWorkAndAddress) {
         collectViewModel.setPublicWork(publicWork)
         navigationController?.navigate(R.id.action_baseFragment_to_collectMainFragment)
     }

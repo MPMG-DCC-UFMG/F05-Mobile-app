@@ -4,14 +4,22 @@ import android.content.Context
 import org.mpmg.mpapp.domain.database.models.TypeWork
 import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 
-class LocalTypeWorkDataSource(applicationContext: Context) : BaseDataSource(applicationContext), ILocalTypeWorkDataSource {
+class LocalTypeWorkDataSource(applicationContext: Context) : BaseDataSource(applicationContext),
+    ILocalTypeWorkDataSource {
 
     override fun insertTypeWork(typeWork: TypeWork) {
-        mpDatabase()!!.typeWorkDAO().insert(typeWork)
+        val typeWorkDB = mpDatabase()!!.typeWorkDAO().getTypeWorkByFlag(typeWork.flag)
+        typeWorkDB?.let {
+            mpDatabase()!!.typeWorkDAO().update(typeWork)
+        } ?: kotlin.run {
+            mpDatabase()!!.typeWorkDAO().insert(typeWork)
+        }
     }
 
     override fun insertTypeWorks(typeWorks: List<TypeWork>) {
-        mpDatabase()!!.typeWorkDAO().insertAll(typeWorks.toTypedArray())
+        typeWorks.forEach {
+            insertTypeWork(it)
+        }
     }
 
     override fun listAllTypeWorks(): List<TypeWork> {
