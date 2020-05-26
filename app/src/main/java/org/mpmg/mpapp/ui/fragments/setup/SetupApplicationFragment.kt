@@ -1,6 +1,7 @@
 package org.mpmg.mpapp.ui.fragments.setup
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +30,9 @@ class SetupApplicationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViewModels()
-        configurationViewModel.startConfigFilesDownload()
+        Handler().postDelayed({
+            configurationViewModel.startConfigFilesDownload()
+        }, 200)
     }
 
     private fun setupViewModels() {

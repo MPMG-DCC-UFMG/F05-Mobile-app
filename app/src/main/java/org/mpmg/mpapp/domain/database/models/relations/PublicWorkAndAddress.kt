@@ -1,6 +1,5 @@
 package org.mpmg.mpapp.domain.database.models.relations
 
-import androidx.databinding.Bindable
 import androidx.room.Embedded
 import androidx.room.Relation
 import org.mpmg.mpapp.core.interfaces.BaseModel
@@ -8,7 +7,7 @@ import org.mpmg.mpapp.domain.database.DatabaseConstants
 import org.mpmg.mpapp.domain.database.models.Address
 import org.mpmg.mpapp.domain.database.models.PublicWork
 
-data class PublicWorkAndAdress(
+data class PublicWorkAndAddress(
     @Embedded val publicWork: PublicWork,
     @Relation(
         parentColumn = DatabaseConstants.PublicWork.id,

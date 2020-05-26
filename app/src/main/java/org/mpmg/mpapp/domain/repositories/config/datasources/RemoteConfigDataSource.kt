@@ -22,4 +22,5 @@ class RemoteConfigDataSource(val mpApi: MPApi) : IRemoteConfigDataSource {
     override suspend fun getPublicWorkVersion(): EntityVersion {
         return mpApi.getPublicWorkVersion()
     }
+
 }

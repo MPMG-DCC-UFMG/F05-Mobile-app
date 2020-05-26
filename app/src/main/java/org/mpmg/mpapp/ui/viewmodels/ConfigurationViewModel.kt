@@ -5,11 +5,9 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.mpmg.mpapp.domain.database.models.TypeWork
+import org.mpmg.mpapp.domain.network.models.EntityVersion
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
 import org.mpmg.mpapp.domain.repositories.typework.ITypeWorkRepository
@@ -45,9 +43,11 @@ class ConfigurationViewModel(
         }
     }
 
+    @WorkerThread
     private suspend fun downloadPublicWorkList() {
         val currentVersion = configRepository.currentPublicWorkVersion()
-        val serverVersionResult = kotlin.runCatching { configRepository.getPublicWorkVersion() }
+        val serverVersionResult: Result<EntityVersion> =
+            kotlin.runCatching { configRepository.getPublicWorkVersion() }
 
         serverVersionResult.onSuccess { publicWorkVersion ->
             if (currentVersion != publicWorkVersion.version) {
@@ -55,7 +55,7 @@ class ConfigurationViewModel(
                     configRepository.loadPublicWorks()
                 }.onSuccess { listPublicWorkRemote ->
                     publicWorkRepository.insertPublicWorks(listPublicWorkRemote.map { it.toPublicWorkAndAddressDB() })
-                    configRepository.savePublicWorkVersion(currentVersion)
+                    configRepository.savePublicWorkVersion(publicWorkVersion.version)
                 }
             }
         }.onFailure {
@@ -70,13 +70,13 @@ class ConfigurationViewModel(
         val currentVersion = configRepository.currentTypeWorksVersion()
         val serverVersionResult = kotlin.runCatching { configRepository.getTypeWorkVersion() }
 
-        serverVersionResult.onSuccess {
-            if (currentVersion != it.version) {
+        serverVersionResult.onSuccess { serverVersion ->
+            if (currentVersion != serverVersion.version) {
                 kotlin.runCatching {
                     configRepository.loadTypeWorks()
                 }.onSuccess {
                     typeWorkRepository.insertTypeWorks(it.map { it.toTypeWorkDB() })
-                    configRepository.saveTypeWorksVersion(currentVersion)
+                    configRepository.saveTypeWorksVersion(serverVersion.version)
                 }
             }
         }.onFailure {

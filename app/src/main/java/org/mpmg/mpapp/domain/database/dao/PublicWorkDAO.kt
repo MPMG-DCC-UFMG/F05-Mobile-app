@@ -7,7 +7,7 @@ import androidx.room.Transaction
 import org.mpmg.mpapp.core.interfaces.BaseDAO
 import org.mpmg.mpapp.domain.database.DatabaseConstants
 import org.mpmg.mpapp.domain.database.models.PublicWork
-import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 
 @Dao
 abstract class PublicWorkDAO :
@@ -24,7 +24,7 @@ abstract class PublicWorkDAO :
                 "WHERE ${DatabaseConstants.PublicWork.id} = :publicWorkId"
     )
     @Transaction
-    abstract fun getPublicWorkAndAddressById(publicWorkId: String): PublicWorkAndAdress?
+    abstract fun getPublicWorkAndAddressById(publicWorkId: String): PublicWorkAndAddress?
 
     @Query(
         "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +
@@ -38,13 +38,26 @@ abstract class PublicWorkDAO :
                 "WHERE ${DatabaseConstants.PublicWork.id} = :publicWorkId"
     )
     @Transaction
-    abstract fun getPublicWorkAndAddressByIdLive(publicWorkId: String): LiveData<PublicWorkAndAdress>
+    abstract fun getPublicWorkAndAddressByIdLive(publicWorkId: String): LiveData<PublicWorkAndAddress>
 
     @Query("SELECT * FROM ${DatabaseConstants.PublicWork.tableName}")
     @Transaction
-    abstract fun listAllPublicWorkAndAddress(): List<PublicWorkAndAdress>
+    abstract fun listAllPublicWorkAndAddress(): List<PublicWorkAndAddress>
 
     @Query("SELECT * FROM ${DatabaseConstants.PublicWork.tableName}")
     @Transaction
-    abstract fun listAllPublicWorkAndAddressLive(): LiveData<List<PublicWorkAndAdress>>
+    abstract fun listAllPublicWorkAndAddressLive(): LiveData<List<PublicWorkAndAddress>>
+
+    @Query(
+        "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +
+                "WHERE ${DatabaseConstants.PublicWork.sent} = :status"
+    )
+    @Transaction
+    abstract fun listAllPublicWorkAndAddressByStatus(status: Boolean): List<PublicWorkAndAddress>
+
+    @Query(
+        "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +
+                "WHERE ${DatabaseConstants.PublicWork.sent} = :status"
+    )
+    abstract fun listAllPublicWorkByStatusLive(status: Boolean): LiveData<List<PublicWork>>
 }

@@ -12,12 +12,26 @@ data class AddressRemote(
     @field:Json(name = "neighborhood") val neighborhood: String,
     @field:Json(name = "cep") val cep: String,
     @field:Json(name = "latitude") val latitude: Double,
-    @field:Json(name = "longitude") val longitude: Double
+    @field:Json(name = "longitude") val longitude: Double,
+    @field:Json(name = "public_work_id") val publicWorkId: String
 ) {
-    fun toAddressDB(idPublicWork: String): Address {
+    constructor(address: Address) : this(
+        id = address.id,
+        publicWorkId = address.idPublicWork,
+        street = address.street,
+        state = address.state,
+        city = address.city,
+        number = address.number,
+        neighborhood = address.neighborhood,
+        cep = address.cep,
+        latitude = address.latitude ?: 0.0,
+        longitude = address.longitude ?: 0.0
+    )
+
+    fun toAddressDB(): Address {
         return Address(
             id = id,
-            idPublicWork = idPublicWork,
+            idPublicWork = publicWorkId,
             street = street,
             state = state,
             city = city,

@@ -13,4 +13,5 @@ interface IRemoteConfigDataSource {
     suspend fun loadPublicWorks(): List<PublicWorkRemote>
 
     suspend fun getPublicWorkVersion(): EntityVersion
+
 }

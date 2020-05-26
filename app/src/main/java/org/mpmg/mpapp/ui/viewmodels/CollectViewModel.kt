@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.database.models.Collect
 import org.mpmg.mpapp.domain.database.models.Photo
-import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
@@ -18,7 +18,7 @@ class CollectViewModel(
     private val publicWorkRepository: IPublicWorkRepository
 ) : ViewModel() {
 
-    private var mSelectedPublicWork: LiveData<PublicWorkAndAdress> = MutableLiveData()
+    private var mSelectedPublicWork: LiveData<PublicWorkAndAddress> = MutableLiveData()
     private var mPhotoList = MutableLiveData<MutableMap<String, Photo>>()
 
     private val currentCollect = MutableLiveData<Collect>()
@@ -34,7 +34,7 @@ class CollectViewModel(
         mPhotoList.postValue(mutableMapOf())
     }
 
-    fun setPublicWork(publicWork: PublicWorkAndAdress) {
+    fun setPublicWork(publicWork: PublicWorkAndAddress) {
         viewModelScope.launch(Dispatchers.IO) {
             loadPublicWork(publicWork.publicWork.id)
             loadCollectFromPublicWork(publicWork.publicWork.id)
@@ -64,7 +64,7 @@ class CollectViewModel(
         }
     }
 
-    fun getPublicWork(): LiveData<PublicWorkAndAdress> = mSelectedPublicWork
+    fun getPublicWork(): LiveData<PublicWorkAndAddress> = mSelectedPublicWork
 
     fun getPhotoList(): LiveData<MutableMap<String, Photo>> = mPhotoList
 

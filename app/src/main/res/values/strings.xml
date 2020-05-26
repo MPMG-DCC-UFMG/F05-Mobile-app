@@ -27,6 +27,7 @@
     <string name="button_enter_with_google">Entre com Google</string>
     <string name="button_enter_with_facebook">Entre com Facebook</string>
     <string name="button_enter_with_twitter">Entre com Twitter</string>
+    <string name="button_send_data">Enviar dados</string>
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_filter">Filtrar</string>

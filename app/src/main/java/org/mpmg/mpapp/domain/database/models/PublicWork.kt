@@ -6,15 +6,7 @@ import org.mpmg.mpapp.domain.database.DatabaseConstants
 import java.util.*
 
 @Entity(
-    tableName = DatabaseConstants.PublicWork.tableName,
-    foreignKeys = [
-        ForeignKey(
-            entity = TypeWork::class,
-            parentColumns = [DatabaseConstants.TypeWork.flag],
-            childColumns = [DatabaseConstants.PublicWork.typeWorkFlag],
-            onDelete = ForeignKey.CASCADE
-        )
-    ]
+    tableName = DatabaseConstants.PublicWork.tableName
 )
 data class PublicWork(
     @PrimaryKey

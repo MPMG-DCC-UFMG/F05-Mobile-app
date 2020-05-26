@@ -3,11 +3,14 @@ package org.mpmg.mpapp.domain.repositories.publicwork
 import androidx.lifecycle.LiveData
 import org.mpmg.mpapp.domain.database.models.Address
 import org.mpmg.mpapp.domain.database.models.PublicWork
-import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
+import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
 import org.mpmg.mpapp.domain.repositories.publicwork.datasources.ILocalPublicWorkDataSource
+import org.mpmg.mpapp.domain.repositories.publicwork.datasources.IRemotePublicWorkDataSource
 
 class PublicWorkRepository(
-    private val localPublicWorkDataSource: ILocalPublicWorkDataSource
+    private val localPublicWorkDataSource: ILocalPublicWorkDataSource,
+    private val remotePublicWorkDataSource: IRemotePublicWorkDataSource
 ) :
     IPublicWorkRepository {
 
@@ -17,21 +20,33 @@ class PublicWorkRepository(
         localPublicWorkDataSource.insertPublicWork(publicWork, address)
     }
 
-    override fun listAllPublicWorks(): List<PublicWorkAndAdress> {
+    override fun listAllPublicWorks(): List<PublicWorkAndAddress> {
         return localPublicWorkDataSource.listAllPublicWorks()
     }
 
-    override fun listAllPublicWorksLive(): LiveData<List<PublicWorkAndAdress>> {
+    override fun listAllPublicWorksLive(): LiveData<List<PublicWorkAndAddress>> {
         return localPublicWorkDataSource.listAllPublicWorksLive()
     }
 
-    override fun getPublicWorkByIdLive(publicWorkId: String): LiveData<PublicWorkAndAdress> {
+    override fun getPublicWorkByIdLive(publicWorkId: String): LiveData<PublicWorkAndAddress> {
         return localPublicWorkDataSource.getPublicWorkByIdLive(publicWorkId)
     }
 
-    override fun insertPublicWorks(publicWorkAndAddress: List<PublicWorkAndAdress>) {
-        publicWorkAndAddress.forEach {
+    override fun insertPublicWorks(publicWorkAndAddresses: List<PublicWorkAndAddress>) {
+        publicWorkAndAddresses.forEach {
             insertPublicWork(it.publicWork, it.address)
         }
+    }
+
+    override fun listPublicWorksByStatus(wasSent: Boolean): List<PublicWorkAndAddress> {
+        return localPublicWorkDataSource.listPublicWorksByStatus(wasSent)
+    }
+
+    override fun listPublicWorksByStatusLive(status: Boolean): LiveData<List<PublicWork>> {
+        return localPublicWorkDataSource.listPublicWorksByStatusLive(status)
+    }
+
+    override suspend fun sendPublicWork(publicWorkRemote: PublicWorkRemote): PublicWorkRemote {
+        return remotePublicWorkDataSource.sendPublicWork(publicWorkRemote)
     }
 }

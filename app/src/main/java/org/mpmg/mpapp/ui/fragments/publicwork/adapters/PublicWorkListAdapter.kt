@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAdress
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.ui.fragments.publicwork.delegates.PublicWorkItemDelegate
 import org.mpmg.mpapp.ui.shared.delegates.StatusAdapterDelegate
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
@@ -13,7 +13,7 @@ class PublicWorkListAdapter(locationViewModel: LocationViewModel) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     PublicWorkItemDelegate.PublicWorkItemDelegateListener {
 
-    private val publicWorksList = mutableListOf<PublicWorkAndAdress>()
+    private val publicWorksList = mutableListOf<PublicWorkAndAddress>()
 
     private var mListener: PublicWorkListAdapterListener? = null
 
@@ -55,13 +55,13 @@ class PublicWorkListAdapter(locationViewModel: LocationViewModel) :
         return if (publicWorksList.isEmpty()) 0 else 1
     }
 
-    fun updatePublicWorksList(list: List<PublicWorkAndAdress>) {
+    fun updatePublicWorksList(list: List<PublicWorkAndAddress>) {
         publicWorksList.clear()
         publicWorksList.addAll(list)
         notifyDataSetChanged()
     }
 
-    override fun onPublicWorkClicked(publicWork: PublicWorkAndAdress) {
+    override fun onPublicWorkClicked(publicWork: PublicWorkAndAddress) {
         mListener?.onPublicWorkClicked(publicWork)
     }
 
@@ -70,6 +70,6 @@ class PublicWorkListAdapter(locationViewModel: LocationViewModel) :
     }
 
     interface PublicWorkListAdapterListener {
-        fun onPublicWorkClicked(publicWork: PublicWorkAndAdress)
+        fun onPublicWorkClicked(publicWork: PublicWorkAndAddress)
     }
 }
