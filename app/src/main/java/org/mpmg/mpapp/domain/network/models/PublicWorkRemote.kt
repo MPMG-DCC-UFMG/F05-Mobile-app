@@ -29,7 +29,7 @@ data class PublicWorkRemote(
             id = id,
             name = name,
             typeWorkFlag = typeWorkFlag,
-            isSent = true
+            toSend = false
         )
         val addressDB = address!!.toAddressDB()
         return PublicWorkAndAddress(

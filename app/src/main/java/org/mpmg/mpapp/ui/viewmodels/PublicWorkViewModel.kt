@@ -57,6 +57,10 @@ class PublicWorkViewModel(
         filterManager.addFilter(filterSyncStatus.filterKey, filterSyncStatus)
         filterManager.addFilter(filterTypeWork.filterKey, filterTypeWork)
         filterManager.addFilter(filterByName.filterKey, filterByName)
+
+        filterSyncStatus.addSyncStatus(SyncStatus.COLLECTED)
+        filterSyncStatus.addSyncStatus(SyncStatus.TO_SEND)
+
         sortedCheckedId.postValue(R.id.radioButton_filterFragment_a_z)
         initMediator()
     }
@@ -113,7 +117,7 @@ class PublicWorkViewModel(
     }
 
     fun setInitialTypeWork(typeWork: TypeWork) {
-        if(currentTypeWork.value == null){
+        if (currentTypeWork.value == null) {
             currentTypeWork.value = typeWork
         }
     }

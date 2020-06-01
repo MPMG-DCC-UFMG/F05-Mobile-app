@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="bottomSheetDialogTheme">@style/MPAppTheme.CustomBottomSheetDialog</item>
     </style>
 
     <style name="MPAppTheme.FullScreen" parent="MPAppTheme">
@@ -56,6 +58,12 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="MPAppTheme.EditText3" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/background_input3</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:singleLine">true</item>
+    </style>
 
     <style name="MPAppTheme.ButtonBase" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:insetTop">0dp</item>
@@ -109,5 +117,23 @@
         <item name="android:background">@drawable/radio_button_background</item>
         <item name="fontFamily">@font/nunito_regular</item>
         <item name="android:buttonTint">@color/base_checkbox</item>
+    </style>
+
+    <style name="MPAppTheme.CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/MPAppTheme.CustomBottomSheet</item>
+    </style>
+
+    <style name="MPAppTheme.CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">
+            @style/MPAppTheme.CustomShapeAppearanceBottomSheetDialog
+        </item>
+    </style>
+
+    <style name="MPAppTheme.CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 </resources>

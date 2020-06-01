@@ -40,7 +40,7 @@ class PublicWorkItemDelegate(val locationViewModel: LocationViewModel) : BaseDel
             mName.text = delegateObject.publicWork.name
             mAddress.text = delegateObject.address.toString()
 
-            mSent.visibility = getVisibility(delegateObject.publicWork.isSent)
+            mSent.visibility = getVisibility(delegateObject.publicWork.toSend)
             mCheck.visibility = getVisibility(delegateObject.publicWork.idCollect != null)
 
             mContainer.setOnClickListener {

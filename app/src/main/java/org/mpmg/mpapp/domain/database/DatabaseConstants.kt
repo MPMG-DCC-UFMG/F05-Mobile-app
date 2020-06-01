@@ -16,7 +16,7 @@ object DatabaseConstants {
         const val name = "public_work_name"
         const val typeWorkFlag = "public_work_type_work_flag"
         const val idCollect = "public_work_id_collect"
-        const val sent = "public_work_sent"
+        const val toSend = "public_work_to_send"
     }
 
     object TypeWork {

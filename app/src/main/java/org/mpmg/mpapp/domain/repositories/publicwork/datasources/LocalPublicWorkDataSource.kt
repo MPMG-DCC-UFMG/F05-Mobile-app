@@ -31,11 +31,19 @@ class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(ap
         return mpDatabase()!!.publicWorkDAO().getPublicWorkAndAddressByIdLive(publicWorkId)
     }
 
-    override fun listPublicWorksByStatus(status: Boolean): List<PublicWorkAndAddress> {
-        return mpDatabase()!!.publicWorkDAO().listAllPublicWorkAndAddressByStatus(status)
+    override fun listPublicWorksByStatus(toSend: Boolean): List<PublicWorkAndAddress> {
+        return mpDatabase()!!.publicWorkDAO().listAllPublicWorkAndAddressByStatus(toSend)
     }
 
     override fun listPublicWorksByStatusLive(status: Boolean): LiveData<List<PublicWork>> {
         return mpDatabase()!!.publicWorkDAO().listAllPublicWorkByStatusLive(status)
+    }
+
+    override fun markPublicWorkSent(publicWorkId: String) {
+        val oldPublicWork = mpDatabase()!!.publicWorkDAO().getPublicWorkById(publicWorkId)
+        oldPublicWork?.let {
+            it.toSend = false
+            mpDatabase()!!.publicWorkDAO().update(it)
+        }
     }
 }

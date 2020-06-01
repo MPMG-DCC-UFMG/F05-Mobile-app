@@ -4,7 +4,7 @@ import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 
 class PublicWorkFilterManager {
 
-    var filters = mutableMapOf<String, IPublicWorkFilter>()
+    private var filters = mutableMapOf<String, IPublicWorkFilter>()
 
     fun addFilter(key: String, filter: IPublicWorkFilter) {
         filters[key] = filter

@@ -8,7 +8,7 @@ class FilterSyncStatus : IPublicWorkFilter() {
     override val filterKey: String
         get() = this::class.java.name
 
-    val syncSet = hashSetOf<SyncStatus>()
+    private val syncSet = hashSetOf<SyncStatus>()
 
     fun addSyncStatus(syncStatus: SyncStatus) {
         syncSet.add(syncStatus)
@@ -19,7 +19,7 @@ class FilterSyncStatus : IPublicWorkFilter() {
     }
 
     override fun keepItem(publicWork: PublicWork): Boolean {
-        var keep = !publicWork.isSent && publicWork.idCollect == null
+        var keep = !publicWork.toSend && publicWork.idCollect == null
         syncSet.forEach { syncStatus ->
             keep = keep || applyFilter(publicWork, syncStatus)
         }
@@ -28,7 +28,7 @@ class FilterSyncStatus : IPublicWorkFilter() {
 
     private fun applyFilter(publicWork: PublicWork, syncStatus: SyncStatus): Boolean {
         return when (syncStatus) {
-            SENT -> publicWork.isSent
+            TO_SEND -> publicWork.toSend
             COLLECTED -> publicWork.idCollect != null
         }
     }

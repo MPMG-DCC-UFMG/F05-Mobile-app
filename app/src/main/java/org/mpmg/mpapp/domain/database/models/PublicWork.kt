@@ -15,7 +15,7 @@ data class PublicWork(
     @ColumnInfo(name = DatabaseConstants.PublicWork.name) var name: String = "",
     @ColumnInfo(name = DatabaseConstants.PublicWork.idCollect) var idCollect: String? = null,
     @ColumnInfo(name = DatabaseConstants.PublicWork.typeWorkFlag) var typeWorkFlag: Int = 1,
-    @ColumnInfo(name = DatabaseConstants.PublicWork.sent) var isSent: Boolean = false
+    @ColumnInfo(name = DatabaseConstants.PublicWork.toSend) var toSend: Boolean = false
 ) : BaseModel {
 
     fun isValid(): Boolean {

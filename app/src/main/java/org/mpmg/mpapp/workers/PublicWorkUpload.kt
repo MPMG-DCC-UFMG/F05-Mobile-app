@@ -16,7 +16,7 @@ class PublicWorkUpload(applicationContext: Context, parameters: WorkerParameters
 
     override suspend fun doWork(): Result {
 
-        val publicWorkList = publicWorkRepository.listPublicWorksByStatus(false)
+        val publicWorkList = publicWorkRepository.listPublicWorksByStatus(true)
 
         publicWorkList.forEach { publicWorkAndAddress ->
             val publicWorkRemote = PublicWorkRemote(publicWorkAndAddress)
@@ -31,6 +31,6 @@ class PublicWorkUpload(applicationContext: Context, parameters: WorkerParameters
     }
 
     private fun markPublicWorkSent(publicWork: PublicWork) {
-
+        publicWorkRepository.markPublicWorkSent(publicWorkId = publicWork.id)
     }
 }

@@ -50,14 +50,14 @@ abstract class PublicWorkDAO :
 
     @Query(
         "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +
-                "WHERE ${DatabaseConstants.PublicWork.sent} = :status"
+                "WHERE ${DatabaseConstants.PublicWork.toSend} = :status"
     )
     @Transaction
     abstract fun listAllPublicWorkAndAddressByStatus(status: Boolean): List<PublicWorkAndAddress>
 
     @Query(
         "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +
-                "WHERE ${DatabaseConstants.PublicWork.sent} = :status"
+                "WHERE ${DatabaseConstants.PublicWork.toSend} = :status"
     )
     abstract fun listAllPublicWorkByStatusLive(status: Boolean): LiveData<List<PublicWork>>
 }

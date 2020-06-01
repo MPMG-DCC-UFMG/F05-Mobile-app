@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.fragment_public_work_filter.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentPublicWorkFilterBinding
-import org.mpmg.mpapp.ui.shared.filters.SyncStatus
 import org.mpmg.mpapp.ui.shared.filters.SyncStatus.*
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
@@ -46,7 +45,7 @@ class PublicWorkFilterFragment : Fragment() {
     private fun startCheckboxesState() {
         checkbox_filterFragment_complete.isChecked =
             publicWorkViewModel.isSyncStatusChecked(COLLECTED)
-        checkbox_filterFragment_sent.isChecked = publicWorkViewModel.isSyncStatusChecked(SENT)
+        checkbox_filterFragment_sent.isChecked = publicWorkViewModel.isSyncStatusChecked(TO_SEND)
     }
 
     private fun setupListeners() {
@@ -55,7 +54,7 @@ class PublicWorkFilterFragment : Fragment() {
         }
 
         checkbox_filterFragment_sent.setOnCheckedChangeListener { _, isChecked ->
-            publicWorkViewModel.updateSyncStatusFilter(SENT, isChecked)
+            publicWorkViewModel.updateSyncStatusFilter(TO_SEND, isChecked)
         }
 
         textView_filterFragment_typeOfWork.setOnClickListener {

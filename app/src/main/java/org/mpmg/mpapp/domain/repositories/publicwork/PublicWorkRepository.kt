@@ -38,8 +38,8 @@ class PublicWorkRepository(
         }
     }
 
-    override fun listPublicWorksByStatus(wasSent: Boolean): List<PublicWorkAndAddress> {
-        return localPublicWorkDataSource.listPublicWorksByStatus(wasSent)
+    override fun listPublicWorksByStatus(toSend: Boolean): List<PublicWorkAndAddress> {
+        return localPublicWorkDataSource.listPublicWorksByStatus(toSend)
     }
 
     override fun listPublicWorksByStatusLive(status: Boolean): LiveData<List<PublicWork>> {
@@ -48,5 +48,9 @@ class PublicWorkRepository(
 
     override suspend fun sendPublicWork(publicWorkRemote: PublicWorkRemote): PublicWorkRemote {
         return remotePublicWorkDataSource.sendPublicWork(publicWorkRemote)
+    }
+
+    override fun markPublicWorkSent(publicWorkId: String) {
+        localPublicWorkDataSource.markPublicWorkSent(publicWorkId)
     }
 }

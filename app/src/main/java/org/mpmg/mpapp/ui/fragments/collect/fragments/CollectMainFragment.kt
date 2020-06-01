@@ -16,11 +16,13 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentCollectMainBinding
 import org.mpmg.mpapp.domain.database.models.Photo
+import org.mpmg.mpapp.ui.dialogs.CommentsBottomSheetDialog
 import org.mpmg.mpapp.ui.fragments.collect.adapters.PhotoListAdapter
 import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
 import org.mpmg.mpapp.ui.viewmodels.PhotoViewModel
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
+import org.w3c.dom.Comment
 
 class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListener {
 
@@ -95,7 +97,7 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         }
 
         materialButton_collectMainFragment_addComment.setOnClickListener {
-
+            launchBottomSheetComment()
         }
     }
 
@@ -105,6 +107,14 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
             publicWorkViewModel.setCurrentPublicWorkAddress(it)
             publicWorkViewModel.setCurrentTypeWork(typeWork)
         }
+    }
+
+    private fun launchBottomSheetComment() {
+        val bottomSheetFragment = CommentsBottomSheetDialog(collectViewModel)
+        bottomSheetFragment.show(
+            requireActivity().supportFragmentManager,
+            bottomSheetFragment.tag
+        )
     }
 
     private fun navigateTo(actionId: Int) {

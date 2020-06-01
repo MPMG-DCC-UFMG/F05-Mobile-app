@@ -15,7 +15,9 @@ interface ILocalPublicWorkDataSource {
 
     fun getPublicWorkByIdLive(publicWorkId: String): LiveData<PublicWorkAndAddress>
 
-    fun listPublicWorksByStatus(wasSent: Boolean): List<PublicWorkAndAddress>
+    fun listPublicWorksByStatus(toSend: Boolean): List<PublicWorkAndAddress>
 
     fun listPublicWorksByStatusLive(status: Boolean): LiveData<List<PublicWork>>
+
+    fun markPublicWorkSent(publicWorkId: String)
 }
