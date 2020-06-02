@@ -5,6 +5,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorDivider">#BDBDBD</color>
+
 
     <color name="title1">#828282</color>
     <color name="title2">#333333</color>

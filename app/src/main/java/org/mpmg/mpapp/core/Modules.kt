@@ -43,7 +43,7 @@ val viewModelModules = module {
     viewModel { TypeWorkViewModel(get()) }
     viewModel { CollectViewModel(get(), get(), get()) }
     viewModel { PhotoViewModel() }
-    viewModel { SendViewModel(androidApplication()) }
+    viewModel { SendViewModel(androidApplication(),get()) }
 }
 
 val repositoriesModules = module {

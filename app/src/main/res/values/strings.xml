@@ -64,6 +64,8 @@
     <string name="text_empty_public_work_list">Lista de obras vazia, tente adicionar uma nova obra manualmente.</string>
     <string name="text_loading">Carregando …</string>
     <string name="text_move_map">Mova o mapa para selecionar\na localização da obra.</string>
+    <string name="text_to_send">Para enviar: %s</string>
+    <string name="text_sending">Enviando: %s</string>
 
     <string name="dialog_type_photo_title">Escolha o tipo da foto para adicionar</string>
     <string name="dialog_type_work_title">Escolha o tipo da obra para adicionar</string>
@@ -72,5 +74,10 @@
     <string name="snackbar_photo_add_success">Foto atualizada com sucesso</string>
     <string name="snackbar_photo_add_canceled">Usuário cancelou ação</string>
 
+    <string name="single_collect">Coleta</string>
+    <string name="single_public_work">Obra pública</string>
+    <string name="single_public_work_data">Novos dados obra pública</string>
+
+    <string name="format_progress">%d %%</string>
 
 </resources>

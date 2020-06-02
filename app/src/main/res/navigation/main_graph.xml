@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="org.mpmg.mpapp.ui.fragments.login.LoginFragment"
+        android:name="org.mpmg.mpapp.ui.screens.login.LoginFragment"
         android:label="LoginFragment">
         <action
             android:id="@+id/action_loginFragment_to_setupApplicationFragment"
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/baseFragment"
-        android:name="org.mpmg.mpapp.ui.fragments.base.BaseFragment"
+        android:name="org.mpmg.mpapp.ui.screens.base.BaseFragment"
         android:label="fragment_base"
         tools:layout="@layout/fragment_base">
         <action
@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/collectMainFragment"
-        android:name="org.mpmg.mpapp.ui.fragments.collect.fragments.CollectMainFragment"
+        android:name="org.mpmg.mpapp.ui.screens.collect.fragments.CollectMainFragment"
         android:label="fragment_collect_main"
         tools:layout="@layout/fragment_collect_main">
         <action
@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/setupApplicationFragment"
-        android:name="org.mpmg.mpapp.ui.fragments.setup.SetupApplicationFragment"
+        android:name="org.mpmg.mpapp.ui.screens.setup.SetupApplicationFragment"
         android:label="fragment_setup_application"
         tools:layout="@layout/fragment_setup_application">
         <action
@@ -84,7 +84,7 @@
 
     <fragment
         android:id="@+id/publicWorkAddFragment"
-        android:name="org.mpmg.mpapp.ui.fragments.publicwork.fragments.PublicWorkAddFragment"
+        android:name="org.mpmg.mpapp.ui.screens.publicwork.fragments.PublicWorkAddFragment"
         android:label="PublicWorkAddFragment">
 
         <action
@@ -106,7 +106,7 @@
 
     <fragment
         android:id="@+id/photoAddFragment"
-        android:name="org.mpmg.mpapp.ui.fragments.photo.PhotoAddFragment"
+        android:name="org.mpmg.mpapp.ui.screens.photo.PhotoAddFragment"
         android:label="fragment_add_photo"
         tools:layout="@layout/fragment_add_photo" >
         <action
@@ -116,7 +116,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
-        android:name="org.mpmg.mpapp.ui.fragments.map.MapFragment"
+        android:name="org.mpmg.mpapp.ui.screens.map.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map">
         <action
