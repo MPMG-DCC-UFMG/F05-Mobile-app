@@ -63,6 +63,5 @@ class UploadPublicWorkItemDelegate(sendViewModel: SendViewModel) : BaseDelegate<
             binding.lifecycleOwner = lifecycleOwner
             binding.executePendingBindings()
         }
-
     }
 }

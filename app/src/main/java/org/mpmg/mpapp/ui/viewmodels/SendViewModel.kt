@@ -1,10 +1,10 @@
 package org.mpmg.mpapp.ui.viewmodels
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import androidx.work.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.Constants.WORKER_PARAMETER_PUBLIC_WORK_ID
 import org.mpmg.mpapp.domain.database.models.PublicWork
@@ -23,9 +23,7 @@ class SendViewModel(
         .setRequiredNetworkType(NetworkType.CONNECTED)
         .build()
 
-    private val publicWorksMediated = MediatorLiveData<List<PublicWorkUploadUI>>()
-    private var publicWorkToSend: LiveData<List<PublicWork>> =
-        publicWorkRepository.listPublicWorkToSend()
+    private val publicWorksMediated = MutableLiveData<List<PublicWorkUploadUI>>()
 
     private val workManagerInstance = WorkManager.getInstance(applicationContext)
 
@@ -34,18 +32,22 @@ class SendViewModel(
     }
 
     fun loadPublicWorksToSend() {
-        publicWorksMediated.addSource(publicWorkToSend) { publicWorkList ->
-            publicWorksMediated.value =
-                publicWorkList.map {
-                    PublicWorkUploadUI(
-                        name = it.name,
-                        id = it.id,
-                        idCollect = it.idCollect,
-                        toSend = it.toSend,
-                        _status = getPublicWorkStatus(it)
-                    )
-                }
+        viewModelScope.launch(Dispatchers.IO) {
+            val publicWorkToSend = publicWorkRepository.listPublicWorkToSend().map {
+                val publicWork = PublicWorkUploadUI(
+                    name = it.name,
+                    id = it.id,
+                    idCollect = it.idCollect,
+                    toSend = it.toSend,
+                    _status = getPublicWorkStatus(it)
+                )
+                publicWork.workerInfoId.postValue(getPublicWorkUploadInfoId(it.id))
+                publicWork
+            }
+
+            publicWorksMediated.postValue(publicWorkToSend)
         }
+
     }
 
     private fun getPublicWorkStatus(publicWork: PublicWork): String {
@@ -66,7 +68,11 @@ class SendViewModel(
         publicWorksMediated.value?.let { publicWorkList ->
             publicWorkList.forEach {
                 if (getPublicWorkUploadInfoId(it.id) == null) {
-                    workManagerInstance.enqueue(createSendPublicWorkRequest(it))
+                    workManagerInstance.beginUniqueWork(
+                        it.id,
+                        ExistingWorkPolicy.REPLACE,
+                        createSendPublicWorkRequest(it)
+                    ).enqueue()
                     it.workerInfoId.postValue(getPublicWorkUploadInfoId(it.id))
                 }
             }
@@ -74,7 +80,7 @@ class SendViewModel(
     }
 
     private fun getPublicWorkUploadInfoId(publicWorkId: String): UUID? {
-        val status = workManagerInstance.getWorkInfosByTag(publicWorkId)
+        val status = workManagerInstance.getWorkInfosForUniqueWork(publicWorkId)
         return try {
             val workInfoList: List<WorkInfo> = status.get()
             for (workInfo in workInfoList) {

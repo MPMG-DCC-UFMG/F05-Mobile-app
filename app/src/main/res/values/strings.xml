@@ -62,6 +62,8 @@
     <string name="checkbox_sent">Informações para atualizar</string>
 
     <string name="text_empty_public_work_list">Lista de obras vazia, tente adicionar uma nova obra manualmente.</string>
+    <string name="text_empty_collect_list">Lista de obras para enviar vazia, tente realizar coletas ou atualizar informações das obras</string>
+
     <string name="text_loading">Carregando …</string>
     <string name="text_move_map">Mova o mapa para selecionar\na localização da obra.</string>
     <string name="text_to_send">Para enviar: %s</string>
@@ -79,5 +81,15 @@
     <string name="single_public_work_data">Novos dados obra pública</string>
 
     <string name="format_progress">%d %%</string>
+
+    <string name="progress_loading_public_work">Carregando informações da obra da base de dados local</string>
+    <string name="progress_sending_public_work">Enviando dados da obra para o servidor</string>
+    <string name="progress_public_work_sent">Obra pública enviada para o servidor</string>
+    <string name="progress_loading_collect">Carregando coleta da base de dados local</string>
+    <string name="progress_sending_collect">Enviando dados da coleta para o servidor</string>
+    <string name="progress_finishing_upload">"Finalizando trabalhos"</string>
+    <string name="progress_success_upload">Dados enviados com sucesso!</string>
+    <string name="progress_fail_upload">Erro ao enviar dados para o servidor :(</string>
+
 
 </resources>

@@ -51,7 +51,19 @@ class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(ap
         }
     }
 
-    override fun listPublicWorkToSend(): LiveData<List<PublicWork>> {
+    override fun markCollectSent(publicWorkId: String) {
+        val oldPublicWork = mpDatabase()!!.publicWorkDAO().getPublicWorkById(publicWorkId)
+        oldPublicWork?.let {
+            it.idCollect = null
+            mpDatabase()!!.publicWorkDAO().update(it)
+        }
+    }
+
+    override fun listPublicWorkToSendLive(): LiveData<List<PublicWork>> {
         return mpDatabase()!!.publicWorkDAO().listAllPublicWorkToSendLive()
+    }
+
+    override fun listPublicWorkToSend(): List<PublicWork> {
+        return mpDatabase()!!.publicWorkDAO().listAllPublicWorkToSend()
     }
 }

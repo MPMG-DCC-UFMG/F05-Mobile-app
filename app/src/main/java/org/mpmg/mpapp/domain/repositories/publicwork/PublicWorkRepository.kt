@@ -58,7 +58,15 @@ class PublicWorkRepository(
         localPublicWorkDataSource.markPublicWorkSent(publicWorkId)
     }
 
-    override fun listPublicWorkToSend(): LiveData<List<PublicWork>> {
+    override fun markCollectSent(publicWorkId: String) {
+        localPublicWorkDataSource.markCollectSent(publicWorkId)
+    }
+
+    override fun listPublicWorkToSend(): List<PublicWork> {
         return localPublicWorkDataSource.listPublicWorkToSend()
+    }
+
+    override fun listPublicWorkToSendLive(): LiveData<List<PublicWork>> {
+        return localPublicWorkDataSource.listPublicWorkToSendLive()
     }
 }

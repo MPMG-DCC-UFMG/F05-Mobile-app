@@ -23,5 +23,9 @@ interface ILocalPublicWorkDataSource {
 
     fun markPublicWorkSent(publicWorkId: String)
 
-    fun listPublicWorkToSend(): LiveData<List<PublicWork>>
+    fun markCollectSent(publicWorkId: String)
+
+    fun listPublicWorkToSendLive(): LiveData<List<PublicWork>>
+
+    fun listPublicWorkToSend(): List<PublicWork>
 }
