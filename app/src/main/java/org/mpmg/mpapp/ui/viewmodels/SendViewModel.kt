@@ -39,7 +39,8 @@ class SendViewModel(
                     id = it.id,
                     idCollect = it.idCollect,
                     toSend = it.toSend,
-                    _status = getPublicWorkStatus(it)
+                    _status = getPublicWorkStatus(it),
+                    _workState = WorkInfo.State.BLOCKED
                 )
                 publicWork.workerInfoId.postValue(getPublicWorkUploadInfoId(it.id))
                 publicWork

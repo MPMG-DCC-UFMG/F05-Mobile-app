@@ -51,6 +51,7 @@ class UploadPublicWorkItemDelegate(sendViewModel: SendViewModel) : BaseDelegate<
                     val workData = workInfo.progress
                     publicWork.progress = workData.getInt(PublicWorkUpload.Progress, 0)
                     publicWork.status = workData.getString(PublicWorkUpload.Message) ?: "Enviando"
+                    publicWork.workState = workInfo.state
                 })
         })
     }

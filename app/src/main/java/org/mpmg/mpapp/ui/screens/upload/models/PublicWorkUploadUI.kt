@@ -5,6 +5,8 @@ import androidx.databinding.Bindable
 import org.mpmg.mpapp.core.interfaces.BaseModel
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.MutableLiveData
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import java.util.*
 
 data class PublicWorkUploadUI(
@@ -14,6 +16,7 @@ data class PublicWorkUploadUI(
     val toSend: Boolean,
     private var _status: String,
     private var _progress: Int = 0,
+    private var _workState: WorkInfo.State,
     val workerInfoId: MutableLiveData<UUID> = MutableLiveData<UUID>()
 ) : BaseModel, BaseObservable() {
 
@@ -22,6 +25,13 @@ data class PublicWorkUploadUI(
         set(value) {
             _status = value
             notifyPropertyChanged(BR.status)
+        }
+
+    var workState: WorkInfo.State
+        @Bindable get() = _workState
+        set(value) {
+            _workState = value
+            notifyPropertyChanged(BR.workState)
         }
 
     var progress: Int
