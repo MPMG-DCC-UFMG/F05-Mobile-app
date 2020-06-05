@@ -104,11 +104,12 @@ class CollectViewModel(
             val currentPublicWorkAndAddress = mSelectedPublicWork.value ?: return@launch
 
             currentPublicWorkAndAddress.publicWork.idCollect = collection.id
-            collectRepository.insertCollect(collection, photos.values.toList())
             publicWorkRepository.insertPublicWork(
                 currentPublicWorkAndAddress.publicWork,
                 currentPublicWorkAndAddress.address
             )
+            collectRepository.insertCollect(collection, photos.values.toList())
+
         }
     }
 

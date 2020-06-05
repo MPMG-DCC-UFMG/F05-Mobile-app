@@ -28,7 +28,7 @@
     </style>
 
     <style name="MPAppTheme.PublicWorkName" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/font_large</item>
         <item name="android:fontFamily">@font/nunito_semibold</item>
         <item name="android:textColor">@color/title2</item>
     </style>
@@ -43,6 +43,16 @@
         <item name="android:textSize">@dimen/font_default</item>
         <item name="android:fontFamily">@font/nunito_semibold</item>
         <item name="android:textColor">@color/textAddress</item>
+    </style>
+
+    <style name="MPAppTheme.TextUpload" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_xlarge</item>
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+    </style>
+
+    <style name="MPAppTheme.TextSubtitle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_xsmall</item>
+        <item name="android:fontFamily">@font/nunito_light</item>
     </style>
 
     <style name="MPAppTheme.EditText1" parent="TextAppearance.AppCompat">

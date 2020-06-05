@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_main"
-    tools:context=".ui.fragments.publicwork.fragments.PublicWorkSendFragment">
+    tools:context=".ui.screens.upload.fragments.UploadDataFragment">
 
     <TextView
         android:id="@+id/textView16"
@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_sendFragment_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin_medium"

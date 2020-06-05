@@ -32,6 +32,10 @@ class PublicWorkRepository(
         return localPublicWorkDataSource.getPublicWorkByIdLive(publicWorkId)
     }
 
+    override fun getPublicWorkById(publicWorkId: String): PublicWorkAndAddress? {
+        return localPublicWorkDataSource.getPublicWorkById(publicWorkId)
+    }
+
     override fun insertPublicWorks(publicWorkAndAddresses: List<PublicWorkAndAddress>) {
         publicWorkAndAddresses.forEach {
             insertPublicWork(it.publicWork, it.address)
@@ -52,5 +56,17 @@ class PublicWorkRepository(
 
     override fun markPublicWorkSent(publicWorkId: String) {
         localPublicWorkDataSource.markPublicWorkSent(publicWorkId)
+    }
+
+    override fun markCollectSent(publicWorkId: String) {
+        localPublicWorkDataSource.markCollectSent(publicWorkId)
+    }
+
+    override fun listPublicWorkToSend(): List<PublicWork> {
+        return localPublicWorkDataSource.listPublicWorkToSend()
+    }
+
+    override fun listPublicWorkToSendLive(): LiveData<List<PublicWork>> {
+        return localPublicWorkDataSource.listPublicWorkToSendLive()
     }
 }

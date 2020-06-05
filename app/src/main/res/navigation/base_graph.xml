@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/publicWorkListFragment"
-        android:name="org.mpmg.mpapp.ui.fragments.publicwork.fragments.PublicWorkListFragment"
+        android:name="org.mpmg.mpapp.ui.screens.publicwork.fragments.PublicWorkListFragment"
         android:label="fragment_public_work_list"
         tools:layout="@layout/fragment_public_work_list" />
 
     <fragment
         android:id="@+id/publicWorkFilterFragment"
-        android:name="org.mpmg.mpapp.ui.fragments.publicwork.fragments.PublicWorkFilterFragment"
+        android:name="org.mpmg.mpapp.ui.screens.publicwork.fragments.PublicWorkFilterFragment"
         android:label="fragment_public_work_filter"
         tools:layout="@layout/fragment_public_work_filter" />
 
     <fragment
         android:id="@+id/publicWorkSendFragment"
-        android:name="org.mpmg.mpapp.ui.fragments.publicwork.fragments.PublicWorkSendFragment"
+        android:name="org.mpmg.mpapp.ui.screens.upload.fragments.UploadDataFragment"
         android:label="fragment_public_work_send"
         tools:layout="@layout/fragment_public_work_send" />
 

@@ -3,6 +3,7 @@ package org.mpmg.mpapp.domain.repositories.collect
 import androidx.lifecycle.LiveData
 import org.mpmg.mpapp.domain.database.models.Collect
 import org.mpmg.mpapp.domain.database.models.Photo
+import org.mpmg.mpapp.domain.network.models.CollectRemote
 
 interface ICollectRepository {
 
@@ -21,4 +22,6 @@ interface ICollectRepository {
     fun getCollectByPublicWork(publicWorkId: String): Collect?
 
     fun deletePhotoById(photoId: String)
+
+    suspend fun sendCollect(collectRemote: CollectRemote): CollectRemote
 }

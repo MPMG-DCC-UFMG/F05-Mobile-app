@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.database.models.TypeWork
 import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
-import org.mpmg.mpapp.ui.fragments.publicwork.models.AddressUI
-import org.mpmg.mpapp.ui.fragments.publicwork.models.PublicWorkUI
+import org.mpmg.mpapp.ui.screens.publicwork.models.AddressUI
+import org.mpmg.mpapp.ui.screens.publicwork.models.PublicWorkUI
 import org.mpmg.mpapp.ui.shared.filters.*
 import org.mpmg.mpapp.R
 
