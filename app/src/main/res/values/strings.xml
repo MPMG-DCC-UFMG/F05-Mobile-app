@@ -87,7 +87,9 @@
     <string name="progress_public_work_sent">Obra pública enviada para o servidor</string>
     <string name="progress_loading_collect">Carregando coleta da base de dados local</string>
     <string name="progress_sending_collect">Enviando dados da coleta para o servidor</string>
-    <string name="progress_finishing_upload">"Finalizando trabalhos"</string>
+    <string name="progress_loading_photos">Carregando fotos da base de dados local</string>
+    <string name="progress_sending_photo">Enviando foto %d de %d</string>
+    <string name="progress_finishing_upload">Finalizando trabalhos</string>
     <string name="progress_success_upload">Dados enviados com sucesso!</string>
     <string name="progress_fail_upload">Erro ao enviar dados para o servidor :(</string>
 

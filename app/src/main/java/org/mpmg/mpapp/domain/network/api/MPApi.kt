@@ -1,12 +1,8 @@
 package org.mpmg.mpapp.domain.network.api
 
-import org.mpmg.mpapp.domain.network.models.CollectRemote
-import org.mpmg.mpapp.domain.network.models.EntityVersion
-import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
-import org.mpmg.mpapp.domain.network.models.TypeWorkRemote
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import okhttp3.MultipartBody
+import org.mpmg.mpapp.domain.network.models.*
+import retrofit2.http.*
 
 interface MPApi {
 
@@ -27,4 +23,11 @@ interface MPApi {
 
     @POST("collects/add")
     suspend fun sendCollect(@Body collectRemote: CollectRemote): CollectRemote
+
+    @POST("photos/add")
+    suspend fun sendPhoto(@Body photoRemote: PhotoRemote): PhotoRemote
+
+    @Multipart
+    @POST("images/upload")
+    suspend fun sendImage(@Part fileForm: MultipartBody.Part): ImageUploadResponse
 }

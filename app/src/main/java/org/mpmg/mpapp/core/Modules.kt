@@ -48,7 +48,7 @@ val repositoriesModules = module {
     single { PublicWorkRepository(get(), get()) as IPublicWorkRepository }
     single { TypeWorkRepository(get()) as ITypeWorkRepository }
     single { ConfigRepository(get(), get()) as IConfigRepository }
-    single { CollectRepository(get(), get(), get()) as ICollectRepository }
+    single { CollectRepository(get(), get(), get(), get()) as ICollectRepository }
 }
 
 val networkModule = module {
@@ -68,4 +68,5 @@ val dataSourceModules = module {
     single { RemoteConfigDataSource(get()) as IRemoteConfigDataSource }
     single { RemotePublicWorkDataSource(get()) as IRemotePublicWorkDataSource }
     single { RemoteCollectDataSource(get()) as IRemoteCollectDataSource }
+    single { RemotePhotoDataSource(get()) as IRemotePhotoDataSource }
 }
