@@ -4,12 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.room.Transaction
 import org.mpmg.mpapp.domain.database.models.Collect
 import org.mpmg.mpapp.domain.database.models.Photo
+import org.mpmg.mpapp.domain.network.models.CollectRemote
 import org.mpmg.mpapp.domain.repositories.collect.datasources.ILocalCollectDataSource
 import org.mpmg.mpapp.domain.repositories.collect.datasources.ILocalPhotoDataSource
+import org.mpmg.mpapp.domain.repositories.collect.datasources.IRemoteCollectDataSource
 
 class CollectRepository(
     private val localPhotoDataSource: ILocalPhotoDataSource,
-    private val localCollectDataSource: ILocalCollectDataSource
+    private val localCollectDataSource: ILocalCollectDataSource,
+    private val remoteCollectDataSource: IRemoteCollectDataSource
 ) :
     ICollectRepository {
 
@@ -45,5 +48,9 @@ class CollectRepository(
 
     override fun deletePhotoById(photoId: String) {
         localPhotoDataSource
+    }
+
+    override suspend fun sendCollect(collectRemote: CollectRemote): CollectRemote {
+        return remoteCollectDataSource.sendCollect(collectRemote)
     }
 }

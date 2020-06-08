@@ -11,4 +11,6 @@ object Constants {
     const val PREFERENCES_LOGGED_USER_EMAIL = "config_logged_user_email"
 
     const val DEFAULT_MAP_ZOOM = 14f
+
+    const val WORKER_PARAMETER_PUBLIC_WORK_ID = "public_work_id"
 }

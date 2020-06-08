@@ -60,4 +60,18 @@ abstract class PublicWorkDAO :
                 "WHERE ${DatabaseConstants.PublicWork.toSend} = :status"
     )
     abstract fun listAllPublicWorkByStatusLive(status: Boolean): LiveData<List<PublicWork>>
+
+    @Query(
+        "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +
+                "WHERE ${DatabaseConstants.PublicWork.idCollect} IS NOT NULL " +
+                "OR ${DatabaseConstants.PublicWork.toSend} IS 1"
+    )
+    abstract fun listAllPublicWorkToSendLive(): LiveData<List<PublicWork>>
+
+    @Query(
+        "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +
+                "WHERE ${DatabaseConstants.PublicWork.idCollect} IS NOT NULL " +
+                "OR ${DatabaseConstants.PublicWork.toSend} IS 1"
+    )
+    abstract fun listAllPublicWorkToSend(): List<PublicWork>
 }

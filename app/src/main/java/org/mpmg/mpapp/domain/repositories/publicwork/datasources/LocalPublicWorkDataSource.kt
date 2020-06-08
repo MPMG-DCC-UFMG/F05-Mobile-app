@@ -14,9 +14,13 @@ class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(ap
     @Transaction
     override fun insertPublicWork(publicWork: PublicWork, address: Address) {
         val oldPublicWork = mpDatabase()!!.publicWorkDAO().getPublicWorkById(publicWork.id)
-        publicWork.idCollect = oldPublicWork?.idCollect
+        publicWork.idCollect = oldPublicWork?.idCollect ?: publicWork.idCollect
         mpDatabase()!!.publicWorkDAO().insert(publicWork)
         mpDatabase()!!.addressDAO().insert(address)
+    }
+
+    override fun getPublicWorkById(publicWorkId: String): PublicWorkAndAddress? {
+        return mpDatabase()!!.publicWorkDAO().getPublicWorkAndAddressById(publicWorkId)
     }
 
     override fun listAllPublicWorks(): List<PublicWorkAndAddress> {
@@ -45,5 +49,21 @@ class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(ap
             it.toSend = false
             mpDatabase()!!.publicWorkDAO().update(it)
         }
+    }
+
+    override fun markCollectSent(publicWorkId: String) {
+        val oldPublicWork = mpDatabase()!!.publicWorkDAO().getPublicWorkById(publicWorkId)
+        oldPublicWork?.let {
+            it.idCollect = null
+            mpDatabase()!!.publicWorkDAO().update(it)
+        }
+    }
+
+    override fun listPublicWorkToSendLive(): LiveData<List<PublicWork>> {
+        return mpDatabase()!!.publicWorkDAO().listAllPublicWorkToSendLive()
+    }
+
+    override fun listPublicWorkToSend(): List<PublicWork> {
+        return mpDatabase()!!.publicWorkDAO().listAllPublicWorkToSend()
     }
 }

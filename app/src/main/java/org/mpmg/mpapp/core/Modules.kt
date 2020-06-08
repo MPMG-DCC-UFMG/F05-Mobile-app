@@ -11,10 +11,7 @@ import org.mpmg.mpapp.domain.repositories.config.ConfigRepository
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
 import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository
 import org.mpmg.mpapp.domain.repositories.collect.CollectRepository
-import org.mpmg.mpapp.domain.repositories.collect.datasources.ILocalCollectDataSource
-import org.mpmg.mpapp.domain.repositories.collect.datasources.ILocalPhotoDataSource
-import org.mpmg.mpapp.domain.repositories.collect.datasources.LocalCollectDataSource
-import org.mpmg.mpapp.domain.repositories.collect.datasources.LocalPhotoDataSource
+import org.mpmg.mpapp.domain.repositories.collect.datasources.*
 import org.mpmg.mpapp.domain.repositories.config.datasources.ILocalConfigDataSource
 import org.mpmg.mpapp.domain.repositories.config.datasources.IRemoteConfigDataSource
 import org.mpmg.mpapp.domain.repositories.config.datasources.LocalConfigDataSource
@@ -43,7 +40,7 @@ val viewModelModules = module {
     viewModel { TypeWorkViewModel(get()) }
     viewModel { CollectViewModel(get(), get(), get()) }
     viewModel { PhotoViewModel() }
-    viewModel { SendViewModel(androidApplication()) }
+    viewModel { SendViewModel(androidApplication(), get()) }
 }
 
 val repositoriesModules = module {
@@ -51,7 +48,7 @@ val repositoriesModules = module {
     single { PublicWorkRepository(get(), get()) as IPublicWorkRepository }
     single { TypeWorkRepository(get()) as ITypeWorkRepository }
     single { ConfigRepository(get(), get()) as IConfigRepository }
-    single { CollectRepository(get(), get()) as ICollectRepository }
+    single { CollectRepository(get(), get(), get()) as ICollectRepository }
 }
 
 val networkModule = module {
@@ -67,6 +64,8 @@ val dataSourceModules = module {
     single { LocalPhotoDataSource(androidApplication()) as ILocalPhotoDataSource }
     single { LocalCollectDataSource(androidApplication()) as ILocalCollectDataSource }
     single { LocalConfigDataSource(androidApplication()) as ILocalConfigDataSource }
+
     single { RemoteConfigDataSource(get()) as IRemoteConfigDataSource }
     single { RemotePublicWorkDataSource(get()) as IRemotePublicWorkDataSource }
+    single { RemoteCollectDataSource(get()) as IRemoteCollectDataSource }
 }
