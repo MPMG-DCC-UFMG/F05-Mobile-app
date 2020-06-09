@@ -30,4 +30,10 @@ interface MPApi {
     @Multipart
     @POST("images/upload")
     suspend fun sendImage(@Part fileForm: MultipartBody.Part): ImageUploadResponse
+
+    @GET("typephotos/")
+    suspend fun loadTypePhotos(): List<TypePhotoRemote>
+
+    @GET("typephotos/version")
+    suspend fun getTypePhotosVersion(): EntityVersion
 }

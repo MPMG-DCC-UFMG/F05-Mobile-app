@@ -11,13 +11,28 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.database.models.Photo
+import org.mpmg.mpapp.domain.database.models.TypePhoto
+import org.mpmg.mpapp.domain.repositories.typephoto.ITypePhotoRepository
 import java.io.File
 import java.io.IOException
 
-class PhotoViewModel : ViewModel() {
+class PhotoViewModel(private val typePhotoRepository: ITypePhotoRepository) : ViewModel() {
 
     private var mCurrentPhoto = MutableLiveData<Photo>()
     private var mCurrentBitmap = MutableLiveData<Bitmap>()
+
+    val typePhotos = mutableListOf<TypePhoto>()
+
+    init {
+        loadTypePhotos()
+    }
+
+    private fun loadTypePhotos() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val types = typePhotoRepository.listAllTypePhotos()
+            typePhotos.addAll(types)
+        }
+    }
 
     fun setPhoto(photo: Photo?) {
         mCurrentPhoto.value = if (photo == null) {

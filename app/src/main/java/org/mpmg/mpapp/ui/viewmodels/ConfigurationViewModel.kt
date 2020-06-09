@@ -10,12 +10,14 @@ import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.network.models.EntityVersion
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
+import org.mpmg.mpapp.domain.repositories.typephoto.ITypePhotoRepository
 import org.mpmg.mpapp.domain.repositories.typework.ITypeWorkRepository
 
 class ConfigurationViewModel(
     private val typeWorkRepository: ITypeWorkRepository,
     private val configRepository: IConfigRepository,
-    private val publicWorkRepository: IPublicWorkRepository
+    private val publicWorkRepository: IPublicWorkRepository,
+    private val typePhotoRepository: ITypePhotoRepository
 ) : ViewModel() {
 
     private val TAG = ConfigurationViewModel::class.java.name
@@ -23,13 +25,14 @@ class ConfigurationViewModel(
     private val stepsFinished = MutableLiveData<MutableList<Boolean>>()
 
     init {
-        stepsFinished.value = MutableList(2) { false }
+        stepsFinished.value = MutableList(3) { false }
     }
 
     fun startConfigFilesDownload() {
         viewModelScope.launch(Dispatchers.IO) {
-            downloadTaskTypeList()
+            downloadTypeWorkList()
             downloadPublicWorkList()
+            downloadTypePhotoList()
         }
     }
 
@@ -66,7 +69,7 @@ class ConfigurationViewModel(
     }
 
     @WorkerThread
-    private suspend fun downloadTaskTypeList() {
+    private suspend fun downloadTypeWorkList() {
         val currentVersion = configRepository.currentTypeWorksVersion()
         val serverVersionResult = kotlin.runCatching { configRepository.getTypeWorkVersion() }
 
@@ -84,6 +87,27 @@ class ConfigurationViewModel(
         }
 
         setTaskDone(0)
+    }
+
+    @WorkerThread
+    private suspend fun downloadTypePhotoList() {
+        val currentVersion = configRepository.currentTypePhotosVersion()
+        val serverVersionResult = kotlin.runCatching { configRepository.getTypePhotosVersion() }
+
+        serverVersionResult.onSuccess { serverVersion ->
+            if (currentVersion != serverVersion.version) {
+                kotlin.runCatching {
+                    configRepository.loadTypePhotos()
+                }.onSuccess {
+                    typePhotoRepository.insertTypePhotos(it.map { it.toTypePhotoDB() })
+                    configRepository.saveTypePhotosVersion(serverVersion.version)
+                }
+            }
+        }.onFailure {
+            Log.d(TAG, "failed to download type of photos")
+        }
+
+        setTaskDone(2)
     }
 
 }

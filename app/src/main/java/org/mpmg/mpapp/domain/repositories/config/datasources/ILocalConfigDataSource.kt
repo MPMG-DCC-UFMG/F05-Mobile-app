@@ -10,6 +10,10 @@ interface ILocalConfigDataSource {
 
     fun currentPublicWorkVersion(): Int
 
+    fun currentTypePhotosVersion(): Int
+
+    fun saveTypePhotosVersion(typePhotosVersion: Int)
+
     fun setLoggedUserEmail(email: String)
 
     fun getLoggedUserEmail(): String
