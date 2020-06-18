@@ -31,7 +31,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/materialButton_sendFragment_send"
-        style="@style/MPAppTheme.ButtonSmallBlue"
+        style="@style/MPAppTheme.ButtonSmall1"
         android:layout_width="0dp"
         android:layout_height="@dimen/height_default"
         android:layout_marginStart="@dimen/margin_xxlarge"

@@ -23,4 +23,6 @@
     <dimen name="button_width">300dp</dimen>
 
     <dimen name="icon_large">26dp</dimen>
+
+    <dimen name="cardBorder">10dp</dimen>
 </resources>

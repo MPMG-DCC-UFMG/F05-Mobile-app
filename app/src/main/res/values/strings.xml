@@ -63,6 +63,7 @@
 
     <string name="text_empty_public_work_list">Lista de obras vazia, tente adicionar uma nova obra manualmente.</string>
     <string name="text_empty_collect_list">Lista de obras para enviar vazia, tente realizar coletas ou atualizar informações das obras</string>
+    <string name="text_welcome">Bem vindo ao TRENA, o aplicativo de fiscalização do Ministério Público de Minas Gerais</string>
 
     <string name="text_loading">Carregando …</string>
     <string name="text_move_map">Mova o mapa para selecionar\na localização da obra.</string>
@@ -91,5 +92,9 @@
     <string name="progress_success_upload">Dados enviados com sucesso!</string>
     <string name="progress_fail_upload">Erro ao enviar dados para o servidor :(</string>
 
+    <string name="home_option_list">Lista de obras</string>
+    <string name="home_option_new">Adicionar nova obra</string>
+    <string name="home_option_send">Enviar dados</string>
+    <string name="home_option_help">Ajuda</string>
 
 </resources>

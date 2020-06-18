@@ -9,13 +9,10 @@
         android:id="@+id/loginFragment"
         android:name="org.mpmg.mpapp.ui.screens.login.LoginFragment"
         android:label="LoginFragment">
+
         <action
             android:id="@+id/action_loginFragment_to_setupApplicationFragment"
             app:destination="@id/setupApplicationFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -71,15 +68,11 @@
         android:label="fragment_setup_application"
         tools:layout="@layout/fragment_setup_application">
         <action
-            android:id="@+id/action_setupApplicationFragment_to_baseFragment"
-            app:destination="@id/baseFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"
+            android:id="@+id/action_setupApplicationFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="true"
             app:popUpTo="@id/setupApplicationFragment"
-            app:popUpToInclusive="true"
-            app:launchSingleTop="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -108,7 +101,7 @@
         android:id="@+id/photoAddFragment"
         android:name="org.mpmg.mpapp.ui.screens.photo.PhotoAddFragment"
         android:label="fragment_add_photo"
-        tools:layout="@layout/fragment_add_photo" >
+        tools:layout="@layout/fragment_add_photo">
         <action
             android:id="@+id/action_photoAddFragment_pop"
             app:popUpTo="@id/photoAddFragment"
@@ -128,6 +121,11 @@
             app:popUpTo="@id/mapFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="org.mpmg.mpapp.ui.screens.home.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
 
 
 </navigation>

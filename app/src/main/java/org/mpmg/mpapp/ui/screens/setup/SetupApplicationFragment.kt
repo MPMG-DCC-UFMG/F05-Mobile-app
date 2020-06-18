@@ -46,6 +46,6 @@ class SetupApplicationFragment : Fragment() {
     }
 
     private fun navigateToList() {
-        findNavController().navigate(R.id.action_setupApplicationFragment_to_baseFragment)
+        findNavController().navigate(R.id.action_setupApplicationFragment_to_homeFragment)
     }
 }

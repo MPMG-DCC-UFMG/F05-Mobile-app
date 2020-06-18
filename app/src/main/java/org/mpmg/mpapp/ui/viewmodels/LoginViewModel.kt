@@ -18,17 +18,7 @@ class LoginViewModel(
     private val configRepository: IConfigRepository
 ) : AndroidViewModel(applicationContext) {
 
-    fun checkUserLogged(): Boolean {
-        return checkGoogleSignedAccount() || checkFirebaseSignedAccount()
-    }
-
-    private fun checkGoogleSignedAccount(): Boolean {
-        val account = GoogleSignIn.getLastSignedInAccount(applicationContext)
-        return account?.email?.let {
-            logIn(it)
-            true
-        } ?: false
-    }
+    fun checkUserLogged(): Boolean  = checkFirebaseSignedAccount()
 
     private fun checkFirebaseSignedAccount(): Boolean {
         val firebaseAuth = FirebaseAuth.getInstance()

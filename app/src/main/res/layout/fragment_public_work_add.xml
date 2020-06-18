@@ -41,7 +41,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/materialButton_addPublicWorkFragment_map"
-                    style="@style/MPAppTheme.ButtonSmallBlue"
+                    style="@style/MPAppTheme.ButtonSmall1"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_default"
                     android:layout_marginTop="@dimen/margin_medium"
@@ -82,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_default"
-                    android:src="@drawable/ic_down_chevron"
+                    android:src="@drawable/ic_chevron_down"
                     app:layout_constraintBottom_toBottomOf="@+id/textView_addPublicWorkFragment_typeOfWork"
                     app:layout_constraintEnd_toEndOf="@+id/textView_addPublicWorkFragment_typeOfWork"
                     app:layout_constraintTop_toTopOf="@+id/textView_addPublicWorkFragment_typeOfWork"
@@ -232,7 +232,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/materialButton_addPublicWorkFragment_add"
-                    style="@style/MPAppTheme.ButtonBigBlue"
+                    style="@style/MPAppTheme.ButtonBig1"
                     android:layout_width="146dp"
                     android:layout_height="@dimen/height_default"
                     android:enabled="@{publicWorkViewModel.isPublicWorkValid}"
@@ -245,7 +245,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/materialButton_addPublicWorkFragment_cancel"
-                    style="@style/MPAppTheme.ButtonBigGrey"
+                    style="@style/MPAppTheme.ButtonBig2"
                     android:layout_width="146dp"
                     android:layout_height="@dimen/height_default"
                     android:layout_marginTop="@dimen/margin_xxlarge"

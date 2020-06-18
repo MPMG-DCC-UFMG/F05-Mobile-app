@@ -40,7 +40,23 @@ To authenticate in Twitter and Facebook the Firebase was used for this applicati
 in Firebase and download the file **google_services.json**. All the service setup can be done following the steps in
 [Setup firebase](https://firebase.google.com/docs/android/setup)
 
+Follow this steps to enable [Sign In with Google](https://firebase.google.com/docs/auth/android/google-signin)
 Follow this steps to enable [Sign In with Twitter](https://firebase.google.com/docs/auth/android/twitter-login)
+
+It's also necessary to add some variables to the file "services_keys.xml":
+
+```bash
+<string name="google_sign_in" templateMergeStrategy="preserve" translatable="false">GOOGLE_SIGN_CLIENT_ID</string>
+```
+
+### 1.3.1 Firebase tips
+
+When registering a new application it's necessary to add the SHA1 of the key used when singing the application. When debugging the
+app Android Studio uses a debug key that's in the IDE folder. A easy way to discover this key it's to run the command:
+
+```bash
+./gradlew signingReport
+```
 
 ## 2. Third Party Libraries
 

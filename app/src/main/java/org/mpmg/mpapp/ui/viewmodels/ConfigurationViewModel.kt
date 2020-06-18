@@ -28,7 +28,7 @@ class ConfigurationViewModel(
 
     fun startConfigFilesDownload() {
         viewModelScope.launch(Dispatchers.IO) {
-            downloadTaskTypeList()
+            downloadTypeWorkList()
             downloadPublicWorkList()
         }
     }
@@ -66,7 +66,7 @@ class ConfigurationViewModel(
     }
 
     @WorkerThread
-    private suspend fun downloadTaskTypeList() {
+    private suspend fun downloadTypeWorkList() {
         val currentVersion = configRepository.currentTypeWorksVersion()
         val serverVersionResult = kotlin.runCatching { configRepository.getTypeWorkVersion() }
 

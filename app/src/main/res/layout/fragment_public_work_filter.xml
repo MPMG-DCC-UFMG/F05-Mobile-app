@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_default"
-            android:src="@drawable/ic_down_chevron"
+            android:src="@drawable/ic_chevron_down"
             app:layout_constraintBottom_toBottomOf="@+id/textView_filterFragment_typeOfWork"
             app:layout_constraintEnd_toEndOf="@+id/textView_filterFragment_typeOfWork"
             app:layout_constraintTop_toTopOf="@+id/textView_filterFragment_typeOfWork"

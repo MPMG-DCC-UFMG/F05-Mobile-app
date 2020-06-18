@@ -44,7 +44,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton_collectMainFragment_edit"
-            style="@style/MPAppTheme.ButtonSmallBlue"
+            style="@style/MPAppTheme.ButtonSmall1"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/button_default"
             android:layout_marginTop="@dimen/margin_xxlarge"
@@ -70,7 +70,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton_collectMainFragment_addPhoto"
-            style="@style/MPAppTheme.ButtonBigBlue"
+            style="@style/MPAppTheme.ButtonBig1"
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/height_default"
             android:layout_marginBottom="@dimen/margin_default"
@@ -84,7 +84,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton_collectMainFragment_addComment"
-            style="@style/MPAppTheme.ButtonBigBlue"
+            style="@style/MPAppTheme.ButtonBig1"
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/height_default"
             android:layout_marginBottom="@dimen/margin_xxlarge"
