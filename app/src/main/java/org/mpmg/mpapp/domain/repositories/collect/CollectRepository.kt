@@ -5,14 +5,19 @@ import androidx.room.Transaction
 import org.mpmg.mpapp.domain.database.models.Collect
 import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.domain.network.models.CollectRemote
+import org.mpmg.mpapp.domain.network.models.ImageUploadResponse
+import org.mpmg.mpapp.domain.network.models.PhotoRemote
 import org.mpmg.mpapp.domain.repositories.collect.datasources.ILocalCollectDataSource
 import org.mpmg.mpapp.domain.repositories.collect.datasources.ILocalPhotoDataSource
 import org.mpmg.mpapp.domain.repositories.collect.datasources.IRemoteCollectDataSource
+import org.mpmg.mpapp.domain.repositories.collect.datasources.IRemotePhotoDataSource
+import java.io.File
 
 class CollectRepository(
     private val localPhotoDataSource: ILocalPhotoDataSource,
     private val localCollectDataSource: ILocalCollectDataSource,
-    private val remoteCollectDataSource: IRemoteCollectDataSource
+    private val remoteCollectDataSource: IRemoteCollectDataSource,
+    private val remotePhotoDataSource: IRemotePhotoDataSource
 ) :
     ICollectRepository {
 
@@ -52,5 +57,17 @@ class CollectRepository(
 
     override suspend fun sendCollect(collectRemote: CollectRemote): CollectRemote {
         return remoteCollectDataSource.sendCollect(collectRemote)
+    }
+
+    override suspend fun sendImage(image: File): ImageUploadResponse {
+        return remotePhotoDataSource.sendImage(image)
+    }
+
+    override suspend fun sendPhoto(photo: PhotoRemote): PhotoRemote {
+        return remotePhotoDataSource.sendPhoto(photo)
+    }
+
+    override fun markCollectSent(collectId: String) {
+        localCollectDataSource.markCollectSent(collectId)
     }
 }

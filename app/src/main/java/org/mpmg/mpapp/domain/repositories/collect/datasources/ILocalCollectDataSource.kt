@@ -9,4 +9,7 @@ interface ILocalCollectDataSource {
     fun getCollectById(collectId: String): Collect?
 
     fun getCollectByPublicIdAndStatus(publicId: String, sent: Boolean): Collect?
+
+    fun markCollectSent(collectId: String)
+
 }

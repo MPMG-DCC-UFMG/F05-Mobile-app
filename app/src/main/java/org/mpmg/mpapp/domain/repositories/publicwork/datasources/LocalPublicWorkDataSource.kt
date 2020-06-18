@@ -51,7 +51,7 @@ class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(ap
         }
     }
 
-    override fun markCollectSent(publicWorkId: String) {
+    override fun unlinkCollectFromPublicWork(publicWorkId: String) {
         val oldPublicWork = mpDatabase()!!.publicWorkDAO().getPublicWorkById(publicWorkId)
         oldPublicWork?.let {
             it.idCollect = null

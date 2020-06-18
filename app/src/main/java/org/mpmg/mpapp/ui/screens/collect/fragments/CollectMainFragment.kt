@@ -56,7 +56,7 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressed = {
             collectViewModel.updateCollect()
-            navigateTo(R.id.action_collectMainFragment_pop)
+            navigateTo(R.id.action_collectMainFragment_to_baseFragment)
         }, enabled = true)
 
         setupListeners()

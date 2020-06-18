@@ -18,4 +18,13 @@ class LocalCollectDataSource(applicationContext: Context) : BaseDataSource(appli
     override fun getCollectByPublicIdAndStatus(publicId: String, sent: Boolean): Collect? {
         return mpDatabase()!!.collectDAO().getCollectByPublicIdAndStatus(publicId, sent)
     }
+
+    override fun markCollectSent(collectId: String) {
+        val oldCollect = mpDatabase()!!.collectDAO().getCollectById(collectId)
+        oldCollect?.let {
+            it.isSent = true
+            mpDatabase()!!.collectDAO().update(it)
+        }
+    }
+
 }

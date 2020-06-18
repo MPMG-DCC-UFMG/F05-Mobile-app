@@ -58,8 +58,8 @@ class PublicWorkRepository(
         localPublicWorkDataSource.markPublicWorkSent(publicWorkId)
     }
 
-    override fun markCollectSent(publicWorkId: String) {
-        localPublicWorkDataSource.markCollectSent(publicWorkId)
+    override fun unlinkCollectFromPublicWork(publicWorkId: String) {
+        localPublicWorkDataSource.unlinkCollectFromPublicWork(publicWorkId)
     }
 
     override fun listPublicWorkToSend(): List<PublicWork> {

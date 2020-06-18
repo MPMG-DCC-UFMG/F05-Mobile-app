@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import org.mpmg.mpapp.domain.database.models.Collect
 import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.domain.network.models.CollectRemote
+import org.mpmg.mpapp.domain.repositories.collect.datasources.IRemoteCollectDataSource
+import org.mpmg.mpapp.domain.repositories.collect.datasources.IRemotePhotoDataSource
 
-interface ICollectRepository {
+interface ICollectRepository : IRemoteCollectDataSource, IRemotePhotoDataSource {
 
     fun listPhotosByCollectionIDLive(collectionId: String): LiveData<List<Photo>>
 
@@ -23,5 +25,6 @@ interface ICollectRepository {
 
     fun deletePhotoById(photoId: String)
 
-    suspend fun sendCollect(collectRemote: CollectRemote): CollectRemote
+    fun markCollectSent(collectId: String)
+
 }
