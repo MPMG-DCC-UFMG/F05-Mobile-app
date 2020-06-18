@@ -3,6 +3,7 @@ package org.mpmg.mpapp.domain.repositories.config.datasources
 import org.mpmg.mpapp.domain.network.api.MPApi
 import org.mpmg.mpapp.domain.network.models.EntityVersion
 import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
+import org.mpmg.mpapp.domain.network.models.TypePhotoRemote
 import org.mpmg.mpapp.domain.network.models.TypeWorkRemote
 
 class RemoteConfigDataSource(val mpApi: MPApi) : IRemoteConfigDataSource {
@@ -23,4 +24,11 @@ class RemoteConfigDataSource(val mpApi: MPApi) : IRemoteConfigDataSource {
         return mpApi.getPublicWorkVersion()
     }
 
+    override suspend fun loadTypePhotos(): List<TypePhotoRemote> {
+        return mpApi.loadTypePhotos()
+    }
+
+    override suspend fun getTypePhotosVersion(): EntityVersion {
+        return mpApi.getTypePhotosVersion()
+    }
 }

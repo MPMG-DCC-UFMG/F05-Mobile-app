@@ -109,38 +109,34 @@ class PhotoAddFragment : Fragment() {
     }
 
     private fun launchTypeSelectDialog() {
-        activity?.let {
-            val optionsArray = arrayOf("Outros")
-            val builder = AlertDialog.Builder(it)
-            builder.setTitle(getString(R.string.dialog_type_photo_title))
-                .setItems(optionsArray) { _, which ->
-                    photoViewModel.setPhotoType(optionsArray[which])
-                }
+        val optionsArray = photoViewModel.typePhotos.map { it.name }.toTypedArray()
+        val builder = AlertDialog.Builder(requireActivity())
+        builder.setTitle(getString(R.string.dialog_type_photo_title))
+            .setItems(optionsArray) { _, which ->
+                photoViewModel.setPhotoType(optionsArray[which])
+            }
 
-            builder.create().show()
-        }
+        builder.create().show()
     }
 
     private fun dispatchTakePictureIntent() {
-        context?.let { currContext ->
-            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-                takePictureIntent.resolveActivity(currContext.packageManager)?.also {
-                    val photoFile: File? = try {
-                        photoViewModel.createPhotoFile(currContext)
-                    } catch (ex: IOException) {
-                        Log.d(TAG, "An error occur when creating photo file")
-                        null
-                    }
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(requireContext().packageManager)?.also {
+                val photoFile: File? = try {
+                    photoViewModel.createPhotoFile(requireContext())
+                } catch (ex: IOException) {
+                    Log.d(TAG, "An error occur when creating photo file")
+                    null
+                }
 
-                    photoFile?.also {
-                        val photoURI: Uri = FileProvider.getUriForFile(
-                            currContext,
-                            "${BuildConfig.APPLICATION_ID}.fileprovider",
-                            it
-                        )
-                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                        startActivityForResult(takePictureIntent, RC_IMAGE_CAPTURE)
-                    }
+                photoFile?.also {
+                    val photoURI: Uri = FileProvider.getUriForFile(
+                        requireContext(),
+                        "${BuildConfig.APPLICATION_ID}.fileprovider",
+                        it
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, RC_IMAGE_CAPTURE)
                 }
             }
         }

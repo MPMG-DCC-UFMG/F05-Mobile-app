@@ -4,6 +4,7 @@ import org.mpmg.mpapp.domain.network.api.MPApi
 import org.mpmg.mpapp.domain.database.models.TypeWork
 import org.mpmg.mpapp.domain.network.models.EntityVersion
 import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
+import org.mpmg.mpapp.domain.network.models.TypePhotoRemote
 import org.mpmg.mpapp.domain.network.models.TypeWorkRemote
 import org.mpmg.mpapp.domain.repositories.config.datasources.ILocalConfigDataSource
 import org.mpmg.mpapp.domain.repositories.config.datasources.IRemoteConfigDataSource
@@ -53,5 +54,21 @@ class ConfigRepository(
 
     override fun currentPublicWorkVersion(): Int {
         return localConfigDataSource.currentPublicWorkVersion()
+    }
+
+    override suspend fun loadTypePhotos(): List<TypePhotoRemote> {
+        return remoteConfigDataSource.loadTypePhotos()
+    }
+
+    override suspend fun getTypePhotosVersion(): EntityVersion {
+        return remoteConfigDataSource.getTypePhotosVersion()
+    }
+
+    override fun currentTypePhotosVersion(): Int {
+        return localConfigDataSource.currentTypePhotosVersion()
+    }
+
+    override fun saveTypePhotosVersion(typePhotosVersion: Int) {
+        localConfigDataSource.saveTypePhotosVersion(typePhotosVersion)
     }
 }

@@ -25,6 +25,12 @@ object DatabaseConstants {
         const val name = "type_work_name"
     }
 
+    object TypePhoto {
+        const val tableName = "type_photo_table"
+        const val flag = "type_photo_flag"
+        const val name = "type_photo_name"
+    }
+
     object Collect {
         const val tableName = "collect_table"
         const val id = "collect_id"
