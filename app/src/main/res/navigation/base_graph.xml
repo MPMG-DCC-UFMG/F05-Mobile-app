@@ -17,11 +17,4 @@
         android:label="fragment_public_work_filter"
         tools:layout="@layout/fragment_public_work_filter" />
 
-    <fragment
-        android:id="@+id/publicWorkSendFragment"
-        android:name="org.mpmg.mpapp.ui.screens.upload.fragments.UploadDataFragment"
-        android:label="fragment_public_work_send"
-        tools:layout="@layout/fragment_public_work_send" />
-
-
 </navigation>

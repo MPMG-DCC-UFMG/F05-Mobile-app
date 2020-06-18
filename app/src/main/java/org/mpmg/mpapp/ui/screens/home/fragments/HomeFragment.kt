@@ -47,13 +47,13 @@ class HomeFragment : Fragment() {
         homeOptionsAdapter.setOptions(
             listOf(
                 HomeOptions(R.drawable.ic_list, getString(R.string.home_option_list)) {
-
+                    navigateTo(R.id.action_homeFragment_to_baseFragment)
                 },
                 HomeOptions(R.drawable.ic_plus, getString(R.string.home_option_new)) {
-
+                    navigateTo(R.id.action_homeFragment_to_publicWorkAddFragment)
                 },
                 HomeOptions(R.drawable.ic_send, getString(R.string.home_option_send)) {
-
+                    navigateTo(R.id.action_homeFragment_to_uploadDataFragment)
                 },
                 HomeOptions(R.drawable.ic_help, getString(R.string.home_option_help)) {
 

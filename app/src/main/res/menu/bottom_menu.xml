@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/publicWorkFilterFragment"
-        android:icon="@drawable/ic_filter"
+        android:id="@+id/base_graph"
+        android:icon="@drawable/ic_home"
         android:orderInCategory="1"
-        android:title="@string/menu_filter"
+        android:title="@string/menu_home"
         app:showAsAction="always" />
 
     <item
@@ -17,10 +17,9 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/publicWorkSendFragment"
-        android:icon="@drawable/ic_send"
+        android:id="@+id/publicWorkFilterFragment"
+        android:icon="@drawable/ic_filter"
         android:orderInCategory="3"
-        android:title="@string/menu_send"
-        app:showAsAction="always"/>
-
+        android:title="@string/menu_filter"
+        app:showAsAction="always" />
 </menu>
