@@ -28,12 +28,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
             android:layout_marginTop="@dimen/margin_xxlarge"
+            android:layout_marginEnd="@dimen/margin_default"
             android:background="@drawable/background_hint"
-            android:fontFamily="@font/nunito_regular"
-            android:gravity="center"
+            android:fontFamily="@font/gotham_book"
             android:text="@string/text_move_map"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/font_xlarge"
@@ -54,19 +55,19 @@
 
         <TextView
             android:id="@+id/textView_mapFragment_reverseGeocoding"
+            style="@style/MPAppTheme.EditText2"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_default"
+            android:layout_height="@dimen/height_large"
             android:layout_marginStart="@dimen/margin_default"
             android:layout_marginEnd="@dimen/margin_default"
             android:layout_marginBottom="16dp"
-            android:background="#FFFFFF"
             android:drawableStart="@drawable/ic_location"
             android:drawablePadding="@dimen/margin_small"
-            android:drawableTint="@color/label1"
-            android:fontFamily="@font/nunito_regular"
+            android:drawableTint="@color/colorWhite"
             android:gravity="center_vertical"
             android:hint="@string/label_search_address"
             android:maxLines="2"
+            android:singleLine="false"
             android:paddingStart="@dimen/margin_small"
             android:paddingEnd="@dimen/height_default"
             android:text="@{locationViewModel.geocodingAddress.getAddressLine(0)}"
@@ -77,17 +78,18 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton_mapFragment_refresh"
-            style="@style/MPAppTheme.ButtonBig1"
+            style="@style/MPAppTheme.Button1"
             android:layout_width="@dimen/height_default"
-            android:layout_height="@dimen/height_default"
+            android:layout_height="@dimen/height_large"
             app:icon="@drawable/ic_refresh"
+            app:iconTint="@color/textButton4"
             app:layout_constraintBottom_toBottomOf="@+id/textView_mapFragment_reverseGeocoding"
             app:layout_constraintEnd_toEndOf="@+id/textView_mapFragment_reverseGeocoding"
             app:layout_constraintTop_toTopOf="@+id/textView_mapFragment_reverseGeocoding" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton_mapFragment_confirm"
-            style="@style/MPAppTheme.ButtonBig1"
+            style="@style/MPAppTheme.Button3"
             android:layout_width="300dp"
             android:layout_height="@dimen/height_default"
             android:layout_marginBottom="@dimen/margin_medium"
@@ -98,12 +100,11 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton_mapFragment_cancel"
-            style="@style/MPAppTheme.ButtonBig2"
+            style="@style/MPAppTheme.Button2"
             android:layout_width="300dp"
             android:layout_height="@dimen/height_default"
             android:layout_marginBottom="@dimen/margin_xlarge"
             android:text="@string/button_cancel"
-            android:textColor="@color/title2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

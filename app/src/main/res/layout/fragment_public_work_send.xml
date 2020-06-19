@@ -31,19 +31,16 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/materialButton_sendFragment_send"
-        style="@style/MPAppTheme.ButtonSmall1"
+        style="@style/MPAppTheme.Button3"
         android:layout_width="0dp"
         android:layout_height="@dimen/height_default"
         android:layout_marginStart="@dimen/margin_xxlarge"
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginEnd="@dimen/margin_xxlarge"
         android:layout_marginBottom="@dimen/margin_xxlarge"
-        android:backgroundTint="@color/buttonValid1"
         android:text="@string/button_send_data"
-        android:textColor="@color/colorWhite"
         app:icon="@drawable/ic_sent"
         app:iconGravity="textStart"
-        app:iconTint="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

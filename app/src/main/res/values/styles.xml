@@ -72,14 +72,15 @@
         <item name="android:background">@drawable/background_input</item>
         <item name="android:fontFamily">@font/gotham_rounded_medium</item>
         <item name="android:textColorHint">@color/stroke1</item>
-        <item name="passwordToggleTint">@color/button1</item>
     </style>
 
     <style name="MPAppTheme.EditText2" parent="TextAppearance.AppCompat">
         <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/background_input2</item>
-        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:fontFamily">@font/gotham_rounded_book</item>
         <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="hintTextColor">@color/hintColor1</item>
     </style>
 
     <style name="MPAppTheme.EditText3" parent="TextAppearance.AppCompat">
@@ -97,7 +98,7 @@
         <item name="android:fontFamily">@font/nunito_bold</item>
     </style>
 
-    <style name="MPAppTheme.ButtonBig1" parent="MPAppTheme.ButtonBase">
+    <style name="MPAppTheme.Button1" parent="MPAppTheme.ButtonBase">
         <item name="borderWidth">0dp</item>
         <item name="android:backgroundTint">@color/button_primary</item>
         <item name="android:textSize">@dimen/font_large</item>
@@ -105,16 +106,30 @@
         <item name="android:fontFamily">@font/gotham_rounded_medium</item>
     </style>
 
-    <style name="MPAppTheme.ButtonBig2" parent="MPAppTheme.ButtonBase">
+    <style name="MPAppTheme.Button2" parent="MPAppTheme.ButtonBase">
         <item name="borderWidth">0dp</item>
         <item name="android:textSize">@dimen/font_large</item>
-        <item name="android:backgroundTint">@color/button3</item>
+        <item name="android:backgroundTint">@color/button5</item>
+        <item name="android:textColor">@color/textButton5</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
     </style>
 
-    <style name="MPAppTheme.ButtonBig3" parent="MPAppTheme.ButtonBase">
+    <style name="MPAppTheme.Button3" parent="MPAppTheme.ButtonBase">
         <item name="borderWidth">0dp</item>
         <item name="android:textSize">@dimen/font_large</item>
-        <item name="android:backgroundTint">@color/colorWhite</item>
+        <item name="android:textColor">@color/text_button_third</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:backgroundTint">@color/button_third</item>
+        <item name="iconTint">@color/text_button_third</item>
+    </style>
+
+    <style name="MPAppTheme.Button4" parent="MPAppTheme.ButtonBase">
+        <item name="borderWidth">0dp</item>
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textColor">@color/colorRed</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:backgroundTint">@color/button6</item>
+        <item name="iconTint">@color/colorRed</item>
     </style>
 
     <style name="MPAppTheme.ButtonSmall1" parent="MPAppTheme.ButtonBase">
@@ -122,13 +137,6 @@
         <item name="android:backgroundTint">@color/button2</item>
         <item name="android:textColor">@color/buttonValid1</item>
         <item name="iconTint">@color/buttonValid1</item>
-    </style>
-
-    <style name="MPAppTheme.ButtonSmall2" parent="MPAppTheme.ButtonBase">
-        <item name="android:textSize">@dimen/font_default</item>
-        <item name="android:backgroundTint">@color/button2</item>
-        <item name="android:textColor">@color/buttonInvalid1</item>
-        <item name="iconTint">@color/buttonInvalid1</item>
     </style>
 
     <style name="MPAppTheme.RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">

@@ -67,7 +67,7 @@
     <string name="text_welcome">Bem vindo ao TRENA, o aplicativo de fiscalização do Ministério Público de Minas Gerais</string>
 
     <string name="text_loading">Carregando …</string>
-    <string name="text_move_map">Mova o mapa para selecionar\na localização da obra.</string>
+    <string name="text_move_map">Mova o mapa para selecionar a localização da obra.</string>
     <string name="text_to_send">Para enviar: %s</string>
     <string name="text_sending">Enviando: %s</string>
 
