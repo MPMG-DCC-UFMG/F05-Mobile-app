@@ -19,7 +19,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/textView_uploadItem_publicWorkName"
             style="@style/MPAppTheme.TextUpload"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -27,13 +27,13 @@
             android:layout_marginEnd="@dimen/margin_medium"
             android:maxLines="1"
             android:text="@{publicWork.name}"
-            app:layout_constraintEnd_toStartOf="@+id/textView19"
+            app:layout_constraintEnd_toStartOf="@+id/textView_uploadItem_progress"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView19"
+            app:layout_constraintTop_toTopOf="@+id/textView_uploadItem_progress"
             tools:text="Escola Municipal" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/textView_uploadItem_progress"
             style="@style/MPAppTheme.TextUpload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,10 +52,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_xsmall"
             android:text="@{publicWork.status}"
-            app:layout_constraintEnd_toEndOf="@+id/textView19"
-            app:layout_constraintStart_toStartOf="@+id/textView18"
-            app:layout_constraintTop_toBottomOf="@+id/textView18"
+            app:layout_constraintEnd_toEndOf="@+id/textView_uploadItem_progress"
+            app:layout_constraintStart_toStartOf="@+id/textView_uploadItem_publicWorkName"
+            app:layout_constraintTop_toBottomOf="@+id/textView_uploadItem_publicWorkName"
             tools:text="Enviando dados da obra pública" />
+
+        <ImageView
+            android:layout_width="@dimen/icon_large"
+            android:layout_height="@dimen/icon_large"
+            android:layout_marginEnd="@dimen/margin_xlarge"
+            android:src="@drawable/ic_check"
+            android:tint="@color/colorGreenMP"
+            android:visibility="@{publicWork.workState == State.SUCCEEDED ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_uploadItem_publicWorkName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView_uploadItem_publicWorkName" />
 
         <View
             android:layout_width="match_parent"
@@ -63,19 +74,11 @@
             android:layout_marginStart="@dimen/margin_xlarge"
             android:layout_marginTop="@dimen/margin_small"
             android:background="@color/colorDivider"
+            android:visibility="@{publicWork.showDivider ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
-        <ImageView
-            android:layout_width="@dimen/icon_large"
-            android:layout_height="@dimen/icon_large"
-            android:layout_marginEnd="@dimen/margin_xlarge"
-            android:src="@drawable/ic_check"
-            android:visibility="@{publicWork.workState == State.SUCCEEDED ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="@+id/textView18"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView18" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

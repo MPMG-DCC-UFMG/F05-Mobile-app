@@ -47,12 +47,14 @@
 
     <style name="MPAppTheme.TextUpload" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/font_xlarge</item>
-        <item name="android:fontFamily">@font/nunito_semibold</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
     <style name="MPAppTheme.TextSubtitle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/font_xsmall</item>
-        <item name="android:fontFamily">@font/nunito_light</item>
+        <item name="android:fontFamily">@font/gotham_rounded_book</item>
+        <item name="android:textColor">@color/colorGrey1</item>
     </style>
 
     <style name="MPAppTheme.OptionText" parent="TextAppearance.AppCompat">

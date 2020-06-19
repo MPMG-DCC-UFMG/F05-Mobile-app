@@ -94,6 +94,7 @@
     <string name="progress_finishing_upload">Finalizando trabalhos</string>
     <string name="progress_success_upload">Dados enviados com sucesso!</string>
     <string name="progress_fail_upload">Erro ao enviar dados para o servidor :(</string>
+    <string name="progress_running_upload">Dados sendo enviados</string>
 
     <string name="home_option_list">Lista de obras</string>
     <string name="home_option_new">Adicionar nova obra</string>
