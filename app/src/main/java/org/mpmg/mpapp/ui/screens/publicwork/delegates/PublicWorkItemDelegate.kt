@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
@@ -59,7 +60,18 @@ class PublicWorkItemDelegate(val locationViewModel: LocationViewModel) : BaseDel
                 Observer { location ->
                     val distance = getDistance(location, position)
                     distanceTextView.text = getDistanceString(distance)
+                    setDistanceColor(distanceTextView, distance)
                 })
+    }
+
+    private fun setDistanceColor(textView: TextView, distance: Float?) {
+        val colorResourceId =
+            if (distance == null || distance > 1000)
+                R.color.colorGreyMedium
+            else
+                R.color.colorGreenMP
+
+        textView.setTextColor(ContextCompat.getColor(textView.context, colorResourceId))
     }
 
     private fun getDistance(point1: Location?, point2: Location?): Float? {

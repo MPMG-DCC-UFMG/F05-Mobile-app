@@ -44,6 +44,7 @@
                 android:layout_marginTop="@dimen/margin_xxlarge"
                 android:layout_marginEnd="@dimen/margin_xxlarge"
                 app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@color/colorGrey2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_addPhotoFragment_photoType">

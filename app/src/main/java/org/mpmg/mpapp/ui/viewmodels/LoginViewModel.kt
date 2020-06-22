@@ -3,7 +3,6 @@ package org.mpmg.mpapp.ui.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,13 +17,13 @@ class LoginViewModel(
     private val configRepository: IConfigRepository
 ) : AndroidViewModel(applicationContext) {
 
-    fun checkUserLogged(): Boolean  = checkFirebaseSignedAccount()
+    fun checkUserLogged(): Boolean = checkFirebaseSignedAccount()
 
     private fun checkFirebaseSignedAccount(): Boolean {
         val firebaseAuth = FirebaseAuth.getInstance()
         val firebaseUser = firebaseAuth.currentUser
 
-        return firebaseUser?.displayName?.let {
+        return firebaseUser?.email?.let {
             logIn(it)
             true
         } ?: false

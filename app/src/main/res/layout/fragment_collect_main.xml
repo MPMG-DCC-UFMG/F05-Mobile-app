@@ -49,11 +49,8 @@
             android:layout_height="@dimen/button_default"
             android:layout_marginTop="@dimen/margin_xxlarge"
             android:layout_marginEnd="@dimen/margin_default"
-            android:backgroundTint="@color/button2"
             android:text="@string/button_edit"
-            android:textColor="@color/buttonValid1"
             app:icon="@drawable/ic_edit"
-            app:iconTint="@color/buttonValid1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

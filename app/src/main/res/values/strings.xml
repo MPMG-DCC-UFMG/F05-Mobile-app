@@ -101,4 +101,6 @@
     <string name="home_option_send">Enviar dados</string>
     <string name="home_option_help">Ajuda</string>
 
+    <string name="message_collect_updated">Coleta atualizada</string>
+
 </resources>
