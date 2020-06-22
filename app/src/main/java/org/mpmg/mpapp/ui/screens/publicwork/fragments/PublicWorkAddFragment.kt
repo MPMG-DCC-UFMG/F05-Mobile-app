@@ -15,6 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.extensions.observeOnce
 import org.mpmg.mpapp.databinding.FragmentPublicWorkAddBinding
+import org.mpmg.mpapp.ui.dialogs.SelectorDialog
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
 
@@ -76,17 +77,16 @@ class PublicWorkAddFragment : Fragment() {
     }
 
     private fun launchTypeWorkDialog() {
-        activity?.let {
-            val typesWork = typeWorkViewModel.getTypeOfWorkList().value ?: return@let
-            val optionsArray = typesWork.map { it.name }.toTypedArray()
-            val builder = AlertDialog.Builder(it)
-            builder.setTitle(getString(R.string.dialog_type_work_title))
-                .setItems(optionsArray) { _, which ->
-                    publicWorkViewModel.setCurrentTypeWork(typesWork[which])
-                }
-
-            builder.create().show()
-        }
+        val typesWork = typeWorkViewModel.getTypeOfWorkList().value ?: return
+        val optionsArray = typesWork.map { it.name }.toTypedArray()
+        val builder = SelectorDialog.Builder(childFragmentManager)
+        builder.withTitle(getString(R.string.dialog_type_photo_title))
+            .withOptions(optionsArray.toList())
+            .withSelectionMode(SelectorDialog.SelectionMode.SINGLE)
+            .withSelectedOptionListener {
+                publicWorkViewModel.setCurrentTypeWork(typesWork[it.first()])
+            }
+            .show()
     }
 
     private fun navigateBack() {

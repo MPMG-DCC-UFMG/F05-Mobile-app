@@ -28,6 +28,7 @@
     <string name="button_enter_with_facebook">Entre com Facebook</string>
     <string name="button_enter_with_twitter">Entre com Twitter</string>
     <string name="button_send_data">Enviar dados</string>
+    <string name="button_confirm">Confirmar</string>
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_filter">Filtrar</string>
@@ -71,9 +72,9 @@
     <string name="text_to_send">Para enviar: %s</string>
     <string name="text_sending">Enviando: %s</string>
 
-    <string name="dialog_type_photo_title">Escolha o tipo da foto para adicionar</string>
-    <string name="dialog_type_work_title">Escolha o tipo da obra para adicionar</string>
-    <string name="dialog_type_work_filter_title">Escolha o tipo da obra para filtrar</string>
+    <string name="dialog_type_photo_title">Selecionar o tipo da foto</string>
+    <string name="dialog_type_work_title">Selecionar o tipo da obra</string>
+    <string name="dialog_type_work_filter_title">Selecionar o tipo das obras</string>
 
     <string name="snackbar_photo_add_success">Foto atualizada com sucesso</string>
     <string name="snackbar_photo_add_canceled">Usuário cancelou ação</string>

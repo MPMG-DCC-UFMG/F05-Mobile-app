@@ -15,6 +15,7 @@
     <color name="colorGrey1">#BDBDBD</color>
     <color name="colorBlue1">#2D9CDB</color>
     <color name="colorGrey2">#828282</color>
+    <color name="colorGrey3">#333333</color>
 
     <color name="title1">#828282</color>
     <color name="title2">#333333</color>
@@ -42,6 +43,7 @@
     <color name="textCheckDisabled">#BDBDBD</color>
 
     <color name="circleBackground1">#4F4F4F</color>
+    <color name="circleBackground2">#E0E0E0</color>
 
     <color name="cardBackground1">#333333</color>
 
@@ -54,5 +56,7 @@
     <color name="backgroundMapHint">#80333333</color>
 
     <color name="radioButtonNormal">#BDBDBD</color>
+
+    <color name="dividerColor1">#FFFFFF</color>
 
 </resources>

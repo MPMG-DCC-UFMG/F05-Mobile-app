@@ -34,7 +34,7 @@ class SendViewModel(
     fun loadPublicWorksToSend() {
         viewModelScope.launch(Dispatchers.IO) {
             val publicWorkToSend =
-                publicWorkRepository.listPublicWorkToSend().mapIndexed { index, publicWork ->
+                publicWorkRepository.listPublicWorkToSend().map { publicWork ->
                     val publicWorkUI = PublicWorkUploadUI(
                         name = publicWork.name,
                         id = publicWork.id,

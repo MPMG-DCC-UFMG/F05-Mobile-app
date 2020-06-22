@@ -62,7 +62,7 @@ class ConfigurationViewModel(
                 }
             }
         }.onFailure {
-            Log.d(TAG, "failed to download type of works")
+            Log.d(TAG, "failed to download public of works")
         }
 
         setTaskDone(1)

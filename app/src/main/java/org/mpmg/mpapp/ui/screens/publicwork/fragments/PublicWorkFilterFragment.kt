@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_public_work_filter.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentPublicWorkFilterBinding
+import org.mpmg.mpapp.ui.dialogs.SelectorDialog
 import org.mpmg.mpapp.ui.shared.filters.SyncStatus.*
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
@@ -28,7 +29,12 @@ class PublicWorkFilterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding: FragmentPublicWorkFilterBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_public_work_filter, container, false)
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_public_work_filter,
+                container,
+                false
+            )
         binding.publicWorkViewModel = publicWorkViewModel
         binding.lifecycleOwner = this
         return binding.root
@@ -62,7 +68,7 @@ class PublicWorkFilterFragment : Fragment() {
         }
     }
 
-    fun updateFilterTypeOfWorksText() {
+    private fun updateFilterTypeOfWorksText() {
         val typesWork = typeWorkViewModel.getTypeOfWorkList().value ?: return
         val checkedOptions =
             publicWorkViewModel.getFilteredTypeOfWorks(typesWork.map { it.flag }.toTypedArray())
@@ -77,20 +83,29 @@ class PublicWorkFilterFragment : Fragment() {
     }
 
     private fun launchTypeWorkDialog() {
-        activity?.let {
-            val typesWork = typeWorkViewModel.getTypeOfWorkList().value ?: return@let
-            val optionsArray = typesWork.map { it.name }.toTypedArray()
-            val checkedOptions =
-                publicWorkViewModel.getFilteredTypeOfWorks(typesWork.map { it.flag }.toTypedArray())
-            val builder =
-                AlertDialog.Builder(it).setTitle(getString(R.string.dialog_type_work_filter_title))
-                    .setMultiChoiceItems(optionsArray, checkedOptions) { _, which, isChecked ->
-                        val checked = typesWork[which]
-                        publicWorkViewModel.updateTypeWorkFilter(checked.flag, isChecked)
-                        updateFilterTypeOfWorksText()
-                    }
+        val typesWork = typeWorkViewModel.getTypeOfWorkList().value ?: return
+        val optionsArray = typesWork.map { it.name }.toTypedArray()
+        val checkedOptions =
+            publicWorkViewModel.getFilteredTypeOfWorks(typesWork.map { it.flag }.toTypedArray())
+                .withIndex().filter { it.value }.map { it.index }
 
-            builder.create().show()
-        }
+        val builder = SelectorDialog.Builder(childFragmentManager)
+        builder.withTitle(getString(R.string.dialog_type_photo_title))
+            .withOptions(optionsArray.toList())
+            .withSelectionMode(SelectorDialog.SelectionMode.MULTIPLE)
+            .withSelectedOptionListener {
+                publicWorkViewModel.setCurrentTypeWork(typesWork[it.first()])
+            }
+            .withOnPositiveClickListener {
+                val selected = it.toSet()
+                publicWorkViewModel.updateTypeWorkFilter(typesWork.filterIndexed { index, _ ->
+                    selected.contains(
+                        index
+                    )
+                }.map { typeWork -> typeWork.flag })
+                updateFilterTypeOfWorksText()
+            }
+            .withSelectedOptions(checkedOptions)
+            .show()
     }
 }

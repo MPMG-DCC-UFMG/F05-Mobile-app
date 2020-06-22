@@ -84,10 +84,10 @@
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/height_default"
             android:layout_marginBottom="@dimen/margin_xxlarge"
-            android:backgroundTint="@color/button1"
             android:text="@string/button_add_comment"
             app:icon="@drawable/ic_comment"
             app:iconGravity="textStart"
+            app:iconTint="@color/text_button_primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
