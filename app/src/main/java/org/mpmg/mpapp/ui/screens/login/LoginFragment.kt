@@ -8,20 +8,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.OAuthProvider
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.core.Constants.GOOGLE_SIGIN_CLIENT_ID
 import org.mpmg.mpapp.ui.viewmodels.LoginViewModel
+import java.util.*
+
 
 class LoginFragment : Fragment() {
 
@@ -29,6 +37,7 @@ class LoginFragment : Fragment() {
 
     private val loginViewModel: LoginViewModel by sharedViewModel()
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var callbackManager: CallbackManager
 
     private val RC_GOOGLE_SIGN_IN = 601
 
@@ -50,6 +59,7 @@ class LoginFragment : Fragment() {
         }
 
         setupListeners()
+        setupFacebookLogin()
     }
 
     private fun setupListeners() {
@@ -60,39 +70,64 @@ class LoginFragment : Fragment() {
         button_loginFragment_twitterSignIn.setOnClickListener {
             signInTwitter()
         }
-    }
 
-    private fun signInGoogle() {
-        context?.let {
-            val gso =
-                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.google_sign_in))
-                    .requestEmail()
-                    .build()
-            val mGoogleSignInClient = GoogleSignIn.getClient(it, gso)
-
-            val signInIntent: Intent = mGoogleSignInClient.signInIntent
-            startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN)
+        button_loginFragment_facebookSignIn.setOnClickListener {
+            signInFacebook()
         }
     }
 
-    private fun signInTwitter() {
-        context?.let {
-            try {
-                val provider = OAuthProvider.newBuilder("twitter.com")
-                firebaseAuth.startActivityForSignInWithProvider(requireActivity(), provider.build())
-                    .addOnSuccessListener {
-                        val userName = it.user?.displayName ?: throw NullPointerException()
-                        val email = it.user?.email ?: ""
-                        storeUser(userEmail = email, userName = userName)
-                    }
-                    .addOnFailureListener { e ->
-                        Log.w(TAG, "signInResult to twitter:failed " + e.message)
-                    }
-            } catch (e: Exception) {
-                Log.w(TAG, "signInResult:failed code=" + e.message)
-            }
+    private fun setupFacebookLogin() {
+        callbackManager = CallbackManager.Factory.create()
+        LoginManager.getInstance().registerCallback(callbackManager,
+            object : FacebookCallback<LoginResult> {
+                override fun onSuccess(loginResult: LoginResult) {
+                    handleFacebookSignIn(loginResult.accessToken)
+                }
 
+                override fun onCancel() {
+                    Log.d(TAG, "facebook:onCancel")
+                }
+
+                override fun onError(exception: FacebookException) {
+                    Log.d(TAG, "facebook:onError", exception)
+                }
+            }
+        )
+    }
+
+    private fun signInGoogle() {
+        val gso =
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.google_sign_in))
+                .requestEmail()
+                .build()
+        val mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+
+        val signInIntent: Intent = mGoogleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN)
+    }
+
+    private fun signInFacebook() {
+        LoginManager.getInstance().logInWithReadPermissions(
+            this,
+            arrayListOf("email", "user_birthday", "public_profile")
+        )
+    }
+
+    private fun signInTwitter() {
+        try {
+            val provider = OAuthProvider.newBuilder("twitter.com")
+            firebaseAuth.startActivityForSignInWithProvider(requireActivity(), provider.build())
+                .addOnSuccessListener {
+                    val userName = it.user?.displayName ?: throw NullPointerException()
+                    val email = it.user?.email ?: ""
+                    storeUser(userEmail = email, userName = userName)
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "signInResult to twitter:failed " + e.message)
+                }
+        } catch (e: Exception) {
+            Log.w(TAG, e)
         }
     }
 
@@ -104,6 +139,9 @@ class LoginFragment : Fragment() {
                 data ?: return
                 val task = GoogleSignIn.getSignedInAccountFromIntent(data)
                 handleGoogleSignInResult(task)
+            }
+            else -> {
+                callbackManager.onActivityResult(requestCode, resultCode, data)
             }
         }
     }
@@ -132,6 +170,30 @@ class LoginFragment : Fragment() {
                 }
         } catch (e: ApiException) {
             Log.w(TAG, "signInResult:failed code=" + e.statusCode)
+        }
+    }
+
+    private fun handleFacebookSignIn(token: AccessToken) {
+        try {
+            val credential = FacebookAuthProvider.getCredential(token.token)
+            firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+                        val user = firebaseAuth.currentUser ?: throw NullPointerException()
+                        storeUser(
+                            user.email ?: throw NullPointerException(),
+                            user.displayName ?: throw NullPointerException()
+                        )
+                    } else {
+                        Snackbar.make(
+                            coordinatorLayout_loginFragment,
+                            "Authentication Failed.",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+        } catch (e: java.lang.Exception) {
+            Log.w(TAG, e)
         }
     }
 
