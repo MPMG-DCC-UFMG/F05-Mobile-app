@@ -75,6 +75,17 @@ Key password: "android"
 CN: "CN=Android Debug,O=Android,C=US"
 ```
 
+### 1.3.2 Facebook Sign In
+
+When setting up a login with facebook and creating an application in the Facebook Developers dashboard, some lines to be placed
+at manifest and keys are generated. All this it's already configured in the application, the only thing necessary it's to 
+add two more lines into the file "services_keys.xml":
+
+```bash
+<string name="facebook_app_id" templateMergeStrategy="preserve" translatable="false"><FACEBOOK_APP_ID></string>
+<string name="fb_login_protocol_scheme" templateMergeStrategy="preserve" translatable="false"><FB_LOGIN_PROTOCOL_SCHEME></string>
+```
+
 ## 2. Third Party Libraries
 
 The third party libraries used in the project were as follows:
