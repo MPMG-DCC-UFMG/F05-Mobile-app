@@ -3,11 +3,17 @@ package org.mpmg.mpapp.ui.screens.upload.delegates
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextClock
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.WorkInfo
+import androidx.work.WorkInfo.State.*
 import androidx.work.WorkManager
+import kotlinx.android.synthetic.main.item_upload_public_work.view.*
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.interfaces.BaseDelegate
 import org.mpmg.mpapp.core.interfaces.BaseModel
@@ -36,28 +42,53 @@ class UploadPublicWorkItemDelegate(sendViewModel: SendViewModel) : BaseDelegate<
         with(holder as UploadPublicWorkViewHolder) {
             holder.bind(holder.itemView.context as LifecycleOwner, delegateObject)
 
-            setupViewModels(holder.itemView.context, delegateObject)
+            setupViewModels(holder, delegateObject)
         }
     }
 
-    private fun setupViewModels(context: Context, publicWork: PublicWorkUploadUI) {
-        val lifecycleOwner = context as LifecycleOwner
+    private fun setupViewModels(
+        holder: UploadPublicWorkViewHolder,
+        publicWork: PublicWorkUploadUI
+    ) {
+        val lifecycleOwner = holder.itemView.context as LifecycleOwner
         publicWork.workerInfoId.observe(lifecycleOwner, Observer { workerInfoId ->
             workerInfoId ?: return@Observer
-            WorkManager.getInstance(context).getWorkInfoByIdLiveData(workerInfoId)
+            WorkManager.getInstance(holder.itemView.context).getWorkInfoByIdLiveData(workerInfoId)
                 .observe(lifecycleOwner, Observer { workInfo ->
                     workInfo ?: return@Observer
 
                     val workData = workInfo.progress
                     publicWork.progress = workData.getInt(PublicWorkUpload.Progress, 0)
-                    publicWork.status = workData.getString(PublicWorkUpload.Message) ?: "Enviando"
+                    publicWork.status = workData.getString(PublicWorkUpload.Message)
+                        ?: getMessageByState(holder.itemView.context, workInfo.state)
                     publicWork.workState = workInfo.state
+                    setUploadTextColor(holder.uploadTextView, workInfo.state)
                 })
         })
     }
 
+    private fun getMessageByState(context: Context, workState: WorkInfo.State): String {
+        return when (workState) {
+            RUNNING -> context.resources.getString(R.string.progress_running_upload)
+            SUCCEEDED -> context.resources.getString(R.string.progress_success_upload)
+            BLOCKED, ENQUEUED, FAILED, CANCELLED -> context.resources.getString(R.string.progress_fail_upload)
+        }
+    }
+
+    private fun setUploadTextColor(textView: TextView, workState: WorkInfo.State) {
+        val colorResourceId = when (workState) {
+            ENQUEUED, BLOCKED, CANCELLED, RUNNING -> R.color.colorWhite
+            SUCCEEDED -> R.color.colorGreenMP
+            FAILED -> R.color.colorRed
+        }
+        textView.setTextColor(ContextCompat.getColor(textView.context, colorResourceId))
+    }
+
     class UploadPublicWorkViewHolder(val binding: ItemUploadPublicWorkBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        val uploadTextView: TextView = binding.root.textView_uploadItem_publicWorkName
+        val progressTexView: TextView = binding.root.textView_uploadItem_progress
 
         fun bind(lifecycleOwner: LifecycleOwner, publicWork: PublicWorkUploadUI) {
             binding.publicWork = publicWork

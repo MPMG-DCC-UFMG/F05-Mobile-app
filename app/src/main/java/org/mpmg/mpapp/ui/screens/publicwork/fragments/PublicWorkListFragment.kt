@@ -52,14 +52,6 @@ class PublicWorkListFragment : Fragment(), PublicWorkListAdapter.PublicWorkListA
 
         setupRecyclerView()
         setupViewModels()
-        setupListeners()
-    }
-
-    private fun setupListeners() {
-        materialButton_publicWorkListFragment_add.setOnClickListener {
-            publicWorkViewModel.newCurrentPublicWorkAddress()
-            navigationController?.navigate(R.id.action_baseFragment_to_publicWorkAddFragment)
-        }
     }
 
     private fun setupViewModels() {

@@ -44,16 +44,13 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton_collectMainFragment_edit"
-            style="@style/MPAppTheme.ButtonSmallBlue"
+            style="@style/MPAppTheme.ButtonSmall1"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/button_default"
             android:layout_marginTop="@dimen/margin_xxlarge"
             android:layout_marginEnd="@dimen/margin_default"
-            android:backgroundTint="@color/button2"
             android:text="@string/button_edit"
-            android:textColor="@color/buttonValid1"
             app:icon="@drawable/ic_edit"
-            app:iconTint="@color/buttonValid1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,11 +67,10 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton_collectMainFragment_addPhoto"
-            style="@style/MPAppTheme.ButtonBigBlue"
+            style="@style/MPAppTheme.Button3"
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/height_default"
             android:layout_marginBottom="@dimen/margin_default"
-            android:backgroundTint="@color/button1"
             android:text="@string/button_add_photo"
             app:icon="@drawable/ic_camera"
             app:iconGravity="textStart"
@@ -84,14 +80,14 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton_collectMainFragment_addComment"
-            style="@style/MPAppTheme.ButtonBigBlue"
+            style="@style/MPAppTheme.Button1"
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/height_default"
             android:layout_marginBottom="@dimen/margin_xxlarge"
-            android:backgroundTint="@color/button1"
             android:text="@string/button_add_comment"
             app:icon="@drawable/ic_comment"
             app:iconGravity="textStart"
+            app:iconTint="@color/text_button_primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

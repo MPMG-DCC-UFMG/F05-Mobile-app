@@ -16,6 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentCollectMainBinding
 import org.mpmg.mpapp.domain.database.models.Photo
+import org.mpmg.mpapp.ui.MainActivity
 import org.mpmg.mpapp.ui.dialogs.CommentsBottomSheetDialog
 import org.mpmg.mpapp.ui.screens.collect.adapters.PhotoListAdapter
 import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
@@ -55,8 +56,7 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         super.onViewCreated(view, savedInstanceState)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressed = {
-            collectViewModel.updateCollect()
-            navigateTo(R.id.action_collectMainFragment_to_baseFragment)
+            navigateBack()
         }, enabled = true)
 
         setupListeners()
@@ -118,6 +118,15 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
 
     private fun navigateTo(actionId: Int) {
         navigationController?.navigate(actionId)
+    }
+
+    private fun navigateBack() {
+        val parentActivity = this.requireActivity()
+        if (parentActivity is MainActivity) {
+            parentActivity.launchSnackbar(getString(R.string.message_collect_updated))
+        }
+        collectViewModel.updateCollect()
+        navigateTo(R.id.action_collectMainFragment_to_baseFragment)
     }
 
     override fun onPhotoClicked(photo: Photo) {

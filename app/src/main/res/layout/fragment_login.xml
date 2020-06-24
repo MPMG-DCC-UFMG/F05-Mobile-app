@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_main"
+    android:id="@+id/coordinatorLayout_loginFragment"
     tools:context=".ui.screens.login.LoginFragment">
 
     <ScrollView
@@ -22,7 +23,7 @@
                 android:layout_width="208dp"
                 android:layout_height="73dp"
                 android:layout_marginTop="80dp"
-                android:src="@drawable/mmpg_logo"
+                android:src="@drawable/ic_logo_trena_dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -74,11 +75,12 @@
                 android:layout_marginTop="@dimen/margin_xxsmall"
                 android:paddingTop="0dp"
                 app:boxBackgroundMode="none"
+                app:endIconMode="password_toggle"
                 app:hintEnabled="false"
+                app:endIconTint="@color/button4"
                 app:layout_constraintEnd_toEndOf="@+id/editText_loginFragment_userInput"
                 app:layout_constraintStart_toStartOf="@+id/editText_loginFragment_userInput"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
-                app:passwordToggleEnabled="true">
+                app:layout_constraintTop_toBottomOf="@+id/textView2">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText_loginFragment_passwordInput"
@@ -94,11 +96,10 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/materialButton"
-                style="@style/MPAppTheme.ButtonBigBlue"
+                style="@style/MPAppTheme.Button1"
                 android:layout_width="300dp"
                 android:layout_height="@dimen/height_default"
                 android:layout_marginTop="@dimen/margin_xxlarge"
-                android:backgroundTint="@color/button1"
                 android:text="@string/button_login"
                 app:layout_constraintEnd_toEndOf="@+id/button_loginFragment_googleSignIn"
                 app:layout_constraintStart_toStartOf="@+id/button_loginFragment_googleSignIn"
@@ -110,7 +111,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/margin_xsmall"
                 android:layout_marginEnd="@dimen/margin_small"
-                android:background="@color/label1"
+                android:background="@color/colorWhite"
                 app:layout_constraintBottom_toBottomOf="@+id/textView15"
                 app:layout_constraintEnd_toStartOf="@+id/textView15"
                 app:layout_constraintTop_toTopOf="@+id/textView15" />
@@ -120,7 +121,7 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_xsmall"
-                android:background="@color/label1"
+                android:background="@color/colorWhite"
                 app:layout_constraintBottom_toBottomOf="@+id/textView15"
                 app:layout_constraintStart_toEndOf="@+id/textView15"
                 app:layout_constraintTop_toTopOf="@+id/textView15" />
@@ -130,7 +131,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_large"
-                android:fontFamily="@font/nunito_italic"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/gotham_rounded_light_italic"
                 android:text="@string/label_if_prefer"
                 app:layout_constraintEnd_toEndOf="@+id/materialButton"
                 app:layout_constraintStart_toStartOf="@+id/materialButton"
@@ -138,7 +140,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_loginFragment_googleSignIn"
-                style="@style/MPAppTheme.ButtonBigBlue"
+                style="@style/MPAppTheme.Button2"
                 android:layout_width="300dp"
                 android:layout_height="@dimen/height_default"
                 android:layout_marginTop="@dimen/margin_default"
@@ -152,7 +154,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_loginFragment_facebookSignIn"
-                style="@style/MPAppTheme.ButtonBigBlue"
+                style="@style/MPAppTheme.Button2"
                 android:layout_width="300dp"
                 android:layout_height="@dimen/height_default"
                 android:layout_marginTop="@dimen/margin_default"
@@ -165,7 +167,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_loginFragment_twitterSignIn"
-                style="@style/MPAppTheme.ButtonBigBlue"
+                style="@style/MPAppTheme.Button2"
                 android:layout_width="300dp"
                 android:layout_height="@dimen/height_default"
                 android:layout_marginTop="@dimen/margin_default"

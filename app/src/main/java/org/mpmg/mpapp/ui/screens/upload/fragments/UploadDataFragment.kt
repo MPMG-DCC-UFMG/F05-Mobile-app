@@ -60,7 +60,13 @@ class UploadDataFragment : Fragment() {
                 publicWorkList ?: return@Observer
 
                 uploadPublicWorkAdapter.updatePublicWorksList(publicWorkList)
+
+                setupSendButtonVisibility(publicWorkList.size)
             })
+    }
+
+    private fun setupSendButtonVisibility(listSize: Int) {
+        materialButton_sendFragment_send.visibility = if (listSize == 0) View.GONE else View.VISIBLE
     }
 
 }

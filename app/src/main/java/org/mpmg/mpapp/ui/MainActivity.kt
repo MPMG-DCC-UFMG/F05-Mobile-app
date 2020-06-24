@@ -7,9 +7,12 @@ import android.content.ServiceConnection
 import android.location.Location
 import android.os.Bundle
 import android.os.IBinder
+import android.os.Message
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.services.LocationService
@@ -68,5 +71,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupNavigationController() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+    }
+
+    fun launchSnackbar(message: String) {
+        Snackbar.make(coordinatorLayout_mainActivity, message, Snackbar.LENGTH_SHORT).show()
     }
 }

@@ -124,7 +124,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
     // Firebase
-    implementation 'com.google.firebase:firebase-analytics:17.4.2'
+    implementation 'com.google.firebase:firebase-analytics:17.4.3'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
 
     // Fused Location
@@ -132,6 +132,9 @@ dependencies {
 
     // Worker
     implementation "androidx.work:work-runtime-ktx:$worker_version"
+
+    // Facebook
+    implementation 'com.facebook.android:facebook-login:5.15.3'
 
     // Testing Fragments in Isolation
     debugImplementation "androidx.fragment:fragment-testing:$fragment_version"

@@ -167,6 +167,11 @@ class PublicWorkViewModel(
         filter()
     }
 
+    fun updateTypeWorkFilter(selectedTypeWorkIndex: List<Int>) {
+        filterTypeWork.setTypeOfWorks(selectedTypeWorkIndex)
+        filter()
+    }
+
     fun isSyncStatusChecked(syncStatus: SyncStatus): Boolean {
         return filterSyncStatus.isStatusEnabled(syncStatus)
     }

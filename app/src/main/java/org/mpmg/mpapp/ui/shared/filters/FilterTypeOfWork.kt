@@ -9,12 +9,17 @@ class FilterTypeOfWork : IPublicWorkFilter() {
 
     var selectedTypeOfWorks = mutableSetOf<Int>()
 
-    fun addTypeOfWork(type: Int){
+    fun addTypeOfWork(type: Int) {
         selectedTypeOfWorks.add(type)
     }
 
-    fun removeTypeOfWork(type: Int){
+    fun removeTypeOfWork(type: Int) {
         selectedTypeOfWorks.remove(type)
+    }
+
+    fun setTypeOfWorks(types: List<Int>) {
+        selectedTypeOfWorks.clear()
+        selectedTypeOfWorks.addAll(types)
     }
 
     override fun keepItem(publicWork: PublicWork): Boolean {

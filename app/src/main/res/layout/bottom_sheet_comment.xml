@@ -12,7 +12,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_title_dialog">
 
         <TextView
             android:id="@+id/textView17"
@@ -35,6 +36,7 @@
             android:importantForAutofill="no"
             android:inputType="textMultiLine"
             android:maxLength="300"
+            android:imeOptions="actionDone"
             android:text="@={collectViewModel.collect.comments}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+        <import type="android.view.View" />
+
+        <import type="org.mpmg.mpapp.ui.dialogs.SelectorDialog.SelectionMode" />
+
+        <variable
+            name="selectorOption"
+            type="org.mpmg.mpapp.ui.dialogs.models.SelectorOptions" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_selectorOptionDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGrey3"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:paddingStart="@dimen/margin_default">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/checkBox_selectorOptionDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:button="@drawable/checkbox_inset_nopadding"
+            android:buttonTint="@color/base_checkbox"
+            android:checked="@={selectorOption.selected}"
+            android:visibility="@{selectorOption.selectionMode == SelectionMode.SINGLE ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView18"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView18" />
+
+        <TextView
+            android:id="@+id/textView18"
+            style="@style/MPAppTheme.DialogOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_xxsmall"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:text="@{selectorOption.value}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/checkBox_selectorOptionDialog"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Escola" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_chevron_right"
+            android:visibility="@{selectorOption.selectionMode == SelectionMode.SINGLE ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view18"
+            style="@style/MPAppTheme.Divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="@{selectorOption.showDivider ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

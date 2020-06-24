@@ -17,7 +17,8 @@ data class PublicWorkUploadUI(
     private var _status: String,
     private var _progress: Int = 0,
     private var _workState: WorkInfo.State,
-    val workerInfoId: MutableLiveData<UUID> = MutableLiveData<UUID>()
+    val workerInfoId: MutableLiveData<UUID> = MutableLiveData(),
+    var showDivider: Boolean = true
 ) : BaseModel, BaseObservable() {
 
     var status: String

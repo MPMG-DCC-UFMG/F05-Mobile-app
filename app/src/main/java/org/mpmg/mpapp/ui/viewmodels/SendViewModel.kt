@@ -33,19 +33,23 @@ class SendViewModel(
 
     fun loadPublicWorksToSend() {
         viewModelScope.launch(Dispatchers.IO) {
-            val publicWorkToSend = publicWorkRepository.listPublicWorkToSend().map {
-                val publicWork = PublicWorkUploadUI(
-                    name = it.name,
-                    id = it.id,
-                    idCollect = it.idCollect,
-                    toSend = it.toSend,
-                    _status = getPublicWorkStatus(it),
-                    _workState = WorkInfo.State.BLOCKED
-                )
-                publicWork.workerInfoId.postValue(getPublicWorkUploadInfoId(it.id))
-                publicWork
-            }
+            val publicWorkToSend =
+                publicWorkRepository.listPublicWorkToSend().map { publicWork ->
+                    val publicWorkUI = PublicWorkUploadUI(
+                        name = publicWork.name,
+                        id = publicWork.id,
+                        idCollect = publicWork.idCollect,
+                        toSend = publicWork.toSend,
+                        _status = getPublicWorkStatus(publicWork),
+                        _workState = WorkInfo.State.BLOCKED
+                    )
+                    publicWorkUI.workerInfoId.postValue(getPublicWorkUploadInfoId(publicWork.id))
+                    publicWorkUI
+                }
 
+            if (publicWorkToSend.isNotEmpty()) {
+                publicWorkToSend.last().showDivider = false
+            }
             publicWorksMediated.postValue(publicWorkToSend)
         }
 

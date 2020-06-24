@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorGreenMP</item>
 
         <item name="bottomSheetDialogTheme">@style/MPAppTheme.CustomBottomSheetDialog</item>
     </style>
@@ -16,63 +16,94 @@
 
     <style name="MPAppTheme.InputTitle1" parent="TextAppearance.AppCompat">
         <item name="android:textSize">12sp</item>
-        <item name="android:fontFamily">@font/nunito_bold</item>
-        <item name="android:textColor">@color/label1</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="MPAppTheme.Title1" parent="TextAppearance.AppCompat">
         <item name="android:textSize">20sp</item>
-        <item name="android:fontFamily">@font/nunito_bold</item>
-        <item name="android:textColor">@color/title2</item>
+        <item name="android:fontFamily">@font/gotham_bold</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
     <style name="MPAppTheme.PublicWorkName" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/font_large</item>
-        <item name="android:fontFamily">@font/nunito_semibold</item>
-        <item name="android:textColor">@color/title2</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
     <style name="MPAppTheme.PublicWorkAddress" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/font_default</item>
-        <item name="android:fontFamily">@font/nunito_regular</item>
-        <item name="android:textColor">@color/textAddress</item>
+        <item name="android:fontFamily">@font/gotham_rounded_book</item>
+        <item name="android:textColor">@color/colorGreyLight</item>
     </style>
 
     <style name="MPAppTheme.PublicWorkDistance" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/font_default</item>
-        <item name="android:fontFamily">@font/nunito_semibold</item>
-        <item name="android:textColor">@color/textAddress</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:textColor">@color/colorGreyMedium</item>
     </style>
 
     <style name="MPAppTheme.TextUpload" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/font_xlarge</item>
-        <item name="android:fontFamily">@font/nunito_semibold</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
     <style name="MPAppTheme.TextSubtitle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/font_xsmall</item>
-        <item name="android:fontFamily">@font/nunito_light</item>
+        <item name="android:fontFamily">@font/gotham_rounded_book</item>
+        <item name="android:textColor">@color/colorGrey1</item>
+    </style>
+
+    <style name="MPAppTheme.OptionText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="MPAppTheme.Text1" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
     <style name="MPAppTheme.EditText1" parent="TextAppearance.AppCompat">
         <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/background_input</item>
-        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:textColorHint">@color/stroke1</item>
     </style>
 
     <style name="MPAppTheme.EditText2" parent="TextAppearance.AppCompat">
         <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/background_input2</item>
-        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:fontFamily">@font/gotham_rounded_book</item>
         <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColorHint">@color/hintColor1</item>
     </style>
 
     <style name="MPAppTheme.EditText3" parent="TextAppearance.AppCompat">
         <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/background_input3</item>
-        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="MPAppTheme.DialogHeader" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_xsmall</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="MPAppTheme.DialogOption" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/gotham_book</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
     <style name="MPAppTheme.ButtonBase" parent="Widget.MaterialComponents.Button.UnelevatedButton">
@@ -83,50 +114,69 @@
         <item name="android:fontFamily">@font/nunito_bold</item>
     </style>
 
-    <style name="MPAppTheme.ButtonBigBlue" parent="MPAppTheme.ButtonBase">
+    <style name="MPAppTheme.Button1" parent="MPAppTheme.ButtonBase">
         <item name="borderWidth">0dp</item>
-        <item name="android:backgroundTint">@color/button_primary_blue</item>
+        <item name="android:backgroundTint">@color/button_primary</item>
         <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textColor">@color/text_button_primary</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
     </style>
 
-    <style name="MPAppTheme.ButtonBigGrey" parent="MPAppTheme.ButtonBase">
+    <style name="MPAppTheme.Button2" parent="MPAppTheme.ButtonBase">
         <item name="borderWidth">0dp</item>
         <item name="android:textSize">@dimen/font_large</item>
-        <item name="android:backgroundTint">@color/button3</item>
+        <item name="android:backgroundTint">@color/button5</item>
+        <item name="android:textColor">@color/textButton5</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
     </style>
 
-    <style name="MPAppTheme.ButtonBigWhite" parent="MPAppTheme.ButtonBase">
+    <style name="MPAppTheme.Button3" parent="MPAppTheme.ButtonBase">
         <item name="borderWidth">0dp</item>
         <item name="android:textSize">@dimen/font_large</item>
-        <item name="android:backgroundTint">@color/colorWhite</item>
+        <item name="android:textColor">@color/text_button_third</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:backgroundTint">@color/button_third</item>
+        <item name="iconTint">@color/text_button_third</item>
     </style>
 
-    <style name="MPAppTheme.ButtonSmallBlue" parent="MPAppTheme.ButtonBase">
+    <style name="MPAppTheme.Button4" parent="MPAppTheme.ButtonBase">
+        <item name="borderWidth">0dp</item>
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textColor">@color/colorRed</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:backgroundTint">@color/button6</item>
+        <item name="iconTint">@color/colorRed</item>
+    </style>
+
+    <style name="MPAppTheme.ButtonSmall1" parent="MPAppTheme.ButtonBase">
         <item name="android:textSize">@dimen/font_default</item>
-        <item name="android:backgroundTint">@color/button2</item>
-        <item name="android:textColor">@color/buttonValid1</item>
-        <item name="iconTint">@color/buttonValid1</item>
+        <item name="android:backgroundTint">@color/button6</item>
+        <item name="android:textColor">@color/colorGreenMP</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="iconTint">@color/colorGreenMP</item>
     </style>
 
-    <style name="MPAppTheme.ButtonSmallRed" parent="MPAppTheme.ButtonBase">
+    <style name="MPAppTheme.ButtonTextNegative" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textSize">@dimen/font_default</item>
-        <item name="android:backgroundTint">@color/button2</item>
-        <item name="android:textColor">@color/buttonInvalid1</item>
-        <item name="iconTint">@color/buttonInvalid1</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="textAllCaps">false</item>
     </style>
 
     <style name="MPAppTheme.RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
         <item name="android:button">@drawable/radio_button_inset</item>
         <item name="android:background">@drawable/radio_button_background</item>
-        <item name="fontFamily">@font/nunito_regular</item>
+        <item name="fontFamily">@font/gotham_rounded_medium</item>
         <item name="android:buttonTint">@color/base_checkbox</item>
+        <item name="android:textColor">@color/text_check_primary</item>
     </style>
 
     <style name="MPAppTheme.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox_inset</item>
         <item name="android:background">@drawable/radio_button_background</item>
-        <item name="fontFamily">@font/nunito_regular</item>
+        <item name="fontFamily">@font/gotham_rounded_medium</item>
         <item name="android:buttonTint">@color/base_checkbox</item>
+        <item name="android:textColor">@color/text_check_primary</item>
     </style>
 
     <style name="MPAppTheme.CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
@@ -145,5 +195,15 @@
         <item name="cornerSizeTopLeft">16dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="MPAppTheme.DialogStyle" parent="Base.Theme.AppCompat.Dialog">
+        <item name="android:windowMinWidthMajor">80%</item>
+        <item name="android:windowMinWidthMinor">80%</item>
+        <item name="android:windowBackground">@null</item>
+    </style>
+
+    <style name="MPAppTheme.Divider" parent="MPAppTheme">
+        <item name="android:background">@color/dividerColor1</item>
     </style>
 </resources>

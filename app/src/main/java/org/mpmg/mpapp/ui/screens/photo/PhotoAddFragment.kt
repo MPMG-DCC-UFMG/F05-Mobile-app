@@ -25,6 +25,7 @@ import org.mpmg.mpapp.BuildConfig
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentAddPhotoBinding
 import org.mpmg.mpapp.domain.database.models.Photo
+import org.mpmg.mpapp.ui.dialogs.SelectorDialog
 import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 import org.mpmg.mpapp.ui.viewmodels.PhotoViewModel
@@ -84,7 +85,7 @@ class PhotoAddFragment : Fragment() {
             photo ?: return@Observer
 
             handlePhotoType(photo)
-            handlePhotoTumbnail(photo)
+            handlePhotoThumbnail(photo)
         })
 
         locationViewModel.getCurrentLocationLiveData()
@@ -94,7 +95,7 @@ class PhotoAddFragment : Fragment() {
             })
     }
 
-    private fun handlePhotoTumbnail(photo: Photo) {
+    private fun handlePhotoThumbnail(photo: Photo) {
         photo.filepath?.let {
             Glide.with(this).load(it).into(imageView_addPhotoFragment_thumbnail)
         }
@@ -110,13 +111,17 @@ class PhotoAddFragment : Fragment() {
 
     private fun launchTypeSelectDialog() {
         val optionsArray = photoViewModel.typePhotos.map { it.name }.toTypedArray()
-        val builder = AlertDialog.Builder(requireActivity())
-        builder.setTitle(getString(R.string.dialog_type_photo_title))
-            .setItems(optionsArray) { _, which ->
-                photoViewModel.setPhotoType(optionsArray[which])
+        val builder = SelectorDialog.Builder(childFragmentManager)
+        builder.withTitle(getString(R.string.dialog_type_photo_title))
+            .withOptions(optionsArray.toList())
+            .withSelectionMode(SelectorDialog.SelectionMode.SINGLE)
+            .withOnCloseClickListener {
+                navigateBack()
+            }.withSelectedOptionListener {
+                val selectedOption = optionsArray.get(it.first())
+                photoViewModel.setPhotoType(selectedOption)
             }
-
-        builder.create().show()
+            .show()
     }
 
     private fun dispatchTakePictureIntent() {
