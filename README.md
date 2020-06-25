@@ -38,11 +38,11 @@ To enable it, go to the same file you created in the previous section and add th
 
 To authenticate in Twitter and Facebook the Firebase was used for this application. First it's necessary to create a project
 in Firebase and download the file **google_services.json**. All the service setup can be done following the steps in
-[Setup firebase](https://firebase.google.com/docs/android/setup)
+[Setup firebase](https://firebase.google.com/docs/android/setup).
 
-Follow this steps to enable [Sign In with Google](https://firebase.google.com/docs/auth/android/google-signin)
-Follow this steps to enable [Sign In with Twitter](https://firebase.google.com/docs/auth/android/twitter-login)
-Follow this steps to enable [Sign In with Facebook](https://firebase.google.com/docs/auth/android/facebook-login)
+* Follow this steps to enable [Sign In with Google](https://firebase.google.com/docs/auth/android/google-signin)
+* Follow this steps to enable [Sign In with Twitter](https://firebase.google.com/docs/auth/android/twitter-login)
+* Follow this steps to enable [Sign In with Facebook](https://firebase.google.com/docs/auth/android/facebook-login)
 
 It's also necessary to add some variables to the file "services_keys.xml":
 
