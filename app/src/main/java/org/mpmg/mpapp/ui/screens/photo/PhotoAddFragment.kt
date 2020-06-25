@@ -96,9 +96,9 @@ class PhotoAddFragment : Fragment() {
     }
 
     private fun handlePhotoThumbnail(photo: Photo) {
-        photo.filepath?.let {
-            Glide.with(this).load(it).into(imageView_addPhotoFragment_thumbnail)
-        }
+        Glide.with(this)
+            .load(photo.filepath ?: R.drawable.ic_image_default)
+            .into(imageView_addPhotoFragment_thumbnail)
     }
 
     private fun handlePhotoType(photo: Photo) {
@@ -167,6 +167,7 @@ class PhotoAddFragment : Fragment() {
                     showSnackbar(getString(R.string.snackbar_photo_add_success))
                 }
                 RESULT_CANCELED -> {
+                    photoViewModel.updatePhotoPath(null)
                     showSnackbar(getString(R.string.snackbar_photo_add_canceled))
                 }
             }

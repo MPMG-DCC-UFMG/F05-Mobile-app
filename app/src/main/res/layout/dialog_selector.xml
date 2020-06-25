@@ -28,6 +28,7 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_small"
             android:background="@drawable/background_title_dialog"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +39,6 @@
                 style="@style/MPAppTheme.DialogHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_xsmall"
                 android:layout_marginBottom="@dimen/margin_small"
                 android:gravity="center_vertical"
@@ -48,7 +48,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView_singleSelectionDialog_close"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView_singleSelectionDialog_close"
                 tools:text="Selecionar tipo de obra" />
 
             <ImageView
@@ -58,10 +58,10 @@
                 android:layout_marginEnd="@dimen/margin_default"
                 android:background="@drawable/circle_background2"
                 android:padding="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:src="@drawable/ic_close"
-                app:layout_constraintBottom_toBottomOf="@+id/textView_singleSelectionDialog_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView_singleSelectionDialog_title" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

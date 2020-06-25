@@ -50,6 +50,13 @@ class PhotoViewModel(private val typePhotoRepository: ITypePhotoRepository) : Vi
         }
     }
 
+    fun updatePhotoPath(filePath: String?) {
+        mCurrentPhoto.value?.let {
+            it.filepath = filePath
+            mCurrentPhoto.postValue(it)
+        }
+    }
+
     fun getPhoto(): LiveData<Photo> = mCurrentPhoto
 
     fun setPhotoType(type: String) {

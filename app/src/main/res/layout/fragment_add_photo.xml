@@ -43,8 +43,8 @@
                 android:layout_marginStart="@dimen/margin_xxlarge"
                 android:layout_marginTop="@dimen/margin_xxlarge"
                 android:layout_marginEnd="@dimen/margin_xxlarge"
-                app:cardCornerRadius="10dp"
                 app:cardBackgroundColor="@color/colorGrey2"
+                app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_addPhotoFragment_photoType">
@@ -82,6 +82,7 @@
                 android:layout_width="300dp"
                 android:layout_height="@dimen/height_default"
                 android:layout_marginTop="@dimen/margin_xxlarge"
+                android:enabled="@{photoViewModel.photo.filepath !=null}"
                 android:text="@string/button_confirm_photo"
                 app:icon="@drawable/ic_camera"
                 app:iconGravity="textStart"
