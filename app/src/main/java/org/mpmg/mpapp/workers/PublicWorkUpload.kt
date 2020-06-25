@@ -1,6 +1,9 @@
 package org.mpmg.mpapp.workers
 
 import android.content.Context
+import android.media.ExifInterface.TAG_IMAGE_DESCRIPTION
+import android.util.Log
+import androidx.exifinterface.media.ExifInterface
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
@@ -10,16 +13,19 @@ import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.Constants.WORKER_PARAMETER_PUBLIC_WORK_ID
 import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.domain.database.models.PublicWork
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.domain.network.models.CollectRemote
 import org.mpmg.mpapp.domain.network.models.PhotoRemote
 import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
 import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
 import java.io.File
-import java.lang.Exception
 
 class PublicWorkUpload(applicationContext: Context, parameters: WorkerParameters) :
     CoroutineWorker(applicationContext, parameters), KoinComponent {
+
+    private val TAG = PublicWorkUpload::class.java.name
+
 
     private val publicWorkRepository: IPublicWorkRepository by inject()
     private val collectRepository: ICollectRepository by inject()
@@ -63,7 +69,7 @@ class PublicWorkUpload(applicationContext: Context, parameters: WorkerParameters
 
                 updateProgress(50, getString(R.string.progress_loading_collect))
                 val photos = collectRepository.listPhotosByCollectionID(collect.id)
-                val allPhotosUploaded = sendPhotos(photos)
+                val allPhotosUploaded = sendPhotos(photos, publicWorkAndAddress)
 
                 if (allPhotosUploaded) {
                     markCollectSent(publicWorkAndAddress.publicWork, collectId)
@@ -79,7 +85,10 @@ class PublicWorkUpload(applicationContext: Context, parameters: WorkerParameters
         return Result.success()
     }
 
-    private suspend fun sendPhotos(photos: List<Photo>): Boolean {
+    private suspend fun sendPhotos(
+        photos: List<Photo>,
+        publicWorkAndAddress: PublicWorkAndAddress
+    ): Boolean {
         var allPhotosUploaded = true
         photos.forEachIndexed { index, photo ->
             try {
@@ -92,6 +101,7 @@ class PublicWorkUpload(applicationContext: Context, parameters: WorkerParameters
                     )
                 )
                 photo.filepath?.let { filepath ->
+                    addMetadata(filepath, photo, publicWorkAndAddress)
                     val image = File(filepath)
                     kotlin.runCatching {
                         collectRepository.sendImage(image)
@@ -110,6 +120,25 @@ class PublicWorkUpload(applicationContext: Context, parameters: WorkerParameters
         }
 
         return allPhotosUploaded
+    }
+
+    private fun addMetadata(
+        filePath: String,
+        photo: Photo,
+        publicWorkAndAddress: PublicWorkAndAddress
+    ) {
+        try {
+            val exif = ExifInterface(filePath)
+            exif.setLatLong(photo.latitude, photo.longitude)
+            exif.setAttribute(
+                TAG_IMAGE_DESCRIPTION,
+                "Obra: ${publicWorkAndAddress.publicWork.name} Endereco: ${publicWorkAndAddress.address} "
+            )
+            exif.saveAttributes()
+        } catch (e: Exception) {
+            Log.d(TAG, "error: ${e.message}")
+        }
+
     }
 
     private fun getString(resourceId: Int): String {
