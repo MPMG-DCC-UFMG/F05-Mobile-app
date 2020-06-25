@@ -2,6 +2,8 @@ package org.mpmg.mpapp.ui.viewmodels
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Bitmap.CompressFormat
+import android.graphics.BitmapFactory
 import android.location.Location
 import android.os.Environment
 import androidx.lifecycle.LiveData
@@ -13,13 +15,18 @@ import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.domain.database.models.TypePhoto
 import org.mpmg.mpapp.domain.repositories.typephoto.ITypePhotoRepository
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
+
 
 class PhotoViewModel(private val typePhotoRepository: ITypePhotoRepository) : ViewModel() {
 
     private var mCurrentPhoto = MutableLiveData<Photo>()
     private var mCurrentBitmap = MutableLiveData<Bitmap>()
+
+    private val COMPRESSION_QUALITY = 40
 
     val typePhotos = mutableListOf<TypePhoto>()
 
@@ -74,5 +81,24 @@ class PhotoViewModel(private val typePhotoRepository: ITypePhotoRepository) : Vi
                 }
             }
         } ?: return null
+    }
+
+    fun compressPhoto() {
+        viewModelScope.launch(Dispatchers.IO) {
+            mCurrentPhoto.value?.let { photo ->
+                val filePath = photo.filepath
+                filePath?.let {
+                    val bitmap = BitmapFactory.decodeFile(it)
+                    val byteOutputStream = ByteArrayOutputStream()
+                    bitmap.compress(CompressFormat.JPEG, COMPRESSION_QUALITY, byteOutputStream)
+
+                    val compressed = File(it)
+                    val fileOutputStream = FileOutputStream(compressed)
+                    fileOutputStream.write(byteOutputStream.toByteArray())
+                    fileOutputStream.flush()
+                    fileOutputStream.close()
+                }
+            }
+        }
     }
 }

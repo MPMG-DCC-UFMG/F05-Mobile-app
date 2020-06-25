@@ -109,7 +109,6 @@ class CollectViewModel(
                 currentPublicWorkAndAddress.address
             )
             collectRepository.insertCollect(collection, photos.values.toList())
-
         }
     }
 

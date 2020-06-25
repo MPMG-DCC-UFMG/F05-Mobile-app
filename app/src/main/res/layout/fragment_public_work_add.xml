@@ -234,12 +234,12 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/materialButton_addPublicWorkFragment_add"
                     style="@style/MPAppTheme.Button1"
-                    android:layout_width="170dp"
+                    android:layout_width="0dp"
                     android:layout_height="@dimen/height_default"
                     android:enabled="@{publicWorkViewModel.isPublicWorkValid}"
                     android:text="@{publicWorkViewModel.isNewPublicWork ? @string/title_public_work_add : @string/title_public_work_edit }"
                     app:layout_constraintBottom_toBottomOf="@+id/materialButton_addPublicWorkFragment_cancel"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/editText_addPublicWorkFragment_city"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/materialButton_addPublicWorkFragment_cancel"
                     app:layout_constraintTop_toTopOf="@+id/materialButton_addPublicWorkFragment_cancel" />
@@ -247,13 +247,14 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/materialButton_addPublicWorkFragment_cancel"
                     style="@style/MPAppTheme.Button2"
-                    android:layout_width="170dp"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="@dimen/margin_default"
                     android:layout_height="@dimen/height_default"
                     android:layout_marginTop="@dimen/margin_xxlarge"
                     android:text="@string/button_cancel"
                     app:layout_constraintEnd_toStartOf="@+id/materialButton_addPublicWorkFragment_add"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/editText_addPublicWorkFragment_city"
                     app:layout_constraintTop_toBottomOf="@+id/editText_addPublicWorkFragment_city" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

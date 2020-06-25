@@ -163,6 +163,7 @@ class PhotoAddFragment : Fragment() {
         if (requestCode == RC_IMAGE_CAPTURE) {
             when (resultCode) {
                 RESULT_OK -> {
+                    photoViewModel.compressPhoto()
                     showSnackbar(getString(R.string.snackbar_photo_add_success))
                 }
                 RESULT_CANCELED -> {

@@ -54,7 +54,7 @@
         <action
             android:id="@+id/action_collectMainFragment_to_baseFragment"
             app:destination="@id/baseFragment"
-            app:popUpTo="@id/collectMainFragment"
+            app:popUpTo="@id/baseFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment

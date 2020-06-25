@@ -8,15 +8,18 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.ui.screens.home.adapters.HomeOptionsAdapter
 import org.mpmg.mpapp.ui.screens.home.models.HomeOptions
+import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 
 class HomeFragment : Fragment() {
 
     private val TAG = HomeFragment::class.java.name
 
     private lateinit var homeOptionsAdapter: HomeOptionsAdapter
+    private val publicWorkViewModel: PublicWorkViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +53,7 @@ class HomeFragment : Fragment() {
                     navigateTo(R.id.action_homeFragment_to_baseFragment)
                 },
                 HomeOptions(R.drawable.ic_plus, getString(R.string.home_option_new)) {
+                    publicWorkViewModel.newCurrentPublicWorkAddress()
                     navigateTo(R.id.action_homeFragment_to_publicWorkAddFragment)
                 },
                 HomeOptions(R.drawable.ic_send, getString(R.string.home_option_send)) {
