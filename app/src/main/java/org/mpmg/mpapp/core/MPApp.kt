@@ -28,6 +28,7 @@ class MPApp : Application() {
 
     private fun initSentry() {
         Sentry.init(getString(R.string.sentry_key), AndroidSentryClientFactory(this))
+            .environment = BuildConfig.ENVIRONMENT
     }
 
     private fun initStetho() {

@@ -7,6 +7,7 @@ import org.mpmg.mpapp.domain.network.api.MPApi
 import org.mpmg.mpapp.domain.network.retrofit.provideMPApi
 import org.mpmg.mpapp.domain.network.retrofit.provideOkHttpClient
 import org.mpmg.mpapp.domain.network.retrofit.provideRetrofit
+import org.mpmg.mpapp.domain.network.retrofit.provideUnsafeOkHttpClient
 import org.mpmg.mpapp.domain.repositories.config.ConfigRepository
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
 import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository
@@ -57,7 +58,8 @@ val repositoriesModules = module {
 }
 
 val networkModule = module {
-    factory { provideOkHttpClient() }
+//    factory { provideOkHttpClient() }
+    factory { provideUnsafeOkHttpClient() }
     single { provideRetrofit(get()) }
     factory { provideMPApi(get()) }
 }

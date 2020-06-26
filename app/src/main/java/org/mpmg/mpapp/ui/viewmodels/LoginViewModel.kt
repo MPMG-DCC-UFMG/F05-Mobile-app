@@ -45,4 +45,8 @@ class LoginViewModel(
             configRepository.setLoggedUserEmail(userEmail)
         }
     }
+
+    fun logout() {
+        FirebaseAuth.getInstance().signOut()
+    }
 }

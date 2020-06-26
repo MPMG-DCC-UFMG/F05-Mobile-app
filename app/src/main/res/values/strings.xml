@@ -101,6 +101,7 @@
     <string name="home_option_new">Adicionar nova obra</string>
     <string name="home_option_send">Enviar dados</string>
     <string name="home_option_help">Ajuda</string>
+    <string name="home_option_exit">Sair</string>
 
     <string name="message_collect_updated">Coleta atualizada</string>
 

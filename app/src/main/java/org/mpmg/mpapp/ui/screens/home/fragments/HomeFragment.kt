@@ -12,6 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.ui.screens.home.adapters.HomeOptionsAdapter
 import org.mpmg.mpapp.ui.screens.home.models.HomeOptions
+import org.mpmg.mpapp.ui.viewmodels.LoginViewModel
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 
 class HomeFragment : Fragment() {
@@ -20,6 +21,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeOptionsAdapter: HomeOptionsAdapter
     private val publicWorkViewModel: PublicWorkViewModel by sharedViewModel()
+    private val loginViewModel: LoginViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,8 +61,9 @@ class HomeFragment : Fragment() {
                 HomeOptions(R.drawable.ic_send, getString(R.string.home_option_send)) {
                     navigateTo(R.id.action_homeFragment_to_uploadDataFragment)
                 },
-                HomeOptions(R.drawable.ic_help, getString(R.string.home_option_help)) {
-
+                HomeOptions(R.drawable.ic_exit, getString(R.string.home_option_exit)) {
+                    loginViewModel.logout()
+                    navigateTo(R.id.action_homeFragment_to_loginFragment)
                 }
             )
         )

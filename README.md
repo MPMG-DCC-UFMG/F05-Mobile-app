@@ -6,9 +6,27 @@ Project of an application for the MP
 
 ## 1. Necessary steps
 
-This section explain all the necessary setup to run the application
+This section explain all the necessary setup to run the application.
 
-### 1.1. Google Maps
+### 1.1. Setup Files
+
+There are two configuration files that are necessary in order to run the application to the fullest:
+"services_keys.xml" and "development.props" this files need to be created and in the next steps we 
+gonna explain how to fill then. Create this files in the following folders:
+
+* services_keys.xml: app/src/debug/res/values
+* development.props"app/config
+
+### 1.1.1 Props file
+
+The development props file keep a track of the environment variables. It should have the following values:
+
+```bash
+BASE_URL="http://10.0.2.2:8000/"
+ENVIRONMENT="development"
+```
+
+### 1.2. Google Maps
 
 Before you run your application, you need a Google Maps API key.
 
@@ -24,7 +42,7 @@ content inside the folder **app/src/debug/res/values**. If the folder don't exis
 </resources>
 ```
 
-### 1.2. Sentry
+### 1.3. Sentry
 
 To track all errors this application it's configure to use [Sentry](https://sentry.io) services.
 
@@ -34,7 +52,7 @@ To enable it, go to the same file you created in the previous section and add th
 <string name="sentry_key" templateMergeStrategy="preserve" translatable="false">SENTRY_DSN_FOUND_IN_DOCUMENTATION</string>
 ```
 
-### 1.3. Firebase
+### 1.4. Firebase
 
 To authenticate in Twitter and Facebook the Firebase was used for this application. First it's necessary to create a project
 in Firebase and download the file **google_services.json**. All the service setup can be done following the steps in
@@ -50,7 +68,7 @@ It's also necessary to add some variables to the file "services_keys.xml":
 <string name="google_sign_in" templateMergeStrategy="preserve" translatable="false">GOOGLE_SIGN_CLIENT_ID</string>
 ```
 
-### 1.3.1 Firebase tips
+### 1.4.1 Firebase tips
 
 When registering a new application it's necessary to add the SHA1 of the key used when singing the application. When debugging the
 app Android Studio uses a debug key that's in the IDE folder. A easy way to discover this key it's to run the command:
@@ -75,7 +93,7 @@ Key password: "android"
 CN: "CN=Android Debug,O=Android,C=US"
 ```
 
-### 1.3.2 Facebook Sign In
+### 1.4.2 Facebook Sign In
 
 When setting up a login with facebook and creating an application in the Facebook Developers dashboard, some lines to be placed
 at manifest and keys are generated. All this it's already configured in the application, the only thing necessary it's to 
@@ -96,7 +114,36 @@ The third party libraries used in the project were as follows:
 * [Glide](https://bumptech.github.io/glide/): image caching and loading library for Android.
 * [Material Design](https://material.io/): library of components based on Material Design
 
-## 3. Services
+## 3. Release
+
+The first step to release it's the creation of a key to sign the .apk. That can be done using Android
+Studio. After the key it's generated we need to get the SHA1 signature SDK to use in the services
+(Firebase, Google, Facebook). To get this key we use the command:
+
+```bash
+keytool -list -v -keystore {keystore_name} -alias {alias_name}
+```
+
+In the firebase console we add a new application with SHA1 value that we found using the command.
+
+We also need to generate a hash for this key signature so we can sign in with Facebook. For this
+we use the command:
+
+````bash
+keytool -exportcert -alias {alias_name} -keystore {keystore_name} | openssl sha1 -binary | openssl base64
+````
+
+Go to the facebook developers console and add the result hash into your application to enable 
+Facebook Sign-in.
+
+We also need the file "services_keys.xml", but the folder it's slightly different. We need to create this
+file with the same variables in the folder **app/src/release/res/values**.
+
+As we need the "development.props" file we also need a "production.pros" file with the base url poiting 
+to your production server and the environment set. This file can be created in the same folder as the
+"development.props" **app/config**
+
+## 4. Services
 
 The services used in this application were:
 
@@ -104,7 +151,7 @@ The services used in this application were:
 * [BigData Cloud](https://www.bigdatacloud.com/geocoding-apis): possible service to be used for reverse geocoding
 * [ViaCEP](https://viacep.com.br/): API used to identify the address via zip code
 
-## 4. App Architecture (Project Structure)
+## 5. App Architecture (Project Structure)
 
 The design of Protector Scout V4 mobile app is based on SOLID principles and on Clean architecture model. Also, many of the project dependencies come from Android Jetpack.
 
@@ -123,7 +170,7 @@ The following diagram represents how most of the app components relate to each o
 * ViewModels are responsible for handling business logic.
 * Repositories abstract the complexities of loading and storing data.
 
-## 5. Sponsors
+## 6. Sponsors
 
 <h1 align="center">
   <a href="https://www.mpmg.mp.br/">
