@@ -16,6 +16,7 @@
     <color name="colorBlue1">#2D9CDB</color>
     <color name="colorGrey2">#828282</color>
     <color name="colorGrey3">#333333</color>
+    <color name="colorBlackOpaque">#80000000</color>
 
     <color name="title1">#828282</color>
     <color name="title2">#333333</color>
