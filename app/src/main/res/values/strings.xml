@@ -14,7 +14,8 @@
 
     <string name="button_login">Entrar</string>
     <string name="button_edit">Editar</string>
-    <string name="button_add_comment">Adicionar/alterar comentário</string>
+    <string name="button_add_comment">Adicionar comentário da obra</string>
+    <string name="button_update_comment">Atualizar comentário da obra</string>
     <string name="button_add_photo">Adicionar foto</string>
     <string name="button_confirm_photo">Confirmar foto</string>
     <string name="button_add">Adicionar</string>
@@ -67,6 +68,7 @@
     <string name="text_empty_collect_list">Lista de obras para enviar vazia, tente realizar coletas ou atualizar informações das obras</string>
     <string name="text_welcome">Bem-vindo ao TRENA, o aplicativo de fiscalização de obras do Ministério Público do Estado de Minas Gerais</string>
     <string name="text_loading_login">Realizando login …</string>
+    <string name="text_click_to_photo">Clique para adicionar foto</string>
 
     <string name="text_loading">Carregando …</string>
     <string name="text_move_map">Mova o mapa para selecionar a localização da obra.</string>

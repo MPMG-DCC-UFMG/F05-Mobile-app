@@ -21,6 +21,8 @@ class CollectViewModel(
     private var mSelectedPublicWork: LiveData<PublicWorkAndAddress> = MutableLiveData()
     private var mPhotoList = MutableLiveData<MutableMap<String, Photo>>()
 
+    var comment = MutableLiveData<String>()
+
     private val currentCollect = MutableLiveData<Collect>()
 
     private fun newCollect(publicWorkId: String) {
@@ -31,7 +33,12 @@ class CollectViewModel(
                 idUser = currentUser
             )
         )
+        comment.postValue(null)
         mPhotoList.postValue(mutableMapOf())
+    }
+
+    fun updateCommentToCollect(comment: String){
+        currentCollect.value?.comments = comment
     }
 
     fun setPublicWork(publicWork: PublicWorkAndAddress) {
@@ -57,6 +64,7 @@ class CollectViewModel(
     private fun loadCollectFromPublicWork(publicWorkId: String) {
         val collect = collectRepository.getCollectByPublicWork(publicWorkId)
         if (collect != null) {
+            comment.postValue(collect.comments)
             currentCollect.postValue(collect)
             loadPhotoForCollect(collect.id)
         } else {
