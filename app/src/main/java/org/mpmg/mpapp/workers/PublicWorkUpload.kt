@@ -65,9 +65,11 @@ class PublicWorkUpload(applicationContext: Context, parameters: WorkerParameters
                 updateProgress(40, getString(R.string.progress_sending_collect))
                 kotlin.runCatching {
                     collectRepository.sendCollect(CollectRemote(collect))
+                }.onFailure {
+                    return Result.failure()
                 }
 
-                updateProgress(50, getString(R.string.progress_loading_collect))
+                updateProgress(50, getString(R.string.progress_loading_photos))
                 val photos = collectRepository.listPhotosByCollectionID(collect.id)
                 val allPhotosUploaded = sendPhotos(photos, publicWorkAndAddress)
 

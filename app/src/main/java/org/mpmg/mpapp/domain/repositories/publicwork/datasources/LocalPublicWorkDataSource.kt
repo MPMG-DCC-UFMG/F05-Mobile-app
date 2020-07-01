@@ -66,4 +66,12 @@ class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(ap
     override fun listPublicWorkToSend(): List<PublicWork> {
         return mpDatabase()!!.publicWorkDAO().listAllPublicWorkToSend()
     }
+
+    override fun countPublicWorkToSend(): Int {
+        return mpDatabase()!!.publicWorkDAO().countPublicWorkToSend()
+    }
+
+    override fun countPublicWorkToSendLive(): LiveData<Int> {
+        return mpDatabase()!!.publicWorkDAO().countPublicWorkToSendLive()
+    }
 }

@@ -69,4 +69,12 @@ class PublicWorkRepository(
     override fun listPublicWorkToSendLive(): LiveData<List<PublicWork>> {
         return localPublicWorkDataSource.listPublicWorkToSendLive()
     }
+
+    override fun countPublicWorkToSend(): Int {
+        return localPublicWorkDataSource.countPublicWorkToSend()
+    }
+
+    override fun countPublicWorkToSendLive(): LiveData<Int> {
+        return localPublicWorkDataSource.countPublicWorkToSendLive()
+    }
 }

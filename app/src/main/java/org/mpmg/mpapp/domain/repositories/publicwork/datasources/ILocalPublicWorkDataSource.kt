@@ -28,4 +28,9 @@ interface ILocalPublicWorkDataSource {
     fun listPublicWorkToSendLive(): LiveData<List<PublicWork>>
 
     fun listPublicWorkToSend(): List<PublicWork>
+
+    fun countPublicWorkToSend(): Int
+
+    fun countPublicWorkToSendLive(): LiveData<Int>
+
 }
