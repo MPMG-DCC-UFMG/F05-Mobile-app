@@ -86,11 +86,19 @@
     </style>
 
     <style name="MPAppTheme.EditText3" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/font_large</item>
         <item name="android:background">@drawable/background_input3</item>
         <item name="android:fontFamily">@font/gotham_rounded_medium</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="MPAppTheme.HomeTip" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_xsmall</item>
+        <item name="android:minWidth">20dp</item>
+        <item name="background">@drawable/circle_background3</item>
+        <item name="android:fontFamily">@font/gotham_rounded_medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
     <style name="MPAppTheme.DialogHeader" parent="TextAppearance.AppCompat">
@@ -206,4 +214,6 @@
     <style name="MPAppTheme.Divider" parent="MPAppTheme">
         <item name="android:background">@color/dividerColor1</item>
     </style>
+
+
 </resources>

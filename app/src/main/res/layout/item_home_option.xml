@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="homeOption"
             type="org.mpmg.mpapp.ui.screens.home.models.HomeOptions" />
@@ -40,11 +42,27 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                style="@style/MPAppTheme.HomeTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xsmall"
+                android:background="@drawable/circle_background3"
+                android:gravity="center"
+                android:minWidth="20dp"
+                android:padding="2dp"
+                android:text="@{String.valueOf(homeOption.eventCount)}"
+                android:textSize="@dimen/font_xsmall"
+                android:visibility="@{homeOption.eventCount > 0 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="@+id/imageView_itemHomeOption"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2" />
+
+            <TextView
                 style="@style/MPAppTheme.OptionText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{homeOption.optionTitle}"
                 android:layout_marginStart="@dimen/margin_medium"
+                android:text="@{homeOption.optionTitle}"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView_itemHomeOption"
                 app:layout_constraintEnd_toStartOf="@+id/imageView5"
                 app:layout_constraintStart_toEndOf="@+id/imageView_itemHomeOption"

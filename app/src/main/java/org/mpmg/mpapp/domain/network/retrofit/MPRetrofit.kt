@@ -15,6 +15,13 @@ fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         .addConverterFactory(MoshiConverterFactory.create()).build()
 }
 
+fun provideClient(): OkHttpClient{
+    return when(BuildConfig.ENVIRONMENT){
+        "production" -> provideUnsafeOkHttpClient()
+        else -> provideOkHttpClient()
+    }
+}
+
 fun provideOkHttpClient(): OkHttpClient {
     return OkHttpClient().newBuilder().build()
 }

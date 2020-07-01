@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.facebook.AccessToken
@@ -20,13 +21,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.OAuthProvider
+import com.google.firebase.auth.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.databinding.FragmentAddPhotoBinding
+import org.mpmg.mpapp.databinding.FragmentLoginBinding
+import org.mpmg.mpapp.ui.screens.login.LoginFragment.SignWith.*
 import org.mpmg.mpapp.ui.viewmodels.LoginViewModel
 import java.util.*
 
@@ -35,7 +37,7 @@ class LoginFragment : Fragment() {
 
     private val TAG = LoginFragment::class.java.name
 
-    private val loginViewModel: LoginViewModel by sharedViewModel()
+    private val loginViewModel: LoginViewModel by viewModel()
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
 
@@ -47,7 +49,11 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         firebaseAuth = FirebaseAuth.getInstance()
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        val binding: FragmentLoginBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        binding.loginViewModel = loginViewModel
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,16 +70,26 @@ class LoginFragment : Fragment() {
 
     private fun setupListeners() {
         button_loginFragment_googleSignIn.setOnClickListener {
-            signInGoogle()
+            handleSigin(GOOGLE)
         }
 
         button_loginFragment_twitterSignIn.setOnClickListener {
-            signInTwitter()
+            handleSigin(TWITTER)
         }
 
         button_loginFragment_facebookSignIn.setOnClickListener {
-            signInFacebook()
+            handleSigin(FACEBOOK)
         }
+    }
+
+    private fun handleSigin(siginWith: SignWith) {
+        loginViewModel.isLoading.value = true
+        when (siginWith) {
+            GOOGLE -> signInGoogle()
+            FACEBOOK -> signInFacebook()
+            TWITTER -> signInTwitter()
+        }
+
     }
 
     private fun setupFacebookLogin() {
@@ -119,11 +135,13 @@ class LoginFragment : Fragment() {
             val provider = OAuthProvider.newBuilder("twitter.com")
             firebaseAuth.startActivityForSignInWithProvider(requireActivity(), provider.build())
                 .addOnSuccessListener {
+                    loginViewModel.isLoading.value = false
                     val userName = it.user?.displayName ?: throw NullPointerException()
                     val email = it.user?.email ?: ""
                     storeUser(userEmail = email, userName = userName)
                 }
                 .addOnFailureListener { e ->
+                    loginViewModel.isLoading.value = false
                     Log.w(TAG, "signInResult to twitter:failed " + e.message)
                 }
         } catch (e: Exception) {
@@ -146,6 +164,23 @@ class LoginFragment : Fragment() {
         }
     }
 
+    private fun handleSigIn(task: Task<AuthResult>){
+        loginViewModel.isLoading.value = false
+        if (task.isSuccessful) {
+            val user = firebaseAuth.currentUser ?: throw NullPointerException()
+            storeUser(
+                user.email ?: throw NullPointerException(),
+                user.displayName ?: throw NullPointerException()
+            )
+        } else {
+            Snackbar.make(
+                coordinatorLayout_loginFragment,
+                "Authentication Failed.",
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
+    }
+
     private fun handleGoogleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java) ?: return
@@ -153,20 +188,7 @@ class LoginFragment : Fragment() {
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
             firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(requireActivity()) { task ->
-                    if (task.isSuccessful) {
-                        val user = firebaseAuth.currentUser ?: throw NullPointerException()
-                        storeUser(
-                            user.email ?: throw NullPointerException(),
-                            user.displayName ?: throw NullPointerException()
-                        )
-
-                    } else {
-                        Snackbar.make(
-                            coordinatorLayout_loginFragment,
-                            "Authentication Failed.",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
+                    handleSigIn(task)
                 }
         } catch (e: ApiException) {
             Log.w(TAG, "signInResult:failed code=" + e.statusCode)
@@ -178,19 +200,7 @@ class LoginFragment : Fragment() {
             val credential = FacebookAuthProvider.getCredential(token.token)
             firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(requireActivity()) { task ->
-                    if (task.isSuccessful) {
-                        val user = firebaseAuth.currentUser ?: throw NullPointerException()
-                        storeUser(
-                            user.email ?: throw NullPointerException(),
-                            user.displayName ?: throw NullPointerException()
-                        )
-                    } else {
-                        Snackbar.make(
-                            coordinatorLayout_loginFragment,
-                            "Authentication Failed.",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
+                    handleSigIn(task)
                 }
         } catch (e: java.lang.Exception) {
             Log.w(TAG, e)
@@ -205,5 +215,9 @@ class LoginFragment : Fragment() {
 
     private fun navigateSetupAppFragment() {
         findNavController().navigate(R.id.action_loginFragment_to_setupApplicationFragment)
+    }
+
+    enum class SignWith {
+        GOOGLE, FACEBOOK, TWITTER
     }
 }

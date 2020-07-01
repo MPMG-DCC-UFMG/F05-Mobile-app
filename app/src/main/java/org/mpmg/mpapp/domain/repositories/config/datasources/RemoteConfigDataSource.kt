@@ -6,7 +6,7 @@ import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
 import org.mpmg.mpapp.domain.network.models.TypePhotoRemote
 import org.mpmg.mpapp.domain.network.models.TypeWorkRemote
 
-class RemoteConfigDataSource(val mpApi: MPApi) : IRemoteConfigDataSource {
+class RemoteConfigDataSource(private val mpApi: MPApi) : IRemoteConfigDataSource {
 
     override suspend fun loadTypeWorks(): List<TypeWorkRemote> {
         return mpApi.loadTypeWorks()

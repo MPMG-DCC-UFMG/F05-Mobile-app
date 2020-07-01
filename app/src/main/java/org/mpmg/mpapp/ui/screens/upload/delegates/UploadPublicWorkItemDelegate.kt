@@ -22,7 +22,7 @@ import org.mpmg.mpapp.ui.screens.upload.models.PublicWorkUploadUI
 import org.mpmg.mpapp.ui.viewmodels.SendViewModel
 import org.mpmg.mpapp.workers.PublicWorkUpload
 
-class UploadPublicWorkItemDelegate(sendViewModel: SendViewModel) : BaseDelegate<BaseModel> {
+class UploadPublicWorkItemDelegate : BaseDelegate<BaseModel> {
 
     override fun onCreateViewHolder(
         inflater: LayoutInflater,

@@ -74,4 +74,18 @@ abstract class PublicWorkDAO :
                 "OR ${DatabaseConstants.PublicWork.toSend} IS 1"
     )
     abstract fun listAllPublicWorkToSend(): List<PublicWork>
+
+    @Query(
+        "SELECT count(*) FROM ${DatabaseConstants.PublicWork.tableName} " +
+                "WHERE ${DatabaseConstants.PublicWork.idCollect} IS NOT NULL " +
+                "OR ${DatabaseConstants.PublicWork.toSend} IS 1"
+    )
+    abstract fun countPublicWorkToSendLive(): LiveData<Int>
+
+    @Query(
+        "SELECT count(*) FROM ${DatabaseConstants.PublicWork.tableName} " +
+                "WHERE ${DatabaseConstants.PublicWork.idCollect} IS NOT NULL " +
+                "OR ${DatabaseConstants.PublicWork.toSend} IS 1"
+    )
+    abstract fun countPublicWorkToSend(): Int
 }

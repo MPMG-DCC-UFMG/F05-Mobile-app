@@ -49,14 +49,35 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_addPhotoFragment_photoType">
 
-                <ImageView
-                    android:id="@+id/imageView_addPhotoFragment_thumbnail"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_image_default"
-                    tools:ignore="ContentDescription" />
+                    android:layout_height="match_parent">
 
+                    <ImageView
+                        android:id="@+id/imageView_addPhotoFragment_thumbnail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_image_default"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        style="@style/MPAppTheme.Text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_click_to_photo"
+                        android:visibility="@{photoViewModel.photo.filepath ==null ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imageView_addPhotoFragment_thumbnail"
+                        app:layout_constraintTop_toTopOf="@+id/imageView_addPhotoFragment_thumbnail"
+                        app:layout_constraintVertical_bias="0.68" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
             <EditText

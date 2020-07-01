@@ -2,6 +2,7 @@ package org.mpmg.mpapp.ui.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,12 @@ class LoginViewModel(
 ) : AndroidViewModel(applicationContext) {
 
     fun checkUserLogged(): Boolean = checkFirebaseSignedAccount()
+
+    val isLoading = MutableLiveData<Boolean>()
+
+    init {
+        isLoading.value = false
+    }
 
     private fun checkFirebaseSignedAccount(): Boolean {
         val firebaseAuth = FirebaseAuth.getInstance()
