@@ -37,7 +37,7 @@ val viewModelModules = module {
     viewModel { LoginViewModel(androidApplication(), get(), get()) }
     viewModel { LocationViewModel() }
     viewModel { PublicWorkViewModel(get()) }
-    viewModel { ConfigurationViewModel(get(), get(), get(), get()) }
+    viewModel { ConfigurationViewModel(androidApplication()) }
     viewModel { TypeWorkViewModel(get()) }
     viewModel { CollectViewModel(get(), get(), get()) }
     viewModel { PhotoViewModel(get()) }

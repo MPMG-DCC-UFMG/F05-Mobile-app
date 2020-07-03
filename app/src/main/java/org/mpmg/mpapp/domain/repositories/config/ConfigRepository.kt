@@ -71,4 +71,8 @@ class ConfigRepository(
     override fun saveTypePhotosVersion(typePhotosVersion: Int) {
         localConfigDataSource.saveTypePhotosVersion(typePhotosVersion)
     }
+
+    override suspend fun loadPublicWorksDiff(version: Int): List<PublicWorkRemote> {
+        return remoteConfigDataSource.loadPublicWorksDiff(version)
+    }
 }

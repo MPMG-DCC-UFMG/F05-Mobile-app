@@ -99,6 +99,16 @@
     <string name="progress_success_upload">Dados enviados com sucesso!</string>
     <string name="progress_fail_upload">Erro ao enviar dados para o servidor :(</string>
     <string name="progress_running_upload">Dados sendo enviados</string>
+    <string name="progress_check_type_work_version">Verificando versão dos tipos de obras</string>
+    <string name="progress_check_public_work_version">Verificando versão da lista de obras</string>
+    <string name="progress_check_type_photo_version">Verificando versão dos tipos de fotos</string>
+    <string name="progress_update_type_work">Atualizando tipos de obras</string>
+    <string name="progress_update_public_work">Atualizando lista de obras</string>
+    <string name="progress_update_type_photo">Atualizando tipos de fotos</string>
+    <string name="progress_fail_server">Falha ao comunicar com o servidor</string>
+    <string name="progress_fail_download_type_works">Falha ao baixar tipos de obras</string>
+    <string name="progress_fail_download_public_work">Falha ao baixar lista de obras</string>]
+    <string name="progress_fail_download_type_photo">Falha ao baixar lista de tipos de fotos</string>
 
     <string name="home_option_list">Lista de obras</string>
     <string name="home_option_new">Adicionar nova obra</string>

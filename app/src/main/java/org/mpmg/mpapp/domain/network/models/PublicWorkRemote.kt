@@ -9,7 +9,8 @@ data class PublicWorkRemote(
     @field:Json(name = "name") val name: String,
     @field:Json(name = "address_id") val idAddress: String,
     @field:Json(name = "type_work_flag") val typeWorkFlag: Int,
-    @field:Json(name = "address") var address: AddressRemote? = null
+    @field:Json(name = "address") var address: AddressRemote? = null,
+    @field:Json(name = "operation") var operation: Int = 0
 ) {
 
     constructor(publicWorkAndAddress: PublicWorkAndAddress) : this(

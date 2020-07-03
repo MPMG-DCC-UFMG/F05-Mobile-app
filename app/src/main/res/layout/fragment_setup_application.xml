@@ -11,7 +11,7 @@
         android:id="@+id/animation_view"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView10"
+        app:layout_constraintBottom_toTopOf="@+id/textView_setupFragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +20,7 @@
         app:lottie_rawRes="@raw/loading" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/textView_setupFragment"
         style="@style/MPAppTheme.Title1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

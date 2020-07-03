@@ -77,4 +77,14 @@ class PublicWorkRepository(
     override fun countPublicWorkToSendLive(): LiveData<Int> {
         return localPublicWorkDataSource.countPublicWorkToSendLive()
     }
+
+    override fun deletePublicWork(publicWorkId: String) {
+        return localPublicWorkDataSource.deletePublicWork(publicWorkId)
+    }
+
+    override fun insertPublicWork(publicWorkAndAddress: PublicWorkAndAddress) {
+        with(publicWorkAndAddress) {
+            localPublicWorkDataSource.insertPublicWork(publicWork, address)
+        }
+    }
 }

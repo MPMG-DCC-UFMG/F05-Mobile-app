@@ -8,9 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.work.Operation
+import androidx.work.WorkInfo
+import kotlinx.android.synthetic.main.fragment_setup_application.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.ui.viewmodels.ConfigurationViewModel
+import org.mpmg.mpapp.workers.LoadServerDataWorker
 
 class SetupApplicationFragment : Fragment() {
 
@@ -30,19 +34,20 @@ class SetupApplicationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViewModels()
-        Handler().postDelayed({
-            configurationViewModel.startConfigFilesDownload()
-        }, 200)
     }
 
     private fun setupViewModels() {
-        configurationViewModel.getStepsFinished().observe(viewLifecycleOwner, Observer { setup ->
-            setup ?: return@Observer
+        configurationViewModel.startConfigFilesDownload()
+            .observe(viewLifecycleOwner, Observer { info ->
+                info ?: return@Observer
 
-            if (setup.all { true }) {
-                navigateToList()
-            }
-        })
+                if (info.state == WorkInfo.State.SUCCEEDED) {
+                    navigateToList()
+                } else {
+                    val message = info.progress.getString(LoadServerDataWorker.Message)
+                    textView_setupFragment.text = message ?: "Carregando ..."
+                }
+            })
     }
 
     private fun navigateToList() {

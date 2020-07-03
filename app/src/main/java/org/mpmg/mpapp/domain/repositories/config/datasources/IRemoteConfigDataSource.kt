@@ -19,4 +19,6 @@ interface IRemoteConfigDataSource {
 
     suspend fun getTypePhotosVersion(): EntityVersion
 
+    suspend fun loadPublicWorksDiff(version: Int): List<PublicWorkRemote>
+
 }

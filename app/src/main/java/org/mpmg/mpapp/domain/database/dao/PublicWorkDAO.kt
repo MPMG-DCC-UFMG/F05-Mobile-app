@@ -88,4 +88,10 @@ abstract class PublicWorkDAO :
                 "OR ${DatabaseConstants.PublicWork.toSend} IS 1"
     )
     abstract fun countPublicWorkToSend(): Int
+
+    @Query(
+        "DELETE FROM ${DatabaseConstants.PublicWork.tableName} " +
+                "WHERE ${DatabaseConstants.PublicWork.id} = :publicWorkId "
+    )
+    abstract fun delete(publicWorkId: String)
 }

@@ -5,5 +5,4 @@ import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
 interface IRemotePublicWorkDataSource {
 
     suspend fun sendPublicWork(publicWorkRemote: PublicWorkRemote): PublicWorkRemote
-
 }
