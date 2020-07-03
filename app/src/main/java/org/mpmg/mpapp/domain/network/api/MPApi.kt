@@ -22,7 +22,7 @@ interface MPApi {
     suspend fun sendPublicWork(@Body publicWorkRemote: PublicWorkRemote): PublicWorkRemote
 
     @GET("publicworks/changes")
-    suspend fun getPublicWorksChange(@Field("version") version: Int): List<PublicWorkRemote>
+    suspend fun getPublicWorksChange(@Query("version") version: Int): List<PublicWorkRemote>
 
     @POST("collects/add")
     suspend fun sendCollect(@Body collectRemote: CollectRemote): CollectRemote

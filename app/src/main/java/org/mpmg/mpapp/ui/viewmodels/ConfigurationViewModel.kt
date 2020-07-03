@@ -2,6 +2,7 @@ package org.mpmg.mpapp.ui.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.work.*
 import org.mpmg.mpapp.workers.LoadServerDataWorker
@@ -13,6 +14,9 @@ class ConfigurationViewModel(private val applicationContext: Context) : ViewMode
     private val constraints = Constraints.Builder()
         .setRequiredNetworkType(NetworkType.CONNECTED)
         .build()
+
+    val progressMessage = MutableLiveData<String>()
+    val showTryAgain = MutableLiveData<Boolean>()
 
     private val WORKER_TAG = "SYNC_DATA_WORKER"
 

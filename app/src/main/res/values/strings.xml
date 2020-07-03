@@ -30,6 +30,8 @@
     <string name="button_enter_with_twitter">Entre com Twitter</string>
     <string name="button_send_data">Enviar dados</string>
     <string name="button_confirm">Confirmar</string>
+    <string name="button_continue">Continuar</string>
+    <string name="button_try_again">Tentar novamente</string>
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_filter">Filtrar</string>
@@ -109,6 +111,8 @@
     <string name="progress_fail_download_type_works">Falha ao baixar tipos de obras</string>
     <string name="progress_fail_download_public_work">Falha ao baixar lista de obras</string>]
     <string name="progress_fail_download_type_photo">Falha ao baixar lista de tipos de fotos</string>
+    <string name="progress_starting_download_data">Iniciando atualização de dados</string>
+    <string name="progress_download_failed_try_again">Falha ao atualizar os dados, tentar novamente?</string>
 
     <string name="home_option_list">Lista de obras</string>
     <string name="home_option_new">Adicionar nova obra</string>
