@@ -69,6 +69,7 @@ class PublicWorkViewModel(
         publicWorkMediatedList.addSource(publicWorkList) { result ->
             result?.let {
                 publicWorkMediatedList.value = filterManager.filter(it)
+                sortList()
             }
         }
 
