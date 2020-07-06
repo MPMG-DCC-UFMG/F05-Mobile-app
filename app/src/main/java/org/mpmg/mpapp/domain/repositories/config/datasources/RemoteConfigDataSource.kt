@@ -31,4 +31,8 @@ class RemoteConfigDataSource(private val mpApi: MPApi) : IRemoteConfigDataSource
     override suspend fun getTypePhotosVersion(): EntityVersion {
         return mpApi.getTypePhotosVersion()
     }
+
+    override suspend fun loadPublicWorksDiff(version: Int): List<PublicWorkRemote> {
+        return mpApi.getPublicWorksChange(version)
+    }
 }

@@ -33,4 +33,6 @@ interface ILocalPublicWorkDataSource {
 
     fun countPublicWorkToSendLive(): LiveData<Int>
 
+    fun deletePublicWork(publicWorkId: String)
+
 }

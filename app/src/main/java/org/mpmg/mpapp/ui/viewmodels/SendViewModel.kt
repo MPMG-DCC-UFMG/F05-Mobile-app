@@ -10,7 +10,7 @@ import org.mpmg.mpapp.core.Constants.WORKER_PARAMETER_PUBLIC_WORK_ID
 import org.mpmg.mpapp.domain.database.models.PublicWork
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
 import org.mpmg.mpapp.ui.screens.upload.models.PublicWorkUploadUI
-import org.mpmg.mpapp.workers.PublicWorkUpload
+import org.mpmg.mpapp.workers.PublicWorkUploadWorker
 import java.util.*
 import java.util.concurrent.ExecutionException
 
@@ -108,7 +108,7 @@ class SendViewModel(
         val data = Data.Builder()
         data.putString(WORKER_PARAMETER_PUBLIC_WORK_ID, publicWork.id)
 
-        return OneTimeWorkRequest.Builder(PublicWorkUpload::class.java)
+        return OneTimeWorkRequest.Builder(PublicWorkUploadWorker::class.java)
             .setInputData(data.build())
             .addTag(publicWork.id)
             .setConstraints(constraints)

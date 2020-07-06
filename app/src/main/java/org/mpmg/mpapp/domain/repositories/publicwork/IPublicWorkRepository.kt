@@ -8,4 +8,7 @@ interface IPublicWorkRepository : ILocalPublicWorkDataSource, IRemotePublicWorkD
 
     fun insertPublicWorks(publicWorkAndAddresses: List<PublicWorkAndAddress>)
 
+    fun insertPublicWork(publicWorkAndAddress: PublicWorkAndAddress)
+
+
 }

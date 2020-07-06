@@ -45,7 +45,7 @@ class UploadDataFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        uploadPublicWorkAdapter = UploadPublicWorkAdapter(sendViewModel)
+        uploadPublicWorkAdapter = UploadPublicWorkAdapter()
     }
 
     private fun setupListeners() {

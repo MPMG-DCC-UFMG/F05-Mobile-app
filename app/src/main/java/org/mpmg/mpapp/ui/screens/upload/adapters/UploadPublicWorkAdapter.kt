@@ -10,14 +10,14 @@ import org.mpmg.mpapp.ui.screens.upload.models.PublicWorkUploadUI
 import org.mpmg.mpapp.ui.shared.delegates.StatusAdapterDelegate
 import org.mpmg.mpapp.ui.viewmodels.SendViewModel
 
-class UploadPublicWorkAdapter(sendViewModel: SendViewModel) :
+class UploadPublicWorkAdapter() :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val publicWorkSendList = mutableListOf<PublicWorkUploadUI>()
 
     private val delegates = listOf(
         StatusAdapterDelegate(R.layout.item_empty_collect_list),
-        UploadPublicWorkItemDelegate(sendViewModel)
+        UploadPublicWorkItemDelegate()
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

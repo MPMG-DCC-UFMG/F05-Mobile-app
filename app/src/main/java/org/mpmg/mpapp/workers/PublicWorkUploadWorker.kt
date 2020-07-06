@@ -21,11 +21,10 @@ import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
 import java.io.File
 
-class PublicWorkUpload(applicationContext: Context, parameters: WorkerParameters) :
+class PublicWorkUploadWorker(applicationContext: Context, parameters: WorkerParameters) :
     CoroutineWorker(applicationContext, parameters), KoinComponent {
 
-    private val TAG = PublicWorkUpload::class.java.name
-
+    private val TAG = PublicWorkUploadWorker::class.java.name
 
     private val publicWorkRepository: IPublicWorkRepository by inject()
     private val collectRepository: ICollectRepository by inject()

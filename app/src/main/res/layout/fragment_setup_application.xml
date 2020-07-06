@@ -1,33 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background_main"
-    tools:context=".ui.screens.setup.SetupApplicationFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/loading" />
+    <data>
 
-    <TextView
-        android:id="@+id/textView10"
-        style="@style/MPAppTheme.Title1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="250dp"
-        android:text="@string/text_loading"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/animation_view"
-        app:layout_constraintStart_toStartOf="@+id/animation_view" />
+        <import type="android.view.View" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <variable
+            name="configurationViewModel"
+            type="org.mpmg.mpapp.ui.viewmodels.ConfigurationViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_main"
+        tools:context=".ui.screens.setup.SetupApplicationFragment">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView_setupFragment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading" />
+
+        <TextView
+            android:id="@+id/textView_setupFragment"
+            style="@style/MPAppTheme.Title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_xxxlarge"
+            android:layout_marginEnd="@dimen/margin_xxxlarge"
+            android:layout_marginBottom="250dp"
+            android:gravity="center"
+            android:text="@{configurationViewModel.progressMessage}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/animation_view"
+            app:layout_constraintStart_toStartOf="@+id/animation_view" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton_setupFragment_tryAgain"
+            style="@style/MPAppTheme.Button3"
+            android:layout_width="300dp"
+            android:layout_height="@dimen/height_default"
+            android:layout_marginTop="@dimen/margin_xxxlarge"
+            android:text="@string/button_try_again"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_setupFragment" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton_setupFragment_continue"
+            style="@style/MPAppTheme.Button4"
+            android:layout_width="300dp"
+            android:layout_height="@dimen/height_default"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:text="@string/button_continue"
+            app:iconTint="@color/buttonInvalid1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialButton_setupFragment_tryAgain" />
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{configurationViewModel.showTryAgain ? View.VISIBLE: View.GONE }"
+            app:constraint_referenced_ids="materialButton_setupFragment_continue,materialButton_setupFragment_tryAgain" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

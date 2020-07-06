@@ -5,12 +5,20 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.work.Operation
+import androidx.work.WorkInfo
+import androidx.work.WorkInfo.State.*
+import kotlinx.android.synthetic.main.fragment_setup_application.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.databinding.FragmentCollectMainBinding
+import org.mpmg.mpapp.databinding.FragmentSetupApplicationBinding
 import org.mpmg.mpapp.ui.viewmodels.ConfigurationViewModel
+import org.mpmg.mpapp.workers.LoadServerDataWorker
 
 class SetupApplicationFragment : Fragment() {
 
@@ -23,26 +31,52 @@ class SetupApplicationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_setup_application, container, false)
+        val binding: FragmentSetupApplicationBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_setup_application, container, false)
+        binding.configurationViewModel = configurationViewModel
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupViewModels()
-        Handler().postDelayed({
-            configurationViewModel.startConfigFilesDownload()
-        }, 200)
+        startFilesDownload()
+        setupListeners()
     }
 
-    private fun setupViewModels() {
-        configurationViewModel.getStepsFinished().observe(viewLifecycleOwner, Observer { setup ->
-            setup ?: return@Observer
+    private fun setupListeners() {
+        materialButton_setupFragment_continue.setOnClickListener {
+            navigateToList()
+        }
 
-            if (setup.all { true }) {
-                navigateToList()
-            }
-        })
+        materialButton_setupFragment_tryAgain.setOnClickListener {
+            startFilesDownload()
+        }
+    }
+
+    private fun startFilesDownload() {
+        configurationViewModel.progressMessage.value =
+            getString(R.string.progress_starting_download_data)
+        configurationViewModel.showTryAgain.value = false
+        configurationViewModel.startConfigFilesDownload()
+            .observe(viewLifecycleOwner, Observer { info ->
+                info ?: return@Observer
+
+                configurationViewModel.showTryAgain.value = false
+                when (info.state) {
+                    BLOCKED, ENQUEUED, RUNNING -> {
+                        val message = info.progress.getString(LoadServerDataWorker.Message)
+                        configurationViewModel.progressMessage.value = message
+                    }
+                    SUCCEEDED -> navigateToList()
+                    FAILED, CANCELLED -> {
+                        configurationViewModel.showTryAgain.value = true
+                        configurationViewModel.progressMessage.value =
+                            getString(R.string.progress_download_failed_try_again)
+                    }
+                }
+            })
     }
 
     private fun navigateToList() {

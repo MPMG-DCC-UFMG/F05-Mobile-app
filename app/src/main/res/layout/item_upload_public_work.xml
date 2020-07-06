@@ -40,7 +40,7 @@
             android:layout_marginTop="@dimen/margin_large"
             android:layout_marginEnd="@dimen/margin_default"
             android:text="@{String.format(@string/format_progress,publicWork.progress)}"
-            android:visibility="@{publicWork.workState != State.SUCCEEDED ? View.VISIBLE : View.GONE}"
+            android:visibility="@{publicWork.workState != State.SUCCEEDED ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="24%" />

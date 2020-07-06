@@ -74,4 +74,8 @@ class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(ap
     override fun countPublicWorkToSendLive(): LiveData<Int> {
         return mpDatabase()!!.publicWorkDAO().countPublicWorkToSendLive()
     }
+
+    override fun deletePublicWork(publicWorkId: String) {
+        return mpDatabase()!!.publicWorkDAO().delete(publicWorkId)
+    }
 }
