@@ -14,6 +14,8 @@ interface ILocalConfigDataSource {
 
     fun saveTypePhotosVersion(typePhotosVersion: Int)
 
+    fun saveAssociationsVersion(associationVersion: Int)
+
     fun setLoggedUserEmail(email: String)
 
     fun getLoggedUserEmail(): String

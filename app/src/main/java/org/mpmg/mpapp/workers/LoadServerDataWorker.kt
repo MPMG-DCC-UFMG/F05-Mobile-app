@@ -77,8 +77,7 @@ class LoadServerDataWorker(applicationContext: Context, parameters: WorkerParame
     @WorkerThread
     private suspend fun downloadPublicWorkList(): Boolean {
         val currentVersion = configRepository.currentPublicWorkVersion()
-        val serverVersionResult: kotlin.Result<EntityVersion> =
-            kotlin.runCatching { configRepository.getPublicWorkVersion() }
+        val serverVersionResult= kotlin.runCatching { configRepository.getPublicWorkVersion() }
 
         var actionResult = true
 

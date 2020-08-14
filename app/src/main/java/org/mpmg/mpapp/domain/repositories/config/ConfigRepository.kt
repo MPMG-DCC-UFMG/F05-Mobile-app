@@ -2,10 +2,7 @@ package org.mpmg.mpapp.domain.repositories.config
 
 import org.mpmg.mpapp.domain.network.api.MPApi
 import org.mpmg.mpapp.domain.database.models.TypeWork
-import org.mpmg.mpapp.domain.network.models.EntityVersion
-import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
-import org.mpmg.mpapp.domain.network.models.TypePhotoRemote
-import org.mpmg.mpapp.domain.network.models.TypeWorkRemote
+import org.mpmg.mpapp.domain.network.models.*
 import org.mpmg.mpapp.domain.repositories.config.datasources.ILocalConfigDataSource
 import org.mpmg.mpapp.domain.repositories.config.datasources.IRemoteConfigDataSource
 import org.mpmg.mpapp.domain.repositories.config.datasources.RemoteConfigDataSource
@@ -74,5 +71,17 @@ class ConfigRepository(
 
     override suspend fun loadPublicWorksDiff(version: Int): List<PublicWorkRemote> {
         return remoteConfigDataSource.loadPublicWorksDiff(version)
+    }
+
+    override suspend fun getAssociationsVersion(): EntityVersion {
+        return remoteConfigDataSource.getAssociationsVersion()
+    }
+
+    override suspend fun loadAssociations(): List<AssociationTPTWRemote> {
+        return remoteConfigDataSource.loadAssociations()
+    }
+
+    override fun saveAssociationsVersion(associationVersion: Int) {
+        localConfigDataSource.saveAssociationsVersion(associationVersion)
     }
 }

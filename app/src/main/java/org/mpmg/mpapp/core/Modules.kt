@@ -4,6 +4,10 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import org.mpmg.mpapp.domain.network.retrofit.*
+import org.mpmg.mpapp.domain.repositories.association.AssociationRepository
+import org.mpmg.mpapp.domain.repositories.association.IAssociationRepository
+import org.mpmg.mpapp.domain.repositories.association.datasources.ILocalAssociationDataSource
+import org.mpmg.mpapp.domain.repositories.association.datasources.LocalAssociationDataSource
 import org.mpmg.mpapp.domain.repositories.config.ConfigRepository
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
 import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository
@@ -52,6 +56,7 @@ val repositoriesModules = module {
     single { ConfigRepository(get(), get()) as IConfigRepository }
     single { CollectRepository(get(), get(), get(), get()) as ICollectRepository }
     single { TypePhotoRepository(get()) as ITypePhotoRepository }
+    single { AssociationRepository(get()) as IAssociationRepository }
 }
 
 val networkModule = module {
@@ -68,6 +73,7 @@ val dataSourceModules = module {
     single { LocalCollectDataSource(androidApplication()) as ILocalCollectDataSource }
     single { LocalConfigDataSource(androidApplication()) as ILocalConfigDataSource }
     single { LocalTypePhotoDataSource(androidApplication()) as ILocalTypePhotoDataSource }
+    single { LocalAssociationDataSource(androidApplication()) as ILocalAssociationDataSource }
 
     single { RemoteConfigDataSource(get()) as IRemoteConfigDataSource }
     single { RemotePublicWorkDataSource(get()) as IRemotePublicWorkDataSource }

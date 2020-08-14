@@ -39,4 +39,11 @@ interface MPApi {
 
     @GET("typephotos/version")
     suspend fun getTypePhotosVersion(): EntityVersion
+
+    @GET("association/tptw/all")
+    suspend fun loadAssociations(): List<AssociationTPTWRemote>
+
+    @GET("association/tptw/version")
+    suspend fun getAssociationsVersion(): EntityVersion
+
 }
