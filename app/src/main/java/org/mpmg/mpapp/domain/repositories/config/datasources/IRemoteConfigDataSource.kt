@@ -1,9 +1,6 @@
 package org.mpmg.mpapp.domain.repositories.config.datasources
 
-import org.mpmg.mpapp.domain.network.models.EntityVersion
-import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
-import org.mpmg.mpapp.domain.network.models.TypePhotoRemote
-import org.mpmg.mpapp.domain.network.models.TypeWorkRemote
+import org.mpmg.mpapp.domain.network.models.*
 
 interface IRemoteConfigDataSource {
 
@@ -20,5 +17,9 @@ interface IRemoteConfigDataSource {
     suspend fun getTypePhotosVersion(): EntityVersion
 
     suspend fun loadPublicWorksDiff(version: Int): List<PublicWorkRemote>
+
+    suspend fun getAssociationsVersion(): EntityVersion
+
+    suspend fun loadAssociations(): List<AssociationTPTWRemote>
 
 }

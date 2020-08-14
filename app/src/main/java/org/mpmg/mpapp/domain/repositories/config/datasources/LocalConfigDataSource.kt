@@ -54,4 +54,11 @@ class LocalConfigDataSource(val applicationContext: Context) : ILocalConfigDataS
             commit()
         }
     }
+
+    override fun saveAssociationsVersion(associationVersion: Int) {
+        with(sharedPreferences.edit()) {
+            putInt(Constants.PREFERENCES_ASSOCIATION_VERSION_KEY, associationVersion)
+            commit()
+        }
+    }
 }

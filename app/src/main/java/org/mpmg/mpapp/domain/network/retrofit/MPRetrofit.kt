@@ -15,15 +15,16 @@ fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         .addConverterFactory(MoshiConverterFactory.create()).build()
 }
 
-fun provideClient(): OkHttpClient{
-    return when(BuildConfig.ENVIRONMENT){
-        "production" -> provideUnsafeOkHttpClient()
-        else -> provideOkHttpClient()
+fun provideClient(): OkHttpClient {
+    return when (BuildConfig.ENVIRONMENT) {
+        else -> provideUnsafeOkHttpClient()
+//        "production" -> provideUnsafeOkHttpClient()
+//        else -> provideOkHttpClient()
     }
 }
 
 fun provideOkHttpClient(): OkHttpClient {
-    return OkHttpClient().newBuilder().build()
+    return OkHttpClient().newBuilder().addInterceptor(MPInterceptor()).build()
 }
 
 fun provideUnsafeOkHttpClient(): OkHttpClient {
@@ -63,7 +64,7 @@ fun provideUnsafeOkHttpClient(): OkHttpClient {
         builder.hostnameVerifier(object : HostnameVerifier {
             override fun verify(hostname: String?, session: SSLSession?): Boolean = true
         })
-        builder.build()
+        builder.addInterceptor(MPInterceptor()).build()
     } catch (e: Exception) {
         throw RuntimeException(e)
     }

@@ -1,10 +1,8 @@
 package org.mpmg.mpapp.domain.repositories.config.datasources
 
+import org.mpmg.mpapp.domain.database.models.AssociationTWTP
 import org.mpmg.mpapp.domain.network.api.MPApi
-import org.mpmg.mpapp.domain.network.models.EntityVersion
-import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
-import org.mpmg.mpapp.domain.network.models.TypePhotoRemote
-import org.mpmg.mpapp.domain.network.models.TypeWorkRemote
+import org.mpmg.mpapp.domain.network.models.*
 
 class RemoteConfigDataSource(private val mpApi: MPApi) : IRemoteConfigDataSource {
 
@@ -34,5 +32,13 @@ class RemoteConfigDataSource(private val mpApi: MPApi) : IRemoteConfigDataSource
 
     override suspend fun loadPublicWorksDiff(version: Int): List<PublicWorkRemote> {
         return mpApi.getPublicWorksChange(version)
+    }
+
+    override suspend fun getAssociationsVersion(): EntityVersion {
+        return mpApi.getAssociationsVersion()
+    }
+
+    override suspend fun loadAssociations(): List<AssociationTPTWRemote> {
+        return mpApi.loadAssociations()
     }
 }

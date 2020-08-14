@@ -18,17 +18,24 @@
         android:background="@drawable/background_main"
         tools:context=".ui.screens.setup.SetupApplicationFragment">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
+
+        <ProgressBar
+            android:id="@+id/progressBar_setupFragment"
             android:layout_width="250dp"
             android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorGreenMP"
+            android:indeterminateTintMode="src_atop"
+            android:max="100"
+            android:paddingStart="@dimen/margin_xxlarge"
+            android:paddingTop="0dp"
+            android:paddingEnd="@dimen/margin_xxlarge"
+            android:paddingBottom="@dimen/margin_default"
             app:layout_constraintBottom_toTopOf="@+id/textView_setupFragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/loading" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView_setupFragment"
@@ -41,8 +48,8 @@
             android:gravity="center"
             android:text="@{configurationViewModel.progressMessage}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/animation_view"
-            app:layout_constraintStart_toStartOf="@+id/animation_view" />
+            app:layout_constraintEnd_toEndOf="@+id/progressBar_setupFragment"
+            app:layout_constraintStart_toStartOf="@+id/progressBar_setupFragment" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton_setupFragment_tryAgain"

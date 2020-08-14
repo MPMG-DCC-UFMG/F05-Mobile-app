@@ -101,10 +101,12 @@ class LoginFragment : Fragment() {
                 }
 
                 override fun onCancel() {
+                    loginViewModel.isLoading.value = false
                     Log.d(TAG, "facebook:onCancel")
                 }
 
                 override fun onError(exception: FacebookException) {
+                    loginViewModel.isLoading.value = false
                     Log.d(TAG, "facebook:onError", exception)
                 }
             }
@@ -191,6 +193,7 @@ class LoginFragment : Fragment() {
                     handleSigIn(task)
                 }
         } catch (e: ApiException) {
+            loginViewModel.isLoading.value = false
             Log.w(TAG, "signInResult:failed code=" + e.statusCode)
         }
     }
@@ -203,6 +206,7 @@ class LoginFragment : Fragment() {
                     handleSigIn(task)
                 }
         } catch (e: java.lang.Exception) {
+            loginViewModel.isLoading.value = false
             Log.w(TAG, e)
         }
     }

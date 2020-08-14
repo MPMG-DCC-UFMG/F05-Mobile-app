@@ -29,6 +29,7 @@ object DatabaseConstants {
         const val tableName = "type_photo_table"
         const val flag = "type_photo_flag"
         const val name = "type_photo_name"
+        const val description = "type_photo_description"
     }
 
     object Collect {
@@ -66,5 +67,12 @@ object DatabaseConstants {
         const val longitude = "address_longitude"
         const val cep = "address_cep"
         const val idPublicWork = "address_public_work_id"
+    }
+
+    object AssociationTWTP {
+        const val tableName = "association_twtp_table"
+        const val id = "association_twtp_id"
+        const val typeWorkFlag = "association_twtp_type_work_flag"
+        const val typePhotoFlag = "association_twtp_type_photo_flag"
     }
 }
