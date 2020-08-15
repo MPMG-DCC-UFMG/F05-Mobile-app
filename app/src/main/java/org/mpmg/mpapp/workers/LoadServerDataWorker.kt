@@ -17,7 +17,7 @@ import org.mpmg.mpapp.domain.repositories.typephoto.ITypePhotoRepository
 import org.mpmg.mpapp.domain.repositories.typework.ITypeWorkRepository
 
 class LoadServerDataWorker(applicationContext: Context, parameters: WorkerParameters) :
-    CoroutineWorker(applicationContext, parameters), KoinComponent {
+    BaseWorker(applicationContext, parameters) {
 
     private val typeWorkRepository: ITypeWorkRepository by inject()
     private val configRepository: IConfigRepository by inject()
@@ -28,7 +28,7 @@ class LoadServerDataWorker(applicationContext: Context, parameters: WorkerParame
         const val Message = "Message"
     }
 
-    override suspend fun doWork(): Result {
+    override suspend fun execute(): Result {
         if (!downloadTypeWorkList()) {
             return Result.failure()
         }
@@ -38,6 +38,10 @@ class LoadServerDataWorker(applicationContext: Context, parameters: WorkerParame
         }
 
         if (!downloadTypePhotoList()) {
+            return Result.failure()
+        }
+
+        if (!downloadAssociationList()) {
             return Result.failure()
         }
 
@@ -51,10 +55,10 @@ class LoadServerDataWorker(applicationContext: Context, parameters: WorkerParame
 
         var actionResult = true
 
-        updateProgress(getString(R.string.progress_check_type_work_version))
+        updateProgress(getString(R.string.progress_check_version, R.string.progress_type_work))
         serverVersionResult.onSuccess { serverVersion ->
             if (currentVersion != serverVersion.version) {
-                updateProgress(getString(R.string.progress_update_type_work))
+                updateProgress(getString(R.string.progress_update, R.string.progress_type_work))
                 kotlin.runCatching {
                     configRepository.loadTypeWorks()
                 }.onSuccess {
@@ -62,7 +66,47 @@ class LoadServerDataWorker(applicationContext: Context, parameters: WorkerParame
                     configRepository.saveTypeWorksVersion(serverVersion.version)
                     actionResult = true
                 }.onFailure {
-                    updateProgress(getString(R.string.progress_fail_download_type_works))
+                    updateProgress(
+                        getString(
+                            R.string.progress_fail_download,
+                            R.string.progress_type_work
+                        )
+                    )
+                    actionResult = false
+                }
+            }
+        }.onFailure {
+            updateProgress(getString(R.string.progress_fail_server))
+            actionResult = false
+        }
+
+        return actionResult
+    }
+
+    @WorkerThread
+    private suspend fun downloadAssociationList(): Boolean {
+        val currentVersion = configRepository.currentAssociationVersion()
+        val serverVersionResult = kotlin.runCatching { configRepository.getAssociationsVersion() }
+
+        var actionResult = true
+
+        updateProgress(getString(R.string.progress_check_version, R.string.progress_association))
+        serverVersionResult.onSuccess { serverVersion ->
+            if (currentVersion != serverVersion.version) {
+                updateProgress(getString(R.string.progress_update, R.string.progress_association))
+                kotlin.runCatching {
+                    configRepository.loadTypeWorks()
+                }.onSuccess {
+                    typeWorkRepository.insertTypeWorks(it.map { it.toTypeWorkDB() })
+                    configRepository.saveTypeWorksVersion(serverVersion.version)
+                    actionResult = true
+                }.onFailure {
+                    updateProgress(
+                        getString(
+                            R.string.progress_fail_download,
+                            R.string.progress_association
+                        )
+                    )
                     actionResult = false
                 }
             }
@@ -77,14 +121,14 @@ class LoadServerDataWorker(applicationContext: Context, parameters: WorkerParame
     @WorkerThread
     private suspend fun downloadPublicWorkList(): Boolean {
         val currentVersion = configRepository.currentPublicWorkVersion()
-        val serverVersionResult= kotlin.runCatching { configRepository.getPublicWorkVersion() }
+        val serverVersionResult = kotlin.runCatching { configRepository.getPublicWorkVersion() }
 
         var actionResult = true
 
-        updateProgress(getString(R.string.progress_check_public_work_version))
+        updateProgress(getString(R.string.progress_check_version, R.string.progress_public_work))
         serverVersionResult.onSuccess { publicWorkVersion ->
             if (currentVersion != publicWorkVersion.version) {
-                updateProgress(getString(R.string.progress_update_public_work))
+                updateProgress(getString(R.string.progress_update, R.string.progress_public_work))
                 kotlin.runCatching {
                     configRepository.loadPublicWorksDiff(currentVersion)
                 }.onSuccess { listPublicWorkRemote ->
@@ -92,7 +136,12 @@ class LoadServerDataWorker(applicationContext: Context, parameters: WorkerParame
                     configRepository.savePublicWorkVersion(publicWorkVersion.version)
                     actionResult = true
                 }.onFailure {
-                    updateProgress(getString(R.string.progress_fail_download_public_work))
+                    updateProgress(
+                        getString(
+                            R.string.progress_fail_download,
+                            R.string.progress_public_work
+                        )
+                    )
                     actionResult = false
                 }
             }
@@ -122,17 +171,22 @@ class LoadServerDataWorker(applicationContext: Context, parameters: WorkerParame
 
         var actionResult = true
 
-        updateProgress(getString(R.string.progress_check_type_photo_version))
+        updateProgress(getString(R.string.progress_check_version, R.string.progress_type_photo))
         serverVersionResult.onSuccess { serverVersion ->
             if (currentVersion != serverVersion.version) {
-                updateProgress(getString(R.string.progress_update_type_work))
+                updateProgress(getString(R.string.progress_update, R.string.progress_type_photo))
                 kotlin.runCatching {
                     configRepository.loadTypePhotos()
                 }.onSuccess {
                     typePhotoRepository.insertTypePhotos(it.map { it.toTypePhotoDB() })
                     configRepository.saveTypePhotosVersion(serverVersion.version)
                 }.onFailure {
-                    updateProgress(getString(R.string.progress_fail_download_type_photo))
+                    updateProgress(
+                        getString(
+                            R.string.progress_fail_download,
+                            R.string.progress_type_photo
+                        )
+                    )
                     actionResult = false
                 }
             }
@@ -142,13 +196,5 @@ class LoadServerDataWorker(applicationContext: Context, parameters: WorkerParame
         }
 
         return actionResult
-    }
-
-    private suspend fun updateProgress(message: String) {
-        setProgress(workDataOf(Message to message))
-    }
-
-    private fun getString(resourceId: Int): String {
-        return applicationContext.getString(resourceId)
     }
 }
