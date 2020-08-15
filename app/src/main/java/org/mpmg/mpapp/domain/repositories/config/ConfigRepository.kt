@@ -84,4 +84,8 @@ class ConfigRepository(
     override fun saveAssociationsVersion(associationVersion: Int) {
         localConfigDataSource.saveAssociationsVersion(associationVersion)
     }
+
+    override fun currentAssociationVersion(): Int {
+        return localConfigDataSource.currentAssociationVersion()
+    }
 }
