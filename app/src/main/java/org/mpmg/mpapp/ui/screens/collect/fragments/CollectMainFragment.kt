@@ -1,5 +1,7 @@
 package org.mpmg.mpapp.ui.screens.collect.fragments
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,16 +15,19 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_collect_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentCollectMainBinding
 import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.ui.MainActivity
 import org.mpmg.mpapp.ui.dialogs.CommentsBottomSheetDialog
 import org.mpmg.mpapp.ui.screens.collect.adapters.PhotoListAdapter
+import org.mpmg.mpapp.ui.screens.collect.viewmodels.CollectFragmentViewModel
 import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
 import org.mpmg.mpapp.ui.viewmodels.PhotoViewModel
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
+
 
 class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListener {
 
@@ -32,6 +37,8 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
     private val photoViewModel: PhotoViewModel by sharedViewModel()
     private val publicWorkViewModel: PublicWorkViewModel by sharedViewModel()
     private val typeWorkViewModel: TypeWorkViewModel by sharedViewModel()
+
+    private val collectFragmentViewModel: CollectFragmentViewModel by viewModel()
 
     private var navigationController: NavController? = null
     private lateinit var photoListAdapter: PhotoListAdapter
@@ -48,6 +55,7 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         val binding: FragmentCollectMainBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_collect_main, container, false)
         binding.collectViewModel = collectViewModel
+        binding.collectFragmentViewModel = collectFragmentViewModel
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -90,14 +98,24 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
             navigateTo(R.id.action_collectMainFragment_to_publicWorkAddFragment)
         }
 
-        materialButton_collectMainFragment_addPhoto.setOnClickListener {
+        floatingActionButton_collectMainFragment_addPhoto.setOnClickListener {
             photoViewModel.setPhoto(null)
+            toggleMenu()
             navigateTo(R.id.action_collectMainFragment_to_photoAddFragment)
         }
 
-        materialButton_collectMainFragment_addComment.setOnClickListener {
+        floatingActionButton_collectMainFragment_addComment.setOnClickListener {
             launchBottomSheetComment()
+            toggleMenu()
         }
+
+        floatingActionButton_collectMainFragment_menu.setOnClickListener {
+            toggleMenu()
+        }
+    }
+
+    private fun toggleMenu() {
+        collectFragmentViewModel.rotateFabMenu(floatingActionButton_collectMainFragment_menu)
     }
 
     private fun setSelectPublicWorkToEdit() {
@@ -133,4 +151,6 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         photoViewModel.setPhoto(photo)
         navigateTo(R.id.action_collectMainFragment_to_photoAddFragment)
     }
+
+
 }

@@ -115,11 +115,12 @@
     <string name="home_option_exit">Sair</string>
 
     <string name="message_collect_updated">Informações atualizadas</string>
+    <string name="message_fail_to_authenticate">Falha ao autenticar usuário</string>
 
     <string name="progress_type_work">tipos de obras</string>
     <string name="progress_association">relacionamentos</string>
     <string name="progress_public_work">obras públicas</string>
     <string name="progress_type_photo">tipos de fotos</string>
-
+    <string name="progress_work_status">status de obras</string>
 
 </resources>

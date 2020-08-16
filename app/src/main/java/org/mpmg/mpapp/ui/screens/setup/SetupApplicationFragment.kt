@@ -18,6 +18,7 @@ import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentCollectMainBinding
 import org.mpmg.mpapp.databinding.FragmentSetupApplicationBinding
 import org.mpmg.mpapp.ui.viewmodels.ConfigurationViewModel
+import org.mpmg.mpapp.workers.BaseWorker.Companion.Message
 import org.mpmg.mpapp.workers.LoadServerDataWorker
 
 class SetupApplicationFragment : Fragment() {
@@ -66,7 +67,7 @@ class SetupApplicationFragment : Fragment() {
                 configurationViewModel.showTryAgain.value = false
                 when (info.state) {
                     BLOCKED, ENQUEUED, RUNNING -> {
-                        val message = info.progress.getString(LoadServerDataWorker.Message)
+                        val message = info.progress.getString(Message)
                         configurationViewModel.progressMessage.value = message
                     }
                     SUCCEEDED -> navigateToList()

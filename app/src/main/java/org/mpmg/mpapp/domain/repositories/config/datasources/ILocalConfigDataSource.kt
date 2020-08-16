@@ -10,6 +10,8 @@ interface ILocalConfigDataSource {
 
     fun currentAssociationVersion(): Int
 
+    fun currentWorkStatusVersion(): Int
+
     fun saveTypePhotosVersion(typePhotosVersion: Int)
 
     fun savePublicWorkVersion(publicWorkVersion: Int)
@@ -17,6 +19,8 @@ interface ILocalConfigDataSource {
     fun saveTypeWorksVersion(typeWorksVersion: Int)
 
     fun saveAssociationsVersion(associationVersion: Int)
+
+    fun saveWorkStatusVersion(workStatusVersion: Int)
 
     fun setLoggedUserEmail(email: String)
 

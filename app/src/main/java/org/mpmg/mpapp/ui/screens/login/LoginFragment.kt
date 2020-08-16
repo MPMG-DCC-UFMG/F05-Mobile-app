@@ -28,6 +28,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentAddPhotoBinding
 import org.mpmg.mpapp.databinding.FragmentLoginBinding
+import org.mpmg.mpapp.ui.MainActivity
 import org.mpmg.mpapp.ui.screens.login.LoginFragment.SignWith.*
 import org.mpmg.mpapp.ui.viewmodels.LoginViewModel
 import java.util.*
@@ -166,7 +167,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun handleSigIn(task: Task<AuthResult>){
+    private fun handleSigIn(task: Task<AuthResult>) {
         loginViewModel.isLoading.value = false
         if (task.isSuccessful) {
             val user = firebaseAuth.currentUser ?: throw NullPointerException()
@@ -175,11 +176,10 @@ class LoginFragment : Fragment() {
                 user.displayName ?: throw NullPointerException()
             )
         } else {
-            Snackbar.make(
-                coordinatorLayout_loginFragment,
-                "Authentication Failed.",
-                Snackbar.LENGTH_SHORT
-            ).show()
+            val parentActivity = this.requireActivity()
+            if (parentActivity is MainActivity) {
+                parentActivity.launchSnackbar(getString(R.string.message_fail_to_authenticate))
+            }
         }
     }
 

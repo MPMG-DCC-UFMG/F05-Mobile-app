@@ -1,6 +1,7 @@
 package org.mpmg.mpapp.domain.repositories.config.datasources
 
 import org.mpmg.mpapp.domain.database.models.AssociationTWTP
+import org.mpmg.mpapp.domain.database.models.WorkStatus
 import org.mpmg.mpapp.domain.network.api.MPApi
 import org.mpmg.mpapp.domain.network.models.*
 
@@ -40,5 +41,13 @@ class RemoteConfigDataSource(private val mpApi: MPApi) : IRemoteConfigDataSource
 
     override suspend fun loadAssociations(): List<AssociationTPTWRemote> {
         return mpApi.loadAssociations()
+    }
+
+    override suspend fun getWorkStatusVersion(): EntityVersion {
+        return mpApi.getWorkStatusVersion()
+    }
+
+    override suspend fun loadWorkStatus(): List<WorkStatusRemote> {
+        return mpApi.loadWorkStatus()
     }
 }

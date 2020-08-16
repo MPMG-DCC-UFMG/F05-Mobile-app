@@ -17,12 +17,14 @@ object DatabaseConstants {
         const val typeWorkFlag = "public_work_type_work_flag"
         const val idCollect = "public_work_id_collect"
         const val toSend = "public_work_to_send"
+        const val userStatusFlag = "public_work_user_status_flag"
     }
 
     object TypeWork {
         const val tableName = "type_work_table"
         const val flag = "type_work_flag"
         const val name = "type_work_name"
+        const val status = "type_work_status"
     }
 
     object TypePhoto {
@@ -74,5 +76,12 @@ object DatabaseConstants {
         const val id = "association_twtp_id"
         const val typeWorkFlag = "association_twtp_type_work_flag"
         const val typePhotoFlag = "association_twtp_type_photo_flag"
+    }
+
+    object WorkStatus {
+        const val tableName = "work_status_table"
+        const val flag = "work_status_flag"
+        const val name = "work_status_name"
+        const val description = "work_status_description"
     }
 }

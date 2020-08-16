@@ -10,7 +10,8 @@ data class PublicWorkRemote(
     @field:Json(name = "address_id") val idAddress: String,
     @field:Json(name = "type_work_flag") val typeWorkFlag: Int,
     @field:Json(name = "address") var address: AddressRemote? = null,
-    @field:Json(name = "operation") var operation: Int = 0
+    @field:Json(name = "operation") var operation: Int = 0,
+    @field:Json(name = "user_status") var userStatus: Int = 0
 ) {
 
     constructor(publicWorkAndAddress: PublicWorkAndAddress) : this(
@@ -30,7 +31,8 @@ data class PublicWorkRemote(
             id = id,
             name = name,
             typeWorkFlag = typeWorkFlag,
-            toSend = false
+            toSend = false,
+            userStatusFlag = userStatus
         )
         val addressDB = address!!.toAddressDB()
         return PublicWorkAndAddress(

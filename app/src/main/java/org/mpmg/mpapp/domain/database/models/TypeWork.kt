@@ -10,5 +10,6 @@ import org.mpmg.mpapp.domain.database.DatabaseConstants
 data class TypeWork(
     @PrimaryKey
     @ColumnInfo(name = DatabaseConstants.TypeWork.flag) val flag: Int,
-    @ColumnInfo(name = DatabaseConstants.TypeWork.name) val name: String
-): BaseModel
+    @ColumnInfo(name = DatabaseConstants.TypeWork.name) val name: String,
+    @ColumnInfo(name = DatabaseConstants.TypeWork.status) val status: String
+) : BaseModel

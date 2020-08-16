@@ -1,6 +1,7 @@
 package org.mpmg.mpapp.domain.network.api
 
 import okhttp3.MultipartBody
+import org.mpmg.mpapp.domain.database.models.WorkStatus
 import org.mpmg.mpapp.domain.network.models.*
 import retrofit2.http.*
 
@@ -46,4 +47,9 @@ interface MPApi {
     @GET("association/tptw/version")
     suspend fun getAssociationsVersion(): EntityVersion
 
+    @GET("workstatus/")
+    suspend fun loadWorkStatus(): List<WorkStatusRemote>
+
+    @GET("workstatus/version")
+    suspend fun getWorkStatusVersion(): EntityVersion
 }

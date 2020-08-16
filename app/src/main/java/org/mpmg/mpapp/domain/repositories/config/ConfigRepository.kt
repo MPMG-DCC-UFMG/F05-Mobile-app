@@ -88,4 +88,20 @@ class ConfigRepository(
     override fun currentAssociationVersion(): Int {
         return localConfigDataSource.currentAssociationVersion()
     }
+
+    override suspend fun getWorkStatusVersion(): EntityVersion {
+        return remoteConfigDataSource.getWorkStatusVersion()
+    }
+
+    override suspend fun loadWorkStatus(): List<WorkStatusRemote> {
+        return remoteConfigDataSource.loadWorkStatus()
+    }
+
+    override fun currentWorkStatusVersion(): Int {
+        return localConfigDataSource.currentWorkStatusVersion()
+    }
+
+    override fun saveWorkStatusVersion(workStatusVersion: Int) {
+        localConfigDataSource.saveWorkStatusVersion(workStatusVersion)
+    }
 }

@@ -19,7 +19,7 @@ abstract class BaseWorker(applicationContext: Context, parameters: WorkerParamet
     }
 
     protected suspend fun updateProgress(message: String) {
-        setProgress(workDataOf(LoadServerDataWorker.Message to message))
+        setProgress(workDataOf(Message to message))
     }
 
     protected fun getString(resourceId: Int): String {
@@ -27,7 +27,9 @@ abstract class BaseWorker(applicationContext: Context, parameters: WorkerParamet
     }
 
     protected fun getString(resourceId: Int, vararg nextResourcesIds: Int): String {
-        return applicationContext.getString(resourceId).format(nextResourcesIds)
+        val words = nextResourcesIds.map { getString(it) }
+        return applicationContext.getString(resourceId)
+            .format(words.joinToString(","))
     }
 
     abstract suspend fun execute(): Result

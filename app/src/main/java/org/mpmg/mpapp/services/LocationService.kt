@@ -1,5 +1,6 @@
 package org.mpmg.mpapp.services
 
+import android.annotation.SuppressLint
 import android.app.Service
 import android.content.Intent
 import android.location.Location
@@ -68,6 +69,7 @@ class LocationService : Service() {
         mListener?.onNewLocation(location)
     }
 
+    @SuppressLint("MissingPermission")
     private fun setupFusedLocationClient() {
         val locationRequest = LocationRequest.create().apply {
             interval = 20 * 1000
