@@ -3,6 +3,7 @@ package org.mpmg.mpapp.ui.screens.collect.viewmodels
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import org.mpmg.mpapp.ui.shared.animation.AnimationHelper
 
 class CollectFragmentViewModel : ViewModel() {
 
@@ -14,8 +15,13 @@ class CollectFragmentViewModel : ViewModel() {
 
     fun rotateFabMenu(v: View) {
         rotated.value?.let {
-            v.animate().setDuration(200).rotation(if (!it) 135f else 0f)
+            AnimationHelper.rotate(v, if (!it) 135f else 0f)
             rotated.value = !it
         }
+    }
+
+    fun initMiniFABs(v:View){
+        v.visibility = View.GONE
+        v.alpha = 0f
     }
 }

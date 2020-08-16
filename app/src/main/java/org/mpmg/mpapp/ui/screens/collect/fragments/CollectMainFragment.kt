@@ -1,7 +1,5 @@
 package org.mpmg.mpapp.ui.screens.collect.fragments
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +21,7 @@ import org.mpmg.mpapp.ui.MainActivity
 import org.mpmg.mpapp.ui.dialogs.CommentsBottomSheetDialog
 import org.mpmg.mpapp.ui.screens.collect.adapters.PhotoListAdapter
 import org.mpmg.mpapp.ui.screens.collect.viewmodels.CollectFragmentViewModel
+import org.mpmg.mpapp.ui.shared.animation.AnimationHelper
 import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
 import org.mpmg.mpapp.ui.viewmodels.PhotoViewModel
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
@@ -70,15 +69,30 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         setupListeners()
         setupRecyclerView()
         setupViewModels()
+        setupFABs()
+    }
+
+    private fun setupFABs() {
+        collectFragmentViewModel.initMiniFABs(floatingActionButton_collectMainFragment_addComment)
+        collectFragmentViewModel.initMiniFABs(floatingActionButton_collectMainFragment_addPhoto)
     }
 
     private fun setupViewModels() {
-        collectViewModel.getPhotoList()
-            .observe(viewLifecycleOwner, Observer { photoMap ->
-                photoMap ?: return@Observer
+        collectViewModel.getPhotoList().observe(viewLifecycleOwner, Observer { photoMap ->
+            photoMap ?: return@Observer
 
-                photoListAdapter.updatePhotoList(photoMap.values.toList())
-            })
+            photoListAdapter.updatePhotoList(photoMap.values.toList())
+        })
+
+        collectFragmentViewModel.rotated.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                AnimationHelper.showView(floatingActionButton_collectMainFragment_addPhoto)
+                AnimationHelper.showView(floatingActionButton_collectMainFragment_addComment)
+            } else {
+                AnimationHelper.hideView(floatingActionButton_collectMainFragment_addPhoto)
+                AnimationHelper.hideView(floatingActionButton_collectMainFragment_addComment)
+            }
+        })
     }
 
     private fun setupRecyclerView() {
@@ -151,6 +165,5 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         photoViewModel.setPhoto(photo)
         navigateTo(R.id.action_collectMainFragment_to_photoAddFragment)
     }
-
 
 }
