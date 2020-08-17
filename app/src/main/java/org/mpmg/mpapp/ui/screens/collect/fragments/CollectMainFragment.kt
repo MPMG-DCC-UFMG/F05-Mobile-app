@@ -15,28 +15,28 @@ import kotlinx.android.synthetic.main.fragment_collect_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.core.extensions.observeOnce
 import org.mpmg.mpapp.databinding.FragmentCollectMainBinding
 import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.ui.MainActivity
 import org.mpmg.mpapp.ui.dialogs.CommentsBottomSheetDialog
+import org.mpmg.mpapp.ui.dialogs.SelectorDialog
 import org.mpmg.mpapp.ui.screens.collect.adapters.PhotoListAdapter
 import org.mpmg.mpapp.ui.screens.collect.viewmodels.CollectFragmentViewModel
 import org.mpmg.mpapp.ui.shared.animation.AnimationHelper
-import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
-import org.mpmg.mpapp.ui.viewmodels.PhotoViewModel
-import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
-import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
+import org.mpmg.mpapp.ui.viewmodels.*
 
 
 class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListener {
 
     private val TAG = CollectMainFragment::class.java.name
 
+    private val typeWorkViewModel: TypeWorkViewModel by sharedViewModel()
     private val collectViewModel: CollectViewModel by sharedViewModel()
     private val photoViewModel: PhotoViewModel by sharedViewModel()
     private val publicWorkViewModel: PublicWorkViewModel by sharedViewModel()
-    private val typeWorkViewModel: TypeWorkViewModel by sharedViewModel()
 
+    private val workStatusViewModel: WorkStatusViewModel by viewModel()
     private val collectFragmentViewModel: CollectFragmentViewModel by viewModel()
 
     private var navigationController: NavController? = null
@@ -48,7 +48,6 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         navigationController = activity?.findNavController(R.id.nav_host_fragment)
 
         val binding: FragmentCollectMainBinding =
@@ -63,7 +62,7 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         super.onViewCreated(view, savedInstanceState)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressed = {
-            navigateBack()
+            launchWorkStatusDialog()
         }, enabled = true)
 
         setupListeners()
@@ -91,6 +90,13 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
             } else {
                 AnimationHelper.hideView(floatingActionButton_collectMainFragment_addPhoto)
                 AnimationHelper.hideView(floatingActionButton_collectMainFragment_addComment)
+            }
+        })
+
+        collectViewModel.getPublicWork().observeOnce(viewLifecycleOwner, Observer {
+            val typeWork = typeWorkViewModel.getTypeOfWorkFromFlag(it.publicWork.typeWorkFlag)
+            typeWork?.let {
+                workStatusViewModel.loadWorkStatusFromList(it.getWorkStatusIds())
             }
         })
     }
@@ -150,6 +156,22 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
 
     private fun navigateTo(actionId: Int) {
         navigationController?.navigate(actionId)
+    }
+
+    private fun launchWorkStatusDialog() {
+        workStatusViewModel.currentWorkStatusList.observeOnce(viewLifecycleOwner,
+            Observer { workStatus ->
+                val optionsArray = workStatus.map { it.name }.toTypedArray()
+                val builder = SelectorDialog.Builder(childFragmentManager)
+                builder.withTitle(getString(R.string.dialog_type_photo_title))
+                    .withOptions(optionsArray.toList())
+                    .withSelectionMode(SelectorDialog.SelectionMode.SINGLE)
+                    .withSelectedOptionListener {
+                        publicWorkViewModel.updateCurrentPublicWorkStatus(workStatus[it.first()].flag)
+                        navigateBack()
+                    }
+                    .show()
+            })
     }
 
     private fun navigateBack() {

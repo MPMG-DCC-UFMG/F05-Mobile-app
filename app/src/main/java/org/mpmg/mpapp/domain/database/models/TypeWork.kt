@@ -12,4 +12,9 @@ data class TypeWork(
     @ColumnInfo(name = DatabaseConstants.TypeWork.flag) val flag: Int,
     @ColumnInfo(name = DatabaseConstants.TypeWork.name) val name: String,
     @ColumnInfo(name = DatabaseConstants.TypeWork.status) val status: String
-) : BaseModel
+) : BaseModel {
+
+    fun getWorkStatusIds(): List<Int> {
+        return status.split(",").map { it.toInt() }
+    }
+}

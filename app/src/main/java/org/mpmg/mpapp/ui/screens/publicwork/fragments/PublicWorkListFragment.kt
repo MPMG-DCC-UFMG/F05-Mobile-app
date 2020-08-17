@@ -70,8 +70,10 @@ class PublicWorkListFragment : Fragment(), PublicWorkListAdapter.PublicWorkListA
     private fun setupRecyclerView() {
         initPublicWorkAdapter()
         recyclerView_publicWorkListFragment_worksList.adapter = publicWorkListAdapter
+        recyclerView_publicWorkListFragment_worksList.setHasFixedSize(true)
         recyclerView_publicWorkListFragment_worksList.layoutManager = LinearLayoutManager(activity)
     }
+
 
     private fun initPublicWorkAdapter() {
         publicWorkListAdapter = PublicWorkListAdapter(locationViewModel)

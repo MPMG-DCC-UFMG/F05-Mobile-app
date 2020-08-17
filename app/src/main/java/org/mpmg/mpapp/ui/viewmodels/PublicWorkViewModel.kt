@@ -109,6 +109,14 @@ class PublicWorkViewModel(
         updateCurrentPublicWorkAddress(publicWorkUI, addressUI)
     }
 
+    fun updateCurrentPublicWorkStatus(workStatus: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            currentPublicWork.id?.let {
+                publicWorkRepository.updateWorkStatusPublicWork(it, workStatus)
+            }
+        }
+    }
+
     fun isFormValid(): Boolean {
         return currentAddress.isValid() && currentPublicWork.isValid()
     }
@@ -155,15 +163,6 @@ class PublicWorkViewModel(
             filterSyncStatus.addSyncStatus(syncStatus)
         } else {
             filterSyncStatus.removeSyncStatus(syncStatus)
-        }
-        filter()
-    }
-
-    fun updateTypeWorkFilter(typeWorkFlag: Int, checked: Boolean) {
-        if (checked) {
-            filterTypeWork.addTypeOfWork(typeWorkFlag)
-        } else {
-            filterTypeWork.removeTypeOfWork(typeWorkFlag)
         }
         filter()
     }

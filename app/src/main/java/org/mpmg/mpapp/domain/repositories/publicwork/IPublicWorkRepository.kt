@@ -10,5 +10,5 @@ interface IPublicWorkRepository : ILocalPublicWorkDataSource, IRemotePublicWorkD
 
     fun insertPublicWork(publicWorkAndAddress: PublicWorkAndAddress)
 
-
+    fun updateWorkStatusPublicWork(publicWorkId: String, workStatusFlag: Int)
 }

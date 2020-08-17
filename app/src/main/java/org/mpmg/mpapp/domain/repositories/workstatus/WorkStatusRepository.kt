@@ -12,4 +12,8 @@ class WorkStatusRepository(private val localWorkStatusDataSource: ILocalWorkStat
     override fun insertWorkStatuses(workStatuses: List<WorkStatus>) {
         localWorkStatusDataSource.insertWorkStatuses(workStatuses)
     }
+
+    override fun listWorkStatusByIds(workStatusIds: List<Int>): List<WorkStatus> {
+        return localWorkStatusDataSource.listWorkStatusByIds(workStatusIds)
+    }
 }

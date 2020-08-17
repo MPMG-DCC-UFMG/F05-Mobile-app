@@ -14,4 +14,8 @@ class LocalWorkStatusDataSource(applicationContext: Context) : BaseDataSource(ap
     override fun insertWorkStatuses(workStatuses: List<WorkStatus>) {
         mpDatabase()!!.workStatusDAO().insertAll(workStatuses.toTypedArray())
     }
+
+    override fun listWorkStatusByIds(workStatusIds: List<Int>): List<WorkStatus> {
+        return mpDatabase()!!.workStatusDAO().listAllWorkStatusByFlags(workStatusIds)
+    }
 }
