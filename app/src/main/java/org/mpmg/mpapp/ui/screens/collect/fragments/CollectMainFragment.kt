@@ -13,25 +13,31 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_collect_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.core.extensions.observeOnce
 import org.mpmg.mpapp.databinding.FragmentCollectMainBinding
 import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.ui.MainActivity
 import org.mpmg.mpapp.ui.dialogs.CommentsBottomSheetDialog
+import org.mpmg.mpapp.ui.dialogs.SelectorDialog
 import org.mpmg.mpapp.ui.screens.collect.adapters.PhotoListAdapter
-import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
-import org.mpmg.mpapp.ui.viewmodels.PhotoViewModel
-import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
-import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
+import org.mpmg.mpapp.ui.screens.collect.viewmodels.CollectFragmentViewModel
+import org.mpmg.mpapp.ui.shared.animation.AnimationHelper
+import org.mpmg.mpapp.ui.viewmodels.*
+
 
 class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListener {
 
     private val TAG = CollectMainFragment::class.java.name
 
+    private val typeWorkViewModel: TypeWorkViewModel by sharedViewModel()
     private val collectViewModel: CollectViewModel by sharedViewModel()
     private val photoViewModel: PhotoViewModel by sharedViewModel()
     private val publicWorkViewModel: PublicWorkViewModel by sharedViewModel()
-    private val typeWorkViewModel: TypeWorkViewModel by sharedViewModel()
+
+    private val workStatusViewModel: WorkStatusViewModel by viewModel()
+    private val collectFragmentViewModel: CollectFragmentViewModel by viewModel()
 
     private var navigationController: NavController? = null
     private lateinit var photoListAdapter: PhotoListAdapter
@@ -42,12 +48,12 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         navigationController = activity?.findNavController(R.id.nav_host_fragment)
 
         val binding: FragmentCollectMainBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_collect_main, container, false)
         binding.collectViewModel = collectViewModel
+        binding.collectFragmentViewModel = collectFragmentViewModel
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -56,21 +62,43 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         super.onViewCreated(view, savedInstanceState)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressed = {
-            navigateBack()
+            launchWorkStatusDialog()
         }, enabled = true)
 
         setupListeners()
         setupRecyclerView()
         setupViewModels()
+        setupFABs()
+    }
+
+    private fun setupFABs() {
+        collectFragmentViewModel.initMiniFABs(floatingActionButton_collectMainFragment_addComment)
+        collectFragmentViewModel.initMiniFABs(floatingActionButton_collectMainFragment_addPhoto)
     }
 
     private fun setupViewModels() {
-        collectViewModel.getPhotoList()
-            .observe(viewLifecycleOwner, Observer { photoMap ->
-                photoMap ?: return@Observer
+        collectViewModel.getPhotoList().observe(viewLifecycleOwner, Observer { photoMap ->
+            photoMap ?: return@Observer
 
-                photoListAdapter.updatePhotoList(photoMap.values.toList())
-            })
+            photoListAdapter.updatePhotoList(photoMap.values.toList())
+        })
+
+        collectFragmentViewModel.rotated.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                AnimationHelper.showView(floatingActionButton_collectMainFragment_addPhoto)
+                AnimationHelper.showView(floatingActionButton_collectMainFragment_addComment)
+            } else {
+                AnimationHelper.hideView(floatingActionButton_collectMainFragment_addPhoto)
+                AnimationHelper.hideView(floatingActionButton_collectMainFragment_addComment)
+            }
+        })
+
+        collectViewModel.getPublicWork().observeOnce(viewLifecycleOwner, Observer {
+            val typeWork = typeWorkViewModel.getTypeOfWorkFromFlag(it.publicWork.typeWorkFlag)
+            typeWork?.let {
+                workStatusViewModel.loadWorkStatusFromList(it.getWorkStatusIds())
+            }
+        })
     }
 
     private fun setupRecyclerView() {
@@ -90,14 +118,24 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
             navigateTo(R.id.action_collectMainFragment_to_publicWorkAddFragment)
         }
 
-        materialButton_collectMainFragment_addPhoto.setOnClickListener {
+        floatingActionButton_collectMainFragment_addPhoto.setOnClickListener {
             photoViewModel.setPhoto(null)
+            toggleMenu()
             navigateTo(R.id.action_collectMainFragment_to_photoAddFragment)
         }
 
-        materialButton_collectMainFragment_addComment.setOnClickListener {
+        floatingActionButton_collectMainFragment_addComment.setOnClickListener {
             launchBottomSheetComment()
+            toggleMenu()
         }
+
+        floatingActionButton_collectMainFragment_menu.setOnClickListener {
+            toggleMenu()
+        }
+    }
+
+    private fun toggleMenu() {
+        collectFragmentViewModel.rotateFabMenu(floatingActionButton_collectMainFragment_menu)
     }
 
     private fun setSelectPublicWorkToEdit() {
@@ -120,6 +158,22 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         navigationController?.navigate(actionId)
     }
 
+    private fun launchWorkStatusDialog() {
+        workStatusViewModel.currentWorkStatusList.observeOnce(viewLifecycleOwner,
+            Observer { workStatus ->
+                val optionsArray = workStatus.map { it.name }.toTypedArray()
+                val builder = SelectorDialog.Builder(childFragmentManager)
+                builder.withTitle(getString(R.string.dialog_type_photo_title))
+                    .withOptions(optionsArray.toList())
+                    .withSelectionMode(SelectorDialog.SelectionMode.SINGLE)
+                    .withSelectedOptionListener {
+                        publicWorkViewModel.updateCurrentPublicWorkStatus(workStatus[it.first()].flag)
+                        navigateBack()
+                    }
+                    .show()
+            })
+    }
+
     private fun navigateBack() {
         val parentActivity = this.requireActivity()
         if (parentActivity is MainActivity) {
@@ -133,4 +187,5 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         photoViewModel.setPhoto(photo)
         navigateTo(R.id.action_collectMainFragment_to_photoAddFragment)
     }
+
 }

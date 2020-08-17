@@ -6,9 +6,15 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="collectViewModel"
             type="org.mpmg.mpapp.ui.viewmodels.CollectViewModel" />
+
+        <variable
+            name="collectFragmentViewModel"
+            type="org.mpmg.mpapp.ui.screens.collect.viewmodels.CollectFragmentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,38 +65,52 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_default"
-            android:layout_marginBottom="@dimen/margin_default"
-            app:layout_constraintBottom_toTopOf="@+id/materialButton_collectMainFragment_addPhoto"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_collectMainFragment_address" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton_collectMainFragment_addPhoto"
-            style="@style/MPAppTheme.Button3"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="@dimen/height_default"
-            android:layout_marginBottom="@dimen/margin_default"
-            android:text="@string/button_add_photo"
-            app:icon="@drawable/ic_camera"
-            app:iconGravity="textStart"
-            app:layout_constraintBottom_toTopOf="@+id/materialButton_collectMainFragment_addComment"
-            app:layout_constraintEnd_toEndOf="@+id/materialButton_collectMainFragment_addComment"
-            app:layout_constraintStart_toStartOf="@+id/materialButton_collectMainFragment_addComment" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton_collectMainFragment_addComment"
-            style="@style/MPAppTheme.Button1"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="@dimen/height_default"
-            android:layout_marginBottom="@dimen/margin_xxlarge"
-            android:text="@{collectViewModel.comment==null ? @string/button_add_comment : @string/button_update_comment}"
-            app:icon="@drawable/ic_comment"
-            app:iconGravity="textStart"
-            app:iconTint="@color/text_button_primary"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton_collectMainFragment_addPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_default"
+                android:src="@drawable/ic_camera"
+                app:backgroundTint="@color/button_third"
+                app:fabSize="mini"
+                app:maxImageSize="16dp"
+                app:tint="@color/button_primary" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton_collectMainFragment_addComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_default"
+                android:src="@drawable/ic_comment"
+                app:backgroundTint="@color/button_third"
+                app:fabSize="mini"
+                app:maxImageSize="16dp"
+                app:tint="@color/button_primary" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton_collectMainFragment_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_xmedium"
+                android:src="@drawable/ic_plus"
+                app:backgroundTint="@color/button_primary"
+                app:fabSize="normal"
+                app:tint="@color/textButton4" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

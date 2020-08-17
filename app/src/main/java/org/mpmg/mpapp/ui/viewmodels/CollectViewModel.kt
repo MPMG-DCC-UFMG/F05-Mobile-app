@@ -76,8 +76,6 @@ class CollectViewModel(
 
     fun getPhotoList(): LiveData<MutableMap<String, Photo>> = mPhotoList
 
-    fun getCollect(): LiveData<Collect> = currentCollect
-
     fun addPhoto(photo: Photo) {
         mPhotoList.value?.let {
             val currentCollect = currentCollect.value ?: return@let

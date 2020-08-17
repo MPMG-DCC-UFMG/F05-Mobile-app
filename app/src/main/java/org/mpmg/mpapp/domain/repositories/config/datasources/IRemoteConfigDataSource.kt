@@ -1,5 +1,6 @@
 package org.mpmg.mpapp.domain.repositories.config.datasources
 
+import org.mpmg.mpapp.domain.database.models.WorkStatus
 import org.mpmg.mpapp.domain.network.models.*
 
 interface IRemoteConfigDataSource {
@@ -21,5 +22,9 @@ interface IRemoteConfigDataSource {
     suspend fun getAssociationsVersion(): EntityVersion
 
     suspend fun loadAssociations(): List<AssociationTPTWRemote>
+
+    suspend fun getWorkStatusVersion(): EntityVersion
+
+    suspend fun loadWorkStatus(): List<WorkStatusRemote>
 
 }
