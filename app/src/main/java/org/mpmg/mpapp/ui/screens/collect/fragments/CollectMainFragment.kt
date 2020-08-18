@@ -93,11 +93,13 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
             }
         })
 
-        collectViewModel.getPublicWork().observeOnce(viewLifecycleOwner, Observer {
-            val typeWork = typeWorkViewModel.getTypeOfWorkFromFlag(it.publicWork.typeWorkFlag)
-            typeWork?.let {
-                workStatusViewModel.loadWorkStatusFromList(it.getWorkStatusIds())
-            }
+        typeWorkViewModel.getTypeOfWorkList().observe(viewLifecycleOwner, Observer {
+            collectViewModel.getPublicWork().observe(viewLifecycleOwner, Observer {
+                val typeWork = typeWorkViewModel.getTypeOfWorkFromFlag(it.publicWork.typeWorkFlag)
+                typeWork?.let {
+                    workStatusViewModel.loadWorkStatusFromList(it.getWorkStatusIds())
+                }
+            })
         })
     }
 
@@ -167,7 +169,7 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
                     .withOptions(optionsArray.toList())
                     .withSelectionMode(SelectorDialog.SelectionMode.SINGLE)
                     .withSelectedOptionListener {
-                        publicWorkViewModel.updateCurrentPublicWorkStatus(workStatus[it.first()].flag)
+                        collectViewModel.updatePublicWorkStatus(workStatus[it.first()].flag)
                         navigateBack()
                     }
                     .show()
