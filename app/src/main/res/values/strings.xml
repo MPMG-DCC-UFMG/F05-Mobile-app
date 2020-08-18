@@ -122,5 +122,6 @@
     <string name="progress_public_work">obras públicas</string>
     <string name="progress_type_photo">tipos de fotos</string>
     <string name="progress_work_status">status de obras</string>
+    <string name="progress_city">cidades</string>
 
 </resources>

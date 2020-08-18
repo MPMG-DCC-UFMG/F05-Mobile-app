@@ -16,7 +16,8 @@ class LoadServerDataWorker(applicationContext: Context, parameters: WorkerParame
                 DownloadTypePhoto(),
                 DownloadAssociation(),
                 DownloadWorkStatus(),
-                DownloadPublicWork()
+                DownloadPublicWork(),
+                DownloadCity()
             )
 
         for (call in downloadCalls) {

@@ -8,6 +8,10 @@ import org.mpmg.mpapp.domain.repositories.association.AssociationRepository
 import org.mpmg.mpapp.domain.repositories.association.IAssociationRepository
 import org.mpmg.mpapp.domain.repositories.association.datasources.ILocalAssociationDataSource
 import org.mpmg.mpapp.domain.repositories.association.datasources.LocalAssociationDataSource
+import org.mpmg.mpapp.domain.repositories.city.CityRepository
+import org.mpmg.mpapp.domain.repositories.city.ICityRepository
+import org.mpmg.mpapp.domain.repositories.city.datasources.ILocalCityDataSource
+import org.mpmg.mpapp.domain.repositories.city.datasources.LocalCityDataSource
 import org.mpmg.mpapp.domain.repositories.config.ConfigRepository
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
 import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository
@@ -53,6 +57,7 @@ val viewModelModules = module {
     viewModel { SendViewModel(androidApplication(), get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { WorkStatusViewModel(get()) }
+    viewModel { CityViewModel(get()) }
 
     // ViewModels for UI
     viewModel { CollectFragmentViewModel() }
@@ -67,6 +72,7 @@ val repositoriesModules = module {
     single { TypePhotoRepository(get()) as ITypePhotoRepository }
     single { AssociationRepository(get()) as IAssociationRepository }
     single { WorkStatusRepository(get()) as IWorkStatusRepository }
+    single { CityRepository(get()) as ICityRepository }
 }
 
 val networkModule = module {
@@ -85,6 +91,7 @@ val dataSourceModules = module {
     single { LocalTypePhotoDataSource(androidApplication()) as ILocalTypePhotoDataSource }
     single { LocalAssociationDataSource(androidApplication()) as ILocalAssociationDataSource }
     single { LocalWorkStatusDataSource(androidApplication()) as ILocalWorkStatusDataSource }
+    single { LocalCityDataSource(androidApplication()) as ILocalCityDataSource }
 
     single { RemoteConfigDataSource(get()) as IRemoteConfigDataSource }
     single { RemotePublicWorkDataSource(get()) as IRemotePublicWorkDataSource }

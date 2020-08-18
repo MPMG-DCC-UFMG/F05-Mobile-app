@@ -1,5 +1,6 @@
 package org.mpmg.mpapp.domain.repositories.typework
 
+import androidx.lifecycle.LiveData
 import org.mpmg.mpapp.domain.database.models.TypeWork
 import org.mpmg.mpapp.domain.repositories.typework.datasources.ILocalTypeWorkDataSource
 
@@ -16,5 +17,9 @@ class TypeWorkRepository(private val localTypeWorkDataSource: ILocalTypeWorkData
 
     override fun listAllTypeWorks(): List<TypeWork> {
         return localTypeWorkDataSource.listAllTypeWorks()
+    }
+
+    override fun listAllTypeWorksLive(): LiveData<List<TypeWork>> {
+        return localTypeWorkDataSource.listAllTypeWorksLive()
     }
 }

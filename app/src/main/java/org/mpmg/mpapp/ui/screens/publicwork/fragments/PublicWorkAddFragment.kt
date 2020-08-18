@@ -1,10 +1,10 @@
 package org.mpmg.mpapp.ui.screens.publicwork.fragments
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,8 +16,10 @@ import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.extensions.observeOnce
 import org.mpmg.mpapp.databinding.FragmentPublicWorkAddBinding
 import org.mpmg.mpapp.ui.dialogs.SelectorDialog
+import org.mpmg.mpapp.ui.viewmodels.CityViewModel
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
+
 
 class PublicWorkAddFragment : Fragment() {
 
@@ -25,6 +27,7 @@ class PublicWorkAddFragment : Fragment() {
 
     private val publicWorkViewModel: PublicWorkViewModel by sharedViewModel()
     private val typeWorkViewModel: TypeWorkViewModel by sharedViewModel()
+    private val cityViewModel: CityViewModel by sharedViewModel()
 
     private var navigationController: NavController? = null
 
@@ -48,6 +51,19 @@ class PublicWorkAddFragment : Fragment() {
 
         setupListeners()
         initTypeWork()
+        initCitiesTextView()
+    }
+
+    private fun initCitiesTextView() {
+        cityViewModel.getCitiesList().observeOnce(viewLifecycleOwner, Observer { cities ->
+            val cityAdapter = ArrayAdapter<String>(
+                requireContext(),
+                android.R.layout.simple_list_item_1,
+                cities.map { it.name }
+            )
+            editText_addPublicWorkFragment_city.setAdapter(cityAdapter)
+            editText_addPublicWorkFragment_city.threshold = 1
+        })
     }
 
     private fun initTypeWork() {

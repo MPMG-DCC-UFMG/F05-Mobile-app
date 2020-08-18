@@ -17,6 +17,7 @@
         android:background="@drawable/background_main">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScroll_addPublicWorkFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
@@ -83,10 +84,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_default"
                     android:src="@drawable/ic_chevron_down"
-                    android:tint="@color/colorWhite"
                     app:layout_constraintBottom_toBottomOf="@+id/textView_addPublicWorkFragment_typeOfWork"
                     app:layout_constraintEnd_toEndOf="@+id/textView_addPublicWorkFragment_typeOfWork"
                     app:layout_constraintTop_toTopOf="@+id/textView_addPublicWorkFragment_typeOfWork"
+                    app:tint="@color/colorWhite"
                     tools:ignore="ContentDescription" />
 
                 <TextView
@@ -218,12 +219,13 @@
                     app:layout_constraintStart_toStartOf="@+id/textView8"
                     app:layout_constraintTop_toBottomOf="@+id/editText_addPublicWorkFragment_neighborhood" />
 
-                <EditText
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/editText_addPublicWorkFragment_city"
                     style="@style/MPAppTheme.EditText2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_xxsmall"
+                    android:dropDownAnchor="@id/nestedScroll_addPublicWorkFragment"
                     android:inputType="textCapWords"
                     android:text="@={publicWorkViewModel.currentAddress.city}"
                     app:layout_constraintEnd_toEndOf="@+id/editText_addPublicWorkFragment_neighborhood"
@@ -248,9 +250,9 @@
                     android:id="@+id/materialButton_addPublicWorkFragment_cancel"
                     style="@style/MPAppTheme.Button2"
                     android:layout_width="0dp"
-                    android:layout_marginEnd="@dimen/margin_default"
                     android:layout_height="@dimen/height_default"
                     android:layout_marginTop="@dimen/margin_xxlarge"
+                    android:layout_marginEnd="@dimen/margin_default"
                     android:text="@string/button_cancel"
                     app:layout_constraintEnd_toStartOf="@+id/materialButton_addPublicWorkFragment_add"
                     app:layout_constraintHorizontal_bias="0.5"
