@@ -5,6 +5,6 @@ import org.mpmg.mpapp.core.interfaces.BaseDAO
 import org.mpmg.mpapp.domain.database.models.AssociationTWTP
 
 @Dao
-abstract class AssociationDao : BaseDAO<AssociationTWTP> {
+abstract class AssociationDAO : BaseDAO<AssociationTWTP> {
 
 }

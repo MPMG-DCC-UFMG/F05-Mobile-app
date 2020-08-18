@@ -52,4 +52,10 @@ interface MPApi {
 
     @GET("workstatus/version")
     suspend fun getWorkStatusVersion(): EntityVersion
+
+    @GET("address/city/version")
+    suspend fun getCitiesVersion(): EntityVersion
+
+    @GET("address/city/all")
+    suspend fun loadCities(): List<CityRemote>
 }

@@ -84,4 +84,13 @@ object DatabaseConstants {
         const val name = "work_status_name"
         const val description = "work_status_description"
     }
+
+    object City {
+        const val tableName = "city_table"
+        const val name = "city_name"
+        const val uf = "city_uf"
+        const val latitude = "city_latitude"
+        const val longitude = "city_longitude"
+        const val codigoIbge = "city_codigo_ibge"
+    }
 }

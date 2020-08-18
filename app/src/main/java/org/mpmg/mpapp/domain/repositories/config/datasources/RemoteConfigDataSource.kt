@@ -50,4 +50,12 @@ class RemoteConfigDataSource(private val mpApi: MPApi) : IRemoteConfigDataSource
     override suspend fun loadWorkStatus(): List<WorkStatusRemote> {
         return mpApi.loadWorkStatus()
     }
+
+    override suspend fun getCityVersion(): EntityVersion {
+        return mpApi.getCitiesVersion()
+    }
+
+    override suspend fun loadCities(): List<CityRemote> {
+        return mpApi.loadCities()
+    }
 }

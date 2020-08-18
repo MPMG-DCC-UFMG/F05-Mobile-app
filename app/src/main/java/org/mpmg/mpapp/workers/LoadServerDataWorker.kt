@@ -3,220 +3,50 @@ package org.mpmg.mpapp.workers
 import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.work.WorkerParameters
-import org.koin.core.inject
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
-import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
-import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
-import org.mpmg.mpapp.domain.repositories.typephoto.ITypePhotoRepository
-import org.mpmg.mpapp.domain.repositories.typework.ITypeWorkRepository
-import org.mpmg.mpapp.domain.repositories.workstatus.IWorkStatusRepository
+import org.mpmg.mpapp.workers.models.*
 
 class LoadServerDataWorker(applicationContext: Context, parameters: WorkerParameters) :
     BaseWorker(applicationContext, parameters) {
 
-    private val typeWorkRepository: ITypeWorkRepository by inject()
-    private val configRepository: IConfigRepository by inject()
-    private val publicWorkRepository: IPublicWorkRepository by inject()
-    private val typePhotoRepository: ITypePhotoRepository by inject()
-    private val workStatusRepository: IWorkStatusRepository by inject()
-
     override suspend fun execute(): Result {
-        if (!downloadTypeWorkList()) {
-            return Result.failure()
-        }
+        val downloadCalls =
+            listOf(
+                DownloadTypeWork(),
+                DownloadTypePhoto(),
+                DownloadAssociation(),
+                DownloadWorkStatus(),
+                DownloadPublicWork()
+            )
 
-        if (!downloadPublicWorkList()) {
-            return Result.failure()
-        }
-
-        if (!downloadTypePhotoList()) {
-            return Result.failure()
-        }
-
-        if (!downloadAssociationList()) {
-            return Result.failure()
-        }
-
-        if (!downloadWorkStatusList()) {
-            return Result.failure()
+        for (call in downloadCalls) {
+            if (!downloadData(call)) {
+                return Result.failure()
+            }
         }
 
         return Result.success()
     }
 
     @WorkerThread
-    private suspend fun downloadTypeWorkList(): Boolean {
-        val currentVersion = configRepository.currentTypeWorksVersion()
-        val serverVersionResult = kotlin.runCatching { configRepository.getTypeWorkVersion() }
+    private suspend fun downloadData(downloadInfo: BaseDownloadInfo<*>): Boolean {
+        val currentVersion = downloadInfo.currentVersion()
+        val serverVersionResult = kotlin.runCatching { downloadInfo.serverVersion() }
 
         var actionResult = true
 
-        updateProgress(getString(R.string.progress_check_version, R.string.progress_type_work))
+        updateProgress(getString(R.string.progress_check_version, downloadInfo.resourceId()))
         serverVersionResult.onSuccess { serverVersion ->
             if (currentVersion != serverVersion.version) {
-                updateProgress(getString(R.string.progress_update, R.string.progress_type_work))
+                updateProgress(getString(R.string.progress_update, downloadInfo.resourceId()))
                 kotlin.runCatching {
-                    configRepository.loadTypeWorks()
-                }.onSuccess {
-                    typeWorkRepository.insertTypeWorks(it.map { it.toTypeWorkDB() })
-                    configRepository.saveTypeWorksVersion(serverVersion.version)
-                    actionResult = true
+                    downloadInfo.loadInfo()
+                }.onSuccess { serverList ->
+                    actionResult = downloadInfo.onSuccess(serverList)
+                    downloadInfo.updateCurrentVersion(serverVersion.version)
                 }.onFailure {
                     updateProgress(
-                        getString(
-                            R.string.progress_fail_download,
-                            R.string.progress_type_work
-                        )
-                    )
-                    actionResult = false
-                }
-            }
-        }.onFailure {
-            updateProgress(getString(R.string.progress_fail_server))
-            actionResult = false
-        }
-
-        return actionResult
-    }
-
-    @WorkerThread
-    private suspend fun downloadAssociationList(): Boolean {
-        val currentVersion = configRepository.currentAssociationVersion()
-        val serverVersionResult = kotlin.runCatching { configRepository.getAssociationsVersion() }
-
-        var actionResult = true
-
-        updateProgress(getString(R.string.progress_check_version, R.string.progress_association))
-        serverVersionResult.onSuccess { serverVersion ->
-            if (currentVersion != serverVersion.version) {
-                updateProgress(getString(R.string.progress_update, R.string.progress_association))
-                kotlin.runCatching {
-                    configRepository.loadTypeWorks()
-                }.onSuccess {
-                    typeWorkRepository.insertTypeWorks(it.map { it.toTypeWorkDB() })
-                    configRepository.saveTypeWorksVersion(serverVersion.version)
-                    actionResult = true
-                }.onFailure {
-                    updateProgress(
-                        getString(
-                            R.string.progress_fail_download,
-                            R.string.progress_association
-                        )
-                    )
-                    actionResult = false
-                }
-            }
-        }.onFailure {
-            updateProgress(getString(R.string.progress_fail_server))
-            actionResult = false
-        }
-
-        return actionResult
-    }
-
-    @WorkerThread
-    private suspend fun downloadPublicWorkList(): Boolean {
-        val currentVersion = configRepository.currentPublicWorkVersion()
-        val serverVersionResult = kotlin.runCatching { configRepository.getPublicWorkVersion() }
-
-        var actionResult = true
-
-        updateProgress(getString(R.string.progress_check_version, R.string.progress_public_work))
-        serverVersionResult.onSuccess { publicWorkVersion ->
-            if (currentVersion != publicWorkVersion.version) {
-                updateProgress(getString(R.string.progress_update, R.string.progress_public_work))
-                kotlin.runCatching {
-                    configRepository.loadPublicWorksDiff(currentVersion)
-                }.onSuccess { listPublicWorkRemote ->
-                    handlePublicWorkDiff(listPublicWorkRemote)
-                    configRepository.savePublicWorkVersion(publicWorkVersion.version)
-                    actionResult = true
-                }.onFailure {
-                    updateProgress(
-                        getString(
-                            R.string.progress_fail_download,
-                            R.string.progress_public_work
-                        )
-                    )
-                    actionResult = false
-                }
-            }
-        }.onFailure {
-            updateProgress(getString(R.string.progress_fail_server))
-            actionResult = false
-        }
-
-        return actionResult
-    }
-
-    private fun handlePublicWorkDiff(listPublicWorkRemote: List<PublicWorkRemote>) {
-        listPublicWorkRemote.forEach {
-            if (it.operation == 2) {
-                publicWorkRepository.deletePublicWork(it.id)
-            } else {
-                publicWorkRepository.insertPublicWork(it.toPublicWorkAndAddressDB())
-            }
-        }
-    }
-
-
-    @WorkerThread
-    private suspend fun downloadTypePhotoList(): Boolean {
-        val currentVersion = configRepository.currentTypePhotosVersion()
-        val serverVersionResult = kotlin.runCatching { configRepository.getTypePhotosVersion() }
-
-        var actionResult = true
-
-        updateProgress(getString(R.string.progress_check_version, R.string.progress_type_photo))
-        serverVersionResult.onSuccess { serverVersion ->
-            if (currentVersion != serverVersion.version) {
-                updateProgress(getString(R.string.progress_update, R.string.progress_type_photo))
-                kotlin.runCatching {
-                    configRepository.loadTypePhotos()
-                }.onSuccess {
-                    typePhotoRepository.insertTypePhotos(it.map { it.toTypePhotoDB() })
-                    configRepository.saveTypePhotosVersion(serverVersion.version)
-                }.onFailure {
-                    updateProgress(
-                        getString(
-                            R.string.progress_fail_download,
-                            R.string.progress_type_photo
-                        )
-                    )
-                    actionResult = false
-                }
-            }
-        }.onFailure {
-            updateProgress(getString(R.string.progress_fail_server))
-            actionResult = false
-        }
-
-        return actionResult
-    }
-
-    @WorkerThread
-    private suspend fun downloadWorkStatusList(): Boolean {
-        val currentVersion = configRepository.currentWorkStatusVersion()
-        val serverVersionResult = kotlin.runCatching { configRepository.getWorkStatusVersion() }
-
-        var actionResult = true
-
-        updateProgress(getString(R.string.progress_check_version, R.string.progress_work_status))
-        serverVersionResult.onSuccess { serverVersion ->
-            if (currentVersion != serverVersion.version) {
-                updateProgress(getString(R.string.progress_update, R.string.progress_work_status))
-                kotlin.runCatching {
-                    configRepository.loadWorkStatus()
-                }.onSuccess {
-                    workStatusRepository.insertWorkStatuses(it.map { it.toWorkStatusDB() })
-                    configRepository.saveWorkStatusVersion(serverVersion.version)
-                }.onFailure {
-                    updateProgress(
-                        getString(
-                            R.string.progress_fail_download,
-                            R.string.progress_work_status
-                        )
+                        getString(R.string.progress_fail_download, downloadInfo.resourceId())
                     )
                     actionResult = false
                 }
