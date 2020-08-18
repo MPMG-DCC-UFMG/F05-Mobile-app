@@ -10,7 +10,7 @@ import org.mpmg.mpapp.domain.database.models.*
 @Database(
     entities = [User::class, TypeWork::class, PublicWork::class, Collect::class,
         Photo::class, Address::class, TypePhoto::class, AssociationTWTP::class,
-        WorkStatus::class],
+        WorkStatus::class, City::class],
     version = 1,
     exportSchema = false
 )
@@ -23,8 +23,9 @@ abstract class MPDatabase : RoomDatabase() {
     abstract fun photoDAO(): PhotoDAO
     abstract fun addressDAO(): AddressDAO
     abstract fun typePhotoDAO(): TypePhotoDAO
-    abstract fun associationDAO(): AssociationDao
+    abstract fun associationDAO(): AssociationDAO
     abstract fun workStatusDAO(): WorkStatusDAO
+    abstract fun cityDAO(): CityDAO
 
     companion object {
         private var INSTANCE: MPDatabase? = null

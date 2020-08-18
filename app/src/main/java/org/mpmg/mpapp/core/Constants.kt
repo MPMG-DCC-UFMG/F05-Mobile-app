@@ -10,6 +10,7 @@ object Constants {
     const val PREFERENCES_TYPE_PHOTOS_VERSION_KEY = "type_photos_version"
     const val PREFERENCES_ASSOCIATION_VERSION_KEY = "association_version"
     const val PREFERENCES_WORK_STATUS_VERSION_KEY = "work_status_version"
+    const val PREFERENCES_CITY_VERSION_KEY = "city_version"
     const val PREFERENCES_MPPAPP_NAME = "mpapp_shared_preferences"
     const val PREFERENCES_LOGGED_USER_EMAIL = "config_logged_user_email"
 

@@ -19,6 +19,7 @@ data class PublicWorkRemote(
         name = publicWorkAndAddress.publicWork.name,
         idAddress = publicWorkAndAddress.address.id,
         typeWorkFlag = publicWorkAndAddress.publicWork.typeWorkFlag,
+        userStatus = publicWorkAndAddress.publicWork.userStatusFlag,
         address = null
     ) {
         publicWorkAndAddress.address.let {

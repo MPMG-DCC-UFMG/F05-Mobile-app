@@ -90,8 +90,11 @@ class PublicWorkRepository(
 
     override fun updateWorkStatusPublicWork(publicWorkId: String, workStatusFlag: Int) {
         localPublicWorkDataSource.getPublicWorkById(publicWorkId)?.let {
-            it.publicWork.userStatusFlag = workStatusFlag
-            localPublicWorkDataSource.insertPublicWork(it.publicWork, it.address)
+            if (workStatusFlag != it.publicWork.userStatusFlag) {
+                it.publicWork.toSend = true
+                it.publicWork.userStatusFlag = workStatusFlag
+                localPublicWorkDataSource.insertPublicWork(it.publicWork, it.address)
+            }
         }
     }
 }

@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.services.LocationService
+import org.mpmg.mpapp.ui.viewmodels.CityViewModel
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
 
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private val locationViewModel: LocationViewModel by viewModel()
     private val typeWorkViewModel: TypeWorkViewModel by viewModel()
+    private val cityViewModel: CityViewModel by viewModel()
 
     private val mLocationListener = object : LocationService.LocationServiceListener {
         override fun onNewLocation(location: Location) {
@@ -58,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         typeWorkViewModel.getTypeOfWorkList()
+        cityViewModel.getCitiesList()
     }
 
     override fun onDestroy() {

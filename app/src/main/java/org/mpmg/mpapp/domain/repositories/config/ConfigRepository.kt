@@ -104,4 +104,20 @@ class ConfigRepository(
     override fun saveWorkStatusVersion(workStatusVersion: Int) {
         localConfigDataSource.saveWorkStatusVersion(workStatusVersion)
     }
+
+    override suspend fun getCityVersion(): EntityVersion {
+        return remoteConfigDataSource.getCityVersion()
+    }
+
+    override suspend fun loadCities(): List<CityRemote> {
+        return remoteConfigDataSource.loadCities()
+    }
+
+    override fun currentCityVersion(): Int {
+        return localConfigDataSource.currentCityVersion()
+    }
+
+    override fun saveCityVersion(cityVersion: Int) {
+        localConfigDataSource.saveCityVersion(cityVersion)
+    }
 }

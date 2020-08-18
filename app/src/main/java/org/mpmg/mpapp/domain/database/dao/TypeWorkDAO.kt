@@ -1,5 +1,6 @@
 package org.mpmg.mpapp.domain.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import org.mpmg.mpapp.core.interfaces.BaseDAO
@@ -11,6 +12,9 @@ abstract class TypeWorkDAO : BaseDAO<TypeWork> {
 
     @Query("SELECT * FROM ${DatabaseConstants.TypeWork.tableName}")
     abstract fun listAllTypeWork(): List<TypeWork>
+
+    @Query("SELECT * FROM ${DatabaseConstants.TypeWork.tableName}")
+    abstract fun listAllTypeWorkLive(): LiveData<List<TypeWork>>
 
     @Query("SELECT * from ${DatabaseConstants.TypeWork.tableName} WHERE ${DatabaseConstants.TypeWork.flag} = :flag")
     abstract fun getTypeWorkByFlag(flag: Int): TypeWork?

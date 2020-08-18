@@ -27,4 +27,8 @@ interface IRemoteConfigDataSource {
 
     suspend fun loadWorkStatus(): List<WorkStatusRemote>
 
+    suspend fun getCityVersion(): EntityVersion
+
+    suspend fun loadCities(): List<CityRemote>
+
 }

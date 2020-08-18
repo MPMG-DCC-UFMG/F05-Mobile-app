@@ -1,0 +1,38 @@
+package org.mpmg.mpapp.workers.models
+
+import org.koin.core.inject
+import org.mpmg.mpapp.R
+import org.mpmg.mpapp.domain.network.models.EntityVersion
+import org.mpmg.mpapp.domain.network.models.TypePhotoRemote
+import org.mpmg.mpapp.domain.network.models.TypeWorkRemote
+import org.mpmg.mpapp.domain.repositories.typephoto.ITypePhotoRepository
+import org.mpmg.mpapp.domain.repositories.typework.ITypeWorkRepository
+
+class DownloadTypePhoto : BaseDownloadInfo<TypePhotoRemote>() {
+
+    private val typePhotoRepository: ITypePhotoRepository by inject()
+
+    override fun resourceId(): Int = R.string.progress_type_photo
+
+    override fun currentVersion(): Int = configRepository.currentTypePhotosVersion()
+
+    override suspend fun serverVersion(): EntityVersion = configRepository.getTypePhotosVersion()
+
+    override suspend fun loadInfo(): Array<TypePhotoRemote> =
+        configRepository.loadTypePhotos().toTypedArray()
+
+    override fun updateCurrentVersion(serverVersion: Int) =
+        configRepository.saveTypePhotosVersion(serverVersion)
+
+    override fun onSuccess(list: Array<*>): Boolean {
+        return if (list.isArrayOf<TypePhotoRemote>()) {
+            typePhotoRepository.insertTypePhotos(list.map { typePhoto ->
+                typePhoto as TypePhotoRemote
+                typePhoto.toTypePhotoDB()
+            })
+            true
+        } else {
+            false
+        }
+    }
+}

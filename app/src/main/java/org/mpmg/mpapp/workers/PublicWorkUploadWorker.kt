@@ -11,6 +11,7 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.Constants.WORKER_PARAMETER_PUBLIC_WORK_ID
+import org.mpmg.mpapp.domain.database.models.Collect
 import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.domain.database.models.PublicWork
 import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
@@ -20,6 +21,7 @@ import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
 import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
 import java.io.File
+import java.lang.NullPointerException
 
 class PublicWorkUploadWorker(applicationContext: Context, parameters: WorkerParameters) :
     CoroutineWorker(applicationContext, parameters), KoinComponent {
@@ -41,49 +43,52 @@ class PublicWorkUploadWorker(applicationContext: Context, parameters: WorkerPara
 
         updateProgress(0, getString(R.string.progress_loading_public_work))
         val publicWorkAndAddress = publicWorkRepository.getPublicWorkById(publicWorkId)
+        return try {
+            publicWorkAndAddress?.let {
+                if (publicWorkAndAddress.publicWork.toSend) {
 
-        publicWorkAndAddress?.let {
-            if (publicWorkAndAddress.publicWork.toSend) {
+                    updateProgress(10, getString(R.string.progress_sending_public_work))
 
-                updateProgress(10, getString(R.string.progress_sending_public_work))
-
-                kotlin.runCatching {
-                    publicWorkRepository.sendPublicWork(PublicWorkRemote(it))
-                }.onSuccess {
-                    markPublicWorkSent(publicWorkAndAddress.publicWork)
-                }.onFailure {
-                    return Result.failure()
+                    kotlin.runCatching {
+                        publicWorkRepository.sendPublicWork(PublicWorkRemote(it))
+                    }.onSuccess {
+                        markPublicWorkSent(publicWorkAndAddress.publicWork)
+                    }.onFailure {
+                        return Result.failure()
+                    }
                 }
-            }
-            updateProgress(20, getString(R.string.progress_public_work_sent))
+                updateProgress(20, getString(R.string.progress_public_work_sent))
 
-            val collectId = publicWorkAndAddress.publicWork.idCollect
-            if (collectId != null) {
                 updateProgress(30, getString(R.string.progress_loading_collect))
-                val collect = collectRepository.getCollect(collectId) ?: return Result.failure()
-                updateProgress(40, getString(R.string.progress_sending_collect))
-                kotlin.runCatching {
-                    collectRepository.sendCollect(CollectRemote(collect))
-                }.onFailure {
-                    return Result.failure()
-                }
+                val collect = getCollect(publicWorkAndAddress)
+                if (collect != null) {
+                    updateProgress(40, getString(R.string.progress_sending_collect))
+                    kotlin.runCatching {
+                        collectRepository.sendCollect(CollectRemote(collect))
+                    }.onFailure {
+                        return Result.failure()
+                    }
 
-                updateProgress(50, getString(R.string.progress_loading_photos))
-                val photos = collectRepository.listPhotosByCollectionID(collect.id)
-                val allPhotosUploaded = sendPhotos(photos, publicWorkAndAddress)
+                    updateProgress(50, getString(R.string.progress_loading_photos))
+                    val photos = collectRepository.listPhotosByCollectionID(collect.id)
+                    val allPhotosUploaded = sendPhotos(photos, publicWorkAndAddress)
 
-                if (allPhotosUploaded) {
-                    markCollectSent(publicWorkAndAddress.publicWork, collectId)
-                } else {
-                    return Result.failure()
+                    if (allPhotosUploaded) {
+                        markCollectSent(publicWorkAndAddress.publicWork, collect.id)
+                    } else {
+                        return Result.failure()
+                    }
                 }
             }
+
+            updateProgress(70, getString(R.string.progress_finishing_upload))
+            updateProgress(100, getString(R.string.progress_success_upload))
+
+            Result.success()
+        } catch (e: Exception) {
+            Result.failure()
         }
 
-        updateProgress(70, getString(R.string.progress_finishing_upload))
-        updateProgress(100, getString(R.string.progress_success_upload))
-
-        return Result.success()
     }
 
     private suspend fun sendPhotos(
@@ -157,5 +162,14 @@ class PublicWorkUploadWorker(applicationContext: Context, parameters: WorkerPara
     private fun markCollectSent(publicWork: PublicWork, collectId: String) {
         publicWorkRepository.unlinkCollectFromPublicWork(publicWorkId = publicWork.id)
         collectRepository.markCollectSent(collectId)
+    }
+
+    private fun getCollect(publicWorkAndAddress: PublicWorkAndAddress): Collect? {
+        return publicWorkAndAddress.publicWork.idCollect?.let {
+            collectRepository.getCollect(it) ?: run {
+                publicWorkRepository.unlinkCollectFromPublicWork(publicWorkAndAddress.publicWork.id)
+                throw NullPointerException()
+            }
+        }
     }
 }

@@ -37,7 +37,7 @@ class CollectViewModel(
         mPhotoList.postValue(mutableMapOf())
     }
 
-    fun updateCommentToCollect(comment: String){
+    fun updateCommentToCollect(comment: String) {
         currentCollect.value?.comments = comment
     }
 
@@ -103,18 +103,29 @@ class CollectViewModel(
         }
     }
 
+    fun updatePublicWorkStatus(workStatusFlag: Int) {
+        mSelectedPublicWork.value?.let {
+            if (workStatusFlag != it.publicWork.userStatusFlag) {
+                it.publicWork.toSend = true
+                it.publicWork.userStatusFlag = workStatusFlag
+            }
+        }
+    }
+
     fun updateCollect() {
         viewModelScope.launch(Dispatchers.IO) {
             val collection = currentCollect.value ?: return@launch
             val photos = mPhotoList.value ?: return@launch
             val currentPublicWorkAndAddress = mSelectedPublicWork.value ?: return@launch
 
-            currentPublicWorkAndAddress.publicWork.idCollect = collection.id
+            if (photos.isNotEmpty()) {
+                collectRepository.insertCollect(collection, photos.values.toList())
+                currentPublicWorkAndAddress.publicWork.idCollect = collection.id
+            }
             publicWorkRepository.insertPublicWork(
                 currentPublicWorkAndAddress.publicWork,
                 currentPublicWorkAndAddress.address
             )
-            collectRepository.insertCollect(collection, photos.values.toList())
         }
     }
 
