@@ -1,7 +1,8 @@
-package org.mpmg.mpapp.ui.screens.login
+package org.mpmg.mpapp.ui.screens.login.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,18 +21,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.*
 import kotlinx.android.synthetic.main.fragment_login.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.databinding.FragmentAddPhotoBinding
 import org.mpmg.mpapp.databinding.FragmentLoginBinding
+import org.mpmg.mpapp.helpers.TextHelpers
 import org.mpmg.mpapp.ui.MainActivity
-import org.mpmg.mpapp.ui.screens.login.LoginFragment.SignWith.*
+import org.mpmg.mpapp.ui.screens.login.fragments.LoginFragment.SignWith.*
+import org.mpmg.mpapp.ui.screens.login.models.CreateAccountUI
 import org.mpmg.mpapp.ui.viewmodels.LoginViewModel
-import java.util.*
 
 
 class LoginFragment : Fragment() {
@@ -67,7 +66,21 @@ class LoginFragment : Fragment() {
 
         setupListeners()
         setupFacebookLogin()
+        setupTexts()
     }
+
+    private fun setupTexts() {
+        val spannableString = SpannableStringBuilder()
+        spannableString.append(getString(R.string.text_create_account))
+        TextHelpers.applyColorPattern(
+            spannableString,
+            0,
+            getString(R.string.span_create_account),
+            requireActivity().getColor(R.color.colorGreenMP)
+        )
+        textView_loginFragment_createAccount.text = spannableString
+    }
+
 
     private fun setupListeners() {
         button_loginFragment_googleSignIn.setOnClickListener {
@@ -80,6 +93,10 @@ class LoginFragment : Fragment() {
 
         button_loginFragment_facebookSignIn.setOnClickListener {
             handleSigin(FACEBOOK)
+        }
+
+        textView_loginFragment_createAccount.setOnClickListener {
+            navigateCreateAccountFragment()
         }
     }
 
@@ -219,6 +236,10 @@ class LoginFragment : Fragment() {
 
     private fun navigateSetupAppFragment() {
         findNavController().navigate(R.id.action_loginFragment_to_setupApplicationFragment)
+    }
+
+    private fun navigateCreateAccountFragment() {
+        findNavController().navigate(R.id.action_loginFragment_to_createAccountFragment)
     }
 
     enum class SignWith {

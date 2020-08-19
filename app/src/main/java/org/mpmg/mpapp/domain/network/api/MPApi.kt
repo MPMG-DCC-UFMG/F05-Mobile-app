@@ -58,4 +58,7 @@ interface MPApi {
 
     @GET("address/city/all")
     suspend fun loadCities(): List<CityRemote>
+
+    @POST("security/users/create")
+    suspend fun createUser(@Body userRemote: MPUserRemote): ResponseRemote
 }
