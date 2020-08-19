@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.ui.screens.home.adapters.HomeOptionsAdapter
 import org.mpmg.mpapp.ui.screens.home.models.HomeOptions
@@ -25,7 +26,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeOptionsAdapter: HomeOptionsAdapter
     private val publicWorkViewModel: PublicWorkViewModel by sharedViewModel()
-    private val loginViewModel: LoginViewModel by sharedViewModel()
+    private val loginViewModel: LoginViewModel by viewModel()
     private val homeViewModel: HomeViewModel by sharedViewModel()
 
     private lateinit var optionsList: List<HomeOptions>

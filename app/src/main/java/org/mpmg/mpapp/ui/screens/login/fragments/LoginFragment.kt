@@ -1,13 +1,16 @@
-package org.mpmg.mpapp.ui.screens.login
+package org.mpmg.mpapp.ui.screens.login.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Message
+import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -20,18 +23,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.*
 import kotlinx.android.synthetic.main.fragment_login.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.databinding.FragmentAddPhotoBinding
 import org.mpmg.mpapp.databinding.FragmentLoginBinding
+import org.mpmg.mpapp.helpers.TextHelpers
 import org.mpmg.mpapp.ui.MainActivity
-import org.mpmg.mpapp.ui.screens.login.LoginFragment.SignWith.*
+import org.mpmg.mpapp.ui.screens.login.fragments.LoginFragment.SignWith.*
+import org.mpmg.mpapp.ui.screens.login.models.LoginUI
+import org.mpmg.mpapp.ui.shared.models.RequestStatus
 import org.mpmg.mpapp.ui.viewmodels.LoginViewModel
-import java.util.*
 
 
 class LoginFragment : Fragment() {
@@ -41,6 +43,7 @@ class LoginFragment : Fragment() {
     private val loginViewModel: LoginViewModel by viewModel()
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
+    private lateinit var loginUI: LoginUI
 
     private val RC_GOOGLE_SIGN_IN = 601
 
@@ -49,10 +52,12 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        loginUI = LoginUI()
         firebaseAuth = FirebaseAuth.getInstance()
         val binding: FragmentLoginBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         binding.loginViewModel = loginViewModel
+        binding.loginUI = loginUI
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -67,30 +72,68 @@ class LoginFragment : Fragment() {
 
         setupListeners()
         setupFacebookLogin()
+        setupTexts()
     }
+
+    private fun setupTexts() {
+        val spannableString = SpannableStringBuilder()
+        spannableString.append(getString(R.string.text_create_account))
+        TextHelpers.applyColorPattern(
+            spannableString,
+            0,
+            getString(R.string.span_create_account),
+            requireActivity().getColor(R.color.colorGreenMP)
+        )
+        textView_loginFragment_createAccount.text = spannableString
+    }
+
 
     private fun setupListeners() {
         button_loginFragment_googleSignIn.setOnClickListener {
-            handleSigin(GOOGLE)
+            handleButtonSingInClick(GOOGLE)
         }
 
         button_loginFragment_twitterSignIn.setOnClickListener {
-            handleSigin(TWITTER)
+            handleButtonSingInClick(TWITTER)
         }
 
         button_loginFragment_facebookSignIn.setOnClickListener {
-            handleSigin(FACEBOOK)
+            handleButtonSingInClick(FACEBOOK)
+        }
+
+        textView_loginFragment_createAccount.setOnClickListener {
+            navigateCreateAccountFragment()
+        }
+
+        materialButton_loginFragment_loginMP.setOnClickListener {
+            handleButtonSingInClick(MPSERVER)
         }
     }
 
-    private fun handleSigin(siginWith: SignWith) {
+    private fun handleButtonSingInClick(siginWith: SignWith) {
         loginViewModel.isLoading.value = true
         when (siginWith) {
             GOOGLE -> signInGoogle()
             FACEBOOK -> signInFacebook()
             TWITTER -> signInTwitter()
+            MPSERVER -> singInMPServer()
         }
+    }
 
+    private fun singInMPServer() {
+        loginViewModel.isLoading.value = true
+        loginViewModel.authWithMPServer(loginUI.email, loginUI.password).observe(viewLifecycleOwner,
+            Observer {
+                it ?: return@Observer
+
+                if (it == RequestStatus.SUCCESS) {
+                    loginViewModel.isLoading.value = false
+                    storeUser(loginUI.email, loginUI.email)
+                } else if (it == RequestStatus.FAILED) {
+                    loginViewModel.isLoading.value = false
+                    launchSnackbar(getString(R.string.message_fail_to_authenticate))
+                }
+            })
     }
 
     private fun setupFacebookLogin() {
@@ -176,10 +219,14 @@ class LoginFragment : Fragment() {
                 user.displayName ?: throw NullPointerException()
             )
         } else {
-            val parentActivity = this.requireActivity()
-            if (parentActivity is MainActivity) {
-                parentActivity.launchSnackbar(getString(R.string.message_fail_to_authenticate))
-            }
+            launchSnackbar(getString(R.string.message_fail_to_authenticate))
+        }
+    }
+
+    private fun launchSnackbar(message: String) {
+        val parentActivity = this.requireActivity()
+        if (parentActivity is MainActivity) {
+            parentActivity.launchSnackbar(message)
         }
     }
 
@@ -221,7 +268,11 @@ class LoginFragment : Fragment() {
         findNavController().navigate(R.id.action_loginFragment_to_setupApplicationFragment)
     }
 
+    private fun navigateCreateAccountFragment() {
+        findNavController().navigate(R.id.action_loginFragment_to_createAccountFragment)
+    }
+
     enum class SignWith {
-        GOOGLE, FACEBOOK, TWITTER
+        GOOGLE, FACEBOOK, TWITTER, MPSERVER
     }
 }

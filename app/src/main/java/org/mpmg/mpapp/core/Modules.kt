@@ -38,7 +38,9 @@ import org.mpmg.mpapp.domain.repositories.typework.datasources.LocalTypeWorkData
 import org.mpmg.mpapp.domain.repositories.user.IUserRepository
 import org.mpmg.mpapp.domain.repositories.user.UserRepository
 import org.mpmg.mpapp.domain.repositories.user.datasources.ILocalUserDataSource
+import org.mpmg.mpapp.domain.repositories.user.datasources.IRemoteUserDataSource
 import org.mpmg.mpapp.domain.repositories.user.datasources.LocalUserDataSource
+import org.mpmg.mpapp.domain.repositories.user.datasources.RemoteUserDataSource
 import org.mpmg.mpapp.domain.repositories.workstatus.IWorkStatusRepository
 import org.mpmg.mpapp.domain.repositories.workstatus.WorkStatusRepository
 import org.mpmg.mpapp.domain.repositories.workstatus.datasources.ILocalWorkStatusDataSource
@@ -61,10 +63,11 @@ val viewModelModules = module {
 
     // ViewModels for UI
     viewModel { CollectFragmentViewModel() }
+    viewModel { CreateAccountViewModel(get()) }
 }
 
 val repositoriesModules = module {
-    single { UserRepository(get()) as IUserRepository }
+    single { UserRepository(get(), get()) as IUserRepository }
     single { PublicWorkRepository(get(), get()) as IPublicWorkRepository }
     single { TypeWorkRepository(get()) as ITypeWorkRepository }
     single { ConfigRepository(get(), get()) as IConfigRepository }
@@ -97,4 +100,5 @@ val dataSourceModules = module {
     single { RemotePublicWorkDataSource(get()) as IRemotePublicWorkDataSource }
     single { RemoteCollectDataSource(get()) as IRemoteCollectDataSource }
     single { RemotePhotoDataSource(get()) as IRemotePhotoDataSource }
+    single { RemoteUserDataSource(get()) as IRemoteUserDataSource }
 }

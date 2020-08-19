@@ -1,6 +1,7 @@
 package org.mpmg.mpapp.domain.network.api
 
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.mpmg.mpapp.domain.database.models.WorkStatus
 import org.mpmg.mpapp.domain.network.models.*
 import retrofit2.http.*
@@ -58,4 +59,14 @@ interface MPApi {
 
     @GET("address/city/all")
     suspend fun loadCities(): List<CityRemote>
+
+    @POST("security/users/create")
+    suspend fun createUser(@Body userRemote: MPUserRemote): ResponseRemote
+
+    @FormUrlEncoded
+    @POST("security/token")
+    suspend fun login(
+        @Field("username") request: String,
+        @Field("password") password: String
+    ): TokenRemote
 }
