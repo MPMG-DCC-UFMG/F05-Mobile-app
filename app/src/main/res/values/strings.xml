@@ -7,10 +7,12 @@
     <string name="title_public_work_edit">Editar obra</string>
     <string name="title_public_work_send">Enviar</string>
     <string name="title_add_photo">Adicionar mais fotos</string>
+    <string name="title_create_account">Cadastrar</string>
 
     <string name="hint_login_email">Entre um email válido</string>
     <string name="hint_login_password">Digite sua senha …</string>
     <string name="hint_search_field">Pesquisar por alguma obra específica</string>
+    <string name="hint_confirm_password">Confirme sua senha …</string>
 
     <string name="button_login">Entrar</string>
     <string name="button_edit">Editar</string>
@@ -32,6 +34,7 @@
     <string name="button_confirm">Confirmar</string>
     <string name="button_continue">Continuar</string>
     <string name="button_try_again">Tentar novamente</string>
+    <string name="button_create_account">Cadastrar</string>
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_filter">Filtrar</string>
@@ -57,7 +60,8 @@
     <string name="label_add_comment_hint">Adicionar comentário da foto…</string>
     <string name="label_default_distance">-- m</string>
     <string name="label_if_prefer">se preferir</string>
-    <string name="lable_public_work_comments">Comentário da obra</string>
+    <string name="label_public_work_comments">Comentário da obra</string>
+    <string name="label_confirm_password">Confirmar senha</string>
 
     <string name="radio_order_by_name_a_z">Ordem alfabética (A-Z)</string>
     <string name="radio_order_by_name_z_a">Ordem alfabética (Z-A)</string>
@@ -71,11 +75,11 @@
     <string name="text_welcome">Bem-vindo ao TRENA, o aplicativo de fiscalização de obras do Ministério Público do Estado de Minas Gerais</string>
     <string name="text_loading_login">Realizando login …</string>
     <string name="text_click_to_photo">Clique para adicionar foto</string>
-
     <string name="text_loading">Carregando …</string>
     <string name="text_move_map">Mova o mapa para selecionar a localização da obra.</string>
     <string name="text_to_send">Para enviar: %s</string>
     <string name="text_sending">Enviando: %s</string>
+    <string name="text_create_account">Não tem conta? Cadastre aqui</string>
 
     <string name="dialog_type_photo_title">Selecionar o tipo da foto</string>
     <string name="dialog_type_work_title">Selecionar o tipo da obra</string>
@@ -116,6 +120,12 @@
 
     <string name="message_collect_updated">Informações atualizadas</string>
     <string name="message_fail_to_authenticate">Falha ao autenticar usuário</string>
+    <string name="message_user_created">Usuário criado com sucesso</string>
+    <string name="message_user_creation_failed">Falha ao criar usuário</string>
+
+    <string name="error_create_account_email">Email inválido</string>
+    <string name="error_create_account_password_different">Senhas diferentes</string>
+    <string name="error_create_account_password_empty">Favor preencher ambos os campos de senha</string>
 
     <string name="progress_type_work">tipos de obras</string>
     <string name="progress_association">relacionamentos</string>
@@ -123,5 +133,7 @@
     <string name="progress_type_photo">tipos de fotos</string>
     <string name="progress_work_status">status de obras</string>
     <string name="progress_city">cidades</string>
+
+    <string name="span_create_account">Cadastre aqui</string>
 
 </resources>

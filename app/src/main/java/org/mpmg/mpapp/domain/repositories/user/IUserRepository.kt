@@ -1,10 +1,7 @@
 package org.mpmg.mpapp.domain.repositories.user
 
-import org.mpmg.mpapp.domain.database.models.User
+import org.mpmg.mpapp.domain.repositories.user.datasources.ILocalUserDataSource
+import org.mpmg.mpapp.domain.repositories.user.datasources.IRemoteUserDataSource
 
-interface IUserRepository {
-
-    fun insertUser(user: User)
-
-    fun getUserByEmail(email: String): User?
+interface IUserRepository : ILocalUserDataSource, IRemoteUserDataSource {
 }

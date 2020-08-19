@@ -2,6 +2,7 @@ package org.mpmg.mpapp.ui.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
@@ -10,6 +11,7 @@ import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.database.models.User
 import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
 import org.mpmg.mpapp.domain.repositories.user.IUserRepository
+import org.mpmg.mpapp.ui.shared.models.RequestStatus
 
 
 class LoginViewModel(
@@ -45,6 +47,21 @@ class LoginViewModel(
                 )
             )
         }
+    }
+
+    fun authWithMPServer(userName: String, password: String): LiveData<RequestStatus> {
+        val status = MutableLiveData<RequestStatus>()
+        status.value = RequestStatus.LOADING
+        viewModelScope.launch(Dispatchers.IO) {
+            kotlin.runCatching {
+                userRepository.login(userName, password)
+            }.onSuccess {
+                status.postValue(RequestStatus.SUCCESS)
+            }.onFailure {
+                status.postValue(RequestStatus.FAILED)
+            }
+        }
+        return status
     }
 
     fun logIn(userEmail: String) {
