@@ -2,7 +2,7 @@
 
 # Mobile
 
-Project of an application for the MP
+Android mobile application for F05 project (TRENA)
 
 ## 1. Necessary steps
 
@@ -24,6 +24,7 @@ The development props file keep a track of the environment variables. It should 
 ```bash
 BASE_URL="http://10.0.2.2:8000/"
 ENVIRONMENT="development"
+TRENA_KEY=<TRENA_KEY>
 ```
 
 ### 1.2. Google Maps
