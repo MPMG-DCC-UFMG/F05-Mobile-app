@@ -154,7 +154,7 @@ The services used in this application were:
 
 ## 5. App Architecture (Project Structure)
 
-The design of Protector Scout V4 mobile app is based on SOLID principles and on Clean architecture model. Also, many of the project dependencies come from Android Jetpack.
+The design of TRENA mobile app is based on SOLID principles and on Clean architecture model. Also, many of the project dependencies come from Android Jetpack.
 
 Broadly speaking, the app is organized into three layers: Presentation (or UI), Domain (business logic) and Models.
 The app code itself is actually divided into more packages, but they all fit to this organization.
