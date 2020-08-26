@@ -24,6 +24,7 @@ class DownloadTypeWork : BaseDownloadInfo<TypeWorkRemote>() {
 
     override fun onSuccess(list: Array<*>): Boolean {
         return if (list.isArrayOf<TypeWorkRemote>()) {
+            typeWorkRepository.deleteTypeWorks()
             typeWorkRepository.insertTypeWorks(list.map { typeWork ->
                 typeWork as TypeWorkRemote
                 typeWork.toTypeWorkDB()

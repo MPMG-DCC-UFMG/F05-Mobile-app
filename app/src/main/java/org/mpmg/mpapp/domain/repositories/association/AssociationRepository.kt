@@ -13,4 +13,8 @@ class AssociationRepository(private val localAssociationDataSource: ILocalAssoci
     override fun insertAssociations(associations: List<AssociationTWTP>) {
         localAssociationDataSource.insertAssociations(associations)
     }
+
+    override fun deleteAssociations() {
+        localAssociationDataSource.deleteAssociations()
+    }
 }

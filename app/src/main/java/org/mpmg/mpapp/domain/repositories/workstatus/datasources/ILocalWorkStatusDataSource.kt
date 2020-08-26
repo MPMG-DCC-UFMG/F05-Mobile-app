@@ -9,4 +9,6 @@ interface ILocalWorkStatusDataSource {
     fun insertWorkStatuses(workStatuses: List<WorkStatus>)
 
     fun listWorkStatusByIds(workStatusIds: List<Int>): List<WorkStatus>
+
+    fun deleteWorkStatuses()
 }

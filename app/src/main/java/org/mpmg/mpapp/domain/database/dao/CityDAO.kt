@@ -15,4 +15,7 @@ abstract class CityDAO : BaseDAO<City> {
 
     @Query("SELECT * FROM ${DatabaseConstants.City.tableName}")
     abstract fun listAllCitiesLive(): LiveData<List<City>>
+
+    @Query("DELETE FROM ${DatabaseConstants.City.tableName}")
+    abstract fun deleteAll()
 }

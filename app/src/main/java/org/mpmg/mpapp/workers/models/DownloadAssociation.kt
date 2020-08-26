@@ -24,6 +24,7 @@ class DownloadAssociation : BaseDownloadInfo<AssociationTPTWRemote>() {
 
     override fun onSuccess(list: Array<*>): Boolean {
         return if (list.isArrayOf<AssociationTPTWRemote>()) {
+            associationRepository.deleteAssociations()
             associationRepository.insertAssociations(list.map { associations ->
                 associations as AssociationTPTWRemote
                 associations.toAssociationTWTPDB()

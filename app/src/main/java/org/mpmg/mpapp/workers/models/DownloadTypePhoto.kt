@@ -26,6 +26,7 @@ class DownloadTypePhoto : BaseDownloadInfo<TypePhotoRemote>() {
 
     override fun onSuccess(list: Array<*>): Boolean {
         return if (list.isArrayOf<TypePhotoRemote>()) {
+            typePhotoRepository.deleteTypePhotos()
             typePhotoRepository.insertTypePhotos(list.map { typePhoto ->
                 typePhoto as TypePhotoRemote
                 typePhoto.toTypePhotoDB()

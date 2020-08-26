@@ -25,6 +25,7 @@ class DownloadWorkStatus : BaseDownloadInfo<WorkStatusRemote>() {
 
     override fun onSuccess(list: Array<*>): Boolean {
         return if (list.isArrayOf<WorkStatusRemote>()) {
+            workStatusRepository.deleteWorkStatuses()
             workStatusRepository.insertWorkStatuses(list.map { workStatus ->
                 workStatus as WorkStatusRemote
                 workStatus.toWorkStatusDB()

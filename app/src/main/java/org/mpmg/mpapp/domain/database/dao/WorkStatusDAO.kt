@@ -14,4 +14,7 @@ abstract class WorkStatusDAO : BaseDAO<WorkStatus> {
                 "WHERE ${DatabaseConstants.WorkStatus.flag} IN (:statusFlags)"
     )
     abstract fun listAllWorkStatusByFlags(statusFlags: List<Int>): List<WorkStatus>
+
+    @Query("DELETE FROM ${DatabaseConstants.WorkStatus.tableName}")
+    abstract fun deleteAll()
 }

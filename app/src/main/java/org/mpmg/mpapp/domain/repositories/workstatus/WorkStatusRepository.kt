@@ -16,4 +16,8 @@ class WorkStatusRepository(private val localWorkStatusDataSource: ILocalWorkStat
     override fun listWorkStatusByIds(workStatusIds: List<Int>): List<WorkStatus> {
         return localWorkStatusDataSource.listWorkStatusByIds(workStatusIds)
     }
+
+    override fun deleteWorkStatuses() {
+        localWorkStatusDataSource.deleteWorkStatuses()
+    }
 }

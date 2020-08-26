@@ -22,4 +22,8 @@ class TypePhotoRepository(private val localTypePhotoDataSource: ILocalTypePhotoD
     override fun listAllTypePhotosLive(): LiveData<List<TypePhoto>> {
         return localTypePhotoDataSource.listAllTypePhotosLive()
     }
+
+    override fun deleteTypePhotos() {
+        localTypePhotoDataSource.deleteTypePhotos()
+    }
 }

@@ -18,4 +18,8 @@ class LocalWorkStatusDataSource(applicationContext: Context) : BaseDataSource(ap
     override fun listWorkStatusByIds(workStatusIds: List<Int>): List<WorkStatus> {
         return mpDatabase()!!.workStatusDAO().listAllWorkStatusByFlags(workStatusIds)
     }
+
+    override fun deleteWorkStatuses() {
+        mpDatabase()!!.workStatusDAO().deleteAll()
+    }
 }

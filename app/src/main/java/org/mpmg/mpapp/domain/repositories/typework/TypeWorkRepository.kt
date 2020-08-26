@@ -22,4 +22,8 @@ class TypeWorkRepository(private val localTypeWorkDataSource: ILocalTypeWorkData
     override fun listAllTypeWorksLive(): LiveData<List<TypeWork>> {
         return localTypeWorkDataSource.listAllTypeWorksLive()
     }
+
+    override fun deleteTypeWorks() {
+        localTypeWorkDataSource.deleteTypeWorks()
+    }
 }

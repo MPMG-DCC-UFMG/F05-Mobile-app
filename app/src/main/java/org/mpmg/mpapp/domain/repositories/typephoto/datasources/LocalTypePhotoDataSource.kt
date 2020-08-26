@@ -23,4 +23,8 @@ class LocalTypePhotoDataSource(applicationContext: Context) : BaseDataSource(app
     override fun listAllTypePhotosLive(): LiveData<List<TypePhoto>> {
         return mpDatabase()!!.typePhotoDAO().listAllTypePhotosLive()
     }
+
+    override fun deleteTypePhotos() {
+        mpDatabase()!!.typePhotoDAO().deleteAll()
+    }
 }

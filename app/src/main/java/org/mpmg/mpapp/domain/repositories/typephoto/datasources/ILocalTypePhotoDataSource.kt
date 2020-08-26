@@ -13,4 +13,5 @@ interface ILocalTypePhotoDataSource {
 
     fun listAllTypePhotosLive(): LiveData<List<TypePhoto>>
 
+    fun deleteTypePhotos()
 }

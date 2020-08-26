@@ -7,4 +7,6 @@ interface ILocalAssociationDataSource {
     fun insertAssociation(associationTWTP: AssociationTWTP)
 
     fun insertAssociations(associations: List<AssociationTWTP>)
+
+    fun deleteAssociations()
 }

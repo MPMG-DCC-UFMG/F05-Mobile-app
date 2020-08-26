@@ -12,4 +12,6 @@ interface ILocalTypeWorkDataSource {
     fun listAllTypeWorks(): List<TypeWork>
 
     fun listAllTypeWorksLive() : LiveData<List<TypeWork>>
+
+    fun deleteTypeWorks()
 }

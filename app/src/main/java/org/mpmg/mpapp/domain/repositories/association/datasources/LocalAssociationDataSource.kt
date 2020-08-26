@@ -14,4 +14,8 @@ class LocalAssociationDataSource(applicationContext: Context) : BaseDataSource(a
     override fun insertAssociations(associations: List<AssociationTWTP>) {
         mpDatabase()!!.associationDAO().insertAll(associations.toTypedArray())
     }
+
+    override fun deleteAssociations() {
+        mpDatabase()!!.associationDAO().deleteAll()
+    }
 }

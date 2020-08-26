@@ -10,4 +10,6 @@ interface ILocalCityDataSource {
     fun insertCities(cities: List<City>)
 
     fun listCitiesLive(): LiveData<List<City>>
+
+    fun deleteCities()
 }

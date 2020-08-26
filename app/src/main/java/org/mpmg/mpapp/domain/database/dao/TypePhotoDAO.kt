@@ -18,4 +18,7 @@ abstract class TypePhotoDAO : BaseDAO<TypePhoto> {
 
     @Query("SELECT * from ${DatabaseConstants.TypePhoto.tableName} WHERE ${DatabaseConstants.TypePhoto.flag} = :flag")
     abstract fun getTypePhotoByFlag(flag: Int): TypePhoto?
+
+    @Query("DELETE FROM ${DatabaseConstants.TypePhoto.tableName}")
+    abstract fun deleteAll()
 }

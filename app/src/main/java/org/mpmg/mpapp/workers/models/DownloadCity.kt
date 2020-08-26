@@ -24,6 +24,7 @@ class DownloadCity : BaseDownloadInfo<CityRemote>() {
 
     override fun onSuccess(list: Array<*>): Boolean {
         return if (list.isArrayOf<CityRemote>()) {
+            cityRepository.deleteCities()
             cityRepository.insertCities(list.map { city ->
                 city as CityRemote
                 city.toCityDB()

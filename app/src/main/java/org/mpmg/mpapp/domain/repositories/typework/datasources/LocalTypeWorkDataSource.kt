@@ -9,18 +9,11 @@ class LocalTypeWorkDataSource(applicationContext: Context) : BaseDataSource(appl
     ILocalTypeWorkDataSource {
 
     override fun insertTypeWork(typeWork: TypeWork) {
-        val typeWorkDB = mpDatabase()!!.typeWorkDAO().getTypeWorkByFlag(typeWork.flag)
-        typeWorkDB?.let {
-            mpDatabase()!!.typeWorkDAO().update(typeWork)
-        } ?: kotlin.run {
-            mpDatabase()!!.typeWorkDAO().insert(typeWork)
-        }
+        mpDatabase()!!.typeWorkDAO().insert(typeWork)
     }
 
     override fun insertTypeWorks(typeWorks: List<TypeWork>) {
-        typeWorks.forEach {
-            insertTypeWork(it)
-        }
+        mpDatabase()!!.typeWorkDAO().insertAll(typeWorks.toTypedArray())
     }
 
     override fun listAllTypeWorks(): List<TypeWork> {
@@ -29,5 +22,9 @@ class LocalTypeWorkDataSource(applicationContext: Context) : BaseDataSource(appl
 
     override fun listAllTypeWorksLive(): LiveData<List<TypeWork>> {
         return mpDatabase()!!.typeWorkDAO().listAllTypeWorkLive()
+    }
+
+    override fun deleteTypeWorks() {
+        mpDatabase()!!.typeWorkDAO().deleteAll()
     }
 }
