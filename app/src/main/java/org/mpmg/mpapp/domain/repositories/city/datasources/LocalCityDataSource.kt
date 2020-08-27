@@ -23,4 +23,8 @@ class LocalCityDataSource(applicationContext: Context) : BaseDataSource(applicat
     override fun deleteCities() {
         mpDatabase()!!.cityDAO().deleteAll()
     }
+
+    override fun listCities(): List<City> {
+        return mpDatabase()!!.cityDAO().listAllCities()
+    }
 }

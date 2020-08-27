@@ -7,7 +7,6 @@
 
     <TextView
         style="@style/MPAppTheme.Title1"
-        android:fontFamily="@font/nunito_regular"
         android:textSize="@dimen/font_xlarge"
         android:gravity="center"
         android:layout_width="300dp"

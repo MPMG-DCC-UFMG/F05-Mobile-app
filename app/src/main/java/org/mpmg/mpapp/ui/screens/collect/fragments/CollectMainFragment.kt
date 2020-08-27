@@ -93,14 +93,12 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
             }
         })
 
-        typeWorkViewModel.getTypeOfWorkList().observe(viewLifecycleOwner, Observer {
-            collectViewModel.getPublicWork().observe(viewLifecycleOwner, Observer {
-                val typeWork = typeWorkViewModel.getTypeOfWorkFromFlag(it.publicWork.typeWorkFlag)
-                typeWork?.let {
-                    workStatusViewModel.loadWorkStatusFromList(it.getWorkStatusIds())
-                }
-            })
+
+        collectViewModel.getPublicWork().observe(viewLifecycleOwner, Observer {
+            val typeWork = typeWorkViewModel.getTypeOfWorkFromFlag(it.publicWork.typeWorkFlag)
+            workStatusViewModel.loadWorkStatusFromList(typeWork.getWorkStatusIds())
         })
+
     }
 
     private fun setupRecyclerView() {
@@ -165,7 +163,7 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
             Observer { workStatus ->
                 val optionsArray = workStatus.map { it.name }.toTypedArray()
                 val builder = SelectorDialog.Builder(childFragmentManager)
-                builder.withTitle(getString(R.string.dialog_type_photo_title))
+                builder.withTitle(getString(R.string.dialog_work_status))
                     .withOptions(optionsArray.toList())
                     .withSelectionMode(SelectorDialog.SelectionMode.SINGLE)
                     .withSelectedOptionListener {

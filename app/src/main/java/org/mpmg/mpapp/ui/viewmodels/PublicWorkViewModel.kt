@@ -204,8 +204,12 @@ class PublicWorkViewModel(
                 when (sortedCheckedId.value) {
                     R.id.radioButton_filterFragment_a_z -> publicWorkList.sortedBy { it.publicWork.name }
                     R.id.radioButton_filterFragment_z_a -> publicWorkList.sortedByDescending { it.publicWork.name }
-                    R.id.radioButton_filterFragment_distance -> publicWorkList.sortedBy {
-                        it.address.getLocation()?.distanceTo(currentLocation)
+                    R.id.radioButton_filterFragment_distance -> {
+                        currentLocation?.let {
+                            publicWorkList.sortedBy {
+                                it.address.getLocation()?.distanceTo(currentLocation)
+                            }
+                        } ?: publicWorkList
                     }
                     else -> publicWorkList
                 }

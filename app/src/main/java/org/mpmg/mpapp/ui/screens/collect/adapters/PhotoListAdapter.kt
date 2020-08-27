@@ -16,7 +16,7 @@ class PhotoListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     private var mListener: PhotoListAdapterListener? = null
 
     private val delegates = listOf(
-        StatusAdapterDelegate(R.layout.item_empty_list),
+        StatusAdapterDelegate(R.layout.item_empty_collect_list),
         PhotoItemDelegate()
     )
 
