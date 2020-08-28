@@ -21,25 +21,13 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 
-class PhotoViewModel(private val typePhotoRepository: ITypePhotoRepository) : ViewModel() {
+class PhotoViewModel() : ViewModel() {
 
     private var mCurrentPhoto = MutableLiveData<Photo>()
     private var mCurrentBitmap = MutableLiveData<Bitmap>()
 
     private val COMPRESSION_QUALITY = 40
 
-    val typePhotos = mutableListOf<TypePhoto>()
-
-    init {
-        loadTypePhotos()
-    }
-
-    private fun loadTypePhotos() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val types = typePhotoRepository.listAllTypePhotos()
-            typePhotos.addAll(types)
-        }
-    }
 
     fun setPhoto(photo: Photo?) {
         mCurrentPhoto.value = if (photo == null) {

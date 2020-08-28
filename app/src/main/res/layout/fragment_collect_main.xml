@@ -79,9 +79,21 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton_collectMainFragment_deleteCollect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_default"
+                android:src="@drawable/ic_trash"
+                app:backgroundTint="@color/button_third"
+                app:fabSize="mini"
+                app:maxImageSize="16dp"
+                app:tint="@color/colorRed" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatingActionButton_collectMainFragment_addPhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_xsmall"
                 android:layout_marginTop="@dimen/margin_default"
                 android:src="@drawable/ic_camera"
                 app:backgroundTint="@color/button_third"
@@ -93,7 +105,7 @@
                 android:id="@+id/floatingActionButton_collectMainFragment_addComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginStart="@dimen/margin_xsmall"
                 android:layout_marginTop="@dimen/margin_default"
                 android:src="@drawable/ic_comment"
                 app:backgroundTint="@color/button_third"

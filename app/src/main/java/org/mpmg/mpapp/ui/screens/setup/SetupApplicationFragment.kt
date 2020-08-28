@@ -20,6 +20,7 @@ import org.mpmg.mpapp.databinding.FragmentCollectMainBinding
 import org.mpmg.mpapp.databinding.FragmentSetupApplicationBinding
 import org.mpmg.mpapp.ui.viewmodels.CityViewModel
 import org.mpmg.mpapp.ui.viewmodels.ConfigurationViewModel
+import org.mpmg.mpapp.ui.viewmodels.TypePhotoViewModel
 import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
 import org.mpmg.mpapp.workers.BaseWorker.Companion.Message
 import org.mpmg.mpapp.workers.LoadServerDataWorker
@@ -31,6 +32,7 @@ class SetupApplicationFragment : Fragment() {
     private val configurationViewModel: ConfigurationViewModel by sharedViewModel()
     private val typeWorkViewModel: TypeWorkViewModel by sharedViewModel()
     private val cityViewModel: CityViewModel by sharedViewModel()
+    private val typePhotoViewModel: TypePhotoViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -93,5 +95,6 @@ class SetupApplicationFragment : Fragment() {
     private fun refreshData(){
         typeWorkViewModel.refreshTypeWorkList()
         cityViewModel.refreshCities()
+        typePhotoViewModel.refreshTypePhotos()
     }
 }

@@ -9,10 +9,9 @@ interface ILocalPhotoDataSource {
 
     fun listPhotosByCollectionID(collectionId: String): List<Photo>
 
-    fun getPhotoByID(photoId: String): Photo
+    fun getPhotoByID(photoId: String): Photo?
 
     fun insertPhotos(photos: List<Photo>)
 
     fun deletePhotoById(photoId: String)
-
 }

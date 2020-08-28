@@ -105,6 +105,9 @@ class PublicWorkFilterFragment : Fragment() {
                 }.map { typeWork -> typeWork.flag })
                 updateFilterTypeOfWorksText()
             }
+            .withOnNegativeClickListener {
+                // ignore
+            }
             .withSelectedOptions(checkedOptions)
             .show()
     }

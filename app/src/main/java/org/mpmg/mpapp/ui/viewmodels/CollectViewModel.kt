@@ -88,20 +88,12 @@ class CollectViewModel(
     fun deletePhoto(photo: Photo) {
         mPhotoList.value?.let {
             it.remove(photo.id)
-            photo.filepath?.let {
-                deleteFile(it)
-            }
             collectRepository.deletePhotoById(photoId = photo.id)
             mPhotoList.value = it
         }
     }
 
-    private fun deleteFile(filePath: String) {
-        val file = File(filePath)
-        if (file.exists()) {
-            file.delete()
-        }
-    }
+
 
     fun updatePublicWorkStatus(workStatusFlag: Int) {
         mSelectedPublicWork.value?.let {
@@ -126,6 +118,17 @@ class CollectViewModel(
                 currentPublicWorkAndAddress.publicWork,
                 currentPublicWorkAndAddress.address
             )
+        }
+    }
+
+    fun deleteCurrentCollect(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val collection = currentCollect.value ?: return@launch
+            collectRepository.deleteCollectById(collection.id)
+
+            val currentPublicWorkAndAddress = mSelectedPublicWork.value ?: return@launch
+            publicWorkRepository.unlinkCollectFromPublicWork(currentPublicWorkAndAddress.publicWork.id)
+
         }
     }
 

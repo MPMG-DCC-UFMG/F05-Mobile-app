@@ -25,4 +25,10 @@ abstract class CollectDAO : BaseDAO<Collect> {
                 "AND ${DatabaseConstants.Collect.isSent} = :sent"
     )
     abstract fun getCollectByPublicIdAndStatus(publicId: String, sent: Boolean): Collect?
+
+    @Query(
+        "DELETE FROM ${DatabaseConstants.Collect.tableName} " +
+                "WHERE ${DatabaseConstants.Collect.id} = :collectId"
+    )
+    abstract fun deleteCollectById(collectId: String)
 }

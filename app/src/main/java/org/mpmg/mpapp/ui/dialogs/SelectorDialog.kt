@@ -17,6 +17,7 @@ import org.mpmg.mpapp.ui.dialogs.models.SelectorOptions
 class SelectorDialog(
     private val title: String?,
     private val options: List<String>,
+    private val cancelText: String? = null,
     private val selectionMode: SelectionMode,
     private val onCloseClickListener: (() -> Unit)? = null,
     private val onNegativeClickListener: (() -> Unit)? = null,
@@ -43,7 +44,8 @@ class SelectorDialog(
         val binding: DialogSelectorBinding =
             DataBindingUtil.inflate(inflater, R.layout.dialog_selector, container, false)
         binding.title = title
-        binding.selectionMode = selectionMode
+        binding.negativeButton = onNegativeClickListener != null
+        binding.confirmButton = onPositiveClickListener != null
         return binding.root
     }
 
@@ -53,6 +55,7 @@ class SelectorDialog(
         initRecyclerView()
         fillOptions()
         setupListeners()
+        updateText()
     }
 
     private fun setupListeners() {
@@ -65,7 +68,7 @@ class SelectorDialog(
             dismiss()
         }
         materialButton_singleSelectionDialog_confirm.setOnClickListener {
-            if(selectionMode == SelectionMode.MULTIPLE){
+            if (selectionMode == SelectionMode.MULTIPLE) {
                 handleMultipleSelectionMode()
             }
             onPositiveClickListener?.invoke(selectedOptions.toList())
@@ -77,6 +80,12 @@ class SelectorDialog(
         selectorOptionsAdapter = SelectorOptionsAdapter()
         recyclerView_singleSelectionDialog.adapter = selectorOptionsAdapter
         recyclerView_singleSelectionDialog.layoutManager = LinearLayoutManager(activity)
+    }
+
+    private fun updateText(){
+        if (cancelText!=null){
+            materialButton_singleSelectionDialog_cancel.text = cancelText
+        }
     }
 
     private fun fillOptions() {
@@ -123,6 +132,7 @@ class SelectorDialog(
 
     class Builder(private var childFragmentManager: FragmentManager) {
         private var title: String? = null
+        private var cancelText: String? = null
         private var options: List<String> = emptyList()
         private var selectionMode: SelectionMode = SelectionMode.SINGLE
         private var selectedOptions: Set<Int> = emptySet()
@@ -171,9 +181,15 @@ class SelectorDialog(
             return this
         }
 
+        fun withCancelText(cancelText: String): Builder{
+            this.cancelText = cancelText
+            return this
+        }
+
         fun show() = SelectorDialog(
             title,
             options,
+            cancelText,
             selectionMode,
             onCloseClickListener,
             onNegativeClickListener,

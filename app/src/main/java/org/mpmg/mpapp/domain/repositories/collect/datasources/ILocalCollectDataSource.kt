@@ -12,4 +12,6 @@ interface ILocalCollectDataSource {
 
     fun markCollectSent(collectId: String)
 
+    fun deleteCollectById(collectId: String)
+
 }

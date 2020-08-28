@@ -13,7 +13,7 @@ interface ICollectRepository : IRemoteCollectDataSource, IRemotePhotoDataSource 
 
     fun listPhotosByCollectionID(collectionId: String): List<Photo>
 
-    fun getPhotoByID(photoId: String): Photo
+    fun getPhotoByID(photoId: String): Photo?
 
     fun insertPhotos(photos: List<Photo>)
 
@@ -26,5 +26,7 @@ interface ICollectRepository : IRemoteCollectDataSource, IRemotePhotoDataSource 
     fun deletePhotoById(photoId: String)
 
     fun markCollectSent(collectId: String)
+
+    fun deleteCollectById(collectId: String)
 
 }

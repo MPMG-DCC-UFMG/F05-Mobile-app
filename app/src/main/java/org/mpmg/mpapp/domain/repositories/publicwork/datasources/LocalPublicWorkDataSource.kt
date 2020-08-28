@@ -14,8 +14,12 @@ class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(ap
     @Transaction
     override fun insertPublicWork(publicWork: PublicWork, address: Address) {
         val oldPublicWork = mpDatabase()!!.publicWorkDAO().getPublicWorkById(publicWork.id)
-        publicWork.idCollect = oldPublicWork?.idCollect ?: publicWork.idCollect
-        mpDatabase()!!.publicWorkDAO().insert(publicWork)
+        oldPublicWork?.let {
+            publicWork.idCollect = oldPublicWork.idCollect ?: publicWork.idCollect
+            mpDatabase()!!.publicWorkDAO().update(publicWork)
+        }?: kotlin.run {
+            mpDatabase()!!.publicWorkDAO().insert(publicWork)
+        }
         mpDatabase()!!.addressDAO().insert(address)
     }
 

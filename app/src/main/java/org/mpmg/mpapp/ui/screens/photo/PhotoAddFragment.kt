@@ -26,9 +26,11 @@ import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentAddPhotoBinding
 import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.ui.dialogs.SelectorDialog
+import org.mpmg.mpapp.ui.dialogs.WarningDialog
 import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 import org.mpmg.mpapp.ui.viewmodels.PhotoViewModel
+import org.mpmg.mpapp.ui.viewmodels.TypePhotoViewModel
 import java.io.File
 import java.io.IOException
 
@@ -41,6 +43,7 @@ class PhotoAddFragment : Fragment() {
     private val photoViewModel: PhotoViewModel by sharedViewModel()
     private val collectViewModel: CollectViewModel by sharedViewModel()
     private val locationViewModel: LocationViewModel by sharedViewModel()
+    private val typePhotoViewModel: TypePhotoViewModel by sharedViewModel()
 
     private var navigationController: NavController? = null
 
@@ -76,7 +79,7 @@ class PhotoAddFragment : Fragment() {
         }
 
         materialButton_addPhotoFragment_deletePhoto.setOnClickListener {
-            deletePhoto()
+            showDeleteDialog()
         }
     }
 
@@ -110,7 +113,7 @@ class PhotoAddFragment : Fragment() {
     }
 
     private fun launchTypeSelectDialog() {
-        val optionsArray = photoViewModel.typePhotos.map { it.name }.toTypedArray()
+        val optionsArray = typePhotoViewModel.typePhotos.map { it.name }.toTypedArray()
         val builder = SelectorDialog.Builder(childFragmentManager)
         builder.withTitle(getString(R.string.dialog_type_photo_title))
             .withOptions(optionsArray.toList())
@@ -145,6 +148,16 @@ class PhotoAddFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showDeleteDialog(){
+        val builder = WarningDialog.Builder(childFragmentManager)
+        builder.withTitle(getString(R.string.dialog_delete_photo))
+            .withMessage(getString(R.string.dialog_delete_photo_message))
+            .withOnPositiveClickListener {
+                deletePhoto()
+            }
+            .show()
     }
 
     private fun deletePhoto() {

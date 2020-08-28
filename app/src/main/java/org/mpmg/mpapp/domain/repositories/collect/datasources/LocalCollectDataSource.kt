@@ -27,4 +27,7 @@ class LocalCollectDataSource(applicationContext: Context) : BaseDataSource(appli
         }
     }
 
+    override fun deleteCollectById(collectId: String) {
+        mpDatabase()!!.collectDAO().deleteCollectById(collectId)
+    }
 }
