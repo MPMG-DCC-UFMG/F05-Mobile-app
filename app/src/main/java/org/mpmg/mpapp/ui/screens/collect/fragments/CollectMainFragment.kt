@@ -21,11 +21,11 @@ import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.ui.MainActivity
 import org.mpmg.mpapp.ui.dialogs.CommentsBottomSheetDialog
 import org.mpmg.mpapp.ui.dialogs.SelectorDialog
+import org.mpmg.mpapp.ui.dialogs.WarningDialog
 import org.mpmg.mpapp.ui.screens.collect.adapters.PhotoListAdapter
 import org.mpmg.mpapp.ui.screens.collect.viewmodels.CollectFragmentViewModel
 import org.mpmg.mpapp.ui.shared.animation.AnimationHelper
 import org.mpmg.mpapp.ui.viewmodels.*
-
 
 class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListener {
 
@@ -74,6 +74,7 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
     private fun setupFABs() {
         collectFragmentViewModel.initMiniFABs(floatingActionButton_collectMainFragment_addComment)
         collectFragmentViewModel.initMiniFABs(floatingActionButton_collectMainFragment_addPhoto)
+        collectFragmentViewModel.initMiniFABs(floatingActionButton_collectMainFragment_deleteCollect)
     }
 
     private fun setupViewModels() {
@@ -87,19 +88,17 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
             if (it) {
                 AnimationHelper.showView(floatingActionButton_collectMainFragment_addPhoto)
                 AnimationHelper.showView(floatingActionButton_collectMainFragment_addComment)
+                AnimationHelper.showView(floatingActionButton_collectMainFragment_deleteCollect)
             } else {
                 AnimationHelper.hideView(floatingActionButton_collectMainFragment_addPhoto)
                 AnimationHelper.hideView(floatingActionButton_collectMainFragment_addComment)
+                AnimationHelper.hideView(floatingActionButton_collectMainFragment_deleteCollect)
             }
         })
 
-        typeWorkViewModel.getTypeOfWorkList().observe(viewLifecycleOwner, Observer {
-            collectViewModel.getPublicWork().observe(viewLifecycleOwner, Observer {
-                val typeWork = typeWorkViewModel.getTypeOfWorkFromFlag(it.publicWork.typeWorkFlag)
-                typeWork?.let {
-                    workStatusViewModel.loadWorkStatusFromList(it.getWorkStatusIds())
-                }
-            })
+        collectViewModel.getPublicWork().observe(viewLifecycleOwner, Observer {
+            val typeWork = typeWorkViewModel.getTypeOfWorkFromFlag(it.publicWork.typeWorkFlag)
+            workStatusViewModel.loadWorkStatusFromList(typeWork.getWorkStatusIds())
         })
     }
 
@@ -134,6 +133,25 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
         floatingActionButton_collectMainFragment_menu.setOnClickListener {
             toggleMenu()
         }
+
+        floatingActionButton_collectMainFragment_deleteCollect.setOnClickListener {
+            showDeleteDialog()
+        }
+    }
+
+    private fun showDeleteDialog() {
+        val builder = WarningDialog.Builder(childFragmentManager)
+        builder.withTitle(getString(R.string.dialog_delete_collect))
+            .withMessage(getString(R.string.dialog_delete_collect_message))
+            .withOnPositiveClickListener {
+                deleteCollect()
+            }
+            .show()
+    }
+
+    private fun deleteCollect() {
+        collectViewModel.deleteCurrentCollect()
+        navigateBack(false)
     }
 
     private fun toggleMenu() {
@@ -165,23 +183,28 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
             Observer { workStatus ->
                 val optionsArray = workStatus.map { it.name }.toTypedArray()
                 val builder = SelectorDialog.Builder(childFragmentManager)
-                builder.withTitle(getString(R.string.dialog_type_photo_title))
+                builder.withTitle(getString(R.string.dialog_work_status))
                     .withOptions(optionsArray.toList())
+                    .withCancelText(getString(R.string.button_cancel_collect))
                     .withSelectionMode(SelectorDialog.SelectionMode.SINGLE)
                     .withSelectedOptionListener {
                         collectViewModel.updatePublicWorkStatus(workStatus[it.first()].flag)
-                        navigateBack()
+                        collectViewModel.updateCollect()
+                        navigateBack(true)
+                    }
+                    .withOnNegativeClickListener {
+                        navigateBack(false)
                     }
                     .show()
             })
     }
 
-    private fun navigateBack() {
+    private fun navigateBack(updated: Boolean) {
         val parentActivity = this.requireActivity()
-        if (parentActivity is MainActivity) {
+        if (parentActivity is MainActivity && updated) {
             parentActivity.launchSnackbar(getString(R.string.message_collect_updated))
         }
-        collectViewModel.updateCollect()
+
         navigateTo(R.id.action_collectMainFragment_to_baseFragment)
     }
 

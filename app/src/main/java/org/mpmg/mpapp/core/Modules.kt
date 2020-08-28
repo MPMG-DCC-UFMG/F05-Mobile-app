@@ -55,11 +55,12 @@ val viewModelModules = module {
     viewModel { ConfigurationViewModel(androidApplication()) }
     viewModel { TypeWorkViewModel(get()) }
     viewModel { CollectViewModel(get(), get(), get()) }
-    viewModel { PhotoViewModel(get()) }
+    viewModel { PhotoViewModel() }
     viewModel { SendViewModel(androidApplication(), get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { WorkStatusViewModel(get()) }
     viewModel { CityViewModel(get()) }
+    viewModel { TypePhotoViewModel(get()) }
 
     // ViewModels for UI
     viewModel { CollectFragmentViewModel() }

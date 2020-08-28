@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
+import java.io.File
 
 class LocalPhotoDataSource(applicationContext: Context) : BaseDataSource(applicationContext),
     ILocalPhotoDataSource {
@@ -12,7 +13,7 @@ class LocalPhotoDataSource(applicationContext: Context) : BaseDataSource(applica
         return mpDatabase()!!.photoDAO().listAllPhotosByCollectIdLive(collectionId)
     }
 
-    override fun getPhotoByID(photoId: String): Photo {
+    override fun getPhotoByID(photoId: String): Photo? {
         return mpDatabase()!!.photoDAO().getPhotoById(photoId)
     }
 
@@ -25,6 +26,20 @@ class LocalPhotoDataSource(applicationContext: Context) : BaseDataSource(applica
     }
 
     override fun deletePhotoById(photoId: String) {
-        mpDatabase()!!.photoDAO().deleteById(photoId)
+        val photo = mpDatabase()!!.photoDAO().getPhotoById(photoId)
+        photo?.let {
+            deletePhotoFile(it.filepath)
+            mpDatabase()!!.photoDAO().deleteById(photoId)
+        }
+
+    }
+
+    private fun deletePhotoFile(filePath: String?) {
+        filePath?:return
+
+        val file = File(filePath)
+        if (file.exists()) {
+            file.delete()
+        }
     }
 }

@@ -69,7 +69,7 @@ class PublicWorkFilterFragment : Fragment() {
     }
 
     private fun updateFilterTypeOfWorksText() {
-        val typesWork = typeWorkViewModel.getTypeOfWorkList().value ?: return
+        val typesWork = typeWorkViewModel.getTypeOfWorkList()
         val checkedOptions =
             publicWorkViewModel.getFilteredTypeOfWorks(typesWork.map { it.flag }.toTypedArray())
         val names = mutableListOf<String>()
@@ -83,7 +83,7 @@ class PublicWorkFilterFragment : Fragment() {
     }
 
     private fun launchTypeWorkDialog() {
-        val typesWork = typeWorkViewModel.getTypeOfWorkList().value ?: return
+        val typesWork = typeWorkViewModel.getTypeOfWorkList()
         val optionsArray = typesWork.map { it.name }.toTypedArray()
         val checkedOptions =
             publicWorkViewModel.getFilteredTypeOfWorks(typesWork.map { it.flag }.toTypedArray())
@@ -104,6 +104,9 @@ class PublicWorkFilterFragment : Fragment() {
                     )
                 }.map { typeWork -> typeWork.flag })
                 updateFilterTypeOfWorksText()
+            }
+            .withOnNegativeClickListener {
+                // ignore
             }
             .withSelectedOptions(checkedOptions)
             .show()

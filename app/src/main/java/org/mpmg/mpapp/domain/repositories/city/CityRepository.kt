@@ -21,4 +21,8 @@ class CityRepository(private val localCityDataSource: ILocalCityDataSource) : IC
     override fun deleteCities() {
         localCityDataSource.deleteCities()
     }
+
+    override fun listCities(): List<City> {
+        return localCityDataSource.listCities()
+    }
 }

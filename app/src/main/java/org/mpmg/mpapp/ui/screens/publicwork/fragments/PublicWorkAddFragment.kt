@@ -55,22 +55,17 @@ class PublicWorkAddFragment : Fragment() {
     }
 
     private fun initCitiesTextView() {
-        cityViewModel.getCitiesList().observeOnce(viewLifecycleOwner, Observer { cities ->
-            val cityAdapter = ArrayAdapter<String>(
-                requireContext(),
-                android.R.layout.simple_list_item_1,
-                cities.map { it.name }
-            )
-            editText_addPublicWorkFragment_city.setAdapter(cityAdapter)
-            editText_addPublicWorkFragment_city.threshold = 1
-        })
+        val cityAdapter = ArrayAdapter<String>(
+            requireContext(),
+            android.R.layout.simple_list_item_1,
+            cityViewModel.getCitiesList().map { it.name }
+        )
+        editText_addPublicWorkFragment_city.setAdapter(cityAdapter)
+        editText_addPublicWorkFragment_city.threshold = 1
     }
 
     private fun initTypeWork() {
-        typeWorkViewModel.getTypeOfWorkList()
-            .observeOnce(viewLifecycleOwner, Observer { typeWorkList ->
-                publicWorkViewModel.setInitialTypeWork(typeWorkList[0])
-            })
+        publicWorkViewModel.setInitialTypeWork(typeWorkViewModel.getTypeOfWorkList()[0])
     }
 
     private fun setupListeners() {
@@ -93,7 +88,7 @@ class PublicWorkAddFragment : Fragment() {
     }
 
     private fun launchTypeWorkDialog() {
-        val typesWork = typeWorkViewModel.getTypeOfWorkList().value ?: return
+        val typesWork = typeWorkViewModel.getTypeOfWorkList()
         val optionsArray = typesWork.map { it.name }.toTypedArray()
         val builder = SelectorDialog.Builder(childFragmentManager)
         builder.withTitle(getString(R.string.dialog_type_photo_title))

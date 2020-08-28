@@ -14,10 +14,14 @@ import androidx.work.WorkInfo
 import androidx.work.WorkInfo.State.*
 import kotlinx.android.synthetic.main.fragment_setup_application.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.FragmentCollectMainBinding
 import org.mpmg.mpapp.databinding.FragmentSetupApplicationBinding
+import org.mpmg.mpapp.ui.viewmodels.CityViewModel
 import org.mpmg.mpapp.ui.viewmodels.ConfigurationViewModel
+import org.mpmg.mpapp.ui.viewmodels.TypePhotoViewModel
+import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
 import org.mpmg.mpapp.workers.BaseWorker.Companion.Message
 import org.mpmg.mpapp.workers.LoadServerDataWorker
 
@@ -26,6 +30,9 @@ class SetupApplicationFragment : Fragment() {
     private val TAG = SetupApplicationFragment::class.java.name
 
     private val configurationViewModel: ConfigurationViewModel by sharedViewModel()
+    private val typeWorkViewModel: TypeWorkViewModel by sharedViewModel()
+    private val cityViewModel: CityViewModel by sharedViewModel()
+    private val typePhotoViewModel: TypePhotoViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,6 +88,13 @@ class SetupApplicationFragment : Fragment() {
     }
 
     private fun navigateToList() {
+        refreshData()
         findNavController().navigate(R.id.action_setupApplicationFragment_to_homeFragment)
+    }
+
+    private fun refreshData(){
+        typeWorkViewModel.refreshTypeWorkList()
+        cityViewModel.refreshCities()
+        typePhotoViewModel.refreshTypePhotos()
     }
 }

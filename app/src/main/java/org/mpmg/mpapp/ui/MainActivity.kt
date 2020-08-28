@@ -28,8 +28,6 @@ class MainActivity : AppCompatActivity() {
     private var isBoundToLocationService: Boolean = false
 
     private val locationViewModel: LocationViewModel by viewModel()
-    private val typeWorkViewModel: TypeWorkViewModel by viewModel()
-    private val cityViewModel: CityViewModel by viewModel()
 
     private val mLocationListener = object : LocationService.LocationServiceListener {
         override fun onNewLocation(location: Location) {
@@ -58,9 +56,6 @@ class MainActivity : AppCompatActivity() {
         if (!isBoundToLocationService) {
             startLocationService()
         }
-
-        typeWorkViewModel.getTypeOfWorkList()
-        cityViewModel.getCitiesList()
     }
 
     override fun onDestroy() {

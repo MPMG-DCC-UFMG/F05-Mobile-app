@@ -25,7 +25,7 @@ class CollectRepository(
         return localPhotoDataSource.listPhotosByCollectionIDLive(collectionId)
     }
 
-    override fun getPhotoByID(photoId: String): Photo {
+    override fun getPhotoByID(photoId: String): Photo? {
         return localPhotoDataSource.getPhotoByID(photoId)
     }
 
@@ -52,7 +52,7 @@ class CollectRepository(
     }
 
     override fun deletePhotoById(photoId: String) {
-        localPhotoDataSource
+        localPhotoDataSource.deletePhotoById(photoId)
     }
 
     override suspend fun sendCollect(collectRemote: CollectRemote): CollectRemote {
@@ -69,5 +69,13 @@ class CollectRepository(
 
     override fun markCollectSent(collectId: String) {
         localCollectDataSource.markCollectSent(collectId)
+    }
+
+    override fun deleteCollectById(collectId: String) {
+        val photos = localPhotoDataSource.listPhotosByCollectionID(collectId)
+        photos.forEach {
+            deletePhotoById(photoId = it.id)
+        }
+        localCollectDataSource.deleteCollectById(collectId)
     }
 }

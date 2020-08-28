@@ -29,7 +29,7 @@ abstract class PhotoDAO : BaseDAO<Photo> {
         "SELECT * FROM ${DatabaseConstants.Photo.tableName} " +
                 "WHERE ${DatabaseConstants.Photo.id} = :photoId"
     )
-    abstract fun getPhotoById(photoId: String): Photo
+    abstract fun getPhotoById(photoId: String): Photo?
 
     @Query(
         "DELETE FROM ${DatabaseConstants.Photo.tableName} " +
