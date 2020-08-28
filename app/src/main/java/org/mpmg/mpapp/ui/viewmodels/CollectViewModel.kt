@@ -93,15 +93,10 @@ class CollectViewModel(
         }
     }
 
-
-
     fun updatePublicWorkStatus(workStatusFlag: Int) {
-        mSelectedPublicWork.value?.let {
-            if (workStatusFlag != it.publicWork.userStatusFlag) {
-                it.publicWork.toSend = true
-                it.publicWork.userStatusFlag = workStatusFlag
-            }
-        }
+       currentCollect.value?.let {
+           it.publicWorkStatus = workStatusFlag
+       }
     }
 
     fun updateCollect() {

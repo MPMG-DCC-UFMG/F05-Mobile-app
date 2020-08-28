@@ -8,13 +8,15 @@ data class CollectRemote(
     @field:Json(name = "public_work_id") val idPublicWork: String,
     @field:Json(name = "user_email") val userEmail: String,
     @field:Json(name = "comment") val comment: String? = null,
-    @field:Json(name = "date") val date: Long
+    @field:Json(name = "date") val date: Long,
+    @field:Json(name = "public_work_status") val publicWorkStatus: Int
 ) {
     constructor(collect: Collect) : this(
         id = collect.id,
         idPublicWork = collect.idPublicWork,
         userEmail = collect.idUser,
         comment = collect.comments,
-        date = collect.date
+        date = collect.date,
+        publicWorkStatus = collect.publicWorkStatus
     )
 }

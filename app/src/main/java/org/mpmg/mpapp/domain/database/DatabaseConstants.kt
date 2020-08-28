@@ -42,6 +42,7 @@ object DatabaseConstants {
         const val comments = "collect_comments"
         const val isSent = "collect_is_sent"
         const val idPublicWork = "collect_public_work_id"
+        const val publicWorkStatus = "collect_public_work_status"
     }
 
     object Photo {

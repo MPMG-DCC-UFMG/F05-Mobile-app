@@ -32,5 +32,6 @@ data class Collect(
     @ColumnInfo(name = DatabaseConstants.Collect.idPublicWork) var idPublicWork: String = "",
     @ColumnInfo(name = DatabaseConstants.Collect.date) var date: Long = Calendar.getInstance().timeInMillis,
     @ColumnInfo(name = DatabaseConstants.Collect.isSent) var isSent: Boolean = false,
-    @ColumnInfo(name = DatabaseConstants.Collect.comments) var comments: String? = null
+    @ColumnInfo(name = DatabaseConstants.Collect.comments) var comments: String? = null,
+    @ColumnInfo(name = DatabaseConstants.Collect.publicWorkStatus) var publicWorkStatus: Int = 0
 ) : BaseModel
