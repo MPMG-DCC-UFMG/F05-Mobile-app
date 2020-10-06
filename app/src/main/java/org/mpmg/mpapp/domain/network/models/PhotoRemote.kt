@@ -5,7 +5,7 @@ import org.mpmg.mpapp.domain.database.models.Photo
 
 data class PhotoRemote(
     @field:Json(name = "id") val id: String,
-    @field:Json(name = "id_collect") val idCollect: String,
+    @field:Json(name = "collect_id") val idCollect: String,
     @field:Json(name = "filepath") val filepath: String,
     @field:Json(name = "latitude") val latitude: Double,
     @field:Json(name = "longitude") val longitude: Double,
