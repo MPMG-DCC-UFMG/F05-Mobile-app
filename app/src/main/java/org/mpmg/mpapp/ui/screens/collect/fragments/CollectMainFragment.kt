@@ -20,6 +20,7 @@ import org.mpmg.mpapp.databinding.FragmentCollectMainBinding
 import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.ui.MainActivity
 import org.mpmg.mpapp.ui.dialogs.CommentsBottomSheetDialog
+import org.mpmg.mpapp.ui.dialogs.PickerBottomSheetDialog
 import org.mpmg.mpapp.ui.dialogs.SelectorDialog
 import org.mpmg.mpapp.ui.dialogs.WarningDialog
 import org.mpmg.mpapp.ui.screens.collect.adapters.PhotoListAdapter
@@ -179,24 +180,22 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
     }
 
     private fun launchWorkStatusDialog() {
-        workStatusViewModel.currentWorkStatusList.observeOnce(viewLifecycleOwner,
-            Observer { workStatus ->
-                val optionsArray = workStatus.map { it.name }.toTypedArray()
-                val builder = SelectorDialog.Builder(childFragmentManager)
-                builder.withTitle(getString(R.string.dialog_work_status))
-                    .withOptions(optionsArray.toList())
-                    .withCancelText(getString(R.string.button_cancel_collect))
-                    .withSelectionMode(SelectorDialog.SelectionMode.SINGLE)
-                    .withSelectedOptionListener {
-                        collectViewModel.updatePublicWorkStatus(workStatus[it.first()].flag)
-                        collectViewModel.updateCollect()
-                        navigateBack(true)
-                    }
-                    .withOnNegativeClickListener {
-                        navigateBack(false)
-                    }
-                    .show()
-            })
+        workStatusViewModel.currentWorkStatusList.observeOnce(viewLifecycleOwner) { workStatus ->
+            val optionsArray = workStatus.map { it.name }.toTypedArray()
+            val builder = PickerBottomSheetDialog.Builder(childFragmentManager)
+            builder.withOptions(optionsArray.toList())
+                .withNegativeButtonText(getString(R.string.button_cancel_collect))
+                .withConfirmButtonText(getString(R.string.button_confirm))
+                .withOnPositiveClickListener {
+                    collectViewModel.updatePublicWorkStatus(workStatus[it].flag)
+                    collectViewModel.updateCollect()
+                    navigateBack(true)
+                }
+                .withOnNegativeClickListener {
+                    navigateBack(false)
+                }
+                .show()
+        }
     }
 
     private fun navigateBack(updated: Boolean) {
