@@ -35,7 +35,7 @@
     <string name="button_continue">Continuar</string>
     <string name="button_try_again">Tentar novamente</string>
     <string name="button_create_account">Cadastrar</string>
-    <string name="button_cancel_collect">Cancelar coleta</string>
+    <string name="button_cancel_collect">Descartar mudanças</string>
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_filter">Filtrar</string>
