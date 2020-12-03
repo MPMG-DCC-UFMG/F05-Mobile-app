@@ -6,6 +6,7 @@ import okhttp3.RequestBody
 import org.mpmg.mpapp.domain.network.api.MPApi
 import org.mpmg.mpapp.domain.network.models.ImageUploadResponse
 import org.mpmg.mpapp.domain.network.models.PhotoRemote
+import org.mpmg.mpapp.domain.network.models.ResponseRemote
 import java.io.File
 
 class RemotePhotoDataSource(val mpApi: MPApi) : IRemotePhotoDataSource {
@@ -17,7 +18,7 @@ class RemotePhotoDataSource(val mpApi: MPApi) : IRemotePhotoDataSource {
         return mpApi.sendImage(fileForm)
     }
 
-    override suspend fun sendPhoto(photo: PhotoRemote): PhotoRemote {
+    override suspend fun sendPhoto(photo: PhotoRemote): ResponseRemote {
         return mpApi.sendPhoto(photo)
     }
 }

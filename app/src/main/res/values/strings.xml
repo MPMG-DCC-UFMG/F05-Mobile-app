@@ -5,7 +5,7 @@
     <string name="title_public_work_filter">Filtrar</string>
     <string name="title_public_work_add">Adicionar obra</string>
     <string name="title_public_work_edit">Editar obra</string>
-    <string name="title_public_work_send">Enviar</string>
+    <string name="title_public_work_send">Enviar dados</string>
     <string name="title_add_photo">Adicionar mais fotos</string>
     <string name="title_create_account">Cadastrar</string>
 
@@ -72,8 +72,8 @@
     <string name="checkbox_sent">Informações para atualizar</string>
 
     <string name="text_empty_public_work_list">Lista de obras vazia, tente adicionar uma nova obra manualmente.</string>
-    <string name="text_empty_collect_list">Lista de fotos para enviar vazia, tente realizar coletas ou atualizar informações das obras</string>
-    <string name="text_welcome">Bem-vindo ao TRENA, o aplicativo de fiscalização de obras do Ministério Público do Estado de Minas Gerais</string>
+    <string name="text_empty_collect_list">Lista de dados para enviar vazia, tente realizar coletas ou atualizar informações das obras</string>
+    <string name="text_welcome">Bem-vindo(a) ao TRENA, o aplicativo de fiscalização de obras do Ministério Público do Estado de Minas Gerais</string>
     <string name="text_loading_login">Realizando login …</string>
     <string name="text_click_to_photo">Clique para adicionar foto</string>
     <string name="text_loading">Carregando …</string>

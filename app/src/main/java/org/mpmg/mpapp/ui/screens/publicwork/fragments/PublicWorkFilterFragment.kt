@@ -90,7 +90,7 @@ class PublicWorkFilterFragment : Fragment() {
                 .withIndex().filter { it.value }.map { it.index }
 
         val builder = SelectorDialog.Builder(childFragmentManager)
-        builder.withTitle(getString(R.string.dialog_type_photo_title))
+        builder.withTitle(getString(R.string.dialog_type_work_title))
             .withOptions(optionsArray.toList())
             .withSelectionMode(SelectorDialog.SelectionMode.MULTIPLE)
             .withSelectedOptionListener {

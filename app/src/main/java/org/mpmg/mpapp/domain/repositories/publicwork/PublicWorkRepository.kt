@@ -5,6 +5,7 @@ import org.mpmg.mpapp.domain.database.models.Address
 import org.mpmg.mpapp.domain.database.models.PublicWork
 import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
+import org.mpmg.mpapp.domain.network.models.ResponseRemote
 import org.mpmg.mpapp.domain.repositories.publicwork.datasources.ILocalPublicWorkDataSource
 import org.mpmg.mpapp.domain.repositories.publicwork.datasources.IRemotePublicWorkDataSource
 
@@ -50,7 +51,7 @@ class PublicWorkRepository(
         return localPublicWorkDataSource.listPublicWorksByStatusLive(status)
     }
 
-    override suspend fun sendPublicWork(publicWorkRemote: PublicWorkRemote): PublicWorkRemote {
+    override suspend fun sendPublicWork(publicWorkRemote: PublicWorkRemote): ResponseRemote {
         return remotePublicWorkDataSource.sendPublicWork(publicWorkRemote)
     }
 

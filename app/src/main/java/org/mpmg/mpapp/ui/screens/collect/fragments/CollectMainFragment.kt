@@ -18,6 +18,7 @@ import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.extensions.observeOnce
 import org.mpmg.mpapp.databinding.FragmentCollectMainBinding
 import org.mpmg.mpapp.domain.database.models.Photo
+import org.mpmg.mpapp.domain.database.models.WorkStatus
 import org.mpmg.mpapp.ui.MainActivity
 import org.mpmg.mpapp.ui.dialogs.CommentsBottomSheetDialog
 import org.mpmg.mpapp.ui.dialogs.PickerBottomSheetDialog
@@ -181,13 +182,17 @@ class CollectMainFragment : Fragment(), PhotoListAdapter.PhotoListAdapterListene
 
     private fun launchWorkStatusDialog() {
         workStatusViewModel.currentWorkStatusList.observeOnce(viewLifecycleOwner) { workStatus ->
-            val optionsArray = workStatus.map { it.name }.toTypedArray()
+            val optionsArray = mutableListOf<String>()
+            optionsArray.add("----------")
+            optionsArray.addAll(workStatus.map { it.name })
             val builder = PickerBottomSheetDialog.Builder(childFragmentManager)
             builder.withOptions(optionsArray.toList())
                 .withNegativeButtonText(getString(R.string.button_cancel_collect))
                 .withConfirmButtonText(getString(R.string.button_confirm))
                 .withOnPositiveClickListener {
-                    collectViewModel.updatePublicWorkStatus(workStatus[it].flag)
+                    if(it!=0) {
+                        collectViewModel.updatePublicWorkStatus(workStatus[it-1].flag)
+                    }
                     collectViewModel.updateCollect()
                     navigateBack(true)
                 }

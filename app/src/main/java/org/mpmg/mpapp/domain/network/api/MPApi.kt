@@ -20,17 +20,17 @@ interface MPApi {
     @GET("publicworks/version")
     suspend fun getPublicWorkVersion(): EntityVersion
 
-    @POST("publicworks/upsert")
-    suspend fun sendPublicWork(@Body publicWorkRemote: PublicWorkRemote): PublicWorkRemote
+    @POST("queue/publicwork/add")
+    suspend fun sendPublicWork(@Body publicWorkRemote: PublicWorkRemote): ResponseRemote
 
     @GET("publicworks/changes")
     suspend fun getPublicWorksChange(@Query("version") version: Int): List<PublicWorkRemote>
 
-    @POST("collects/add")
-    suspend fun sendCollect(@Body collectRemote: CollectRemote): CollectRemote
+    @POST("queue/collect/add")
+    suspend fun sendCollect(@Body collectRemote: CollectRemote): ResponseRemote
 
-    @POST("photos/add")
-    suspend fun sendPhoto(@Body photoRemote: PhotoRemote): PhotoRemote
+    @POST("queue/photo/add")
+    suspend fun sendPhoto(@Body photoRemote: PhotoRemote): ResponseRemote
 
     @Multipart
     @POST("images/upload")
@@ -64,7 +64,7 @@ interface MPApi {
     suspend fun createUser(@Body userRemote: MPUserRemote): ResponseRemote
 
     @FormUrlEncoded
-    @POST("security/token")
+    @POST("security/users/login")
     suspend fun login(
         @Field("username") request: String,
         @Field("password") password: String

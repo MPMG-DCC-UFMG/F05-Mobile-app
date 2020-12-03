@@ -13,24 +13,24 @@ import org.mpmg.mpapp.ui.shared.models.RequestStatus.*
 
 class CreateAccountViewModel(private val userRepository: IUserRepository) : ViewModel() {
 
-    val status = MutableLiveData<RequestStatus>()
+    val status = MutableLiveData<Pair<RequestStatus,String?>>()
 
     init {
-        status.value = NOT_STARTED
+        status.value = Pair(NOT_STARTED,null)
     }
 
     fun createUser(createAccountUI: CreateAccountUI) {
-        status.value = LOADING
+        status.value = Pair(LOADING,null)
         viewModelScope.launch(Dispatchers.IO) {
             kotlin.runCatching { userRepository.createUser(MPUserRemote(createAccountUI)) }
                 .onSuccess {
                     if (it.success) {
-                        status.postValue(SUCCESS)
+                        status.postValue(Pair(SUCCESS,null))
                     } else {
-                        status.postValue(FAILED)
+                        status.postValue(Pair(FAILED, it.error?.message))
                     }
                 }
-                .onFailure { status.postValue(FAILED) }
+                .onFailure { status.postValue(Pair(FAILED,"Erro ao comunicar com o servidor")) }
         }
     }
 }

@@ -29,7 +29,7 @@ class CreateAccountFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         createAccountUI = CreateAccountUI(context = requireContext())
         val binding: FragmentCreateAccountBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_create_account, container, false)
@@ -49,10 +49,11 @@ class CreateAccountFragment : Fragment() {
     private fun setupViewModels() {
         createAccountViewModel.status.observe(viewLifecycleOwner, Observer { status ->
             status ?: return@Observer
-            if (status == RequestStatus.SUCCESS) {
+            if (status.first == RequestStatus.SUCCESS) {
                 showSnackbar(getString(R.string.message_user_created))
                 findNavController().navigateUp()
-            } else if (status == RequestStatus.FAILED) {
+            } else if (status.first == RequestStatus.FAILED) {
+                createAccountUI.invalidMessage = status.second ?: ""
                 showSnackbar(getString(R.string.message_user_creation_failed))
             }
         })

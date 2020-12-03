@@ -7,6 +7,7 @@ import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.domain.network.models.CollectRemote
 import org.mpmg.mpapp.domain.network.models.ImageUploadResponse
 import org.mpmg.mpapp.domain.network.models.PhotoRemote
+import org.mpmg.mpapp.domain.network.models.ResponseRemote
 import org.mpmg.mpapp.domain.repositories.collect.datasources.ILocalCollectDataSource
 import org.mpmg.mpapp.domain.repositories.collect.datasources.ILocalPhotoDataSource
 import org.mpmg.mpapp.domain.repositories.collect.datasources.IRemoteCollectDataSource
@@ -55,7 +56,7 @@ class CollectRepository(
         localPhotoDataSource.deletePhotoById(photoId)
     }
 
-    override suspend fun sendCollect(collectRemote: CollectRemote): CollectRemote {
+    override suspend fun sendCollect(collectRemote: CollectRemote): ResponseRemote {
         return remoteCollectDataSource.sendCollect(collectRemote)
     }
 
@@ -63,7 +64,7 @@ class CollectRepository(
         return remotePhotoDataSource.sendImage(image)
     }
 
-    override suspend fun sendPhoto(photo: PhotoRemote): PhotoRemote {
+    override suspend fun sendPhoto(photo: PhotoRemote): ResponseRemote {
         return remotePhotoDataSource.sendPhoto(photo)
     }
 

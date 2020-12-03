@@ -1,7 +1,6 @@
 package org.mpmg.mpapp.workers
 
 import android.content.Context
-import android.content.res.Resources
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf

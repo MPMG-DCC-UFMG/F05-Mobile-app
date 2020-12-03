@@ -186,7 +186,7 @@
             android:layout_height="match_parent"
             android:background="@color/colorBlackOpaque"
             android:clickable="false"
-            android:visibility="@{createAccountViewModel.status == RequestStatus.LOADING ? View.VISIBLE : View.GONE}">
+            android:visibility="@{createAccountViewModel.status.first == RequestStatus.LOADING ? View.VISIBLE : View.GONE}">
 
             <ProgressBar
                 android:id="@+id/contentLoadingPrograssBar_loginFragment"

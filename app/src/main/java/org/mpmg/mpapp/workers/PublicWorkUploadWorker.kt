@@ -52,7 +52,11 @@ class PublicWorkUploadWorker(applicationContext: Context, parameters: WorkerPara
                     kotlin.runCatching {
                         publicWorkRepository.sendPublicWork(PublicWorkRemote(it))
                     }.onSuccess {
-                        markPublicWorkSent(publicWorkAndAddress.publicWork)
+                        if(it.success){
+                            markPublicWorkSent(publicWorkAndAddress.publicWork)
+                        }else{
+                            return Result.failure()
+                        }
                     }.onFailure {
                         return Result.failure()
                     }
@@ -112,10 +116,15 @@ class PublicWorkUploadWorker(applicationContext: Context, parameters: WorkerPara
                     kotlin.runCatching {
                         collectRepository.sendImage(image)
                     }.onSuccess {
-                        val result = runCatching {
+                        var result = true
+                        runCatching {
                             collectRepository.sendPhoto(PhotoRemote(photo, it.filepath))
+                        }.onSuccess {
+                            result = it.success
+                        }.onFailure {
+                            result = false
                         }
-                        allPhotosUploaded = allPhotosUploaded && result.isSuccess
+                        allPhotosUploaded = allPhotosUploaded && result
                     }.onFailure {
                         allPhotosUploaded = false
                     }
