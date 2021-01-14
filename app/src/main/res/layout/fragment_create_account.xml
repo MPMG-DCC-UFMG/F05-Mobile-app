@@ -8,15 +8,13 @@
 
         <import type="android.view.View" />
 
-        <import type="org.mpmg.mpapp.ui.shared.models.RequestStatus" />
-
         <variable
             name="createAccount"
             type="org.mpmg.mpapp.ui.screens.login.models.CreateAccountUI" />
 
         <variable
             name="createAccountViewModel"
-            type="org.mpmg.mpapp.ui.viewmodels.CreateAccountViewModel" />
+            type="org.mpmg.mpapp.ui.screens.login.viewmodels.CreateAccountViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -186,7 +184,7 @@
             android:layout_height="match_parent"
             android:background="@color/colorBlackOpaque"
             android:clickable="false"
-            android:visibility="@{createAccountViewModel.status.first == RequestStatus.LOADING ? View.VISIBLE : View.GONE}">
+            android:visibility="@{createAccountViewModel.isLoading ? View.VISIBLE : View.GONE}">
 
             <ProgressBar
                 android:id="@+id/contentLoadingPrograssBar_loginFragment"

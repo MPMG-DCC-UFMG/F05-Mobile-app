@@ -26,10 +26,12 @@ import org.mpmg.mpapp.domain.repositories.user.datasources.RemoteUserDataSource
 import org.mpmg.mpapp.domain.repositories.workstatus.WorkStatusRepository
 import org.mpmg.mpapp.domain.repositories.workstatus.datasources.LocalWorkStatusDataSource
 import org.mpmg.mpapp.ui.screens.collect.viewmodels.CollectFragmentViewModel
+import org.mpmg.mpapp.ui.screens.login.viewmodels.CreateAccountViewModel
+import org.mpmg.mpapp.ui.screens.login.viewmodels.LoginViewModel
 import org.mpmg.mpapp.ui.viewmodels.*
 
 val viewModelModules = module {
-    viewModel { LoginViewModel(androidApplication(), get(), get()) }
+    viewModel { LoginViewModel(get(), get()) }
     viewModel { LocationViewModel() }
     viewModel { PublicWorkViewModel(get()) }
     viewModel { ConfigurationViewModel(androidApplication()) }

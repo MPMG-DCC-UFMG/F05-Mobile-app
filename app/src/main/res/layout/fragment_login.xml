@@ -10,7 +10,7 @@
 
         <variable
             name="loginViewModel"
-            type="org.mpmg.mpapp.ui.viewmodels.LoginViewModel" />
+            type="org.mpmg.mpapp.ui.screens.login.viewmodels.LoginViewModel" />
 
         <variable
             name="loginUI"

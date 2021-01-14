@@ -16,7 +16,7 @@ import org.mpmg.mpapp.R
 import org.mpmg.mpapp.ui.screens.home.adapters.HomeOptionsAdapter
 import org.mpmg.mpapp.ui.screens.home.models.HomeOptions
 import org.mpmg.mpapp.ui.viewmodels.HomeViewModel
-import org.mpmg.mpapp.ui.viewmodels.LoginViewModel
+import org.mpmg.mpapp.ui.screens.login.viewmodels.LoginViewModel
 import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 import java.lang.Exception
 
