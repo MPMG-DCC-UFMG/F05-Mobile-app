@@ -4,9 +4,9 @@ import org.mpmg.mpapp.domain.network.api.MPApi
 import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
 import org.mpmg.mpapp.domain.network.models.ResponseRemote
 
-class RemotePublicWorkDataSource(val mpApi: MPApi) : IRemotePublicWorkDataSource {
+class RemotePublicWorkDataSource(private val mpApi: MPApi) {
 
-    override suspend fun sendPublicWork(publicWorkRemote: PublicWorkRemote): ResponseRemote {
+    suspend fun sendPublicWork(publicWorkRemote: PublicWorkRemote): ResponseRemote {
         return mpApi.sendPublicWork(publicWorkRemote)
     }
 }

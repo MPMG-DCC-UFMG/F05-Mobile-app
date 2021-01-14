@@ -11,20 +11,20 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.database.models.TypeWork
 import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
-import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
 import org.mpmg.mpapp.ui.screens.publicwork.models.AddressUI
 import org.mpmg.mpapp.ui.screens.publicwork.models.PublicWorkUI
 import org.mpmg.mpapp.ui.shared.filters.*
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 
 class PublicWorkViewModel(
-    private val publicWorkRepository: IPublicWorkRepository
+    private val publicWorkRepository: PublicWorkRepository
 ) : ViewModel() {
 
     private val TAG = PublicWorkViewModel::class.java.name
 
     private var publicWorkList: LiveData<List<PublicWorkAndAddress>> =
-        publicWorkRepository.listAllPublicWorksLive()
+        publicWorkRepository.listAllPublicWorksLive().asLiveData()
 
     private val ioScope = CoroutineScope(Dispatchers.IO + Job())
 

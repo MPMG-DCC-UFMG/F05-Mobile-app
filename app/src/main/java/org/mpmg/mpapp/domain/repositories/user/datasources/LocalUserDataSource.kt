@@ -4,14 +4,13 @@ import android.content.Context
 import org.mpmg.mpapp.domain.database.models.User
 import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 
-class LocalUserDataSource(applicationContext: Context) : BaseDataSource(applicationContext),
-    ILocalUserDataSource {
+class LocalUserDataSource(applicationContext: Context) : BaseDataSource(applicationContext) {
 
-    override fun insertUser(user: User) {
+    fun insertUser(user: User) {
         mpDatabase()?.userDAO()?.insert(user)
     }
 
-    override fun getUserByEmail(email: String): User? {
+    fun getUserByEmail(email: String): User? {
         return mpDatabase()?.userDAO()?.getUserByEmail(email)
     }
 }

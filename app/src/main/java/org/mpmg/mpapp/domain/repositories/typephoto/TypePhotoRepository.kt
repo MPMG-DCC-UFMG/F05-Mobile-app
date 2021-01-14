@@ -1,29 +1,29 @@
 package org.mpmg.mpapp.domain.repositories.typephoto
 
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 import org.mpmg.mpapp.domain.database.models.TypePhoto
-import org.mpmg.mpapp.domain.repositories.typephoto.datasources.ILocalTypePhotoDataSource
+import org.mpmg.mpapp.domain.repositories.typephoto.datasources.LocalTypePhotoDataSource
 
-class TypePhotoRepository(private val localTypePhotoDataSource: ILocalTypePhotoDataSource) :
-    ITypePhotoRepository {
+class TypePhotoRepository(private val localTypePhotoDataSource: LocalTypePhotoDataSource){
 
-    override fun insertTypePhoto(typePhoto: TypePhoto) {
+    fun insertTypePhoto(typePhoto: TypePhoto) {
         localTypePhotoDataSource.insertTypePhoto(typePhoto)
     }
 
-    override fun insertTypePhotos(typePhotos: List<TypePhoto>) {
+    fun insertTypePhotos(typePhotos: List<TypePhoto>) {
         localTypePhotoDataSource.insertTypePhotos(typePhotos)
     }
 
-    override fun listAllTypePhotos(): List<TypePhoto> {
+    fun listAllTypePhotos(): List<TypePhoto> {
         return localTypePhotoDataSource.listAllTypePhotos()
     }
 
-    override fun listAllTypePhotosLive(): LiveData<List<TypePhoto>> {
+    fun listAllTypePhotosLive(): Flow<List<TypePhoto>> {
         return localTypePhotoDataSource.listAllTypePhotosLive()
     }
 
-    override fun deleteTypePhotos() {
+    fun deleteTypePhotos() {
         localTypePhotoDataSource.deleteTypePhotos()
     }
 }

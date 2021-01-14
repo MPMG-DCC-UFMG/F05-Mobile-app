@@ -1,29 +1,29 @@
 package org.mpmg.mpapp.domain.repositories.typework
 
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 import org.mpmg.mpapp.domain.database.models.TypeWork
-import org.mpmg.mpapp.domain.repositories.typework.datasources.ILocalTypeWorkDataSource
+import org.mpmg.mpapp.domain.repositories.typework.datasources.LocalTypeWorkDataSource
 
-class TypeWorkRepository(private val localTypeWorkDataSource: ILocalTypeWorkDataSource) :
-    ITypeWorkRepository {
+class TypeWorkRepository(private val localTypeWorkDataSource: LocalTypeWorkDataSource){
 
-    override fun insertTypeWork(typeWork: TypeWork) {
+    fun insertTypeWork(typeWork: TypeWork) {
         localTypeWorkDataSource.insertTypeWork(typeWork)
     }
 
-    override fun insertTypeWorks(typeWorks: List<TypeWork>) {
+    fun insertTypeWorks(typeWorks: List<TypeWork>) {
         localTypeWorkDataSource.insertTypeWorks(typeWorks)
     }
 
-    override fun listAllTypeWorks(): List<TypeWork> {
+    fun listAllTypeWorks(): List<TypeWork> {
         return localTypeWorkDataSource.listAllTypeWorks()
     }
 
-    override fun listAllTypeWorksLive(): LiveData<List<TypeWork>> {
+    fun listAllTypeWorksLive(): Flow<List<TypeWork>> {
         return localTypeWorkDataSource.listAllTypeWorksLive()
     }
 
-    override fun deleteTypeWorks() {
+    fun deleteTypeWorks() {
         localTypeWorkDataSource.deleteTypeWorks()
     }
 }

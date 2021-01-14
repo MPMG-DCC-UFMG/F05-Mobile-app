@@ -2,29 +2,29 @@ package org.mpmg.mpapp.domain.repositories.typework.datasources
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 import org.mpmg.mpapp.domain.database.models.TypeWork
 import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 
-class LocalTypeWorkDataSource(applicationContext: Context) : BaseDataSource(applicationContext),
-    ILocalTypeWorkDataSource {
+class LocalTypeWorkDataSource(applicationContext: Context) : BaseDataSource(applicationContext) {
 
-    override fun insertTypeWork(typeWork: TypeWork) {
+    fun insertTypeWork(typeWork: TypeWork) {
         mpDatabase()!!.typeWorkDAO().insert(typeWork)
     }
 
-    override fun insertTypeWorks(typeWorks: List<TypeWork>) {
+    fun insertTypeWorks(typeWorks: List<TypeWork>) {
         mpDatabase()!!.typeWorkDAO().insertAll(typeWorks.toTypedArray())
     }
 
-    override fun listAllTypeWorks(): List<TypeWork> {
+    fun listAllTypeWorks(): List<TypeWork> {
         return mpDatabase()!!.typeWorkDAO().listAllTypeWork()
     }
 
-    override fun listAllTypeWorksLive(): LiveData<List<TypeWork>> {
+    fun listAllTypeWorksLive(): Flow<List<TypeWork>> {
         return mpDatabase()!!.typeWorkDAO().listAllTypeWorkLive()
     }
 
-    override fun deleteTypeWorks() {
+    fun deleteTypeWorks() {
         mpDatabase()!!.typeWorkDAO().deleteAll()
     }
 }

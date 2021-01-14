@@ -1,20 +1,19 @@
 package org.mpmg.mpapp.domain.repositories.association
 
 import org.mpmg.mpapp.domain.database.models.AssociationTWTP
-import org.mpmg.mpapp.domain.repositories.association.datasources.ILocalAssociationDataSource
+import org.mpmg.mpapp.domain.repositories.association.datasources.LocalAssociationDataSource
 
-class AssociationRepository(private val localAssociationDataSource: ILocalAssociationDataSource) :
-    IAssociationRepository {
+class AssociationRepository(private val localAssociationDataSource: LocalAssociationDataSource) {
 
-    override fun insertAssociation(associationTWTP: AssociationTWTP) {
+    fun insertAssociation(associationTWTP: AssociationTWTP) {
         localAssociationDataSource.insertAssociation(associationTWTP)
     }
 
-    override fun insertAssociations(associations: List<AssociationTWTP>) {
+    fun insertAssociations(associations: List<AssociationTWTP>) {
         localAssociationDataSource.insertAssociations(associations)
     }
 
-    override fun deleteAssociations() {
+    fun deleteAssociations() {
         localAssociationDataSource.deleteAssociations()
     }
 }

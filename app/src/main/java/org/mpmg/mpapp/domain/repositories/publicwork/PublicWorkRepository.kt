@@ -1,95 +1,94 @@
 package org.mpmg.mpapp.domain.repositories.publicwork
 
-import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 import org.mpmg.mpapp.domain.database.models.Address
 import org.mpmg.mpapp.domain.database.models.PublicWork
 import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
 import org.mpmg.mpapp.domain.network.models.ResponseRemote
-import org.mpmg.mpapp.domain.repositories.publicwork.datasources.ILocalPublicWorkDataSource
-import org.mpmg.mpapp.domain.repositories.publicwork.datasources.IRemotePublicWorkDataSource
+import org.mpmg.mpapp.domain.repositories.publicwork.datasources.LocalPublicWorkDataSource
+import org.mpmg.mpapp.domain.repositories.publicwork.datasources.RemotePublicWorkDataSource
 
 class PublicWorkRepository(
-    private val localPublicWorkDataSource: ILocalPublicWorkDataSource,
-    private val remotePublicWorkDataSource: IRemotePublicWorkDataSource
-) :
-    IPublicWorkRepository {
+    private val localPublicWorkDataSource: LocalPublicWorkDataSource,
+    private val remotePublicWorkDataSource: RemotePublicWorkDataSource
+) {
 
     private val TAG: String = PublicWorkRepository::class.java.simpleName
 
-    override fun insertPublicWork(publicWork: PublicWork, address: Address) {
+    fun insertPublicWork(publicWork: PublicWork, address: Address) {
         localPublicWorkDataSource.insertPublicWork(publicWork, address)
     }
 
-    override fun listAllPublicWorks(): List<PublicWorkAndAddress> {
+    fun listAllPublicWorks(): List<PublicWorkAndAddress> {
         return localPublicWorkDataSource.listAllPublicWorks()
     }
 
-    override fun listAllPublicWorksLive(): LiveData<List<PublicWorkAndAddress>> {
+    fun listAllPublicWorksLive(): Flow<List<PublicWorkAndAddress>> {
         return localPublicWorkDataSource.listAllPublicWorksLive()
     }
 
-    override fun getPublicWorkByIdLive(publicWorkId: String): LiveData<PublicWorkAndAddress> {
+    fun getPublicWorkByIdLive(publicWorkId: String): Flow<PublicWorkAndAddress> {
         return localPublicWorkDataSource.getPublicWorkByIdLive(publicWorkId)
     }
 
-    override fun getPublicWorkById(publicWorkId: String): PublicWorkAndAddress? {
+    fun getPublicWorkById(publicWorkId: String): PublicWorkAndAddress? {
         return localPublicWorkDataSource.getPublicWorkById(publicWorkId)
     }
 
-    override fun insertPublicWorks(publicWorkAndAddresses: List<PublicWorkAndAddress>) {
+    fun insertPublicWorks(publicWorkAndAddresses: List<PublicWorkAndAddress>) {
         publicWorkAndAddresses.forEach {
             insertPublicWork(it.publicWork, it.address)
         }
     }
 
-    override fun listPublicWorksByStatus(toSend: Boolean): List<PublicWorkAndAddress> {
+    fun listPublicWorksByStatus(toSend: Boolean): List<PublicWorkAndAddress> {
         return localPublicWorkDataSource.listPublicWorksByStatus(toSend)
     }
 
-    override fun listPublicWorksByStatusLive(status: Boolean): LiveData<List<PublicWork>> {
+    fun listPublicWorksByStatusLive(status: Boolean): Flow<List<PublicWork>> {
         return localPublicWorkDataSource.listPublicWorksByStatusLive(status)
     }
 
-    override suspend fun sendPublicWork(publicWorkRemote: PublicWorkRemote): ResponseRemote {
+    suspend fun sendPublicWork(publicWorkRemote: PublicWorkRemote): ResponseRemote {
         return remotePublicWorkDataSource.sendPublicWork(publicWorkRemote)
     }
 
-    override fun markPublicWorkSent(publicWorkId: String) {
+    fun markPublicWorkSent(publicWorkId: String) {
         localPublicWorkDataSource.markPublicWorkSent(publicWorkId)
     }
 
-    override fun unlinkCollectFromPublicWork(publicWorkId: String) {
+    fun unlinkCollectFromPublicWork(publicWorkId: String) {
         localPublicWorkDataSource.unlinkCollectFromPublicWork(publicWorkId)
     }
 
-    override fun listPublicWorkToSend(): List<PublicWork> {
+    fun listPublicWorkToSend(): List<PublicWork> {
         return localPublicWorkDataSource.listPublicWorkToSend()
     }
 
-    override fun listPublicWorkToSendLive(): LiveData<List<PublicWork>> {
+    fun listPublicWorkToSendLive(): Flow<List<PublicWork>> {
         return localPublicWorkDataSource.listPublicWorkToSendLive()
     }
 
-    override fun countPublicWorkToSend(): Int {
+    fun countPublicWorkToSend(): Int {
         return localPublicWorkDataSource.countPublicWorkToSend()
     }
 
-    override fun countPublicWorkToSendLive(): LiveData<Int> {
+    fun countPublicWorkToSendLive(): Flow<Int> {
         return localPublicWorkDataSource.countPublicWorkToSendLive()
     }
 
-    override fun deletePublicWork(publicWorkId: String) {
+    fun deletePublicWork(publicWorkId: String) {
         return localPublicWorkDataSource.deletePublicWork(publicWorkId)
     }
 
-    override fun insertPublicWork(publicWorkAndAddress: PublicWorkAndAddress) {
+    fun insertPublicWork(publicWorkAndAddress: PublicWorkAndAddress) {
         with(publicWorkAndAddress) {
             localPublicWorkDataSource.insertPublicWork(publicWork, address)
         }
     }
 
-    override fun updateWorkStatusPublicWork(publicWorkId: String, workStatusFlag: Int) {
+    fun updateWorkStatusPublicWork(publicWorkId: String, workStatusFlag: Int) {
         localPublicWorkDataSource.getPublicWorkById(publicWorkId)?.let {
             if (workStatusFlag != it.publicWork.userStatusFlag) {
                 it.publicWork.toSend = true

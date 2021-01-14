@@ -13,8 +13,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.database.models.Photo
-import org.mpmg.mpapp.domain.database.models.TypePhoto
-import org.mpmg.mpapp.domain.repositories.typephoto.ITypePhotoRepository
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream

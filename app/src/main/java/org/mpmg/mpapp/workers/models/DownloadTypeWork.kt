@@ -1,14 +1,14 @@
 package org.mpmg.mpapp.workers.models
 
-import org.koin.core.inject
+import org.koin.core.component.inject
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.domain.network.models.EntityVersion
 import org.mpmg.mpapp.domain.network.models.TypeWorkRemote
-import org.mpmg.mpapp.domain.repositories.typework.ITypeWorkRepository
+import org.mpmg.mpapp.domain.repositories.typework.TypeWorkRepository
 
 class DownloadTypeWork : BaseDownloadInfo<TypeWorkRemote>() {
 
-    private val typeWorkRepository: ITypeWorkRepository by inject()
+    private val typeWorkRepository: TypeWorkRepository by inject()
 
     override fun resourceId(): Int = R.string.progress_type_work
 

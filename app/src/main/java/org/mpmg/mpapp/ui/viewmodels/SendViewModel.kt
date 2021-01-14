@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.Constants.WORKER_PARAMETER_PUBLIC_WORK_ID
 import org.mpmg.mpapp.domain.database.models.PublicWork
-import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
+import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 import org.mpmg.mpapp.ui.screens.upload.models.PublicWorkUploadUI
 import org.mpmg.mpapp.workers.PublicWorkUploadWorker
 import java.util.*
@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException
 
 class SendViewModel(
     private val applicationContext: Context,
-    private val publicWorkRepository: IPublicWorkRepository
+    private val publicWorkRepository: PublicWorkRepository
 ) : ViewModel() {
 
     private val constraints = Constraints.Builder()

@@ -7,15 +7,14 @@ import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.database.models.Collect
 import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
-import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository
-import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
-import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
-import java.io.File
+import org.mpmg.mpapp.domain.repositories.collect.CollectRepository
+import org.mpmg.mpapp.domain.repositories.config.ConfigRepository
+import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 
 class CollectViewModel(
-    private val collectRepository: ICollectRepository,
-    private val configRepository: IConfigRepository,
-    private val publicWorkRepository: IPublicWorkRepository
+    private val collectRepository: CollectRepository,
+    private val configRepository: ConfigRepository,
+    private val publicWorkRepository: PublicWorkRepository
 ) : ViewModel() {
 
     private var mSelectedPublicWork: LiveData<PublicWorkAndAddress> = MutableLiveData()
@@ -51,7 +50,7 @@ class CollectViewModel(
     @WorkerThread
     private fun loadPublicWork(publicWorkId: String) {
         mSelectedPublicWork =
-            publicWorkRepository.getPublicWorkByIdLive(publicWorkId)
+            publicWorkRepository.getPublicWorkByIdLive(publicWorkId).asLiveData()
     }
 
     @WorkerThread
@@ -94,9 +93,9 @@ class CollectViewModel(
     }
 
     fun updatePublicWorkStatus(workStatusFlag: Int) {
-       currentCollect.value?.let {
-           it.publicWorkStatus = workStatusFlag
-       }
+        currentCollect.value?.let {
+            it.publicWorkStatus = workStatusFlag
+        }
     }
 
     fun updateCollect() {
@@ -116,7 +115,7 @@ class CollectViewModel(
         }
     }
 
-    fun deleteCurrentCollect(){
+    fun deleteCurrentCollect() {
         viewModelScope.launch(Dispatchers.IO) {
             val collection = currentCollect.value ?: return@launch
             collectRepository.deleteCollectById(collection.id)

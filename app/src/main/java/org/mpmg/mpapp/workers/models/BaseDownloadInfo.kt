@@ -1,13 +1,13 @@
 package org.mpmg.mpapp.workers.models
 
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.mpmg.mpapp.domain.network.models.EntityVersion
-import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
+import org.mpmg.mpapp.domain.repositories.config.ConfigRepository
 
 abstract class BaseDownloadInfo<T> : KoinComponent {
 
-    protected val configRepository: IConfigRepository by inject()
+    protected val configRepository: ConfigRepository by inject()
 
     abstract fun resourceId(): Int
 

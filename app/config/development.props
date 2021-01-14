@@ -1,3 +1,3 @@
-BASE_URL="http://10.0.2.2:8000/"
-ENVIRONMENT="development"
-TRENA_KEY="<TRENA_KEY>"
+BASE_URL="https://trena.gsi.mpmg.mp.br/f05_backend/"
+ENVIRONMENT="production"
+TRENA_KEY="DA28L9EEppwvC25tHg2X"

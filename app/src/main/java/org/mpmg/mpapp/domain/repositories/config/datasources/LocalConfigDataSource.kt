@@ -10,7 +10,7 @@ import org.mpmg.mpapp.core.Constants.PREFERENCES_TYPE_PHOTOS_VERSION_KEY
 import org.mpmg.mpapp.core.Constants.PREFERENCES_TYPE_WORKS_VERSION_KEY
 import org.mpmg.mpapp.core.Constants.PREFERENCES_WORK_STATUS_VERSION_KEY
 
-class LocalConfigDataSource(val applicationContext: Context) : ILocalConfigDataSource {
+class LocalConfigDataSource(val applicationContext: Context) {
 
     private val sharedPreferences = applicationContext.getSharedPreferences(
         Constants.PREFERENCES_MPPAPP_NAME,
@@ -24,62 +24,62 @@ class LocalConfigDataSource(val applicationContext: Context) : ILocalConfigDataS
         }
     }
 
-    override fun setLoggedUserEmail(email: String) {
+    fun setLoggedUserEmail(email: String) {
         with(sharedPreferences.edit()) {
             putString(PREFERENCES_LOGGED_USER_EMAIL, email)
             commit()
         }
     }
 
-    override fun getLoggedUserEmail(): String {
+    fun getLoggedUserEmail(): String {
         return sharedPreferences.getString(PREFERENCES_LOGGED_USER_EMAIL, "") ?: ""
     }
 
-    override fun currentTypeWorksVersion(): Int {
+    fun currentTypeWorksVersion(): Int {
         return sharedPreferences.getInt(PREFERENCES_TYPE_WORKS_VERSION_KEY, -1)
     }
 
-    override fun currentPublicWorkVersion(): Int {
+    fun currentPublicWorkVersion(): Int {
         return sharedPreferences.getInt(PREFERENCES_PUBLIC_WORK_VERSION_KEY, -1)
     }
 
-    override fun currentTypePhotosVersion(): Int {
+    fun currentTypePhotosVersion(): Int {
         return sharedPreferences.getInt(PREFERENCES_TYPE_PHOTOS_VERSION_KEY, -1)
     }
 
-    override fun currentAssociationVersion(): Int {
+    fun currentAssociationVersion(): Int {
         return sharedPreferences.getInt(PREFERENCES_ASSOCIATION_VERSION_KEY, -1)
     }
 
-    override fun currentWorkStatusVersion(): Int {
+    fun currentWorkStatusVersion(): Int {
         return sharedPreferences.getInt(PREFERENCES_WORK_STATUS_VERSION_KEY, -1)
     }
 
-    override fun currentCityVersion(): Int {
+    fun currentCityVersion(): Int {
         return sharedPreferences.getInt(PREFERENCES_CITY_VERSION_KEY, -1)
     }
 
-    override fun saveTypePhotosVersion(typePhotosVersion: Int) {
+    fun saveTypePhotosVersion(typePhotosVersion: Int) {
         saveVersion(PREFERENCES_TYPE_PHOTOS_VERSION_KEY, typePhotosVersion)
     }
 
-    override fun saveAssociationsVersion(associationVersion: Int) {
+    fun saveAssociationsVersion(associationVersion: Int) {
         saveVersion(PREFERENCES_ASSOCIATION_VERSION_KEY, associationVersion)
     }
 
-    override fun saveTypeWorksVersion(typeWorksVersion: Int) {
+    fun saveTypeWorksVersion(typeWorksVersion: Int) {
         saveVersion(PREFERENCES_TYPE_WORKS_VERSION_KEY, typeWorksVersion)
     }
 
-    override fun savePublicWorkVersion(publicWorkVersion: Int) {
+    fun savePublicWorkVersion(publicWorkVersion: Int) {
         saveVersion(PREFERENCES_PUBLIC_WORK_VERSION_KEY, publicWorkVersion)
     }
 
-    override fun saveWorkStatusVersion(workStatusVersion: Int) {
+    fun saveWorkStatusVersion(workStatusVersion: Int) {
         saveVersion(PREFERENCES_WORK_STATUS_VERSION_KEY, workStatusVersion)
     }
 
-    override fun saveCityVersion(cityVersion: Int) {
+    fun saveCityVersion(cityVersion: Int) {
         saveVersion(PREFERENCES_CITY_VERSION_KEY, cityVersion)
     }
 }

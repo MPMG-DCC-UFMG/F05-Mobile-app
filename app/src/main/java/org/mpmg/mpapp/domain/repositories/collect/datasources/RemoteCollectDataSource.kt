@@ -10,9 +10,9 @@ import org.mpmg.mpapp.domain.network.models.ResponseRemote
 import java.io.File
 
 
-class RemoteCollectDataSource(val mpApi: MPApi) : IRemoteCollectDataSource {
+class RemoteCollectDataSource(private val mpApi: MPApi) {
 
-    override suspend fun sendCollect(collectRemote: CollectRemote): ResponseRemote {
+    suspend fun sendCollect(collectRemote: CollectRemote): ResponseRemote {
         return mpApi.sendCollect(collectRemote)
     }
 }

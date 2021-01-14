@@ -4,10 +4,10 @@ import org.mpmg.mpapp.domain.network.api.MPApi
 import org.mpmg.mpapp.domain.network.models.MPUserRemote
 import org.mpmg.mpapp.domain.network.models.TokenRemote
 
-class RemoteUserDataSource(private val mpApi: MPApi) : IRemoteUserDataSource {
+class RemoteUserDataSource(private val mpApi: MPApi) {
 
-    override suspend fun createUser(mpUserRemote: MPUserRemote) = mpApi.createUser(mpUserRemote)
+    suspend fun createUser(mpUserRemote: MPUserRemote) = mpApi.createUser(mpUserRemote)
 
-    override suspend fun login(username: String, password: String): TokenRemote =
+    suspend fun login(username: String, password: String): TokenRemote =
         mpApi.login(username, password)
 }

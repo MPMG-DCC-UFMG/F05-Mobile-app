@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
+import kotlinx.coroutines.flow.Flow
 import org.mpmg.mpapp.core.interfaces.BaseDAO
 import org.mpmg.mpapp.domain.database.DatabaseConstants
 import org.mpmg.mpapp.domain.database.models.PublicWork
@@ -17,7 +18,7 @@ abstract class PublicWorkDAO :
     abstract fun listAllPublicWork(): List<PublicWork>
 
     @Query("SELECT * FROM ${DatabaseConstants.PublicWork.tableName}")
-    abstract fun listAllPublicWorkLive(): LiveData<List<PublicWork>>
+    abstract fun listAllPublicWorkLive(): Flow<List<PublicWork>>
 
     @Query(
         "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +
@@ -38,7 +39,7 @@ abstract class PublicWorkDAO :
                 "WHERE ${DatabaseConstants.PublicWork.id} = :publicWorkId"
     )
     @Transaction
-    abstract fun getPublicWorkAndAddressByIdLive(publicWorkId: String): LiveData<PublicWorkAndAddress>
+    abstract fun getPublicWorkAndAddressByIdLive(publicWorkId: String): Flow<PublicWorkAndAddress>
 
     @Query("SELECT * FROM ${DatabaseConstants.PublicWork.tableName}")
     @Transaction
@@ -46,7 +47,7 @@ abstract class PublicWorkDAO :
 
     @Query("SELECT * FROM ${DatabaseConstants.PublicWork.tableName}")
     @Transaction
-    abstract fun listAllPublicWorkAndAddressLive(): LiveData<List<PublicWorkAndAddress>>
+    abstract fun listAllPublicWorkAndAddressLive(): Flow<List<PublicWorkAndAddress>>
 
     @Query(
         "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +
@@ -59,14 +60,14 @@ abstract class PublicWorkDAO :
         "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +
                 "WHERE ${DatabaseConstants.PublicWork.toSend} = :status"
     )
-    abstract fun listAllPublicWorkByStatusLive(status: Boolean): LiveData<List<PublicWork>>
+    abstract fun listAllPublicWorkByStatusLive(status: Boolean): Flow<List<PublicWork>>
 
     @Query(
         "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +
                 "WHERE ${DatabaseConstants.PublicWork.idCollect} IS NOT NULL " +
                 "OR ${DatabaseConstants.PublicWork.toSend} IS 1"
     )
-    abstract fun listAllPublicWorkToSendLive(): LiveData<List<PublicWork>>
+    abstract fun listAllPublicWorkToSendLive(): Flow<List<PublicWork>>
 
     @Query(
         "SELECT * FROM ${DatabaseConstants.PublicWork.tableName} " +
@@ -80,7 +81,7 @@ abstract class PublicWorkDAO :
                 "WHERE ${DatabaseConstants.PublicWork.idCollect} IS NOT NULL " +
                 "OR ${DatabaseConstants.PublicWork.toSend} IS 1"
     )
-    abstract fun countPublicWorkToSendLive(): LiveData<Int>
+    abstract fun countPublicWorkToSendLive(): Flow<Int>
 
     @Query(
         "SELECT count(*) FROM ${DatabaseConstants.PublicWork.tableName} " +

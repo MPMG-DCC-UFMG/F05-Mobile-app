@@ -9,16 +9,15 @@ import org.mpmg.mpapp.domain.network.models.PhotoRemote
 import org.mpmg.mpapp.domain.network.models.ResponseRemote
 import java.io.File
 
-class RemotePhotoDataSource(val mpApi: MPApi) : IRemotePhotoDataSource {
-
-    override suspend fun sendImage(image: File): ImageUploadResponse {
+class RemotePhotoDataSource(val mpApi: MPApi) {
+    suspend fun sendImage(image: File): ImageUploadResponse {
         val requestFile =
             RequestBody.create(MediaType.parse("multipart/form-data"), image)
         val fileForm = MultipartBody.Part.createFormData("file", image.name, requestFile);
         return mpApi.sendImage(fileForm)
     }
 
-    override suspend fun sendPhoto(photo: PhotoRemote): ResponseRemote {
+    suspend fun sendPhoto(photo: PhotoRemote): ResponseRemote {
         return mpApi.sendPhoto(photo)
     }
 }

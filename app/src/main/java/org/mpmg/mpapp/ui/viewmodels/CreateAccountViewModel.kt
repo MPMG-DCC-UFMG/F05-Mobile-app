@@ -6,12 +6,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.network.models.MPUserRemote
-import org.mpmg.mpapp.domain.repositories.user.IUserRepository
+import org.mpmg.mpapp.domain.repositories.user.UserRepository
 import org.mpmg.mpapp.ui.screens.login.models.CreateAccountUI
 import org.mpmg.mpapp.ui.shared.models.RequestStatus
 import org.mpmg.mpapp.ui.shared.models.RequestStatus.*
 
-class CreateAccountViewModel(private val userRepository: IUserRepository) : ViewModel() {
+class CreateAccountViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     val status = MutableLiveData<Pair<RequestStatus,String?>>()
 

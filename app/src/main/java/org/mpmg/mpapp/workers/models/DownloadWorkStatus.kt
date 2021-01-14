@@ -1,15 +1,14 @@
 package org.mpmg.mpapp.workers.models
 
-import org.koin.core.inject
+import org.koin.core.component.inject
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.domain.network.models.AssociationTPTWRemote
 import org.mpmg.mpapp.domain.network.models.EntityVersion
 import org.mpmg.mpapp.domain.network.models.WorkStatusRemote
-import org.mpmg.mpapp.domain.repositories.workstatus.IWorkStatusRepository
+import org.mpmg.mpapp.domain.repositories.workstatus.WorkStatusRepository
 
 class DownloadWorkStatus : BaseDownloadInfo<WorkStatusRemote>() {
 
-    private val workStatusRepository: IWorkStatusRepository by inject()
+    private val workStatusRepository: WorkStatusRepository by inject()
 
     override fun resourceId(): Int = R.string.progress_work_status
 

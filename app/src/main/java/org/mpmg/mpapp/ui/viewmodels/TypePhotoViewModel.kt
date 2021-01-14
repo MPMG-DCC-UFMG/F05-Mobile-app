@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.database.models.TypePhoto
-import org.mpmg.mpapp.domain.repositories.typephoto.ITypePhotoRepository
+import org.mpmg.mpapp.domain.repositories.typephoto.TypePhotoRepository
 
-class TypePhotoViewModel(private val typePhotoRepository: ITypePhotoRepository) : ViewModel() {
+class TypePhotoViewModel(private val typePhotoRepository: TypePhotoRepository) : ViewModel() {
 
     lateinit var typePhotos: List<TypePhoto>
 

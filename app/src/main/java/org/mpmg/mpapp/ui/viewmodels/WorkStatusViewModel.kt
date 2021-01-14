@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.database.models.WorkStatus
-import org.mpmg.mpapp.domain.repositories.workstatus.IWorkStatusRepository
+import org.mpmg.mpapp.domain.repositories.workstatus.WorkStatusRepository
 
-class WorkStatusViewModel(private val workStatusRepository: IWorkStatusRepository) : ViewModel() {
+class WorkStatusViewModel(private val workStatusRepository: WorkStatusRepository) : ViewModel() {
 
     val currentWorkStatusList = MutableLiveData<List<WorkStatus>>()
 

@@ -3,6 +3,7 @@ package org.mpmg.mpapp.domain.database.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import org.mpmg.mpapp.core.interfaces.BaseDAO
 import org.mpmg.mpapp.domain.database.DatabaseConstants
 import org.mpmg.mpapp.domain.database.models.Photo
@@ -17,7 +18,7 @@ abstract class PhotoDAO : BaseDAO<Photo> {
         "SELECT * FROM ${DatabaseConstants.Photo.tableName} " +
                 "WHERE ${DatabaseConstants.Photo.idCollect} = :collectId"
     )
-    abstract fun listAllPhotosByCollectIdLive(collectId: String): LiveData<List<Photo>>
+    abstract fun listAllPhotosByCollectIdLive(collectId: String): Flow<List<Photo>>
 
     @Query(
         "SELECT * FROM ${DatabaseConstants.Photo.tableName} " +

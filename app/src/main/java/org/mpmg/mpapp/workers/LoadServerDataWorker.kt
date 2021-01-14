@@ -3,9 +3,11 @@ package org.mpmg.mpapp.workers
 import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.work.WorkerParameters
+import org.koin.core.component.KoinApiExtension
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.workers.models.*
 
+@KoinApiExtension
 class LoadServerDataWorker(applicationContext: Context, parameters: WorkerParameters) :
     BaseWorker(applicationContext, parameters) {
 

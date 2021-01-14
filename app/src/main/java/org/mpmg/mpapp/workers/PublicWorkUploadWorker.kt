@@ -7,8 +7,8 @@ import androidx.exifinterface.media.ExifInterface
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.Constants.WORKER_PARAMETER_PUBLIC_WORK_ID
 import org.mpmg.mpapp.domain.database.models.Collect
@@ -18,8 +18,8 @@ import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.domain.network.models.CollectRemote
 import org.mpmg.mpapp.domain.network.models.PhotoRemote
 import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
-import org.mpmg.mpapp.domain.repositories.collect.ICollectRepository
-import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
+import org.mpmg.mpapp.domain.repositories.collect.CollectRepository
+import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 import java.io.File
 import java.lang.NullPointerException
 
@@ -28,8 +28,8 @@ class PublicWorkUploadWorker(applicationContext: Context, parameters: WorkerPara
 
     private val TAG = PublicWorkUploadWorker::class.java.name
 
-    private val publicWorkRepository: IPublicWorkRepository by inject()
-    private val collectRepository: ICollectRepository by inject()
+    private val publicWorkRepository: PublicWorkRepository by inject()
+    private val collectRepository: CollectRepository by inject()
 
     companion object {
         const val Progress = "Progress"

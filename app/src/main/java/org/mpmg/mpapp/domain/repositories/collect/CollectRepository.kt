@@ -2,77 +2,77 @@ package org.mpmg.mpapp.domain.repositories.collect
 
 import androidx.lifecycle.LiveData
 import androidx.room.Transaction
+import kotlinx.coroutines.flow.Flow
 import org.mpmg.mpapp.domain.database.models.Collect
 import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.domain.network.models.CollectRemote
 import org.mpmg.mpapp.domain.network.models.ImageUploadResponse
 import org.mpmg.mpapp.domain.network.models.PhotoRemote
 import org.mpmg.mpapp.domain.network.models.ResponseRemote
-import org.mpmg.mpapp.domain.repositories.collect.datasources.ILocalCollectDataSource
-import org.mpmg.mpapp.domain.repositories.collect.datasources.ILocalPhotoDataSource
-import org.mpmg.mpapp.domain.repositories.collect.datasources.IRemoteCollectDataSource
-import org.mpmg.mpapp.domain.repositories.collect.datasources.IRemotePhotoDataSource
+import org.mpmg.mpapp.domain.repositories.collect.datasources.LocalCollectDataSource
+import org.mpmg.mpapp.domain.repositories.collect.datasources.LocalPhotoDataSource
+import org.mpmg.mpapp.domain.repositories.collect.datasources.RemoteCollectDataSource
+import org.mpmg.mpapp.domain.repositories.collect.datasources.RemotePhotoDataSource
 import java.io.File
 
 class CollectRepository(
-    private val localPhotoDataSource: ILocalPhotoDataSource,
-    private val localCollectDataSource: ILocalCollectDataSource,
-    private val remoteCollectDataSource: IRemoteCollectDataSource,
-    private val remotePhotoDataSource: IRemotePhotoDataSource
-) :
-    ICollectRepository {
+    private val localPhotoDataSource: LocalPhotoDataSource,
+    private val localCollectDataSource: LocalCollectDataSource,
+    private val remoteCollectDataSource: RemoteCollectDataSource,
+    private val remotePhotoDataSource: RemotePhotoDataSource
+) {
 
-    override fun listPhotosByCollectionIDLive(collectionId: String): LiveData<List<Photo>> {
+    fun listPhotosByCollectionIDLive(collectionId: String): Flow<List<Photo>> {
         return localPhotoDataSource.listPhotosByCollectionIDLive(collectionId)
     }
 
-    override fun getPhotoByID(photoId: String): Photo? {
+    fun getPhotoByID(photoId: String): Photo? {
         return localPhotoDataSource.getPhotoByID(photoId)
     }
 
-    override fun insertPhotos(photos: List<Photo>) {
+    fun insertPhotos(photos: List<Photo>) {
         localPhotoDataSource.insertPhotos(photos)
     }
 
     @Transaction
-    override fun insertCollect(collect: Collect, photos: List<Photo>) {
+    fun insertCollect(collect: Collect, photos: List<Photo>) {
         localCollectDataSource.insertCollect(collect)
         localPhotoDataSource.insertPhotos(photos)
     }
 
-    override fun getCollect(collectId: String): Collect? {
+    fun getCollect(collectId: String): Collect? {
         return localCollectDataSource.getCollectById(collectId)
     }
 
-    override fun getCollectByPublicWork(publicWorkId: String): Collect? {
+    fun getCollectByPublicWork(publicWorkId: String): Collect? {
         return localCollectDataSource.getCollectByPublicIdAndStatus(publicWorkId, false)
     }
 
-    override fun listPhotosByCollectionID(collectionId: String): List<Photo> {
+    fun listPhotosByCollectionID(collectionId: String): List<Photo> {
         return localPhotoDataSource.listPhotosByCollectionID(collectionId)
     }
 
-    override fun deletePhotoById(photoId: String) {
+    fun deletePhotoById(photoId: String) {
         localPhotoDataSource.deletePhotoById(photoId)
     }
 
-    override suspend fun sendCollect(collectRemote: CollectRemote): ResponseRemote {
+    suspend fun sendCollect(collectRemote: CollectRemote): ResponseRemote {
         return remoteCollectDataSource.sendCollect(collectRemote)
     }
 
-    override suspend fun sendImage(image: File): ImageUploadResponse {
+    suspend fun sendImage(image: File): ImageUploadResponse {
         return remotePhotoDataSource.sendImage(image)
     }
 
-    override suspend fun sendPhoto(photo: PhotoRemote): ResponseRemote {
+    suspend fun sendPhoto(photo: PhotoRemote): ResponseRemote {
         return remotePhotoDataSource.sendPhoto(photo)
     }
 
-    override fun markCollectSent(collectId: String) {
+    fun markCollectSent(collectId: String) {
         localCollectDataSource.markCollectSent(collectId)
     }
 
-    override fun deleteCollectById(collectId: String) {
+    fun deleteCollectById(collectId: String) {
         val photos = localPhotoDataSource.listPhotosByCollectionID(collectId)
         photos.forEach {
             deletePhotoById(photoId = it.id)

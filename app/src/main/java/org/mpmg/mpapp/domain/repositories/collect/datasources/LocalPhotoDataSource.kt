@@ -2,30 +2,30 @@ package org.mpmg.mpapp.domain.repositories.collect.datasources
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 import org.mpmg.mpapp.domain.database.models.Photo
 import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 import java.io.File
 
-class LocalPhotoDataSource(applicationContext: Context) : BaseDataSource(applicationContext),
-    ILocalPhotoDataSource {
+class LocalPhotoDataSource(applicationContext: Context) : BaseDataSource(applicationContext) {
 
-    override fun listPhotosByCollectionIDLive(collectionId: String): LiveData<List<Photo>> {
+    fun listPhotosByCollectionIDLive(collectionId: String): Flow<List<Photo>> {
         return mpDatabase()!!.photoDAO().listAllPhotosByCollectIdLive(collectionId)
     }
 
-    override fun getPhotoByID(photoId: String): Photo? {
+    fun getPhotoByID(photoId: String): Photo? {
         return mpDatabase()!!.photoDAO().getPhotoById(photoId)
     }
 
-    override fun insertPhotos(photos: List<Photo>) {
+    fun insertPhotos(photos: List<Photo>) {
         mpDatabase()!!.photoDAO().insertAll(photos.toTypedArray())
     }
 
-    override fun listPhotosByCollectionID(collectionId: String): List<Photo> {
+    fun listPhotosByCollectionID(collectionId: String): List<Photo> {
         return mpDatabase()!!.photoDAO().listAllPhotosByCollectId(collectionId)
     }
 
-    override fun deletePhotoById(photoId: String) {
+    fun deletePhotoById(photoId: String) {
         val photo = mpDatabase()!!.photoDAO().getPhotoById(photoId)
         photo?.let {
             deletePhotoFile(it.filepath)
@@ -35,7 +35,7 @@ class LocalPhotoDataSource(applicationContext: Context) : BaseDataSource(applica
     }
 
     private fun deletePhotoFile(filePath: String?) {
-        filePath?:return
+        filePath ?: return
 
         val file = File(filePath)
         if (file.exists()) {

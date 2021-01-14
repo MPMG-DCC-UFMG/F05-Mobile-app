@@ -4,27 +4,27 @@ import org.mpmg.mpapp.domain.database.models.User
 import org.mpmg.mpapp.domain.network.models.MPUserRemote
 import org.mpmg.mpapp.domain.network.models.ResponseRemote
 import org.mpmg.mpapp.domain.network.models.TokenRemote
-import org.mpmg.mpapp.domain.repositories.user.datasources.ILocalUserDataSource
-import org.mpmg.mpapp.domain.repositories.user.datasources.IRemoteUserDataSource
+import org.mpmg.mpapp.domain.repositories.user.datasources.LocalUserDataSource
+import org.mpmg.mpapp.domain.repositories.user.datasources.RemoteUserDataSource
 
 class UserRepository(
-    private val localUserDataSource: ILocalUserDataSource,
-    private val remoteUserDataSource: IRemoteUserDataSource
-) : IUserRepository {
+    private val localUserDataSource: LocalUserDataSource,
+    private val remoteUserDataSource: RemoteUserDataSource
+) {
 
     private val TAG: String = UserRepository::class.java.simpleName
 
-    override fun insertUser(user: User) {
+    fun insertUser(user: User) {
         localUserDataSource.insertUser(user)
     }
 
-    override fun getUserByEmail(email: String): User? {
+    fun getUserByEmail(email: String): User? {
         return localUserDataSource.getUserByEmail(email)
     }
 
-    override suspend fun createUser(mpUserRemote: MPUserRemote): ResponseRemote =
+    suspend fun createUser(mpUserRemote: MPUserRemote): ResponseRemote =
         remoteUserDataSource.createUser(mpUserRemote)
 
-    override suspend fun login(username: String, password: String): TokenRemote =
+    suspend fun login(username: String, password: String): TokenRemote =
         remoteUserDataSource.login(username, password)
 }

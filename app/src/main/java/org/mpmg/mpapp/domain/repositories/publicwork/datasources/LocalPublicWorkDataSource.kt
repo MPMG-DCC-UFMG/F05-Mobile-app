@@ -1,18 +1,17 @@
 package org.mpmg.mpapp.domain.repositories.publicwork.datasources
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.room.Transaction
+import kotlinx.coroutines.flow.Flow
 import org.mpmg.mpapp.domain.database.models.Address
 import org.mpmg.mpapp.domain.database.models.PublicWork
 import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 
-class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(applicationContext),
-    ILocalPublicWorkDataSource {
+class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(applicationContext){
 
     @Transaction
-    override fun insertPublicWork(publicWork: PublicWork, address: Address) {
+    fun insertPublicWork(publicWork: PublicWork, address: Address) {
         val oldPublicWork = mpDatabase()!!.publicWorkDAO().getPublicWorkById(publicWork.id)
         oldPublicWork?.let {
             publicWork.idCollect = oldPublicWork.idCollect ?: publicWork.idCollect
@@ -23,31 +22,31 @@ class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(ap
         mpDatabase()!!.addressDAO().insert(address)
     }
 
-    override fun getPublicWorkById(publicWorkId: String): PublicWorkAndAddress? {
+    fun getPublicWorkById(publicWorkId: String): PublicWorkAndAddress? {
         return mpDatabase()!!.publicWorkDAO().getPublicWorkAndAddressById(publicWorkId)
     }
 
-    override fun listAllPublicWorks(): List<PublicWorkAndAddress> {
+    fun listAllPublicWorks(): List<PublicWorkAndAddress> {
         return mpDatabase()!!.publicWorkDAO().listAllPublicWorkAndAddress()
     }
 
-    override fun listAllPublicWorksLive(): LiveData<List<PublicWorkAndAddress>> {
+    fun listAllPublicWorksLive(): Flow<List<PublicWorkAndAddress>> {
         return mpDatabase()!!.publicWorkDAO().listAllPublicWorkAndAddressLive()
     }
 
-    override fun getPublicWorkByIdLive(publicWorkId: String): LiveData<PublicWorkAndAddress> {
+    fun getPublicWorkByIdLive(publicWorkId: String): Flow<PublicWorkAndAddress> {
         return mpDatabase()!!.publicWorkDAO().getPublicWorkAndAddressByIdLive(publicWorkId)
     }
 
-    override fun listPublicWorksByStatus(toSend: Boolean): List<PublicWorkAndAddress> {
+    fun listPublicWorksByStatus(toSend: Boolean): List<PublicWorkAndAddress> {
         return mpDatabase()!!.publicWorkDAO().listAllPublicWorkAndAddressByStatus(toSend)
     }
 
-    override fun listPublicWorksByStatusLive(status: Boolean): LiveData<List<PublicWork>> {
+    fun listPublicWorksByStatusLive(status: Boolean): Flow<List<PublicWork>> {
         return mpDatabase()!!.publicWorkDAO().listAllPublicWorkByStatusLive(status)
     }
 
-    override fun markPublicWorkSent(publicWorkId: String) {
+    fun markPublicWorkSent(publicWorkId: String) {
         val oldPublicWork = mpDatabase()!!.publicWorkDAO().getPublicWorkById(publicWorkId)
         oldPublicWork?.let {
             it.toSend = false
@@ -55,7 +54,7 @@ class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(ap
         }
     }
 
-    override fun unlinkCollectFromPublicWork(publicWorkId: String) {
+    fun unlinkCollectFromPublicWork(publicWorkId: String) {
         val oldPublicWork = mpDatabase()!!.publicWorkDAO().getPublicWorkById(publicWorkId)
         oldPublicWork?.let {
             it.idCollect = null
@@ -63,23 +62,23 @@ class LocalPublicWorkDataSource(applicationContext: Context) : BaseDataSource(ap
         }
     }
 
-    override fun listPublicWorkToSendLive(): LiveData<List<PublicWork>> {
+    fun listPublicWorkToSendLive(): Flow<List<PublicWork>> {
         return mpDatabase()!!.publicWorkDAO().listAllPublicWorkToSendLive()
     }
 
-    override fun listPublicWorkToSend(): List<PublicWork> {
+    fun listPublicWorkToSend(): List<PublicWork> {
         return mpDatabase()!!.publicWorkDAO().listAllPublicWorkToSend()
     }
 
-    override fun countPublicWorkToSend(): Int {
+    fun countPublicWorkToSend(): Int {
         return mpDatabase()!!.publicWorkDAO().countPublicWorkToSend()
     }
 
-    override fun countPublicWorkToSendLive(): LiveData<Int> {
+    fun countPublicWorkToSendLive(): Flow<Int> {
         return mpDatabase()!!.publicWorkDAO().countPublicWorkToSendLive()
     }
 
-    override fun deletePublicWork(publicWorkId: String) {
+    fun deletePublicWork(publicWorkId: String) {
         return mpDatabase()!!.publicWorkDAO().delete(publicWorkId)
     }
 }

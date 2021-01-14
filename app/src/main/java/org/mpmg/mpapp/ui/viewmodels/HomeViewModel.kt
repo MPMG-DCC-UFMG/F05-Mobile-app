@@ -1,13 +1,10 @@
 package org.mpmg.mpapp.ui.viewmodels
 
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
+import androidx.lifecycle.asLiveData
+import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 
-class HomeViewModel(private val publicWorkRepository: IPublicWorkRepository) : ViewModel() {
+class HomeViewModel(private val publicWorkRepository: PublicWorkRepository) : ViewModel() {
 
-    val countToSendLive = publicWorkRepository.countPublicWorkToSendLive()
+    val countToSendLive = publicWorkRepository.countPublicWorkToSendLive().asLiveData()
 }

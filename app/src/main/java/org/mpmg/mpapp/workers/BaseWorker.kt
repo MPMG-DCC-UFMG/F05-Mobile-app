@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
-import org.koin.core.KoinComponent
+import org.koin.core.component.KoinApiExtension
 
+@KoinApiExtension
 abstract class BaseWorker(applicationContext: Context, parameters: WorkerParameters) :
-    CoroutineWorker(applicationContext, parameters), KoinComponent {
+    CoroutineWorker(applicationContext, parameters) {
 
     companion object {
         const val Message = "Message"

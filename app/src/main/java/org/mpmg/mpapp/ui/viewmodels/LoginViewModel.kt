@@ -9,15 +9,15 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.database.models.User
-import org.mpmg.mpapp.domain.repositories.config.IConfigRepository
-import org.mpmg.mpapp.domain.repositories.user.IUserRepository
+import org.mpmg.mpapp.domain.repositories.config.ConfigRepository
+import org.mpmg.mpapp.domain.repositories.user.UserRepository
 import org.mpmg.mpapp.ui.shared.models.RequestStatus
 
 
 class LoginViewModel(
     val applicationContext: Application,
-    private val userRepository: IUserRepository,
-    private val configRepository: IConfigRepository
+    private val userRepository: UserRepository,
+    private val configRepository: ConfigRepository
 ) : AndroidViewModel(applicationContext) {
 
     fun checkUserLogged(): Boolean = checkFirebaseSignedAccount()

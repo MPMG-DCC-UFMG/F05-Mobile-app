@@ -1,15 +1,14 @@
 package org.mpmg.mpapp.workers.models
 
-import org.koin.core.inject
+import org.koin.core.component.inject
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.domain.network.models.AssociationTPTWRemote
 import org.mpmg.mpapp.domain.network.models.EntityVersion
 import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
-import org.mpmg.mpapp.domain.repositories.publicwork.IPublicWorkRepository
+import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 
 class DownloadPublicWork : BaseDownloadInfo<PublicWorkRemote>() {
 
-    private val publicWorkRepository: IPublicWorkRepository by inject()
+    private val publicWorkRepository: PublicWorkRepository by inject()
 
     override fun resourceId(): Int = R.string.progress_public_work
 

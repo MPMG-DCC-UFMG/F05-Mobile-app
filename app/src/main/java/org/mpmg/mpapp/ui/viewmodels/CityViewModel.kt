@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.database.models.City
-import org.mpmg.mpapp.domain.repositories.city.ICityRepository
+import org.mpmg.mpapp.domain.repositories.city.CityRepository
 
-class CityViewModel(private val cityRepository: ICityRepository) : ViewModel() {
+class CityViewModel(private val cityRepository: CityRepository) : ViewModel() {
 
     private lateinit var citiesList : List<City>
 

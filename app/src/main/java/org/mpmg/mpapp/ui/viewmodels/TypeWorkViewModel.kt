@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mpmg.mpapp.domain.database.models.TypeWork
-import org.mpmg.mpapp.domain.repositories.typework.ITypeWorkRepository
+import org.mpmg.mpapp.domain.repositories.typework.TypeWorkRepository
 
-class TypeWorkViewModel(private val typeWorkRepository: ITypeWorkRepository) : ViewModel() {
+class TypeWorkViewModel(private val typeWorkRepository: TypeWorkRepository) : ViewModel() {
 
     private lateinit var typeOfWorkList: List<TypeWork>
 
