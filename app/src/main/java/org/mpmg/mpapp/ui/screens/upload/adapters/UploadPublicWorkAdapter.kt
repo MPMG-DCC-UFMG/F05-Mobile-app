@@ -4,11 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.ui.screens.upload.delegates.UploadPublicWorkItemDelegate
 import org.mpmg.mpapp.ui.screens.upload.models.PublicWorkUploadUI
 import org.mpmg.mpapp.ui.shared.delegates.StatusAdapterDelegate
-import org.mpmg.mpapp.ui.viewmodels.SendViewModel
 
 class UploadPublicWorkAdapter() :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

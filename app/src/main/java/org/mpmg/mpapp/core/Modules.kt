@@ -26,8 +26,10 @@ import org.mpmg.mpapp.domain.repositories.user.datasources.RemoteUserDataSource
 import org.mpmg.mpapp.domain.repositories.workstatus.WorkStatusRepository
 import org.mpmg.mpapp.domain.repositories.workstatus.datasources.LocalWorkStatusDataSource
 import org.mpmg.mpapp.ui.screens.collect.viewmodels.CollectFragmentViewModel
+import org.mpmg.mpapp.ui.screens.home.viewmodels.HomeViewModel
 import org.mpmg.mpapp.ui.screens.login.viewmodels.CreateAccountViewModel
 import org.mpmg.mpapp.ui.screens.login.viewmodels.LoginViewModel
+import org.mpmg.mpapp.ui.screens.upload.viewmodels.SendViewModel
 import org.mpmg.mpapp.ui.viewmodels.*
 
 val viewModelModules = module {

@@ -1,72 +1,61 @@
 package org.mpmg.mpapp.ui.screens.upload.fragments
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_public_work_send.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.core.extensions.observe
+import org.mpmg.mpapp.databinding.FragmentPublicWorkSendBinding
+import org.mpmg.mpapp.ui.screens.base.MVVMFragment
 import org.mpmg.mpapp.ui.screens.upload.adapters.UploadPublicWorkAdapter
-import org.mpmg.mpapp.ui.viewmodels.SendViewModel
+import org.mpmg.mpapp.ui.screens.upload.viewmodels.SendViewModel
 
-class UploadDataFragment : Fragment() {
+class UploadDataFragment : MVVMFragment<SendViewModel, FragmentPublicWorkSendBinding>() {
 
     private val TAG = UploadDataFragment::class.java.name
 
-    private val sendViewModel: SendViewModel by viewModel()
-
     private lateinit var uploadPublicWorkAdapter: UploadPublicWorkAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_public_work_send, container, false)
-    }
+    override val viewModel: SendViewModel by viewModel()
+    override val layout: Int = R.layout.fragment_public_work_send
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        sendViewModel.loadPublicWorksToSend()
+    override fun initViews() {
+        viewModel.loadPublicWorksToSend()
         setupRecyclerView()
-        setupListeners()
-        setupViewModels()
     }
 
-    private fun setupRecyclerView() {
-        initAdapter()
-        recyclerView_sendFragment_list.adapter = uploadPublicWorkAdapter
-        recyclerView_sendFragment_list.layoutManager = LinearLayoutManager(requireActivity())
-    }
+    override fun initObservers() {
+        observe(viewModel.publicWorksMediated) { publicWorkList ->
 
-    private fun initAdapter() {
-        uploadPublicWorkAdapter = UploadPublicWorkAdapter()
-    }
+            uploadPublicWorkAdapter.updatePublicWorksList(publicWorkList)
 
-    private fun setupListeners() {
-        materialButton_sendFragment_send.setOnClickListener {
-            sendViewModel.sendData()
+            setupSendButtonVisibility(publicWorkList.size)
         }
     }
 
-    private fun setupViewModels() {
-        sendViewModel.getPublicWorkList()
-            .observe(viewLifecycleOwner, Observer { publicWorkList ->
-                publicWorkList ?: return@Observer
-
-                uploadPublicWorkAdapter.updatePublicWorksList(publicWorkList)
-
-                setupSendButtonVisibility(publicWorkList.size)
-            })
+    override fun initListeners() {
+        with(binding) {
+            materialButtonSendFragmentSend.setOnClickListener {
+                viewModel.sendData()
+            }
+        }
     }
 
+
+    private fun setupRecyclerView() {
+        uploadPublicWorkAdapter = UploadPublicWorkAdapter()
+        with(binding) {
+            recyclerViewSendFragmentList.adapter = uploadPublicWorkAdapter
+            recyclerViewSendFragmentList.layoutManager = LinearLayoutManager(requireActivity())
+        }
+    }
+
+
     private fun setupSendButtonVisibility(listSize: Int) {
-        materialButton_sendFragment_send.visibility = if (listSize == 0) View.GONE else View.VISIBLE
+        with(binding) {
+            materialButtonSendFragmentSend.visibility =
+                if (listSize == 0) View.GONE else View.VISIBLE
+        }
     }
 
 }

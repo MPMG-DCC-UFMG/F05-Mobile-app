@@ -1,4 +1,4 @@
-package org.mpmg.mpapp.ui.viewmodels
+package org.mpmg.mpapp.ui.screens.upload.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.*
@@ -9,6 +9,7 @@ import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.Constants.WORKER_PARAMETER_PUBLIC_WORK_ID
 import org.mpmg.mpapp.domain.database.models.PublicWork
 import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
+import org.mpmg.mpapp.ui.screens.base.MVVMViewModel
 import org.mpmg.mpapp.ui.screens.upload.models.PublicWorkUploadUI
 import org.mpmg.mpapp.workers.PublicWorkUploadWorker
 import java.util.*
@@ -17,13 +18,13 @@ import java.util.concurrent.ExecutionException
 class SendViewModel(
     private val applicationContext: Context,
     private val publicWorkRepository: PublicWorkRepository
-) : ViewModel() {
+) : MVVMViewModel() {
 
     private val constraints = Constraints.Builder()
         .setRequiredNetworkType(NetworkType.CONNECTED)
         .build()
 
-    private val publicWorksMediated = MutableLiveData<List<PublicWorkUploadUI>>()
+    val publicWorksMediated = MutableLiveData<List<PublicWorkUploadUI>>()
 
     private val workManagerInstance = WorkManager.getInstance(applicationContext)
 
