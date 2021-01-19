@@ -27,6 +27,7 @@ import org.mpmg.mpapp.domain.repositories.user.UserRepository
 import org.mpmg.mpapp.ui.screens.base.MVVMViewModel
 import org.mpmg.mpapp.ui.screens.login.fragments.LoginFragment.Companion.RC_GOOGLE_SIGN_IN
 import org.mpmg.mpapp.ui.screens.login.models.LoginUI
+import org.mpmg.mpapp.ui.shared.models.RequestStatus
 
 
 class LoginViewModel(
@@ -50,7 +51,7 @@ class LoginViewModel(
         }
     }
 
-    private fun checkUserLogged(): Boolean = checkFirebaseSignedAccount()
+    fun checkUserLogged(): Boolean = checkFirebaseSignedAccount()
 
     private fun checkFirebaseSignedAccount(): Boolean {
         val firebaseAuth = FirebaseAuth.getInstance()
@@ -62,7 +63,7 @@ class LoginViewModel(
         } ?: false
     }
 
-    private fun addUserToDb(userName: String, userEmail: String) {
+    fun addUserToDb(userName: String, userEmail: String) {
         viewModelScope.launch(Dispatchers.IO) {
             userRepository.insertUser(
                 User(
@@ -73,26 +74,24 @@ class LoginViewModel(
         }
     }
 
-    private suspend fun authWithMPServer(userName: String, password: String) {
+    fun authWithMPServer(userName: String, password: String) {
         isLoading.postValue(true)
-        kotlin.runCatching {
-            userRepository.login(userName, password)
-        }.onSuccess {
-            isLoading.postValue(false)
-            navigateToSetup.postValue(true)
-        }.onFailure {
-            isLoading.postValue(false)
+        viewModelScope.launch {
+            kotlin.runCatching {
+                userRepository.login(userName, password)
+            }.onSuccess {
+                isLoading.postValue(false)
+                navigateToSetup.postValue(true)
+            }.onFailure {
+                isLoading.postValue(false)
+            }
         }
     }
 
-    private fun logIn(userEmail: String) {
+    fun logIn(userEmail: String) {
         viewModelScope.launch(Dispatchers.IO) {
             configRepository.setLoggedUserEmail(userEmail)
         }
-    }
-
-    fun logout() {
-        FirebaseAuth.getInstance().signOut()
     }
 
     fun signInTwitter(activity: Activity) {
@@ -142,7 +141,7 @@ class LoginViewModel(
         activity.startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN)
     }
 
-    private fun handleSigIn(task: Task<AuthResult>, activity: Activity) {
+    fun handleSigIn(task: Task<AuthResult>, activity: Activity) {
         isLoading.postValue(false)
         if (task.isSuccessful) {
             val user = firebaseAuth.currentUser ?: throw NullPointerException()
@@ -207,7 +206,7 @@ class LoginViewModel(
         )
     }
 
-    private fun storeUser(userEmail: String, userName: String) {
+    fun storeUser(userEmail: String, userName: String) {
         logIn(userEmail)
         addUserToDb(userName, userEmail)
         navigateToSetup.postValue(true)
