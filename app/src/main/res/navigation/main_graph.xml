@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/setupApplicationFragment"
-        android:name="org.mpmg.mpapp.ui.screens.setup.SetupApplicationFragment"
+        android:name="org.mpmg.mpapp.ui.screens.setup.fragments.SetupApplicationFragment"
         android:label="fragment_setup_application"
         tools:layout="@layout/fragment_setup_application">
         <action

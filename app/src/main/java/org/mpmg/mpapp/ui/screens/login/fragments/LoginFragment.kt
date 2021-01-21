@@ -1,6 +1,7 @@
 package org.mpmg.mpapp.ui.screens.login.fragments
 
 import android.content.Intent
+import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.util.Log
 import androidx.navigation.fragment.findNavController
@@ -49,7 +50,7 @@ class LoginFragment : MVVMFragment<LoginViewModel, FragmentLoginBinding>() {
         binding.loginUI = viewModel.loginUI
     }
 
-    override fun initViews() {
+    override fun initViews(savedInstanceState: Bundle?) {
         setupListeners()
         setupFacebookLogin()
         setupTexts()

@@ -1,5 +1,6 @@
 package org.mpmg.mpapp.ui.screens.home.fragments
 
+import android.os.Bundle
 import android.util.Log
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +28,7 @@ class HomeFragment : MVVMFragment<HomeViewModel, FragmentCreateAccountBinding>()
 
     private val publicWorkViewModel: PublicWorkViewModel by sharedViewModel()
 
-    override fun initViews() {
+    override fun initViews(savedInstanceState: Bundle?) {
         initRecyclerView()
         initOptions()
     }

@@ -7,7 +7,6 @@ import android.content.ServiceConnection
 import android.location.Location
 import android.os.Bundle
 import android.os.IBinder
-import android.os.Message
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -15,10 +14,9 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.core.extensions.observe
 import org.mpmg.mpapp.services.LocationService
-import org.mpmg.mpapp.ui.viewmodels.CityViewModel
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
-import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private var isBoundToLocationService: Boolean = false
 
     private val locationViewModel: LocationViewModel by viewModel()
+    private val mainActivityViewModel: MainActivityViewModel by viewModel()
 
     private val mLocationListener = object : LocationService.LocationServiceListener {
         override fun onNewLocation(location: Location) {
@@ -52,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupNavigationController()
+        setupObservers()
 
         if (!isBoundToLocationService) {
             startLocationService()
@@ -63,6 +63,13 @@ class MainActivity : AppCompatActivity() {
         if (isBoundToLocationService) {
             unbindService(mConnection)
             isBoundToLocationService = false
+        }
+    }
+
+    private fun setupObservers() {
+        observe(mainActivityViewModel.snackbarMessage) {
+            it?:return@observe
+            launchSnackbar(it)
         }
     }
 

@@ -70,7 +70,7 @@
             android:singleLine="false"
             android:paddingStart="@dimen/margin_small"
             android:paddingEnd="@dimen/height_default"
-            android:text="@{locationViewModel.geocodingAddress.getAddressLine(0)}"
+            android:text="@{locationViewModel.currentAddress.getAddressLine(0)}"
             android:textSize="@dimen/font_default"
             app:layout_constraintBottom_toTopOf="@+id/materialButton_mapFragment_confirm"
             app:layout_constraintEnd_toEndOf="parent"

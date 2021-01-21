@@ -25,18 +25,20 @@ import org.mpmg.mpapp.domain.repositories.user.datasources.LocalUserDataSource
 import org.mpmg.mpapp.domain.repositories.user.datasources.RemoteUserDataSource
 import org.mpmg.mpapp.domain.repositories.workstatus.WorkStatusRepository
 import org.mpmg.mpapp.domain.repositories.workstatus.datasources.LocalWorkStatusDataSource
+import org.mpmg.mpapp.ui.MainActivityViewModel
 import org.mpmg.mpapp.ui.screens.collect.viewmodels.CollectFragmentViewModel
 import org.mpmg.mpapp.ui.screens.home.viewmodels.HomeViewModel
 import org.mpmg.mpapp.ui.screens.login.viewmodels.CreateAccountViewModel
 import org.mpmg.mpapp.ui.screens.login.viewmodels.LoginViewModel
+import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.AddPublicWorkViewModel
+import org.mpmg.mpapp.ui.screens.setup.viewmodels.ConfigurationViewModel
 import org.mpmg.mpapp.ui.screens.upload.viewmodels.SendViewModel
 import org.mpmg.mpapp.ui.viewmodels.*
 
 val viewModelModules = module {
-    viewModel { LoginViewModel(get(), get()) }
     viewModel { LocationViewModel() }
     viewModel { PublicWorkViewModel(get()) }
-    viewModel { ConfigurationViewModel(androidApplication()) }
+
     viewModel { TypeWorkViewModel(get()) }
     viewModel { CollectViewModel(get(), get(), get()) }
     viewModel { PhotoViewModel() }
@@ -47,8 +49,12 @@ val viewModelModules = module {
     viewModel { TypePhotoViewModel(get()) }
 
     // ViewModels for UI
+    viewModel { LoginViewModel(get(), get()) }
+    viewModel { ConfigurationViewModel(androidApplication()) }
     viewModel { CollectFragmentViewModel() }
     viewModel { CreateAccountViewModel(get()) }
+    viewModel { MainActivityViewModel() }
+    viewModel { AddPublicWorkViewModel(get(), get(), get()) }
 }
 
 val repositoriesModules = module {

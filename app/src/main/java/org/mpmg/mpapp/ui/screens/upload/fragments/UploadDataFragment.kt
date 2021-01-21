@@ -1,5 +1,6 @@
 package org.mpmg.mpapp.ui.screens.upload.fragments
 
+import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,7 +20,7 @@ class UploadDataFragment : MVVMFragment<SendViewModel, FragmentPublicWorkSendBin
     override val viewModel: SendViewModel by viewModel()
     override val layout: Int = R.layout.fragment_public_work_send
 
-    override fun initViews() {
+    override fun initViews(savedInstanceState: Bundle?) {
         viewModel.loadPublicWorksToSend()
         setupRecyclerView()
     }

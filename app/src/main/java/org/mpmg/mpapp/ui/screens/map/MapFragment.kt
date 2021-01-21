@@ -2,31 +2,24 @@ package org.mpmg.mpapp.ui.screens.map
 
 import android.location.Location
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.android.synthetic.main.fragment_map.*
-import kotlinx.android.synthetic.main.fragment_map.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.Constants.DEFAULT_MAP_ZOOM
 import org.mpmg.mpapp.core.extensions.toLatLng
 import org.mpmg.mpapp.databinding.FragmentMapBinding
+import org.mpmg.mpapp.ui.screens.base.MVVMFragment
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
-import org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel
 
-class MapFragment : Fragment(), OnMapReadyCallback {
+class MapFragment : MVVMFragment<LocationViewModel, FragmentMapBinding>(), OnMapReadyCallback {
 
     private val TAG = MapFragment::class.java.name
 
-    private val locationViewModel by sharedViewModel<LocationViewModel>()
-    private val publicWorkViewModel by sharedViewModel<PublicWorkViewModel>()
+    override val viewModel: LocationViewModel by sharedViewModel<LocationViewModel>()
+    override val layout: Int = R.layout.fragment_map
 
     private lateinit var mapView: MapView
     private var mMap: GoogleMap? = null
@@ -37,65 +30,62 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         removeFirstLocationObserver()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding: FragmentMapBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_map, container, false)
-        binding.locationViewModel = locationViewModel
-        binding.lifecycleOwner = this
+    override fun initBindings() {
+        binding.locationViewModel = viewModel
+    }
 
-        mapView = binding.root.mapView_mapFragment
-        mapView.apply {
-            onCreate(savedInstanceState)
-            onResume()
-            try {
-                MapsInitializer.initialize(activity?.applicationContext)
-            } catch (e: Exception) {
-                e.printStackTrace()
+    override fun initViews(savedInstanceState: Bundle?) {
+        initMap(savedInstanceState)
+    }
+
+    override fun initListeners() {
+        with(binding) {
+            materialButtonMapFragmentConfirm.setOnClickListener {
+                val location = mMap?.cameraPosition?.target ?: return@setOnClickListener
+                viewModel.setSelectedLocation(location)
+                viewModel.cleanCurrentAddress()
+                navigateBack()
             }
-            getMapAsync(::onMapReady)
-        }
 
-        return binding.root
+            materialButtonMapFragmentCancel.setOnClickListener {
+                viewModel.cleanLocations()
+                navigateBack()
+            }
+
+            textViewMapFragmentReverseGeocoding.setOnClickListener {
+                textViewMapFragmentReverseGeocoding.text =
+                    getText(R.string.label_loading_address)
+            }
+
+            materialButtonMapFragmentRefresh.setOnClickListener {
+                searchAddress()
+            }
+        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setupListeners()
-    }
-
-    private fun setupListeners() {
-        materialButton_mapFragment_confirm.setOnClickListener {
-            val location = mMap?.cameraPosition?.target ?: return@setOnClickListener
-            publicWorkViewModel.updateCurrPublicWorkLocation(location)
-            applyGeocodingAddress()
-            navigateBack()
-        }
-
-        materialButton_mapFragment_cancel.setOnClickListener {
-            navigateBack()
-        }
-
-        textView_mapFragment_reverseGeocoding.setOnClickListener {
-            it.textView_mapFragment_reverseGeocoding.text = getText(R.string.label_loading_address)
-        }
-
-        materialButton_mapFragment_refresh.setOnClickListener {
-            searchAddress()
+    private fun initMap(savedInstanceState: Bundle?) {
+        with(binding) {
+            mapView = mapViewMapFragment
+            mapView.apply {
+                onCreate(savedInstanceState)
+                onResume()
+                try {
+                    MapsInitializer.initialize(activity?.applicationContext)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+                getMapAsync(::onMapReady)
+            }
         }
     }
 
     private fun searchAddress() {
         val cameraCenter = mMap?.cameraPosition?.target ?: return
-        locationViewModel.searchAddress(requireContext(),cameraCenter)
+        viewModel.searchAddress(requireContext(), cameraCenter)
     }
 
     private fun removeFirstLocationObserver() {
-        locationViewModel.getCurrentLocationLiveData().removeObserver(firstLocationObserver)
+        viewModel.getCurrentLocationLiveData().removeObserver(firstLocationObserver)
     }
 
     private fun centerCameraOnPosition(latLng: LatLng) {
@@ -105,15 +95,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private fun navigateBack() {
         findNavController().navigate(R.id.action_mapFragment_pop)
-        locationViewModel.clearAddress()
     }
 
     override fun onMapReady(map: GoogleMap?) {
         mMap = map
         mMap?.apply {
             isIndoorEnabled = false
-
-            locationViewModel.getCurrentLocationLiveData()
+            viewModel.getCurrentLocationLiveData()
                 .observe(viewLifecycleOwner, firstLocationObserver)
         }
     }
@@ -136,10 +124,5 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
-    }
-
-    private fun applyGeocodingAddress() {
-        val address = locationViewModel.geocodingAddress.value ?: return
-        publicWorkViewModel.fromGeocoding(address)
     }
 }

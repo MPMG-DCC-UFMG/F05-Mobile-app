@@ -23,6 +23,7 @@ class CreateAccountFragment : MVVMFragment<CreateAccountViewModel, FragmentCreat
 
     override fun initObservers() {
         observe(viewModel.userCreated) {
+            it?:return@observe
             if (it) {
                 findNavController().navigateUp()
             }
