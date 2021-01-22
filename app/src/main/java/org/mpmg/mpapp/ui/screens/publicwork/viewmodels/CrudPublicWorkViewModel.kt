@@ -2,6 +2,7 @@ package org.mpmg.mpapp.ui.screens.publicwork.viewmodels
 
 import android.location.Address
 import android.location.Location
+import androidx.annotation.WorkerThread
 import androidx.databinding.Observable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
@@ -17,17 +18,17 @@ import org.mpmg.mpapp.ui.screens.base.MVVMViewModel
 import org.mpmg.mpapp.ui.screens.publicwork.models.AddressUI
 import org.mpmg.mpapp.ui.screens.publicwork.models.PublicWorkUI
 
-class AddPublicWorkViewModel(
+class CrudPublicWorkViewModel(
     private val publicWorkRepository: PublicWorkRepository,
     private val typeWorkRepository: TypeWorkRepository,
-    private val cityRepository: CityRepository
+    cityRepository: CityRepository
 ) :
     MVVMViewModel() {
 
-    private val TAG = AddPublicWorkViewModel::class.java.name
+    private val TAG = CrudPublicWorkViewModel::class.java.name
 
-    lateinit var currentPublicWork: PublicWorkUI
-    lateinit var currentAddress: AddressUI
+    val currentPublicWork = MutableLiveData<PublicWorkUI>()
+    val currentAddress = MutableLiveData<AddressUI>()
 
     val currentTypeWork: MutableLiveData<TypeWork> = MutableLiveData<TypeWork>()
     val isPublicWorkValid: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
@@ -49,6 +50,12 @@ class AddPublicWorkViewModel(
         newCurrentPublicWorkAddress()
     }
 
+    fun startPublicWork(publicWorkId: String?) {
+        if (publicWorkId != null) {
+            applyEditMode(publicWorkId)
+        }
+    }
+
     private fun newCurrentPublicWorkAddress() {
         val publicWork = PublicWorkUI()
         val address = AddressUI()
@@ -57,20 +64,39 @@ class AddPublicWorkViewModel(
         updateCurrentPublicWorkAddress(publicWork, address)
     }
 
+    private fun applyEditMode(publicWorkId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            publicWorkRepository.getPublicWorkById(publicWorkId)?.let { publicWorkAndAddress ->
+                val publicWorkUI = PublicWorkUI(publicWorkAndAddress.publicWork)
+                val addressUI = AddressUI(publicWorkAndAddress.address)
+                isNewPublicWork.postValue(false)
+                updateTypeWorkByFlag(publicWorkAndAddress.publicWork.typeWorkFlag)
+
+                updateCurrentPublicWorkAddress(publicWorkUI, addressUI)
+            }
+        }
+    }
+
+    @WorkerThread
+    private fun updateTypeWorkByFlag(typeWorkFlag: Int) {
+        val typeWork = typeWorkRepository.getTypeOfWorkFromFlag(typeWorkFlag)
+        currentTypeWork.postValue(typeWork)
+    }
+
     private fun updateCurrentPublicWorkAddress(publicWorkUI: PublicWorkUI, addressUI: AddressUI) {
         publicWorkUI.addOnPropertyChangedCallback(observableCallback)
         addressUI.addOnPropertyChangedCallback(observableCallback)
 
-        currentPublicWork = publicWorkUI
-        currentAddress = addressUI
+        currentPublicWork.postValue(publicWorkUI)
+        currentAddress.postValue(addressUI)
     }
 
     fun isFormValid(): Boolean {
-        return currentAddress.isValid() && currentPublicWork.isValid()
+        return currentAddress.value?.isValid() ?: false && currentPublicWork.value?.isValid() ?: false
     }
 
     fun isLocationValid(): Boolean {
-        return currentAddress.isLocationValid()
+        return currentAddress.value?.isLocationValid() ?: false
     }
 
     fun setInitialTypeWork(typeWork: TypeWork) {
@@ -84,8 +110,8 @@ class AddPublicWorkViewModel(
     }
 
     fun addPublicWork() {
-        val publicWork = currentPublicWork.toPublicWorkDB()
-        val address = currentAddress.toAddressDB()
+        val publicWork = currentPublicWork.value?.toPublicWorkDB() ?: return
+        val address = currentAddress.value?.toAddressDB() ?: return
 
         viewModelScope.launch(Dispatchers.IO) {
             val typeWork = currentTypeWork.value ?: return@launch
@@ -98,19 +124,23 @@ class AddPublicWorkViewModel(
     }
 
     fun updateCurrPublicWorkLocation(location: LatLng) {
-        currentAddress.apply {
+        val address = currentAddress.value ?: return
+        address.apply {
             latitude = location.latitude
             longitude = location.longitude
         }
+        currentAddress.postValue(address)
     }
 
     fun fromGeocoding(address: Address) {
-        currentAddress.city = address.subAdminArea ?: ""
-        currentAddress.street = address.thoroughfare ?: ""
-        currentAddress.neighborhood = address.subLocality ?: ""
-        currentAddress.number = address.subThoroughfare ?: ""
-        currentAddress.cep = address.postalCode ?: ""
-        currentAddress.latitude = address.latitude
-        currentAddress.longitude = address.longitude
+        val currAddress = currentAddress.value ?: return
+        currAddress.city = address.subAdminArea ?: ""
+        currAddress.street = address.thoroughfare ?: ""
+        currAddress.neighborhood = address.subLocality ?: ""
+        currAddress.number = address.subThoroughfare ?: ""
+        currAddress.cep = address.postalCode ?: ""
+        currAddress.latitude = address.latitude
+        currAddress.longitude = address.longitude
+        currentAddress.postValue(currAddress)
     }
 }

@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.screens.publicwork.fragments.PublicWorkFilterFragment">
+    tools:context=".ui.screens.publicwork.fragments.list.PublicWorkFilterFragment">
 
     <data>
 
         <variable
             name="publicWorkViewModel"
-            type="org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel" />
+            type="org.mpmg.mpapp.ui.screens.publicwork.viewmodels.PublicWorkListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,10 +60,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_default"
             android:src="@drawable/ic_chevron_down"
-            android:tint="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="@+id/textView_filterFragment_typeOfWork"
             app:layout_constraintEnd_toEndOf="@+id/textView_filterFragment_typeOfWork"
             app:layout_constraintTop_toTopOf="@+id/textView_filterFragment_typeOfWork"
+            app:tint="@color/colorWhite"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -142,10 +142,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_medium"
             android:src="@drawable/ic_check"
-            android:tint="@color/colorGreenMP"
             app:layout_constraintBottom_toBottomOf="@+id/checkbox_filterFragment_complete"
             app:layout_constraintEnd_toEndOf="@+id/checkbox_filterFragment_complete"
             app:layout_constraintTop_toTopOf="@+id/checkbox_filterFragment_complete"
+            app:tint="@color/colorGreenMP"
             tools:ignore="ContentDescription" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
@@ -164,10 +164,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_medium"
             android:src="@drawable/ic_sent"
-            android:tint="@color/colorBlue1"
             app:layout_constraintBottom_toBottomOf="@+id/checkbox_filterFragment_sent"
             app:layout_constraintEnd_toEndOf="@+id/checkbox_filterFragment_sent"
-            app:layout_constraintTop_toTopOf="@+id/checkbox_filterFragment_sent" />
+            app:layout_constraintTop_toTopOf="@+id/checkbox_filterFragment_sent"
+            app:tint="@color/colorBlue1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

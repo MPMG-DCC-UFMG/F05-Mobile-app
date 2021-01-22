@@ -73,7 +73,6 @@ class CollectViewModel(
 
     fun getPublicWork(): LiveData<PublicWorkAndAddress> = mSelectedPublicWork
 
-    fun getPhotoList(): LiveData<MutableMap<String, Photo>> = mPhotoList
 
     fun addPhoto(photo: Photo) {
         mPhotoList.value?.let {
@@ -122,7 +121,6 @@ class CollectViewModel(
 
             val currentPublicWorkAndAddress = mSelectedPublicWork.value ?: return@launch
             publicWorkRepository.unlinkCollectFromPublicWork(currentPublicWorkAndAddress.publicWork.id)
-
         }
     }
 

@@ -1,24 +1,35 @@
-package org.mpmg.mpapp.ui.screens.base
+package org.mpmg.mpapp.ui.screens.publicwork.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_base.*
+import org.koin.android.ext.android.getKoin
+import org.koin.core.qualifier.named
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.ui.screens.publicwork.fragments.list.PublicWorkListFragment
 
-class BaseFragment : Fragment() {
+class PublicWorkBaseFragment : Fragment() {
 
-    private val TAG = BaseFragment::class.java.name
+    private val TAG = PublicWorkBaseFragment::class.java.name
 
     lateinit var navController: NavController
+
+    private val session = getKoin().getOrCreateScope(
+        PublicWorkListFragment.sessionName, named(
+            PublicWorkListFragment.TAG
+        )
+    )
+
+    override fun onDestroy() {
+        session.close()
+        super.onDestroy()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +51,7 @@ class BaseFragment : Fragment() {
             bottomNavigationView_baseFragment.setupWithNavController(navController)
 
             bottomNavigationView_baseFragment.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-                if(bottomNavigationView_baseFragment.selectedItemId == R.id.base_graph){
+                if (bottomNavigationView_baseFragment.selectedItemId == R.id.base_graph) {
                     it.onBackPressed()
                 }
             }

@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.screens.photo.PhotoAddFragment">
+    tools:context=".ui.screens.photo.fragments.PhotoAddFragment">
 
     <data>
 
@@ -10,7 +10,7 @@
 
         <variable
             name="photoViewModel"
-            type="org.mpmg.mpapp.ui.viewmodels.PhotoViewModel" />
+            type="org.mpmg.mpapp.ui.screens.photo.viewmodels.PhotoViewModel" />
     </data>
 
     <ScrollView
@@ -70,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/text_click_to_photo"
-                        android:visibility="@{photoViewModel.photo.filepath ==null ? View.VISIBLE : View.GONE}"
+                        android:visibility="@{photoViewModel.currentPhoto.filepath ==null ? View.VISIBLE : View.GONE}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/imageView_addPhotoFragment_thumbnail"
@@ -91,7 +91,7 @@
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
                 android:maxLength="200"
-                android:text="@={photoViewModel.photo.comment}"
+                android:text="@={photoViewModel.currentPhoto.comment}"
                 app:layout_constraintEnd_toEndOf="@+id/cardView"
                 app:layout_constraintStart_toStartOf="@+id/cardView"
                 app:layout_constraintTop_toBottomOf="@+id/cardView"
@@ -103,7 +103,7 @@
                 android:layout_width="300dp"
                 android:layout_height="@dimen/height_default"
                 android:layout_marginTop="@dimen/margin_xxlarge"
-                android:enabled="@{photoViewModel.photo.filepath !=null}"
+                android:enabled="@{photoViewModel.currentPhoto.filepath !=null}"
                 android:text="@string/button_confirm_photo"
                 app:icon="@drawable/ic_camera"
                 app:iconGravity="textStart"
@@ -119,7 +119,7 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:text="@string/button_delete_photo"
                 android:textColor="@color/buttonInvalid1"
-                android:visibility="@{photoViewModel.photo.filepath !=null ? View.VISIBLE : View.GONE}"
+                android:visibility="@{photoViewModel.currentPhoto.filepath !=null ? View.VISIBLE : View.GONE}"
                 app:icon="@drawable/ic_trash"
                 app:iconGravity="textStart"
                 app:iconTint="@color/buttonInvalid1"

@@ -1,8 +1,9 @@
-package org.mpmg.mpapp.ui.screens.publicwork.fragments
+package org.mpmg.mpapp.ui.screens.publicwork.fragments.crud
 
 import android.widget.ArrayAdapter
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
@@ -11,24 +12,31 @@ import org.mpmg.mpapp.databinding.FragmentPublicWorkAddBinding
 import org.mpmg.mpapp.domain.database.models.City
 import org.mpmg.mpapp.ui.dialogs.SelectorDialog
 import org.mpmg.mpapp.ui.screens.base.MVVMFragment
-import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.AddPublicWorkViewModel
+import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.CrudPublicWorkViewModel
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 
 
-class PublicWorkAddFragment : MVVMFragment<AddPublicWorkViewModel, FragmentPublicWorkAddBinding>() {
+class PublicWorkCrudFragment : MVVMFragment<CrudPublicWorkViewModel, FragmentPublicWorkAddBinding>() {
 
-    private val TAG = PublicWorkAddFragment::class.java.name
+    private val TAG = PublicWorkCrudFragment::class.java.name
 
-    override val viewModel: AddPublicWorkViewModel by viewModel()
+    override val viewModel: CrudPublicWorkViewModel by viewModel()
     override val layout: Int = R.layout.fragment_public_work_add
 
     private val locationViewModel: LocationViewModel by sharedViewModel()
 
     private lateinit var navigationController: NavController
 
+    private val args: PublicWorkCrudFragmentArgs by navArgs()
+
     override fun initBindings() {
+        startPublicWork()
         navigationController = requireActivity().findNavController(R.id.nav_host_fragment)
         binding.addPublicWorkViewModel = viewModel
+    }
+
+    private fun startPublicWork() {
+        viewModel.startPublicWork(args.publicWorkId)
     }
 
     override fun initObservers() {

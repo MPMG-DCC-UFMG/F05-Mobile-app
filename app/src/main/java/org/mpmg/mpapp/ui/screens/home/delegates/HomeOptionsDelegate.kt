@@ -6,7 +6,6 @@ import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_home_option.view.*
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.interfaces.BaseDelegate
 import org.mpmg.mpapp.databinding.ItemHomeOptionBinding
@@ -44,8 +43,8 @@ class HomeOptionsDelegate : BaseDelegate<HomeOptions> {
     class HomeOptionsViewHolder(val binding: ItemHomeOptionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        val container: CardView = binding.root.cardView_itemHomeOption
-        val optionIcon: ImageView = binding.root.imageView_itemHomeOption
+        val container: CardView = binding.cardViewItemHomeOption
+        val optionIcon: ImageView = binding.imageViewItemHomeOption
 
         fun bind(option: HomeOptions?) {
             binding.homeOption = option

@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.screens.publicwork.fragments.PublicWorkListFragment">
+    tools:context=".ui.screens.publicwork.fragments.list.PublicWorkListFragment">
 
     <data>
 
         <variable
             name="publicWorkViewModel"
-            type="org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel" />
+            type="org.mpmg.mpapp.ui.screens.publicwork.viewmodels.PublicWorkListViewModel" />
 
     </data>
 

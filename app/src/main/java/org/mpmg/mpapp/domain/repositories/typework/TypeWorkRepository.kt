@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import org.mpmg.mpapp.domain.database.models.TypeWork
 import org.mpmg.mpapp.domain.repositories.typework.datasources.LocalTypeWorkDataSource
 
-class TypeWorkRepository(private val localTypeWorkDataSource: LocalTypeWorkDataSource){
+class TypeWorkRepository(private val localTypeWorkDataSource: LocalTypeWorkDataSource) {
 
     fun insertTypeWork(typeWork: TypeWork) {
         localTypeWorkDataSource.insertTypeWork(typeWork)
@@ -26,4 +26,7 @@ class TypeWorkRepository(private val localTypeWorkDataSource: LocalTypeWorkDataS
     fun deleteTypeWorks() {
         localTypeWorkDataSource.deleteTypeWorks()
     }
+
+    fun getTypeOfWorkFromFlag(typeWorkFlag: Int) =
+        localTypeWorkDataSource.listAllTypeWorks().first { it.flag == typeWorkFlag }
 }

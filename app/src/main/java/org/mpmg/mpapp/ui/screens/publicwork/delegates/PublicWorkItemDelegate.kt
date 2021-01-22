@@ -2,18 +2,18 @@ package org.mpmg.mpapp.ui.screens.publicwork.delegates
 
 import android.location.Location
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_public_work_list.view.*
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.interfaces.BaseDelegate
 import org.mpmg.mpapp.core.interfaces.BaseModel
+import org.mpmg.mpapp.databinding.ItemPublicWorkListBinding
 import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
+import org.mpmg.mpapp.ui.screens.publicwork.models.PublicWorkListItem
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 
 class PublicWorkItemDelegate(val locationViewModel: LocationViewModel) : BaseDelegate<BaseModel> {
@@ -24,28 +24,21 @@ class PublicWorkItemDelegate(val locationViewModel: LocationViewModel) : BaseDel
         inflater: LayoutInflater,
         parent: ViewGroup
     ): RecyclerView.ViewHolder {
-        return PublicWorkItemViewHolder(
-            inflater.inflate(
-                R.layout.item_public_work_list,
-                parent,
-                false
-            )
+        val binding: ItemPublicWorkListBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context), R.layout.item_public_work_list, parent, false
         )
+        return PublicWorkItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, delegateObject: BaseModel?) {
         delegateObject as PublicWorkAndAddress
         with(holder as PublicWorkItemViewHolder) {
-            mName.text = delegateObject.publicWork.name
-            mAddress.text = delegateObject.address.toString()
-
-            mSent.visibility = getVisibility(delegateObject.publicWork.toSend)
-            mCheck.visibility = getVisibility(delegateObject.publicWork.idCollect != null)
 
             mContainer.setOnClickListener {
                 mPublicWorkItemDelegateListener?.onPublicWorkClicked(delegateObject)
             }
 
+            bind(PublicWorkListItem(delegateObject))
             setupObservers(holder, mDistance, delegateObject.address.getLocation())
         }
     }
@@ -56,12 +49,11 @@ class PublicWorkItemDelegate(val locationViewModel: LocationViewModel) : BaseDel
         position: Location?
     ) {
         locationViewModel.getCurrentLocationLiveData()
-            .observe(holder.itemView.context as LifecycleOwner,
-                Observer { location ->
-                    val distance = getDistance(location, position)
-                    distanceTextView.text = getDistanceString(distance)
-                    setDistanceColor(distanceTextView, distance)
-                })
+            .observe(holder.itemView.context as LifecycleOwner) { location ->
+                val distance = getDistance(location, position)
+                distanceTextView.text = getDistanceString(distance)
+                setDistanceColor(distanceTextView, distance)
+            }
     }
 
     private fun setDistanceColor(textView: TextView, distance: Float?) {
@@ -90,10 +82,6 @@ class PublicWorkItemDelegate(val locationViewModel: LocationViewModel) : BaseDel
         }
     }
 
-    private fun getVisibility(state: Boolean): Int {
-        return if (state) View.VISIBLE else View.INVISIBLE
-    }
-
     fun setPublicWorkItemDelegateListener(listener: PublicWorkItemDelegateListener) {
         mPublicWorkItemDelegateListener = listener
     }
@@ -102,13 +90,13 @@ class PublicWorkItemDelegate(val locationViewModel: LocationViewModel) : BaseDel
         fun onPublicWorkClicked(publicWork: PublicWorkAndAddress)
     }
 
-    class PublicWorkItemViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        val mName = itemView.textView_itemPublicWorkList_name
-        val mAddress = itemView.textView_itemPublicWorkList_address
-        val mContainer = itemView.cardView_itemPublicWorkList_mainContainer
-        val mDistance = itemView.textView_itemPublicWorkList_distance
-        val mSent = itemView.imageView_itemPublicWorkList_sent
-        val mCheck = itemView.imageView_itemPublicWorkList_check
+    class PublicWorkItemViewHolder(private val binding: ItemPublicWorkListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val mContainer = binding.cardViewItemPublicWorkListMainContainer
+        val mDistance = binding.textViewItemPublicWorkListDistance
+
+        fun bind(publicWork: PublicWorkListItem) {
+            binding.publicWork = publicWork
+        }
     }
 }

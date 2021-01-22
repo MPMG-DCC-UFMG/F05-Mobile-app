@@ -1,4 +1,4 @@
-package org.mpmg.mpapp.ui.screens.map
+package org.mpmg.mpapp.ui.screens.publicwork.fragments.crud
 
 import android.location.Location
 import android.os.Bundle
@@ -14,9 +14,9 @@ import org.mpmg.mpapp.databinding.FragmentMapBinding
 import org.mpmg.mpapp.ui.screens.base.MVVMFragment
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 
-class MapFragment : MVVMFragment<LocationViewModel, FragmentMapBinding>(), OnMapReadyCallback {
+class PublicWorkCrudMapFragment : MVVMFragment<LocationViewModel, FragmentMapBinding>(), OnMapReadyCallback {
 
-    private val TAG = MapFragment::class.java.name
+    private val TAG = PublicWorkCrudMapFragment::class.java.name
 
     override val viewModel: LocationViewModel by sharedViewModel<LocationViewModel>()
     override val layout: Int = R.layout.fragment_map

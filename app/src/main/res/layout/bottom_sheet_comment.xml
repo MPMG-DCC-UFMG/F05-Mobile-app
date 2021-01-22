@@ -7,7 +7,7 @@
 
         <variable
             name="collectViewModel"
-            type="org.mpmg.mpapp.ui.viewmodels.CollectViewModel" />
+            type="org.mpmg.mpapp.ui.screens.collect.viewmodels.CollectFragmentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

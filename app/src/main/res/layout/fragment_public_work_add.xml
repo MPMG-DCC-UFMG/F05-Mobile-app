@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.screens.publicwork.fragments.PublicWorkAddFragment">
+    tools:context=".ui.screens.publicwork.fragments.crud.PublicWorkCrudFragment">
 
     <data>
 
         <variable
             name="addPublicWorkViewModel"
-            type="org.mpmg.mpapp.ui.screens.publicwork.viewmodels.AddPublicWorkViewModel" />
+            type="org.mpmg.mpapp.ui.screens.publicwork.viewmodels.CrudPublicWorkViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

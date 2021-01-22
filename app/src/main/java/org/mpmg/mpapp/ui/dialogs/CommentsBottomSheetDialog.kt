@@ -9,16 +9,16 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.BottomSheetCommentBinding
-import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
+import org.mpmg.mpapp.ui.screens.collect.viewmodels.CollectFragmentViewModel
 
-class CommentsBottomSheetDialog(private val collectViewModel: CollectViewModel) :
+class CommentsBottomSheetDialog(private val collectViewModel: CollectFragmentViewModel) :
     BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding: BottomSheetCommentBinding =
             DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_comment, container, false)
         binding.lifecycleOwner = this
