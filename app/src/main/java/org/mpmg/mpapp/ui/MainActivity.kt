@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.extensions.observe
+import org.mpmg.mpapp.databinding.ActivityMainBinding
 import org.mpmg.mpapp.services.LocationService
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 import org.mpmg.mpapp.ui.viewmodels.MainActivityViewModel
@@ -48,9 +48,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setupNavigationController()
         setupObservers()
 
@@ -69,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupObservers() {
         observe(mainActivityViewModel.snackbarMessage) {
-            it?:return@observe
+            it ?: return@observe
             launchSnackbar(it)
         }
     }
@@ -83,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
     }
 
-    fun launchSnackbar(message: String) {
-        Snackbar.make(coordinatorLayout_mainActivity, message, Snackbar.LENGTH_SHORT).show()
+    private fun launchSnackbar(message: String) {
+        Snackbar.make(binding.coordinatorLayoutMainActivity, message, Snackbar.LENGTH_SHORT).show()
     }
 }

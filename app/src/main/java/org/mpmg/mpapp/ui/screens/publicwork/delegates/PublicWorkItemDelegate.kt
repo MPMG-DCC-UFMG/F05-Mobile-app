@@ -97,6 +97,7 @@ class PublicWorkItemDelegate(val locationViewModel: LocationViewModel) : BaseDel
 
         fun bind(publicWork: PublicWorkListItem) {
             binding.publicWork = publicWork
+            binding.executePendingBindings()
         }
     }
 }

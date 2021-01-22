@@ -6,7 +6,6 @@ import android.widget.CheckBox
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_dialog_selector_option.view.*
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.interfaces.BaseDelegate
 import org.mpmg.mpapp.databinding.ItemDialogSelectorOptionBinding
@@ -44,8 +43,8 @@ class SelectorOptionsDelegate : BaseDelegate<SelectorOptions> {
     class SelectorOptionsViewHolder(val binding: ItemDialogSelectorOptionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        val container: ConstraintLayout = binding.root.constraintLayout_selectorOptionDialog
-        val checkbox: CheckBox = binding.root.checkBox_selectorOptionDialog
+        val container: ConstraintLayout = binding.constraintLayoutSelectorOptionDialog
+        val checkbox: CheckBox = binding.checkBoxSelectorOptionDialog
 
         fun bind(option: SelectorOptions?) {
             binding.selectorOption = option

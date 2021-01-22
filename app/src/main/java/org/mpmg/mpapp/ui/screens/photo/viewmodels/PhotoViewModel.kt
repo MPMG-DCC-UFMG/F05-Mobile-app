@@ -8,9 +8,7 @@ import android.location.Location
 import android.os.Environment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.android.synthetic.main.fragment_add_photo.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mpmg.mpapp.core.events.SingleLiveEvent

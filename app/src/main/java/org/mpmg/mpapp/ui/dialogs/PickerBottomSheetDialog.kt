@@ -1,15 +1,12 @@
 package org.mpmg.mpapp.ui.dialogs
 
-import android.R.color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.bottom_sheet_picker.*
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.BottomSheetPickerBinding
 
@@ -22,12 +19,14 @@ class PickerBottomSheetDialog(
     private val onPositiveClickListener: ((selectedIndex: Int) -> Unit)? = null
 ) : BottomSheetDialogFragment() {
 
+    private lateinit var binding: BottomSheetPickerBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: BottomSheetPickerBinding =
+        binding =
             DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_picker, container, false)
         binding.lifecycleOwner = this
         binding.confirmButtonText = confirmButtonText
@@ -43,20 +42,26 @@ class PickerBottomSheetDialog(
     }
 
     private fun setupPicker() {
-        picker_bottomSheetPicker.maxValue = options.size-1
-        picker_bottomSheetPicker.minValue = 0
-        picker_bottomSheetPicker.displayedValues = options.toTypedArray()
+        with(binding.pickerBottomSheetPicker) {
+            maxValue = options.size - 1
+            minValue = 0
+            displayedValues = options.toTypedArray()
+        }
+
     }
 
     private fun setupListeners() {
-        materialButton_bottomSheetPicker_cancel.setOnClickListener {
-            onNegativeClickListener?.invoke()
+        with(binding) {
+            materialButtonBottomSheetPickerCancel.setOnClickListener {
+                onNegativeClickListener?.invoke()
+            }
+
+            materialButtonBottomSheetPickerConfirm.setOnClickListener {
+                val selectedIndex = pickerBottomSheetPicker.value
+                onPositiveClickListener?.invoke(selectedIndex)
+            }
         }
 
-        materialButton_bottomSheetPicker_confirm.setOnClickListener {
-            val selectedIndex = picker_bottomSheetPicker.value
-            onPositiveClickListener?.invoke(selectedIndex)
-        }
     }
 
     class Builder(private var childFragmentManager: FragmentManager) {

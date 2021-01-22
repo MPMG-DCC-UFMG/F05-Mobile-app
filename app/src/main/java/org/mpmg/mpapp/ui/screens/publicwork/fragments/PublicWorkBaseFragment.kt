@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.android.ext.android.getKoin
 import org.koin.core.qualifier.named
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.databinding.FragmentBaseBinding
 import org.mpmg.mpapp.ui.screens.publicwork.fragments.list.PublicWorkListFragment
 
 class PublicWorkBaseFragment : Fragment() {
@@ -19,6 +20,8 @@ class PublicWorkBaseFragment : Fragment() {
     private val TAG = PublicWorkBaseFragment::class.java.name
 
     lateinit var navController: NavController
+
+    private lateinit var binding: FragmentBaseBinding
 
     private val session = getKoin().getOrCreateScope(
         PublicWorkListFragment.sessionName, named(
@@ -35,8 +38,10 @@ class PublicWorkBaseFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_base, container, false)
+    ): View {
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_base, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,13 +53,16 @@ class PublicWorkBaseFragment : Fragment() {
     private fun setNavigationController() {
         activity?.let {
             navController = it.findNavController(R.id.navHost_baseFragment)
-            bottomNavigationView_baseFragment.setupWithNavController(navController)
+            with(binding.bottomNavigationViewBaseFragment) {
+                setupWithNavController(navController)
 
-            bottomNavigationView_baseFragment.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-                if (bottomNavigationView_baseFragment.selectedItemId == R.id.base_graph) {
-                    it.onBackPressed()
+                addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+                    if (selectedItemId == R.id.base_graph) {
+                        it.onBackPressed()
+                    }
                 }
             }
+
         }
     }
 }

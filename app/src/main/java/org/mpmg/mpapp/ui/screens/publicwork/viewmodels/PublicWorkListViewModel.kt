@@ -62,7 +62,7 @@ class PublicWorkListViewModel(
     private fun initMediator() {
         _publicWorkMediatedList.addSource(publicWorkList) { result ->
             result?.let {
-                _publicWorkMediatedList.postValue(filterManager.filter(it))
+                _publicWorkMediatedList.value = filterManager.filter(it)
                 sortList()
             }
         }

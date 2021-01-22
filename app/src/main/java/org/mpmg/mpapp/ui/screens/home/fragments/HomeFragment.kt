@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.extensions.observe
-import org.mpmg.mpapp.databinding.FragmentCreateAccountBinding
 import org.mpmg.mpapp.databinding.FragmentHomeBinding
 import org.mpmg.mpapp.ui.screens.base.MVVMFragment
 import org.mpmg.mpapp.ui.screens.home.adapters.HomeOptionsAdapter
