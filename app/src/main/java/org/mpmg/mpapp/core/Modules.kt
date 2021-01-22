@@ -26,7 +26,7 @@ import org.mpmg.mpapp.domain.repositories.user.datasources.LocalUserDataSource
 import org.mpmg.mpapp.domain.repositories.user.datasources.RemoteUserDataSource
 import org.mpmg.mpapp.domain.repositories.workstatus.WorkStatusRepository
 import org.mpmg.mpapp.domain.repositories.workstatus.datasources.LocalWorkStatusDataSource
-import org.mpmg.mpapp.ui.MainActivityViewModel
+import org.mpmg.mpapp.ui.viewmodels.MainActivityViewModel
 import org.mpmg.mpapp.ui.screens.collect.fragments.CollectMainFragment
 import org.mpmg.mpapp.ui.screens.collect.viewmodels.CollectFragmentViewModel
 import org.mpmg.mpapp.ui.screens.home.viewmodels.HomeViewModel
@@ -53,9 +53,6 @@ val viewModelModules = module {
         scoped { CollectFragmentViewModel(get(), get(), get(), get(), get()) }
         scoped { PhotoViewModel(get(), get()) }
     }
-
-    viewModel { CollectViewModel(get(), get(), get()) }
-    viewModel { PhotoViewModel(get(), get()) }
 
     // ViewModels for UI
     viewModel { HomeViewModel(get()) }

@@ -9,7 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.mpmg.mpapp.core.extensions.observe
-import org.mpmg.mpapp.ui.MainActivityViewModel
+import org.mpmg.mpapp.ui.viewmodels.MainActivityViewModel
 
 abstract class MVVMFragment<T : MVVMViewModel, B : ViewDataBinding> : Fragment() {
 

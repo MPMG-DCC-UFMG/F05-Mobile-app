@@ -17,6 +17,7 @@ import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.extensions.observe
 import org.mpmg.mpapp.services.LocationService
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
+import org.mpmg.mpapp.ui.viewmodels.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
 

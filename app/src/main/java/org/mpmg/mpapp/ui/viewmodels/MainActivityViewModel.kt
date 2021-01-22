@@ -1,4 +1,4 @@
-package org.mpmg.mpapp.ui
+package org.mpmg.mpapp.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import org.mpmg.mpapp.core.events.SingleLiveEvent
