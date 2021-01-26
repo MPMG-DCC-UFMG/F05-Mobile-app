@@ -21,15 +21,26 @@
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/base_graph" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
+        <LinearLayout
             android:id="@+id/bottomNavigationView_baseFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:background="@color/colorPrimary"
-            app:itemIconTint="@color/bottom_nav_color"
-            app:itemTextColor="@color/bottom_nav_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:menu="@menu/bottom_menu" />
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        </LinearLayout>
+
+        <!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
+        <!--            android:id="@+id/bottomNavigationView_baseFragment"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="@color/colorPrimary"-->
+        <!--            app:itemIconTint="@color/bottom_nav_color"-->
+        <!--            app:itemTextColor="@color/bottom_nav_color"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:menu="@menu/bottom_menu" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

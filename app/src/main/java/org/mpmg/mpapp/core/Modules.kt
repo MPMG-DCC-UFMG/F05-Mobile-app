@@ -34,6 +34,7 @@ import org.mpmg.mpapp.ui.screens.login.viewmodels.CreateAccountViewModel
 import org.mpmg.mpapp.ui.screens.login.viewmodels.LoginViewModel
 import org.mpmg.mpapp.ui.screens.photo.viewmodels.PhotoViewModel
 import org.mpmg.mpapp.ui.screens.publicwork.fragments.list.PublicWorkListFragment
+import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.BottomMenuViewModel
 import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.CrudPublicWorkViewModel
 import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.PublicWorkListViewModel
 import org.mpmg.mpapp.ui.screens.setup.viewmodels.ConfigurationViewModel
@@ -49,7 +50,7 @@ val viewModelModules = module {
         scoped { PublicWorkListViewModel(get(), get()) }
     }
 
-    scope(named(CollectMainFragment::class.java.name)){
+    scope(named(CollectMainFragment::class.java.name)) {
         scoped { CollectFragmentViewModel(get(), get(), get(), get(), get()) }
         scoped { PhotoViewModel(get(), get()) }
     }
@@ -62,6 +63,7 @@ val viewModelModules = module {
     viewModel { CollectFragmentViewModel(get(), get(), get(), get(), get()) }
     viewModel { CreateAccountViewModel(get()) }
     viewModel { CrudPublicWorkViewModel(get(), get(), get()) }
+    viewModel { BottomMenuViewModel() }
 }
 
 val repositoriesModules = module {
