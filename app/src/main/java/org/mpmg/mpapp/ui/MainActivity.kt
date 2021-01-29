@@ -7,18 +7,17 @@ import android.content.ServiceConnection
 import android.location.Location
 import android.os.Bundle
 import android.os.IBinder
-import android.os.Message
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.core.extensions.observe
+import org.mpmg.mpapp.databinding.ActivityMainBinding
 import org.mpmg.mpapp.services.LocationService
-import org.mpmg.mpapp.ui.viewmodels.CityViewModel
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
-import org.mpmg.mpapp.ui.viewmodels.TypeWorkViewModel
+import org.mpmg.mpapp.ui.viewmodels.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private var isBoundToLocationService: Boolean = false
 
     private val locationViewModel: LocationViewModel by viewModel()
+    private val mainActivityViewModel: MainActivityViewModel by viewModel()
 
     private val mLocationListener = object : LocationService.LocationServiceListener {
         override fun onNewLocation(location: Location) {
@@ -48,10 +48,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setupNavigationController()
+        setupObservers()
 
         if (!isBoundToLocationService) {
             startLocationService()
@@ -66,6 +71,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupObservers() {
+        observe(mainActivityViewModel.snackbarMessage) {
+            it ?: return@observe
+            launchSnackbar(it)
+        }
+    }
+
     private fun startLocationService() {
         val intent = Intent(this, LocationService::class.java)
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
@@ -75,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
     }
 
-    fun launchSnackbar(message: String) {
-        Snackbar.make(coordinatorLayout_mainActivity, message, Snackbar.LENGTH_SHORT).show()
+    private fun launchSnackbar(message: String) {
+        Snackbar.make(binding.coordinatorLayoutMainActivity, message, Snackbar.LENGTH_SHORT).show()
     }
 }

@@ -12,3 +12,7 @@ fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observ
         }
     })
 }
+
+fun <T> LifecycleOwner.observe(liveData: LiveData<T>, function: (T) -> Unit) {
+    liveData.observe(this, androidx.lifecycle.Observer { function(it) })
+}

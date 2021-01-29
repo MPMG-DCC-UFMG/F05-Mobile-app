@@ -1,119 +1,114 @@
-package org.mpmg.mpapp.ui.screens.photo
+package org.mpmg.mpapp.ui.screens.photo.fragments
 
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
-import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.FileProvider
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_add_photo.*
+import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.core.qualifier.named
 import org.mpmg.mpapp.BuildConfig
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.core.extensions.observe
 import org.mpmg.mpapp.databinding.FragmentAddPhotoBinding
 import org.mpmg.mpapp.domain.database.models.Photo
+import org.mpmg.mpapp.domain.database.models.TypePhoto
 import org.mpmg.mpapp.ui.dialogs.SelectorDialog
 import org.mpmg.mpapp.ui.dialogs.WarningDialog
-import org.mpmg.mpapp.ui.viewmodels.CollectViewModel
+import org.mpmg.mpapp.ui.screens.base.MVVMFragment
+import org.mpmg.mpapp.ui.screens.collect.fragments.CollectMainFragment
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
-import org.mpmg.mpapp.ui.viewmodels.PhotoViewModel
-import org.mpmg.mpapp.ui.viewmodels.TypePhotoViewModel
+import org.mpmg.mpapp.ui.screens.photo.viewmodels.PhotoViewModel
 import java.io.File
 import java.io.IOException
 
-class PhotoAddFragment : Fragment() {
+class PhotoAddFragment : MVVMFragment<PhotoViewModel, FragmentAddPhotoBinding>() {
 
     private val TAG = PhotoAddFragment::class.java.name
 
     private val RC_IMAGE_CAPTURE = 602
 
-    private val photoViewModel: PhotoViewModel by sharedViewModel()
-    private val collectViewModel: CollectViewModel by sharedViewModel()
     private val locationViewModel: LocationViewModel by sharedViewModel()
-    private val typePhotoViewModel: TypePhotoViewModel by sharedViewModel()
 
-    private var navigationController: NavController? = null
+    private val session = getKoin().getOrCreateScope(CollectMainFragment.sessionName, named(TAG))
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private lateinit var navigationController: NavController
+    private lateinit var typePhotos: List<TypePhoto>
 
-        navigationController = activity?.findNavController(R.id.nav_host_fragment)
+    override val viewModel: PhotoViewModel by session.inject()
+    override val layout: Int = R.layout.fragment_add_photo
 
-        val binding: FragmentAddPhotoBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_add_photo, container, false)
-        binding.photoViewModel = photoViewModel
-        binding.lifecycleOwner = this
-        return binding.root
+    private val args: PhotoAddFragmentArgs by navArgs()
+
+    override fun initBindings() {
+        navigationController = requireActivity().findNavController(R.id.nav_host_fragment)
+        binding.photoViewModel = viewModel
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setupListeners()
-        setupObservers()
+    override fun initViews(savedInstanceState: Bundle?) {
+        viewModel.initPhoto(args.photoId, args.collectId)
     }
 
-    private fun setupListeners() {
-        imageView_addPhotoFragment_thumbnail.setOnClickListener {
-            dispatchTakePictureIntent()
+    override fun initObservers() {
+
+        observe(viewModel.typePhotos) {
+            typePhotos = it
         }
 
-        materialButton_addPhotoFragment_confirmPhoto.setOnClickListener {
-            addPhotoToCollect()
+        observe(locationViewModel.getCurrentLocationLiveData()) {
+            viewModel.updatePhotoLocation(it)
         }
 
-        materialButton_addPhotoFragment_deletePhoto.setOnClickListener {
-            showDeleteDialog()
+        observe(viewModel.currentPhoto) {
+            handlePhotoThumbnail(it)
         }
+
+        observe(viewModel.photoType) {
+            handlePhotoType(it)
+        }
+
     }
 
-    private fun setupObservers() {
-        photoViewModel.getPhoto().observe(viewLifecycleOwner, Observer { photo ->
-            photo ?: return@Observer
+    override fun initListeners() {
+        with(binding) {
+            imageViewAddPhotoFragmentThumbnail.setOnClickListener {
+                dispatchTakePictureIntent()
+            }
 
-            handlePhotoType(photo)
-            handlePhotoThumbnail(photo)
-        })
+            materialButtonAddPhotoFragmentConfirmPhoto.setOnClickListener {
+                addPhotoToCollect()
+            }
 
-        locationViewModel.getCurrentLocationLiveData()
-            .observe(viewLifecycleOwner, Observer { location ->
-                location ?: return@Observer
-                photoViewModel.updatePhotoLocation(location)
-            })
+            materialButtonAddPhotoFragmentDeletePhoto.setOnClickListener {
+                showDeleteDialog()
+            }
+        }
     }
 
     private fun handlePhotoThumbnail(photo: Photo) {
         Glide.with(this)
             .load(photo.filepath ?: R.drawable.ic_image_default)
-            .into(imageView_addPhotoFragment_thumbnail)
+            .into(binding.imageViewAddPhotoFragmentThumbnail)
     }
 
-    private fun handlePhotoType(photo: Photo) {
-        photo.type?.let {
-            textView_addPhotoFragment_photoType.text = it
+    private fun handlePhotoType(photoType: String?) {
+        photoType?.let {
+            binding.textViewAddPhotoFragmentPhotoType.text = it
         } ?: run {
             launchTypeSelectDialog()
         }
     }
 
     private fun launchTypeSelectDialog() {
-        val optionsArray = typePhotoViewModel.typePhotos.map { it.name }.toTypedArray()
+        val optionsArray = typePhotos.map { it.name }.toTypedArray()
         val builder = SelectorDialog.Builder(childFragmentManager)
         builder.withTitle(getString(R.string.dialog_type_photo_title))
             .withOptions(optionsArray.toList())
@@ -122,7 +117,7 @@ class PhotoAddFragment : Fragment() {
                 navigateBack()
             }.withSelectedOptionListener {
                 val selectedOption = optionsArray.get(it.first())
-                photoViewModel.setPhotoType(selectedOption)
+                viewModel.setPhotoType(selectedOption)
             }
             .show()
     }
@@ -131,7 +126,7 @@ class PhotoAddFragment : Fragment() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             takePictureIntent.resolveActivity(requireContext().packageManager)?.also {
                 val photoFile: File? = try {
-                    photoViewModel.createPhotoFile(requireContext())
+                    viewModel.createPhotoFile(requireContext())
                 } catch (ex: IOException) {
                     Log.d(TAG, "An error occur when creating photo file")
                     null
@@ -150,7 +145,7 @@ class PhotoAddFragment : Fragment() {
         }
     }
 
-    private fun showDeleteDialog(){
+    private fun showDeleteDialog() {
         val builder = WarningDialog.Builder(childFragmentManager)
         builder.withTitle(getString(R.string.dialog_delete_photo))
             .withMessage(getString(R.string.dialog_delete_photo_message))
@@ -161,14 +156,12 @@ class PhotoAddFragment : Fragment() {
     }
 
     private fun deletePhoto() {
-        val photo = photoViewModel.getPhoto().value ?: return
-        collectViewModel.deletePhoto(photo)
+        viewModel.deletePhoto()
         navigateBack()
     }
 
     private fun addPhotoToCollect() {
-        val photo = photoViewModel.getPhoto().value ?: return
-        collectViewModel.addPhoto(photo)
+        viewModel.addPhotoToCollect()
         navigateBack()
     }
 
@@ -176,11 +169,11 @@ class PhotoAddFragment : Fragment() {
         if (requestCode == RC_IMAGE_CAPTURE) {
             when (resultCode) {
                 RESULT_OK -> {
-                    photoViewModel.compressPhoto()
+                    viewModel.compressPhoto()
                     showSnackbar(getString(R.string.snackbar_photo_add_success))
                 }
                 RESULT_CANCELED -> {
-                    photoViewModel.updatePhotoPath(null)
+                    viewModel.updatePhotoPath(null)
                     showSnackbar(getString(R.string.snackbar_photo_add_canceled))
                 }
             }
@@ -188,14 +181,10 @@ class PhotoAddFragment : Fragment() {
     }
 
     private fun showSnackbar(message: String) {
-        Snackbar.make(
-            constraintLayout_addPhotoFragment_mainContainer,
-            message,
-            Snackbar.LENGTH_SHORT
-        ).show()
+        viewModel.launchSnackbar(message)
     }
 
     private fun navigateBack() {
-        navigationController?.navigate(R.id.action_photoAddFragment_pop)
+        navigationController.navigate(R.id.action_photoAddFragment_pop)
     }
 }

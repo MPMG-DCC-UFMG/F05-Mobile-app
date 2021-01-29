@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.screens.publicwork.fragments.PublicWorkAddFragment">
+    tools:context=".ui.screens.publicwork.fragments.crud.PublicWorkCrudFragment">
 
     <data>
 
         <variable
-            name="publicWorkViewModel"
-            type="org.mpmg.mpapp.ui.viewmodels.PublicWorkViewModel" />
+            name="addPublicWorkViewModel"
+            type="org.mpmg.mpapp.ui.screens.publicwork.viewmodels.CrudPublicWorkViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_default"
                     android:layout_marginTop="@dimen/margin_xxlarge"
-                    android:text="@{publicWorkViewModel.isNewPublicWork ? @string/title_public_work_add : @string/title_public_work_edit }"
+                    android:text="@{addPublicWorkViewModel.isNewPublicWork ? @string/title_public_work_add : @string/title_public_work_edit }"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,11 +46,11 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_default"
                     android:layout_marginTop="@dimen/margin_medium"
-                    android:backgroundTint="@{publicWorkViewModel.locationValid ? @color/button6 : @color/colorRed}"
-                    android:text="@{publicWorkViewModel.locationValid ? @string/button_add_location_valid : @string/button_add_location_invalid}"
-                    android:textColor="@{publicWorkViewModel.locationValid ? @color/colorRed : @color/button6}"
+                    android:backgroundTint="@{addPublicWorkViewModel.locationValid ? @color/button6 : @color/colorRed}"
+                    android:text="@{addPublicWorkViewModel.locationValid ? @string/button_add_location_valid : @string/button_add_location_invalid}"
+                    android:textColor="@{addPublicWorkViewModel.locationValid ? @color/colorRed : @color/button6}"
                     app:icon="@drawable/ic_location"
-                    app:iconTint="@{publicWorkViewModel.locationValid ? @color/colorRed : @color/button6}"
+                    app:iconTint="@{addPublicWorkViewModel.locationValid ? @color/colorRed : @color/button6}"
                     app:layout_constraintEnd_toEndOf="@+id/materialButton_addPublicWorkFragment_add"
                     app:layout_constraintStart_toStartOf="@+id/materialButton_addPublicWorkFragment_cancel"
                     app:layout_constraintTop_toBottomOf="@+id/materialButton_addPublicWorkFragment_cancel" />
@@ -74,7 +74,7 @@
                     android:layout_marginStart="@dimen/margin_default"
                     android:layout_marginTop="@dimen/margin_xxsmall"
                     android:layout_marginEnd="@dimen/margin_default"
-                    android:text="@{publicWorkViewModel.currentTypeWork.name}"
+                    android:text="@{addPublicWorkViewModel.currentTypeWork.name}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_xxsmall"
                     android:inputType="textCapWords"
-                    android:text="@={publicWorkViewModel.currentPublicWork.name}"
+                    android:text="@={addPublicWorkViewModel.currentPublicWork.name}"
                     app:layout_constraintEnd_toEndOf="@+id/textView_addPublicWorkFragment_typeOfWork"
                     app:layout_constraintStart_toStartOf="@+id/textView_addPublicWorkFragment_typeOfWork"
                     app:layout_constraintTop_toBottomOf="@+id/textView5"
@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_xxsmall"
                     android:inputType="textCapWords"
-                    android:text="@={publicWorkViewModel.currentAddress.street}"
+                    android:text="@={addPublicWorkViewModel.currentAddress.street}"
                     app:layout_constraintEnd_toEndOf="@+id/editText_addPublicWorkFragment_name"
                     app:layout_constraintStart_toStartOf="@+id/editText_addPublicWorkFragment_name"
                     app:layout_constraintTop_toBottomOf="@+id/textView6"
@@ -155,7 +155,7 @@
                     android:layout_marginEnd="@dimen/margin_small"
                     android:inputType="textCapWords"
                     android:nextFocusDown="@id/editText_addPublicWorkFragment_number"
-                    android:text="@={publicWorkViewModel.currentAddress.cep}"
+                    android:text="@={addPublicWorkViewModel.currentAddress.cep}"
                     app:layout_constraintEnd_toStartOf="@+id/editText_addPublicWorkFragment_number"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/editText_addPublicWorkFragment_street"
@@ -179,7 +179,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
                     android:inputType="textCapWords"
-                    android:text="@={publicWorkViewModel.currentAddress.number}"
+                    android:text="@={addPublicWorkViewModel.currentAddress.number}"
                     app:layout_constraintEnd_toEndOf="@+id/editText_addPublicWorkFragment_street"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/editText_addPublicWorkFragment_cep"
@@ -203,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_xxsmall"
                     android:inputType="textCapWords"
-                    android:text="@={publicWorkViewModel.currentAddress.neighborhood}"
+                    android:text="@={addPublicWorkViewModel.currentAddress.neighborhood}"
                     app:layout_constraintEnd_toEndOf="@+id/editText_addPublicWorkFragment_street"
                     app:layout_constraintStart_toStartOf="@+id/editText_addPublicWorkFragment_street"
                     app:layout_constraintTop_toBottomOf="@+id/textView8"
@@ -227,7 +227,7 @@
                     android:layout_marginTop="@dimen/margin_xxsmall"
                     android:dropDownAnchor="@id/nestedScroll_addPublicWorkFragment"
                     android:inputType="textCapWords"
-                    android:text="@={publicWorkViewModel.currentAddress.city}"
+                    android:text="@={addPublicWorkViewModel.currentAddress.city}"
                     app:layout_constraintEnd_toEndOf="@+id/editText_addPublicWorkFragment_neighborhood"
                     app:layout_constraintStart_toStartOf="@+id/editText_addPublicWorkFragment_neighborhood"
                     app:layout_constraintTop_toBottomOf="@+id/textView9"
@@ -238,8 +238,8 @@
                     style="@style/MPAppTheme.Button1"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_default"
-                    android:enabled="@{publicWorkViewModel.isPublicWorkValid}"
-                    android:text="@{publicWorkViewModel.isNewPublicWork ? @string/title_public_work_add : @string/title_public_work_edit }"
+                    android:enabled="@{addPublicWorkViewModel.isPublicWorkValid}"
+                    android:text="@{addPublicWorkViewModel.isNewPublicWork ? @string/title_public_work_add : @string/title_public_work_edit }"
                     app:layout_constraintBottom_toBottomOf="@+id/materialButton_addPublicWorkFragment_cancel"
                     app:layout_constraintEnd_toEndOf="@+id/editText_addPublicWorkFragment_city"
                     app:layout_constraintHorizontal_bias="0.5"

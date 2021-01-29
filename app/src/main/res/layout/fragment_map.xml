@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.screens.map.MapFragment">
+    tools:context=".ui.screens.publicwork.fragments.crud.PublicWorkCrudMapFragment">
 
     <data>
 
@@ -70,7 +70,7 @@
             android:singleLine="false"
             android:paddingStart="@dimen/margin_small"
             android:paddingEnd="@dimen/height_default"
-            android:text="@{locationViewModel.geocodingAddress.getAddressLine(0)}"
+            android:text="@{locationViewModel.currentAddress.getAddressLine(0)}"
             android:textSize="@dimen/font_default"
             app:layout_constraintBottom_toTopOf="@+id/materialButton_mapFragment_confirm"
             app:layout_constraintEnd_toEndOf="parent"

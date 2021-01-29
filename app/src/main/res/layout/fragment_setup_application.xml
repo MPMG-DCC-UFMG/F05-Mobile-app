@@ -9,14 +9,14 @@
 
         <variable
             name="configurationViewModel"
-            type="org.mpmg.mpapp.ui.viewmodels.ConfigurationViewModel" />
+            type="org.mpmg.mpapp.ui.screens.setup.viewmodels.ConfigurationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_main"
-        tools:context=".ui.screens.setup.SetupApplicationFragment">
+        tools:context=".ui.screens.setup.fragments.SetupApplicationFragment">
 
 
         <ProgressBar

@@ -2,15 +2,8 @@ package org.mpmg.mpapp.ui.screens.login.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Message
 import android.text.SpannableStringBuilder
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -24,55 +17,49 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
-import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mpmg.mpapp.R
+import org.mpmg.mpapp.core.extensions.observe
 import org.mpmg.mpapp.databinding.FragmentLoginBinding
 import org.mpmg.mpapp.helpers.TextHelpers
-import org.mpmg.mpapp.ui.MainActivity
+import org.mpmg.mpapp.ui.screens.base.MVVMFragment
 import org.mpmg.mpapp.ui.screens.login.fragments.LoginFragment.SignWith.*
 import org.mpmg.mpapp.ui.screens.login.models.LoginUI
-import org.mpmg.mpapp.ui.shared.models.RequestStatus
-import org.mpmg.mpapp.ui.viewmodels.LoginViewModel
+import org.mpmg.mpapp.ui.screens.login.viewmodels.LoginViewModel
 
 
-class LoginFragment : Fragment() {
+class LoginFragment : MVVMFragment<LoginViewModel, FragmentLoginBinding>() {
 
     private val TAG = LoginFragment::class.java.name
 
-    private val loginViewModel: LoginViewModel by viewModel()
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
     private lateinit var loginUI: LoginUI
 
-    private val RC_GOOGLE_SIGN_IN = 601
+    override val viewModel: LoginViewModel by viewModel()
+    override val layout: Int = R.layout.fragment_login
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        loginUI = LoginUI()
-        firebaseAuth = FirebaseAuth.getInstance()
-        val binding: FragmentLoginBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
-        binding.loginViewModel = loginViewModel
-        binding.loginUI = loginUI
-        binding.lifecycleOwner = this
-        return binding.root
+    companion object {
+        const val RC_GOOGLE_SIGN_IN = 601
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initBindings() {
+        super.initBindings()
+        firebaseAuth = FirebaseAuth.getInstance()
+        binding.loginViewModel = viewModel
+        binding.loginUI = viewModel.loginUI
+    }
 
-        val userSigned = loginViewModel.checkUserLogged()
-        if (userSigned) {
-            navigateSetupAppFragment()
-        }
-
+    override fun initViews(savedInstanceState: Bundle?) {
         setupListeners()
         setupFacebookLogin()
         setupTexts()
+    }
+
+    override fun initObservers() {
+        observe(viewModel.navigateToSetup) {
+            navigateSetupAppFragment()
+        }
     }
 
     private fun setupTexts() {
@@ -84,34 +71,38 @@ class LoginFragment : Fragment() {
             getString(R.string.span_create_account),
             requireActivity().getColor(R.color.colorGreenMP)
         )
-        textView_loginFragment_createAccount.text = spannableString
+        with(binding) {
+            textViewLoginFragmentCreateAccount.text = spannableString
+        }
     }
 
 
     private fun setupListeners() {
-        button_loginFragment_googleSignIn.setOnClickListener {
-            handleButtonSingInClick(GOOGLE)
-        }
+        with(binding) {
+            buttonLoginFragmentGoogleSignIn.setOnClickListener {
+                handleButtonSingInClick(GOOGLE)
+            }
 
-        button_loginFragment_twitterSignIn.setOnClickListener {
-            handleButtonSingInClick(TWITTER)
-        }
+            buttonLoginFragmentTwitterSignIn.setOnClickListener {
+                handleButtonSingInClick(TWITTER)
+            }
 
-        button_loginFragment_facebookSignIn.setOnClickListener {
-            handleButtonSingInClick(FACEBOOK)
-        }
+            buttonLoginFragmentFacebookSignIn.setOnClickListener {
+                handleButtonSingInClick(FACEBOOK)
+            }
 
-        textView_loginFragment_createAccount.setOnClickListener {
-            navigateCreateAccountFragment()
-        }
+            textViewLoginFragmentCreateAccount.setOnClickListener {
+                navigateCreateAccountFragment()
+            }
 
-        materialButton_loginFragment_loginMP.setOnClickListener {
-            handleButtonSingInClick(MPSERVER)
+            materialButtonLoginFragmentLoginMP.setOnClickListener {
+                handleButtonSingInClick(MPSERVER)
+            }
         }
     }
 
     private fun handleButtonSingInClick(siginWith: SignWith) {
-        loginViewModel.isLoading.value = true
+        viewModel.isLoading.value = true
         when (siginWith) {
             GOOGLE -> signInGoogle()
             FACEBOOK -> signInFacebook()
@@ -121,19 +112,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun singInMPServer() {
-        loginViewModel.isLoading.value = true
-        loginViewModel.authWithMPServer(loginUI.email, loginUI.password).observe(viewLifecycleOwner,
-            Observer {
-                it ?: return@Observer
-
-                if (it == RequestStatus.SUCCESS) {
-                    loginViewModel.isLoading.value = false
-                    storeUser(loginUI.email, loginUI.email)
-                } else if (it == RequestStatus.FAILED) {
-                    loginViewModel.isLoading.value = false
-                    launchSnackbar(getString(R.string.message_fail_to_authenticate))
-                }
-            })
+        viewModel.singInMPServer()
     }
 
     private fun setupFacebookLogin() {
@@ -145,12 +124,12 @@ class LoginFragment : Fragment() {
                 }
 
                 override fun onCancel() {
-                    loginViewModel.isLoading.value = false
+                    viewModel.isLoading.value = false
                     Log.d(TAG, "facebook:onCancel")
                 }
 
                 override fun onError(exception: FacebookException) {
-                    loginViewModel.isLoading.value = false
+                    viewModel.isLoading.value = false
                     Log.d(TAG, "facebook:onError", exception)
                 }
             }
@@ -181,13 +160,13 @@ class LoginFragment : Fragment() {
             val provider = OAuthProvider.newBuilder("twitter.com")
             firebaseAuth.startActivityForSignInWithProvider(requireActivity(), provider.build())
                 .addOnSuccessListener {
-                    loginViewModel.isLoading.value = false
+                    viewModel.isLoading.value = false
                     val userName = it.user?.displayName ?: throw NullPointerException()
                     val email = it.user?.email ?: ""
-                    storeUser(userEmail = email, userName = userName)
+                    viewModel.storeUser(userEmail = email, userName = userName)
                 }
                 .addOnFailureListener { e ->
-                    loginViewModel.isLoading.value = false
+                    viewModel.isLoading.value = false
                     Log.w(TAG, "signInResult to twitter:failed " + e.message)
                 }
         } catch (e: Exception) {
@@ -211,23 +190,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun handleSigIn(task: Task<AuthResult>) {
-        loginViewModel.isLoading.value = false
-        if (task.isSuccessful) {
-            val user = firebaseAuth.currentUser ?: throw NullPointerException()
-            storeUser(
-                user.email ?: throw NullPointerException(),
-                user.displayName ?: throw NullPointerException()
-            )
-        } else {
-            launchSnackbar(getString(R.string.message_fail_to_authenticate))
-        }
-    }
-
-    private fun launchSnackbar(message: String) {
-        val parentActivity = this.requireActivity()
-        if (parentActivity is MainActivity) {
-            parentActivity.launchSnackbar(message)
-        }
+        viewModel.handleSigIn(task, requireActivity())
     }
 
     private fun handleGoogleSignInResult(completedTask: Task<GoogleSignInAccount>) {
@@ -240,7 +203,7 @@ class LoginFragment : Fragment() {
                     handleSigIn(task)
                 }
         } catch (e: ApiException) {
-            loginViewModel.isLoading.value = false
+            viewModel.isLoading.value = false
             Log.w(TAG, "signInResult:failed code=" + e.statusCode)
         }
     }
@@ -253,16 +216,11 @@ class LoginFragment : Fragment() {
                     handleSigIn(task)
                 }
         } catch (e: java.lang.Exception) {
-            loginViewModel.isLoading.value = false
+            viewModel.isLoading.value = false
             Log.w(TAG, e)
         }
     }
 
-    private fun storeUser(userEmail: String, userName: String) {
-        loginViewModel.logIn(userEmail)
-        loginViewModel.addUserToDb(userName, userEmail)
-        navigateSetupAppFragment()
-    }
 
     private fun navigateSetupAppFragment() {
         findNavController().navigate(R.id.action_loginFragment_to_setupApplicationFragment)

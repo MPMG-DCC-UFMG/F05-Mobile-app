@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.dialog_selector.*
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.DialogSelectorBinding
 import org.mpmg.mpapp.ui.dialogs.adapters.SelectorOptionsAdapter
@@ -31,6 +30,8 @@ class SelectorDialog(
     private lateinit var dialogOptions: List<SelectorOptions>
     private var selectedOptions = mutableSetOf<Int>()
 
+    private lateinit var binding: DialogSelectorBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NO_TITLE, R.style.MPAppTheme_DialogStyle);
@@ -40,8 +41,8 @@ class SelectorDialog(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val binding: DialogSelectorBinding =
+    ): View {
+        binding =
             DataBindingUtil.inflate(inflater, R.layout.dialog_selector, container, false)
         binding.title = title
         binding.negativeButton = onNegativeClickListener != null
@@ -59,32 +60,37 @@ class SelectorDialog(
     }
 
     private fun setupListeners() {
-        imageView_singleSelectionDialog_close.setOnClickListener {
-            onCloseClickListener?.invoke()
-            dismiss()
-        }
-        materialButton_singleSelectionDialog_cancel.setOnClickListener {
-            onNegativeClickListener?.invoke()
-            dismiss()
-        }
-        materialButton_singleSelectionDialog_confirm.setOnClickListener {
-            if (selectionMode == SelectionMode.MULTIPLE) {
-                handleMultipleSelectionMode()
+        with(binding) {
+            imageViewSingleSelectionDialogClose.setOnClickListener {
+                onCloseClickListener?.invoke()
+                dismiss()
             }
-            onPositiveClickListener?.invoke(selectedOptions.toList())
-            dismiss()
+            materialButtonSingleSelectionDialogCancel.setOnClickListener {
+                onNegativeClickListener?.invoke()
+                dismiss()
+            }
+            materialButtonSingleSelectionDialogConfirm.setOnClickListener {
+                if (selectionMode == SelectionMode.MULTIPLE) {
+                    handleMultipleSelectionMode()
+                }
+                onPositiveClickListener?.invoke(selectedOptions.toList())
+                dismiss()
+            }
         }
+
     }
 
     private fun initRecyclerView() {
         selectorOptionsAdapter = SelectorOptionsAdapter()
-        recyclerView_singleSelectionDialog.adapter = selectorOptionsAdapter
-        recyclerView_singleSelectionDialog.layoutManager = LinearLayoutManager(activity)
+        with(binding.recyclerViewSingleSelectionDialog) {
+            adapter = selectorOptionsAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
     }
 
-    private fun updateText(){
-        if (cancelText!=null){
-            materialButton_singleSelectionDialog_cancel.text = cancelText
+    private fun updateText() {
+        if (cancelText != null) {
+            binding.materialButtonSingleSelectionDialogCancel.text = cancelText
         }
     }
 
@@ -181,7 +187,7 @@ class SelectorDialog(
             return this
         }
 
-        fun withCancelText(cancelText: String): Builder{
+        fun withCancelText(cancelText: String): Builder {
             this.cancelText = cancelText
             return this
         }

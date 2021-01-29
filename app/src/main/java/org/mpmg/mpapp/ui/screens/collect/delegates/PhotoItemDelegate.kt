@@ -1,14 +1,14 @@
 package org.mpmg.mpapp.ui.screens.collect.delegates
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_photo_list.view.*
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.interfaces.BaseDelegate
 import org.mpmg.mpapp.core.interfaces.BaseModel
+import org.mpmg.mpapp.databinding.ItemPhotoListBinding
 import org.mpmg.mpapp.domain.database.models.Photo
 
 class PhotoItemDelegate : BaseDelegate<BaseModel> {
@@ -19,13 +19,10 @@ class PhotoItemDelegate : BaseDelegate<BaseModel> {
         inflater: LayoutInflater,
         parent: ViewGroup
     ): RecyclerView.ViewHolder {
-        return PhotoItemDelegateViewHolder(
-            inflater.inflate(
-                R.layout.item_photo_list,
-                parent,
-                false
-            )
+        val binding: ItemPhotoListBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context), R.layout.item_photo_list, parent, false
         )
+        return PhotoItemDelegateViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, delegateObject: BaseModel?) {
@@ -52,9 +49,10 @@ class PhotoItemDelegate : BaseDelegate<BaseModel> {
         fun onPhotoClicked(photoId: String)
     }
 
-    class PhotoItemDelegateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val mPhotoType = itemView.textView_itemPhotoList_photoType
-        val mThumbnail = itemView.imageView_itemPhotoList_thumbnail
-        val mContainer = itemView.cardView_itemPhotoList_mainContainer
+    class PhotoItemDelegateViewHolder(private val binding: ItemPhotoListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val mPhotoType = binding.textViewItemPhotoListPhotoType
+        val mThumbnail = binding.imageViewItemPhotoListThumbnail
+        val mContainer = binding.cardViewItemPhotoListMainContainer
     }
 }

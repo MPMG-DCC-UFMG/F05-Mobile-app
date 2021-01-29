@@ -2,6 +2,7 @@ package org.mpmg.mpapp.core
 
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.mpmg.mpapp.domain.network.retrofit.*
 import org.mpmg.mpapp.domain.repositories.association.AssociationRepository
@@ -25,26 +26,44 @@ import org.mpmg.mpapp.domain.repositories.user.datasources.LocalUserDataSource
 import org.mpmg.mpapp.domain.repositories.user.datasources.RemoteUserDataSource
 import org.mpmg.mpapp.domain.repositories.workstatus.WorkStatusRepository
 import org.mpmg.mpapp.domain.repositories.workstatus.datasources.LocalWorkStatusDataSource
+import org.mpmg.mpapp.ui.viewmodels.MainActivityViewModel
+import org.mpmg.mpapp.ui.screens.collect.fragments.CollectMainFragment
 import org.mpmg.mpapp.ui.screens.collect.viewmodels.CollectFragmentViewModel
+import org.mpmg.mpapp.ui.screens.home.viewmodels.HomeViewModel
+import org.mpmg.mpapp.ui.screens.login.viewmodels.CreateAccountViewModel
+import org.mpmg.mpapp.ui.screens.login.viewmodels.LoginViewModel
+import org.mpmg.mpapp.ui.screens.photo.viewmodels.PhotoViewModel
+import org.mpmg.mpapp.ui.screens.publicwork.fragments.list.PublicWorkListFragment
+import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.BottomMenuViewModel
+import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.CrudPublicWorkViewModel
+import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.PublicWorkListViewModel
+import org.mpmg.mpapp.ui.screens.setup.viewmodels.ConfigurationViewModel
+import org.mpmg.mpapp.ui.screens.upload.viewmodels.SendViewModel
 import org.mpmg.mpapp.ui.viewmodels.*
 
 val viewModelModules = module {
-    viewModel { LoginViewModel(androidApplication(), get(), get()) }
+    // Shared View Models
     viewModel { LocationViewModel() }
-    viewModel { PublicWorkViewModel(get()) }
-    viewModel { ConfigurationViewModel(androidApplication()) }
-    viewModel { TypeWorkViewModel(get()) }
-    viewModel { CollectViewModel(get(), get(), get()) }
-    viewModel { PhotoViewModel() }
-    viewModel { SendViewModel(androidApplication(), get()) }
-    viewModel { HomeViewModel(get()) }
-    viewModel { WorkStatusViewModel(get()) }
-    viewModel { CityViewModel(get()) }
-    viewModel { TypePhotoViewModel(get()) }
+    viewModel { MainActivityViewModel() }
+
+    scope(named(PublicWorkListFragment::class.java.name)) {
+        scoped { PublicWorkListViewModel(get(), get()) }
+    }
+
+    scope(named(CollectMainFragment::class.java.name)) {
+        scoped { CollectFragmentViewModel(get(), get(), get(), get(), get()) }
+        scoped { PhotoViewModel(get(), get()) }
+    }
 
     // ViewModels for UI
-    viewModel { CollectFragmentViewModel() }
+    viewModel { HomeViewModel(get()) }
+    viewModel { SendViewModel(androidApplication(), get()) }
+    viewModel { LoginViewModel(get(), get()) }
+    viewModel { ConfigurationViewModel(androidApplication()) }
+    viewModel { CollectFragmentViewModel(get(), get(), get(), get(), get()) }
     viewModel { CreateAccountViewModel(get()) }
+    viewModel { CrudPublicWorkViewModel(get(), get(), get()) }
+    viewModel { BottomMenuViewModel() }
 }
 
 val repositoriesModules = module {

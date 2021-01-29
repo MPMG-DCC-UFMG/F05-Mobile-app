@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkInfo
 import androidx.work.WorkInfo.State.*
 import androidx.work.WorkManager
-import kotlinx.android.synthetic.main.item_upload_public_work.view.*
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.interfaces.BaseDelegate
 import org.mpmg.mpapp.core.interfaces.BaseModel
@@ -85,8 +84,7 @@ class UploadPublicWorkItemDelegate : BaseDelegate<BaseModel> {
     class UploadPublicWorkViewHolder(val binding: ItemUploadPublicWorkBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        val uploadTextView: TextView = binding.root.textView_uploadItem_publicWorkName
-        val progressTexView: TextView = binding.root.textView_uploadItem_progress
+        val uploadTextView: TextView = binding.textViewUploadItemPublicWorkName
 
         fun bind(lifecycleOwner: LifecycleOwner, publicWork: PublicWorkUploadUI) {
             binding.publicWork = publicWork

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import kotlinx.android.synthetic.main.dialog_warning.*
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.DialogWarningBinding
 
@@ -19,6 +18,8 @@ class WarningDialog(
     private val onPositiveClickListener: (() -> Unit)? = null
 ) : DialogFragment() {
 
+    private lateinit var binding: DialogWarningBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NO_TITLE, R.style.MPAppTheme_DialogStyle);
@@ -28,8 +29,8 @@ class WarningDialog(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val binding: DialogWarningBinding = DataBindingUtil.inflate(inflater,R.layout.dialog_warning,container,false)
+    ): View {
+        binding = DataBindingUtil.inflate(inflater,R.layout.dialog_warning,container,false)
         binding.title = title
         binding.message = message
         return binding.root
@@ -42,18 +43,21 @@ class WarningDialog(
     }
 
     private fun setupListeners() {
-        imageView_warningDialog_close.setOnClickListener {
-            onCloseClickListener?.invoke()
-            dismiss()
+        with(binding){
+            imageViewWarningDialogClose.setOnClickListener {
+                onCloseClickListener?.invoke()
+                dismiss()
+            }
+            materialButtonWarningDialogCancel.setOnClickListener {
+                onNegativeClickListener?.invoke()
+                dismiss()
+            }
+            materialButtonWarningDialogConfirm.setOnClickListener {
+                onPositiveClickListener?.invoke()
+                dismiss()
+            }
         }
-        materialButton_warningDialog_cancel.setOnClickListener {
-            onNegativeClickListener?.invoke()
-            dismiss()
-        }
-        materialButton_warningDialog_confirm.setOnClickListener {
-            onPositiveClickListener?.invoke()
-            dismiss()
-        }
+
     }
 
     class Builder(private var childFragmentManager: FragmentManager){
