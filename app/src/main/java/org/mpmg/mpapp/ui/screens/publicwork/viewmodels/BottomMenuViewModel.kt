@@ -8,14 +8,17 @@ class BottomMenuViewModel : ViewModel() {
 
     val navigationOptions = BottomMenu.values().map { it.getMenu() }
 
-    var selectedOption = MutableLiveData<BottomMenu>()
+    var selectedOption = MutableLiveData<Pair<BottomMenu, Boolean>>()
 
     init {
-        selectOption(BottomMenu.LIST)
+        selectOption(BottomMenu.LIST,true)
     }
 
-    fun selectOption(id: BottomMenu) {
-        selectedOption.postValue(id)
+    fun selectOption(id: BottomMenu, navigate: Boolean) {
+        if (selectedOption.value?.first != id) {
+            selectedOption.postValue(Pair(id, navigate))
+        }
+        updateSelectedOption(id)
     }
 
     fun updateSelectedOption(id: BottomMenu) {

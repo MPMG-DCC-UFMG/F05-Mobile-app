@@ -65,7 +65,9 @@ class PublicWorkBaseFragment : Fragment() {
 
     private fun setupObservers() {
         observe(viewModel.selectedOption) {
-            handleNavigation(it)
+            if(it.second){
+                handleNavigation(it.first)
+            }
         }
     }
 
@@ -91,7 +93,7 @@ class PublicWorkBaseFragment : Fragment() {
             R.id.publicWorkListFragment -> BottomMenu.LIST
             else -> BottomMenu.HOME
         }
-        viewModel.updateSelectedOption(icon)
+        viewModel.selectOption(icon,false)
     }
 
     private fun initMenu() {
@@ -115,7 +117,7 @@ class PublicWorkBaseFragment : Fragment() {
             menuItem = menuItemModel
             menuItemContainer.layoutParams = getParams()
             menuItemContainer.setOnClickListener {
-                viewModel.selectOption(menuItemModel.type)
+                viewModel.selectOption(menuItemModel.type,true)
             }
         }
 
