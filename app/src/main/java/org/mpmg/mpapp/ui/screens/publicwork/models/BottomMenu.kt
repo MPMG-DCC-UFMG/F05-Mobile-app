@@ -24,6 +24,13 @@ enum class BottomMenu {
             title = R.string.menu_filter,
             type = FILTER
         )
+    },
+    MAP{
+        override fun getMenu(): MenuItemModel = MenuItemModel(
+            icon = R.drawable.ic_map_marker,
+            title = R.string.menu_map,
+            type = MAP
+        )
     };
 
     abstract fun getMenu(): MenuItemModel

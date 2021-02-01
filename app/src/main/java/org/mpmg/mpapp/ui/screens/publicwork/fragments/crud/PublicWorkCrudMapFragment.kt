@@ -70,7 +70,7 @@ class PublicWorkCrudMapFragment : MVVMFragment<LocationViewModel, FragmentMapBin
                 onCreate(savedInstanceState)
                 onResume()
                 try {
-                    MapsInitializer.initialize(activity?.applicationContext)
+                    MapsInitializer.initialize(requireActivity().applicationContext)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

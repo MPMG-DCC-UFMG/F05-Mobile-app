@@ -37,6 +37,7 @@ import org.mpmg.mpapp.ui.screens.publicwork.fragments.list.PublicWorkListFragmen
 import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.BottomMenuViewModel
 import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.CrudPublicWorkViewModel
 import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.PublicWorkListViewModel
+import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.PublicWorkMapViewModel
 import org.mpmg.mpapp.ui.screens.setup.viewmodels.ConfigurationViewModel
 import org.mpmg.mpapp.ui.screens.upload.viewmodels.SendViewModel
 import org.mpmg.mpapp.ui.viewmodels.*
@@ -64,6 +65,7 @@ val viewModelModules = module {
     viewModel { CreateAccountViewModel(get()) }
     viewModel { CrudPublicWorkViewModel(get(), get(), get()) }
     viewModel { BottomMenuViewModel() }
+    viewModel { PublicWorkMapViewModel() }
 }
 
 val repositoriesModules = module {
