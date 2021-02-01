@@ -39,9 +39,10 @@
 
     <string name="menu_search">Pesquisar</string>
     <string name="menu_filter">Filtrar</string>
+    <string name="menu_map">Mapa</string>
     <string name="menu_send">Enviar</string>
     <string name="menu_add">Adicionar</string>
-    <string name="menu_list">Lista de Obras</string>
+    <string name="menu_list">Lista</string>
     <string name="menu_home">Home</string>
 
     <string name="label_email">Email</string>

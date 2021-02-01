@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.google.android.gms.maps.model.LatLng
 import org.mpmg.mpapp.domain.database.DatabaseConstants
 import java.util.*
 
@@ -47,5 +48,11 @@ data class Address(
         location.latitude = latitude ?: return null
 
         return location
+    }
+
+    fun getLatLng(): LatLng? {
+        var lat = latitude ?: return null
+        var long = longitude ?: return null
+        return LatLng(lat, long)
     }
 }
