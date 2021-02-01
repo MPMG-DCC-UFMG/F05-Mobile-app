@@ -20,6 +20,7 @@ import org.mpmg.mpapp.databinding.ItemMenuBinding
 import org.mpmg.mpapp.ui.components.MenuItemModel
 import org.mpmg.mpapp.ui.screens.publicwork.fragments.list.PublicWorkListFragment
 import org.mpmg.mpapp.ui.screens.publicwork.models.BottomMenu
+import org.mpmg.mpapp.ui.screens.publicwork.models.BottomMenu.*
 import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.BottomMenuViewModel
 
 
@@ -65,7 +66,7 @@ class PublicWorkBaseFragment : Fragment() {
 
     private fun setupObservers() {
         observe(viewModel.selectedOption) {
-            if(it.second){
+            if (it.second) {
                 handleNavigation(it.first)
             }
         }
@@ -73,9 +74,10 @@ class PublicWorkBaseFragment : Fragment() {
 
     private fun handleNavigation(option: BottomMenu) {
         when (option) {
-            BottomMenu.HOME -> mainNavController.navigateUp()
-            BottomMenu.LIST -> navController.navigate(R.id.publicWorkListFragment)
-            BottomMenu.FILTER -> navController.navigate(R.id.publicWorkFilterFragment)
+            HOME -> mainNavController.navigateUp()
+            LIST -> navController.navigate(R.id.publicWorkListFragment)
+            FILTER -> navController.navigate(R.id.publicWorkFilterFragment)
+            MAP -> navController.navigate(R.id.publicWorkMapFragment)
         }
     }
 
@@ -89,11 +91,12 @@ class PublicWorkBaseFragment : Fragment() {
 
     private fun handleDestinationChanges(destinationId: Int) {
         val icon = when (destinationId) {
-            R.id.publicWorkFilterFragment -> BottomMenu.FILTER
-            R.id.publicWorkListFragment -> BottomMenu.LIST
-            else -> BottomMenu.HOME
+            R.id.publicWorkFilterFragment -> FILTER
+            R.id.publicWorkListFragment -> LIST
+            R.id.publicWorkMapFragment -> MAP
+            else -> HOME
         }
-        viewModel.selectOption(icon,false)
+        viewModel.selectOption(icon, false)
     }
 
     private fun initMenu() {
@@ -117,7 +120,7 @@ class PublicWorkBaseFragment : Fragment() {
             menuItem = menuItemModel
             menuItemContainer.layoutParams = getParams()
             menuItemContainer.setOnClickListener {
-                viewModel.selectOption(menuItemModel.type,true)
+                viewModel.selectOption(menuItemModel.type, true)
             }
         }
 
