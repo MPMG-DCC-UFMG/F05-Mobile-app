@@ -6,17 +6,20 @@ import org.mpmg.mpapp.R
 import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 import org.mpmg.mpapp.domain.repositories.typework.TypeWorkRepository
+import org.mpmg.mpapp.domain.repositories.workstatus.WorkStatusRepository
 import org.mpmg.mpapp.ui.screens.base.MVVMViewModel
 import org.mpmg.mpapp.ui.shared.filters.*
 
 class PublicWorkListViewModel(
     publicWorkRepository: PublicWorkRepository,
     typeWorkRepository: TypeWorkRepository,
+    workStatusRepository: WorkStatusRepository
 ) : MVVMViewModel() {
 
     private val publicWorkList = publicWorkRepository.listAllPublicWorksLive().asLiveData()
 
     var typeWorkList = typeWorkRepository.listAllTypeWorksLive().asLiveData()
+    var workStatusList = workStatusRepository.listAllWorkStatus().asLiveData()
 
     private val _publicWorkMediatedList = MediatorLiveData<List<PublicWorkAndAddress>>()
     val publicWorkMediatedList: LiveData<List<PublicWorkAndAddress>> = _publicWorkMediatedList
@@ -24,6 +27,7 @@ class PublicWorkListViewModel(
     private val filterManager = PublicWorkFilterManager()
     private val filterSyncStatus = FilterSyncStatus()
     private val filterTypeWork = FilterTypeOfWork()
+    private val filterWorkStatus = FilterWorkStatus()
     private val filterByName = FilterByName()
 
     private var currentLocation: Location? = null
@@ -32,9 +36,7 @@ class PublicWorkListViewModel(
     val sortedCheckedId: MutableLiveData<Int> = MutableLiveData<Int>()
 
     init {
-        filterManager.addFilter(filterSyncStatus.filterKey, filterSyncStatus)
-        filterManager.addFilter(filterTypeWork.filterKey, filterTypeWork)
-        filterManager.addFilter(filterByName.filterKey, filterByName)
+        filterManager.addFilters(listOf(filterWorkStatus,filterSyncStatus,filterByName,filterTypeWork))
 
         filterSyncStatus.addSyncStatus(SyncStatus.COLLECTED)
         filterSyncStatus.addSyncStatus(SyncStatus.TO_SEND)
@@ -54,6 +56,15 @@ class PublicWorkListViewModel(
         val isCheckedOption = mutableListOf<Boolean>()
         options.forEach { option ->
             isCheckedOption.add(filterTypeWork.isTypeOfWorkChecked(option))
+        }
+
+        return isCheckedOption.toBooleanArray()
+    }
+
+    fun getFilteredWorkStatus(options: Array<Int>): BooleanArray{
+        val isCheckedOption = mutableListOf<Boolean>()
+        options.forEach { option ->
+            isCheckedOption.add(filterWorkStatus.isWorkStatusChecked(option))
         }
 
         return isCheckedOption.toBooleanArray()
@@ -113,6 +124,11 @@ class PublicWorkListViewModel(
 
     fun updateTypeWorkFilter(selectedTypeWorkIndex: List<Int>) {
         filterTypeWork.setTypeOfWorks(selectedTypeWorkIndex)
+        filter()
+    }
+
+    fun updateWorkStatusFilter(selectedWorkStatusIndex: List<Int>) {
+        filterWorkStatus.setWorkStatus(selectedWorkStatusIndex)
         filter()
     }
 

@@ -10,6 +10,12 @@ class PublicWorkFilterManager {
         filters[key] = filter
     }
 
+    fun addFilters(filterList: List<IPublicWorkFilter>){
+        filterList.forEach { filter ->
+            filters[filter.filterKey] = filter
+        }
+    }
+
     fun removeFilter(key: String) {
         filters.remove(key)
     }

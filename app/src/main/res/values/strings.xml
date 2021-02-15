@@ -48,6 +48,7 @@
     <string name="label_email">Email</string>
     <string name="label_password">Senha</string>
     <string name="label_type_of_work">Tipo de obra</string>
+    <string name="label_work_state">Estado da obra</string>
     <string name="label_name_of_work">Nome da obra</string>
     <string name="label_street">Rua</string>
     <string name="label_cep">CEP</string>
@@ -57,6 +58,7 @@
     <string name="label_order_by">Ordenar por</string>
     <string name="label_search_address">Clique para buscar endereço</string>
     <string name="label_click_to_select_type_of_work">Clique para selecionar tipo de obra …</string>
+    <string name="label_click_to_select_work_state">Clique para selecionar o estado da obra …</string>
     <string name="label_loading_address">Buscando endereço</string>
     <string name="lavel_public_work_state">Estado dos dados das obras</string>
     <string name="label_add_comment_hint">Adicionar comentário da foto…</string>
