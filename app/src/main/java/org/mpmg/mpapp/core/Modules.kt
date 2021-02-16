@@ -48,7 +48,7 @@ val viewModelModules = module {
     viewModel { MainActivityViewModel() }
 
     scope(named(PublicWorkListFragment::class.java.name)) {
-        scoped { PublicWorkListViewModel(get(), get()) }
+        scoped { PublicWorkListViewModel(get(), get(), get()) }
     }
 
     scope(named(CollectMainFragment::class.java.name)) {

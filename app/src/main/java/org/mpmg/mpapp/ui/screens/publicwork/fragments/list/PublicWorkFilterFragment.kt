@@ -6,6 +6,7 @@ import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.extensions.observe
 import org.mpmg.mpapp.databinding.FragmentPublicWorkFilterBinding
 import org.mpmg.mpapp.domain.database.models.TypeWork
+import org.mpmg.mpapp.domain.database.models.WorkStatus
 import org.mpmg.mpapp.ui.dialogs.SelectorDialog
 import org.mpmg.mpapp.ui.screens.base.MVVMFragment
 import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.PublicWorkListViewModel
@@ -21,6 +22,7 @@ class PublicWorkFilterFragment :
     override val layout: Int = R.layout.fragment_public_work_filter
 
     lateinit var typeWorkList: List<TypeWork>
+    lateinit var workStatusList: List<WorkStatus>
 
     override fun initBindings() {
         binding.publicWorkViewModel = viewModel
@@ -34,6 +36,11 @@ class PublicWorkFilterFragment :
         observe(viewModel.typeWorkList) {
             typeWorkList = it
             updateFilterTypeOfWorksText()
+        }
+
+        observe(viewModel.workStatusList){
+            workStatusList = it
+            updateFilterWorkStatusText()
         }
     }
 
@@ -49,6 +56,10 @@ class PublicWorkFilterFragment :
 
             textViewFilterFragmentTypeOfWork.setOnClickListener {
                 launchTypeWorkDialog()
+            }
+
+            textViewFilterFragmentWorkState.setOnClickListener {
+                launchWorkStateDialog()
             }
         }
     }
@@ -74,6 +85,20 @@ class PublicWorkFilterFragment :
         }
     }
 
+    private fun updateFilterWorkStatusText() {
+        val checkedOptions =
+            viewModel.getFilteredWorkStatus(workStatusList.map { it.flag }.toTypedArray())
+        val names = mutableListOf<String>()
+        workStatusList.forEachIndexed { index, typeWork ->
+            if (checkedOptions[index]) {
+                names.add(typeWork.name)
+            }
+        }
+        with(binding.textViewFilterFragmentWorkState) {
+            text = names.joinToString(",")
+        }
+    }
+
     private fun launchTypeWorkDialog() {
         val optionsArray = typeWorkList.map { it.name }.toTypedArray()
         val checkedOptions =
@@ -84,15 +109,36 @@ class PublicWorkFilterFragment :
         builder.withTitle(getString(R.string.dialog_type_work_title))
             .withOptions(optionsArray.toList())
             .withSelectionMode(SelectorDialog.SelectionMode.MULTIPLE)
-//            .withSelectedOptionListener {
-//                viewModel.setCurrentTypeWork(typesWork[it.first()])
-//            }
             .withOnPositiveClickListener {
                 val selected = it.toSet()
                 viewModel.updateTypeWorkFilter(typeWorkList.filterIndexed { index, _ ->
                     selected.contains(index)
                 }.map { typeWork -> typeWork.flag })
                 updateFilterTypeOfWorksText()
+            }
+            .withOnNegativeClickListener {
+                // ignore
+            }
+            .withSelectedOptions(checkedOptions)
+            .show()
+    }
+
+    private fun launchWorkStateDialog() {
+        val optionsArray = workStatusList.map { it.name }.toTypedArray()
+        val checkedOptions =
+            viewModel.getFilteredWorkStatus(workStatusList.map { it.flag }.toTypedArray())
+                .withIndex().filter { it.value }.map { it.index }
+
+        val builder = SelectorDialog.Builder(childFragmentManager)
+        builder.withTitle(getString(R.string.dialog_work_status))
+            .withOptions(optionsArray.toList())
+            .withSelectionMode(SelectorDialog.SelectionMode.MULTIPLE)
+            .withOnPositiveClickListener {
+                val selected = it.toSet()
+                viewModel.updateWorkStatusFilter(workStatusList.filterIndexed { index, _ ->
+                    selected.contains(index)
+                }.map { workStatus -> workStatus.flag })
+                updateFilterWorkStatusText()
             }
             .withOnNegativeClickListener {
                 // ignore
