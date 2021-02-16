@@ -12,7 +12,7 @@ android {
         applicationId "org.mpmg.mpapp"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 6
+        versionCode 7
         versionName "2.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
@@ -35,6 +35,11 @@ android {
                 buildConfigField 'String', p.key, p.value
             }
         }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 
     buildFeatures{
