@@ -6,12 +6,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 31
+    buildToolsVersion "30.0.2"
     defaultConfig {
         applicationId "org.mpmg.mpapp"
         minSdkVersion 24
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 7
         versionName "2.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -145,12 +145,11 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:5.15.3'
 
     // Testing Fragments in Isolation
-    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
+    // debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
 
     testImplementation 'junit:junit:4.13.1'
     testImplementation "androidx.room:room-testing:$room_version"
     testImplementation "androidx.arch.core:core-testing:$arch_version"
-    testImplementation 'org.robolectric:robolectric:4.3'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

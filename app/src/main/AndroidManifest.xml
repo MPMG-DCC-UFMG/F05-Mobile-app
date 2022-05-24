@@ -14,7 +14,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
 
     <uses-feature
@@ -23,7 +24,7 @@
 
     <uses-feature
         android:name="android.hardware.location.gps"
-        android:required="true"/>
+        android:required="true" />
 
     <application
         android:name=".core.MPApp"
@@ -45,6 +46,7 @@
 
         <activity
             android:name=".ui.SplashActivity"
+            android:exported="true"
             android:theme="@style/MPAppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
