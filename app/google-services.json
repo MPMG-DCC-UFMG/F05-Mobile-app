@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "448001078007",
+    "project_id": "trena-706e7",
+    "storage_bucket": "trena-706e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448001078007:android:f7bfe2ca5c0ebd5deb19f2",
+        "android_client_info": {
+          "package_name": "org.mpmg.mpapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448001078007-7aeruinv3j8tl25igdqt5ts3g0immeph.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.mpmg.mpapp",
+            "certificate_hash": "63a55d04fa2153798173a7d6924d72cb301d939b"
+          }
+        },
+        {
+          "client_id": "448001078007-91gk502eg5db84a5d72613hjstca5q5k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA85QUxdJx3YuKQfhjpV0b7TRVviDKfge0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "448001078007-91gk502eg5db84a5d72613hjstca5q5k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
