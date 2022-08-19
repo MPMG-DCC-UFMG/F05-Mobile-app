@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/cardView_itemPublicSurveyList_mainContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_default"
+        android:layout_marginVertical="@dimen/margin_small"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/itemSurveyList_name"
+                style="@style/MPAppTheme.PublicWorkName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:singleLine="true"
+                app:layout_constraintEnd_toStartOf="@id/textView_itemPublicSurveyList_number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Tipo de vistoria: Pavimentação" />
+
+            <TextView
+                android:id="@+id/textView_itemPublicSurveyList_number"
+                style="@style/MPAppTheme.PublicWorkDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:text="@string/label_default_number"
+                android:textSize="@dimen/font_default"
+                app:layout_constraintBottom_toBottomOf="@id/itemSurveyList_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/itemSurveyList_name" />
+
+            <TextView
+                android:id="@+id/textView_itemPublicSurveyList_address"
+                style="@style/MPAppTheme.PublicWorkAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:maxLines="2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/itemSurveyList_name"
+                app:layout_constraintStart_toStartOf="@id/itemSurveyList_name"
+                app:layout_constraintTop_toBottomOf="@id/itemSurveyList_name"
+                tools:text="Av. Amazonas, 5154 - Nova Suíça Belo Horizonte - 30421-056" />
+
+            <ImageView
+                android:id="@+id/imageView_itemPublicSurveyList_sent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:src="@drawable/ic_sent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_itemPublicSurveyList_number"
+                app:tint="@color/colorBlue1" />
+
+            <ImageView
+                android:id="@+id/imageView_itemPublicSurveyList_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xsmall"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:src="@drawable/ic_check"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/imageView_itemPublicSurveyList_sent"
+                app:layout_constraintStart_toStartOf="@id/imageView_itemPublicSurveyList_sent"
+                app:layout_constraintTop_toBottomOf="@id/imageView_itemPublicSurveyList_sent"
+                app:tint="@color/colorGreenMP" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

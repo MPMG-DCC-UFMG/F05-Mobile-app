@@ -1,5 +1,6 @@
 package org.mpmg.mpapp.ui.screens.publicwork.fragments.crud
 
+import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -10,6 +11,7 @@ import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.extensions.observe
 import org.mpmg.mpapp.databinding.FragmentPublicWorkAddBinding
 import org.mpmg.mpapp.domain.database.models.City
+import org.mpmg.mpapp.domain.database.models.TypeWork
 import org.mpmg.mpapp.ui.dialogs.SelectorDialog
 import org.mpmg.mpapp.ui.screens.base.MVVMFragment
 import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.CrudPublicWorkViewModel
@@ -45,7 +47,9 @@ class PublicWorkCrudFragment : MVVMFragment<CrudPublicWorkViewModel, FragmentPub
         }
 
         observe(viewModel.typeWorkList) {
-            viewModel.setInitialTypeWork(it[0])
+            if (it.isNotEmpty()) {
+                viewModel.setInitialTypeWork(it[0])
+            }
         }
 
         observe(locationViewModel.geocodingAddress) {

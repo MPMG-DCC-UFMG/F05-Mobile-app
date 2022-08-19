@@ -2,6 +2,7 @@ package org.mpmg.mpapp.ui.screens.publicwork.viewmodels
 
 import android.location.Address
 import android.location.Location
+import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.databinding.Observable
 import androidx.lifecycle.MutableLiveData

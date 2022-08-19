@@ -27,6 +27,17 @@ object DatabaseConstants {
         const val status = "type_work_status"
     }
 
+    object TypeSurvey {
+        const val tableName = "type_survey_table"
+        const val flag = "type_survey_flag"
+        const val name = "type_survey_name"
+        const val description = "type_survey_description"
+        const val public_work_id = "type_survey_public_work_id"
+        const val collect_id = "type_survey_collect_id"
+        const val status = "type_survey_collect_status"
+        const val user_status = "type_survey_collect_user_status"
+    }
+
     object TypePhoto {
         const val tableName = "type_photo_table"
         const val flag = "type_photo_flag"

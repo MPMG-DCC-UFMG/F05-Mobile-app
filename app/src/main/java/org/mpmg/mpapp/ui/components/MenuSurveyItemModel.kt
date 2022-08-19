@@ -5,14 +5,13 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
-import org.mpmg.mpapp.BR;
+import org.mpmg.mpapp.BR
 import org.mpmg.mpapp.R
-import org.mpmg.mpapp.ui.screens.publicwork.models.BottomMenu
 
-data class MenuItemModel(
+data class MenuSurveyItemModel(
     @DrawableRes val icon: Int,
     @StringRes val title: Int,
-    val type: org.mpmg.mpapp.ui.screens.publicwork.models.BottomMenu
+    val type: org.mpmg.mpapp.ui.screens.surveywork.models.BottomSurveyMenu
 ) : BaseObservable() {
 
     @get:Bindable

@@ -19,6 +19,18 @@ interface MPApi {
 
     @GET("publicworks/version")
     suspend fun getPublicWorkVersion(): EntityVersion
+    //Vistorias
+
+    @GET("inspections/")
+    suspend fun getInspections(): List<SurveyWorkRemote>
+
+    @POST("inspections/add")
+    suspend fun sendSurveyWork(@Body surveyWorkRemote: SurveyWorkRemote): ResponseRemote
+
+    @PUT("inspections/update")
+    suspend fun sendSurveyWork(): List<SurveyWorkRemote>
+
+
 
     @POST("queue/publicwork/add")
     suspend fun sendPublicWork(@Body publicWorkRemote: PublicWorkRemote): ResponseRemote

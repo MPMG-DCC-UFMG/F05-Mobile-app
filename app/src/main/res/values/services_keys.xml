@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyALMMJY9OKZV6cfSPo0twFdflsK2zuUvIg</string>
+
+
+    <string name="sentry_key" templateMergeStrategy="preserve" translatable="false">https://ea2248076dd64c428ddb6909b9601449@o1252671.ingest.sentry.io/6418911</string>
+
+    <string name="google_sign_in" templateMergeStrategy="preserve" translatable="false">448001078007-91gk502eg5db84a5d72613hjstca5q5k.apps.googleusercontent.com</string>
+
+    <string name="facebook_app_id" templateMergeStrategy="preserve" translatable="false">371041768320555</string>
+    <string name="fb_login_protocol_scheme" templateMergeStrategy="preserve" translatable="false">fb371041768320555</string>
+</resources>

@@ -97,8 +97,8 @@ class PublicWorkCrudMapFragment : MVVMFragment<LocationViewModel, FragmentMapBin
         findNavController().navigate(R.id.action_mapFragment_pop)
     }
 
-    override fun onMapReady(map: GoogleMap?) {
-        mMap = map
+    override fun onMapReady(p0: GoogleMap) {
+        mMap = p0
         mMap?.apply {
             isIndoorEnabled = false
             viewModel.getCurrentLocationLiveData()
@@ -125,4 +125,5 @@ class PublicWorkCrudMapFragment : MVVMFragment<LocationViewModel, FragmentMapBin
         super.onLowMemory()
         mapView.onLowMemory()
     }
+
 }

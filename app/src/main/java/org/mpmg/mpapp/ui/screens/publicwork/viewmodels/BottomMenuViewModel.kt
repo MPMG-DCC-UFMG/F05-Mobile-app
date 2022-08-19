@@ -14,7 +14,7 @@ class BottomMenuViewModel : ViewModel() {
         selectOption(BottomMenu.LIST,true)
     }
 
-    fun selectOption(id: BottomMenu, navigate: Boolean) {
+    fun selectOption(id: org.mpmg.mpapp.ui.screens.publicwork.models.BottomMenu, navigate: Boolean) {
         if (selectedOption.value?.first != id) {
             selectedOption.postValue(Pair(id, navigate))
         }

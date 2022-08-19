@@ -52,7 +52,7 @@ class LocationService : Service() {
 
     private fun initLocationCallback() {
         mFusedLocationUpdateCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
+            override fun onLocationResult(locationResult: LocationResult) {
                 locationResult ?: return
 
                 for (location in locationResult.locations) {

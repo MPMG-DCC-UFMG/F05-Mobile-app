@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/survey_graph"
+    app:startDestination="@id/surveyWorkFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="org.mpmg.mpapp.ui.screens.home.fragments.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/surveyWorkFragment"
+        android:name="org.mpmg.mpapp.ui.screens.surveywork.fragments.list.SurveyWorkFragment"
+        android:label="SurveyWorkFragment"
+        tools:layout="@layout/fragment_survey_work" />
+    <fragment
+        android:id="@+id/surveyMapFragment"
+        android:name="org.mpmg.mpapp.ui.screens.surveywork.fragments.list.SurveyMapFragment"
+        android:label="SurveyMapFragment"
+        tools:layout="@layout/fragment_survey_map"/>
+    <fragment
+        android:id="@+id/surveyFilterFragment"
+        android:name="org.mpmg.mpapp.ui.screens.surveywork.fragments.list.SurveyFilterFragment"
+        android:label="fragment_survey_filter"
+        tools:layout="@layout/fragment_survey_filter" />
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="org.mpmg.mpapp.ui.screens.surveywork.fragments.list.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
+    <fragment
+        android:id="@+id/publicWorkCrudMapFragment"
+        android:name="org.mpmg.mpapp.ui.screens.publicwork.fragments.crud.PublicWorkCrudMapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/itemSurveyList"
+        android:name="org.mpmg.mpapp.ui.screens.surveywork.models.ItemSurveyList"
+        android:label="fragment_item_survey_list"
+        tools:layout="@layout/fragment_item_survey_list" >
+        <action
+            android:id="@+id/action_ItemSurveyList_to_SurveyWorkFragment"
+            app:destination="@id/surveyWorkFragment" />
+        <action
+            android:id="@+id/action_ItemSurveyList_to_SurveyDetailsFragment"
+            app:destination="@id/surveyDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/surveyDetailsFragment"
+        android:name="org.mpmg.mpapp.ui.screens.surveywork.fragments.list.SurveyDetailsFragment"
+        android:label="fragment_survey_details"
+        tools:layout="@layout/fragment_survey_details" />
+
+
+</navigation>

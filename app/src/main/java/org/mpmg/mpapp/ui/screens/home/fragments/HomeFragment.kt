@@ -55,6 +55,9 @@ class HomeFragment : MVVMFragment<HomeViewModel, FragmentHomeBinding>() {
             HomeOptions(R.drawable.ic_list, getString(R.string.home_option_list)) {
                 navigateTo(R.id.action_homeFragment_to_baseFragment)
             },
+            HomeOptions(R.drawable.ic_survey, getString(R.string.home_option_survey)) {
+                navigateTo(R.id.action_homeFragment_to_baseSurveyFragment)
+            },
             HomeOptions(R.drawable.ic_plus, getString(R.string.home_option_new)) {
                 navigateTo(R.id.action_homeFragment_to_publicWorkAddFragment)
             },

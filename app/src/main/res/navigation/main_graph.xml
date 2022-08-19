@@ -162,6 +162,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_baseSurveyFragment"
+            app:destination="@id/baseSurveyFragment" />
     </fragment>
 
     <fragment
@@ -179,6 +182,11 @@
             app:popUpTo="@id/createAccountFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/baseSurveyFragment"
+        android:name="org.mpmg.mpapp.ui.screens.surveywork.fragments.BaseSurveyFragment"
+        android:label="fragment_base_survey"
+        tools:layout="@layout/fragment_base_survey" />
 
 
 </navigation>

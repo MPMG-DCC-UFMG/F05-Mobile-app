@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="menuSurveyItem"
+            type="org.mpmg.mpapp.ui.components.MenuSurveyItemModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:id="@+id/menuItemContainerSurvey"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView_menuItem_icon_survey"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@{menuSurveyItem.icon}"
+            mp:tint="@{menuSurveyItem.itemColor}"
+            tools:src="@drawable/ic_home" />
+
+        <TextView
+            android:id="@+id/textView_menuItem_title_survey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{menuSurveyItem.title}"
+            mp:textColor="@{menuSurveyItem.itemColor}"
+            tools:text="Home" />
+
+    </LinearLayout>
+</layout>

@@ -22,6 +22,14 @@ class RemoteConfigDataSource(private val mpApi: MPApi) {
     suspend fun getPublicWorkVersion(): EntityVersion {
         return mpApi.getPublicWorkVersion()
     }
+    //Vistorias
+    suspend fun getInspections(): List<SurveyWorkRemote> {
+        return mpApi.getInspections()
+    }
+
+    suspend fun getInspectionsAdd(): List<SurveyWorkRemote> {
+        return mpApi.getInspections()
+    }
 
     suspend fun loadTypePhotos(): List<TypePhotoRemote> {
         return mpApi.loadTypePhotos()

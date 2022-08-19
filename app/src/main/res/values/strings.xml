@@ -2,6 +2,10 @@
     <string name="app_name">TRENA</string>
 
     <string name="title_public_work_list">Lista de obras</string>
+    <string name="title_survey_details_list">Nº 1222258</string>
+    <string name="title_survey_type_list">Tipo de vistoria: Pavimentação</string>
+    <string name="title_survey_type_name">Pavimentação</string>
+    <string name="title_public_survey_list">Lista de vistorias</string>
     <string name="title_public_work_filter">Filtrar</string>
     <string name="title_public_work_add">Adicionar obra</string>
     <string name="title_public_work_edit">Editar obra</string>
@@ -12,6 +16,7 @@
     <string name="hint_login_email">Entre um email válido</string>
     <string name="hint_login_password">Digite sua senha …</string>
     <string name="hint_search_field">Pesquisar por alguma obra específica</string>
+    <string name="hint_search_survey_field">Pesquisar por alguma vistoria específica</string>
     <string name="hint_confirm_password">Confirme sua senha …</string>
 
     <string name="button_login">Entrar</string>
@@ -50,6 +55,8 @@
     <string name="label_type_of_work">Tipo de obra</string>
     <string name="label_work_state">Estado da obra</string>
     <string name="label_name_of_work">Nome da obra</string>
+    <string name="label_type_of_survey">Tipo de vistoria</string>
+    <string name="label_survey_state">Estado da vistoria</string>
     <string name="label_street">Rua</string>
     <string name="label_cep">CEP</string>
     <string name="label_number">Número</string>
@@ -59,10 +66,13 @@
     <string name="label_search_address">Clique para buscar endereço</string>
     <string name="label_click_to_select_type_of_work">Clique para selecionar tipo de obra …</string>
     <string name="label_click_to_select_work_state">Clique para selecionar o estado da obra …</string>
+    <string name="label_click_to_select_survey_state">Clique para selecionar o tipo da vistoria …</string>
     <string name="label_loading_address">Buscando endereço</string>
     <string name="lavel_public_work_state">Estado dos dados das obras</string>
+    <string name="lavel_public_survey_state">Estado dos dados das vistorias</string>
     <string name="label_add_comment_hint">Adicionar comentário da foto…</string>
     <string name="label_default_distance">-- m</string>
+    <string name="label_default_number">nº 1222258</string>
     <string name="label_if_prefer">se preferir</string>
     <string name="label_public_work_comments">Comentário da obra</string>
     <string name="label_confirm_password">Confirmar senha</string>
@@ -70,11 +80,13 @@
     <string name="radio_order_by_name_a_z">Ordem alfabética (A-Z)</string>
     <string name="radio_order_by_name_z_a">Ordem alfabética (Z-A)</string>
     <string name="radio_order_by_name_distance">Distância da obra</string>
+    <string name="radio_order_by_name_protocol">Numero de protocolo</string>
 
     <string name="checkbox_complete">Coleta para enviar</string>
     <string name="checkbox_sent">Informações para atualizar</string>
 
     <string name="text_empty_public_work_list">Lista de obras vazia, tente adicionar uma nova obra manualmente.</string>
+    <string name="text_empty_public_survey_list">Lista de vistorias vazia, clique no + para adicionar uma nova.</string>
     <string name="text_empty_collect_list">Lista de dados para enviar vazia, tente realizar coletas ou atualizar informações das obras</string>
     <string name="text_welcome">Bem-vindo(a) ao TRENA, o aplicativo de fiscalização de obras do Ministério Público do Estado de Minas Gerais</string>
     <string name="text_loading_login">Realizando login …</string>
@@ -122,6 +134,7 @@
     <string name="progress_download_failed_try_again">Falha ao atualizar os dados, tentar novamente?</string>
 
     <string name="home_option_list">Lista de obras</string>
+    <string name="home_option_survey">Vistorias</string>
     <string name="home_option_new">Adicionar nova obra</string>
     <string name="home_option_send">Enviar dados</string>
     <string name="home_option_help">Ajuda</string>
@@ -144,5 +157,14 @@
     <string name="progress_city">cidades</string>
 
     <string name="span_create_account">Cadastre aqui</string>
+
+    <string name="item_survey_title_fragment"> Tipo de vistoria: Pavimentação</string>
+    <string name="item_survey_subTitle_fragment">Av. Amazonas, 5154 - Nova Suíça Belo Horizonte - 30421-056</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
 
 </resources>
