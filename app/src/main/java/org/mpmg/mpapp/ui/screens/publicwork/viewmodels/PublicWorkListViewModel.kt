@@ -71,6 +71,7 @@ class PublicWorkListViewModel(
     }
 
     private fun initMediator() {
+
         _publicWorkMediatedList.addSource(publicWorkList) { result ->
             result?.let {
                 _publicWorkMediatedList.value = filterManager.filter(it)
