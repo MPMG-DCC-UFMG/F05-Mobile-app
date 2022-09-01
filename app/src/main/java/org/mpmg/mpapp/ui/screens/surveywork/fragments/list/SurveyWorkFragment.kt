@@ -38,9 +38,6 @@ class SurveyWorkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSurveyWorkBinding.bind(view)
-        surveyListAdapter = (activity as MainActivity).surveyListAdapter
-        surveyListAdapter
-
 
 
         val recyclerViewSurvey = binding.recyclerViewSurveyList
