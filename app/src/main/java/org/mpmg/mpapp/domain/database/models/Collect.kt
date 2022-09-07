@@ -12,12 +12,6 @@ import java.util.*
     tableName = DatabaseConstants.Collect.tableName,
     foreignKeys = [
         ForeignKey(
-            entity = User::class,
-            parentColumns = [DatabaseConstants.User.email],
-            childColumns = [DatabaseConstants.Collect.idUser],
-            onDelete = ForeignKey.CASCADE
-        ),
-        ForeignKey(
             entity = PublicWork::class,
             parentColumns = [DatabaseConstants.PublicWork.id],
             childColumns = [DatabaseConstants.Collect.idPublicWork],

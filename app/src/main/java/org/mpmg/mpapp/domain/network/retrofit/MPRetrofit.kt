@@ -8,6 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.security.SecureRandom
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
+import java.util.concurrent.TimeUnit
 import javax.net.ssl.*
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
@@ -24,7 +25,9 @@ fun provideClient(): OkHttpClient {
 }
 
 fun provideOkHttpClient(): OkHttpClient {
-    return OkHttpClient().newBuilder().addInterceptor(MPInterceptor()).build()
+    return OkHttpClient().newBuilder().connectTimeout(10, TimeUnit.MINUTES)
+        .writeTimeout(10, TimeUnit.MINUTES)
+        .readTimeout(30, TimeUnit.MINUTES).addInterceptor(MPInterceptor()).build()
 }
 
 fun provideUnsafeOkHttpClient(): OkHttpClient {
@@ -60,6 +63,9 @@ fun provideUnsafeOkHttpClient(): OkHttpClient {
         // Create an ssl socket factory with our all-trusting manager
         val sslSocketFactory: SSLSocketFactory = sslContext.getSocketFactory()
         val builder = OkHttpClient.Builder()
+        builder.connectTimeout(10, TimeUnit.MINUTES)
+            .writeTimeout(10, TimeUnit.MINUTES)
+            .readTimeout(30, TimeUnit.MINUTES)
         builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
         builder.hostnameVerifier(object : HostnameVerifier {
             override fun verify(hostname: String?, session: SSLSession?): Boolean = true

@@ -52,12 +52,14 @@ class PublicWorkUploadWorker(applicationContext: Context, parameters: WorkerPara
                     kotlin.runCatching {
                         publicWorkRepository.sendPublicWork(PublicWorkRemote(it))
                     }.onSuccess {
+                        Log.i("crhisn", "success")
                         if(it.success){
                             markPublicWorkSent(publicWorkAndAddress.publicWork)
                         }else{
                             return Result.failure()
                         }
                     }.onFailure {
+                        Log.i("crhisn", it.message, it)
                         return Result.failure()
                     }
                 }
