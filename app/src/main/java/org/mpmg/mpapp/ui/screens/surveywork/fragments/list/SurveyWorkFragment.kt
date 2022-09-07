@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.databinding.DataBindingUtil.setContentView
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.launch
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.ActivityMainBinding
 import org.mpmg.mpapp.databinding.FragmentSurveyWorkBinding
+import org.mpmg.mpapp.domain.repositories.config.ConfigRepository
 import org.mpmg.mpapp.ui.MainActivity
 import org.mpmg.mpapp.ui.screens.surveywork.adapters.ItemSurveyListAdapter
 import org.mpmg.mpapp.ui.screens.surveywork.fragments.BaseSurveyFragment
@@ -24,6 +27,7 @@ import org.mpmg.mpapp.ui.screens.surveywork.models.fakeSurveys
 class SurveyWorkFragment : Fragment() {
 
     private lateinit var binding: FragmentSurveyWorkBinding
+    private lateinit var data: ConfigRepository
     private lateinit var surveyListAdapter: ItemSurveyListAdapter
     private val surveyList: MutableList<ItemSurveyList> = mutableListOf()
 
@@ -38,9 +42,6 @@ class SurveyWorkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSurveyWorkBinding.bind(view)
-        surveyListAdapter = (activity as MainActivity).surveyListAdapter
-        surveyListAdapter
-
 
 
         val recyclerViewSurvey = binding.recyclerViewSurveyList
@@ -50,11 +51,13 @@ class SurveyWorkFragment : Fragment() {
         recyclerViewSurvey.adapter = surveyListAdapter
 
 
-
         itemsList()
+
     }
 
+
     private fun itemsList() {
+
         val item1 = ItemSurveyList(surveyNumber = 12555, surveyAddress = "rua eleonor casa b", surveyStatus = false, surveySync = true, surveyTitle = "Tipo de vistoria: Pavimentação")
         surveyList.add(item1)
 

@@ -88,7 +88,12 @@ class PublicWorkCrudFragment : MVVMFragment<CrudPublicWorkViewModel, FragmentPub
         val cityAdapter = ArrayAdapter<String>(
             requireContext(),
             android.R.layout.simple_list_item_1,
-            citiesList.map { it.name }
+            citiesList.map {
+                if(it.name.isNotEmpty()) {
+                    it.name
+                }
+                return
+            }
         )
         with(binding.editTextAddPublicWorkFragmentCity) {
             setAdapter(cityAdapter)

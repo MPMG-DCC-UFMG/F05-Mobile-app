@@ -11,6 +11,13 @@ enum class BottomMenu {
             type = HOME
         )
     },
+    SURVEY {
+        override fun getMenu(): MenuItemModel = MenuItemModel(
+            icon = R.drawable.ic_survey,
+            title = R.string.menu_survey,
+            type = SURVEY
+        )
+    },
     LIST {
         override fun getMenu(): MenuItemModel = MenuItemModel(
             icon = R.drawable.ic_list,

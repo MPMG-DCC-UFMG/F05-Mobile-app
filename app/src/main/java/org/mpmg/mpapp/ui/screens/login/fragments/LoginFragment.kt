@@ -163,7 +163,7 @@ class LoginFragment : MVVMFragment<LoginViewModel, FragmentLoginBinding>() {
                     viewModel.isLoading.value = false
                     val userName = it.user?.displayName ?: throw NullPointerException()
                     val email = it.user?.email ?: ""
-                    viewModel.storeUser(userEmail = email, userName = userName)
+                    //viewModel.storeUser(userEmail = email, userName = userName)
                 }
                 .addOnFailureListener { e ->
                     viewModel.isLoading.value = false

@@ -74,6 +74,7 @@ class PublicWorkBaseFragment : Fragment() {
     private fun handleNavigation(option: BottomMenu) {
         when (option) {
             HOME -> mainNavController.navigateUp()
+            SURVEY -> navController.navigate(R.id.surveyWorkFragment)
             LIST -> navController.navigate(R.id.publicWorkListFragment)
             FILTER -> navController.navigate(R.id.publicWorkFilterFragment)
             MAP -> navController.navigate(R.id.publicWorkMapFragment)

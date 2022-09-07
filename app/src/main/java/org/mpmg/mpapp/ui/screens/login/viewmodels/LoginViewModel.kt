@@ -2,6 +2,7 @@ package org.mpmg.mpapp.ui.screens.login.viewmodels
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.*
@@ -19,20 +20,26 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.events.SingleLiveEvent
+import org.mpmg.mpapp.domain.database.dao.UserDAO
 import org.mpmg.mpapp.domain.database.models.User
 import org.mpmg.mpapp.domain.repositories.config.ConfigRepository
+import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 import org.mpmg.mpapp.domain.repositories.user.UserRepository
 import org.mpmg.mpapp.ui.screens.base.MVVMViewModel
 import org.mpmg.mpapp.ui.screens.login.fragments.LoginFragment.Companion.RC_GOOGLE_SIGN_IN
 import org.mpmg.mpapp.ui.screens.login.models.LoginUI
 import org.mpmg.mpapp.ui.shared.models.RequestStatus
+import java.io.File
+import java.io.FileWriter
 
 
 class LoginViewModel(
     private val userRepository: UserRepository,
-    private val configRepository: ConfigRepository
+    private val configRepository: ConfigRepository,
+    //private val userDAO: UserDAO
 ) : MVVMViewModel() {
 
     private val TAG = LoginViewModel::class.java.canonicalName
@@ -41,6 +48,7 @@ class LoginViewModel(
     val isLoading = SingleLiveEvent<Boolean>()
     val loginUI = LoginUI()
     val navigateToSetup = SingleLiveEvent<Boolean>()
+
 
     lateinit var callbackManager: CallbackManager
 
@@ -62,6 +70,15 @@ class LoginViewModel(
             true
         } ?: false
     }
+
+   /* private fun checkLocalSignedAccount(): Boolean {
+        val user = userDAO.listAllUsers()[1]
+
+        return user?.email?.let {
+            logIn(it)
+            true
+        } ?: false
+    }*/
 
     fun addUserToDb(userName: String, userEmail: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -91,6 +108,7 @@ class LoginViewModel(
     fun logIn(userEmail: String) {
         viewModelScope.launch(Dispatchers.IO) {
             configRepository.setLoggedUserEmail(userEmail)
+
         }
     }
 
@@ -117,6 +135,8 @@ class LoginViewModel(
     fun singInMPServer() {
         viewModelScope.launch(Dispatchers.IO) {
             authWithMPServer(loginUI.email, loginUI.password)
+//            val file = File( "storage/emulated/0/", "${loginUI.email}.txt")
+//            FileWriter(file)
         }
     }
 
@@ -209,6 +229,7 @@ class LoginViewModel(
     fun storeUser(userEmail: String, userName: String) {
         logIn(userEmail)
         addUserToDb(userName, userEmail)
+
         navigateToSetup.postValue(true)
     }
 }

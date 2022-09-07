@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_public_work_list" />
 
     <fragment
+        android:id="@+id/surveyWorkFragment"
+        android:name="org.mpmg.mpapp.ui.screens.surveywork.fragments.list.SurveyWorkFragment"
+        android:label="SurveyWorkFragment"
+        tools:layout="@layout/fragment_survey_work" />
+
+    <fragment
         android:id="@+id/publicWorkFilterFragment"
         android:name="org.mpmg.mpapp.ui.screens.publicwork.fragments.list.PublicWorkFilterFragment"
         android:label="fragment_public_work_filter"
