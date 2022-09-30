@@ -31,7 +31,6 @@ interface MPApi {
     suspend fun sendSurveyWork(): List<SurveyWorkRemote>
 
 
-
     @POST("queue/publicwork/add")
     suspend fun sendPublicWork(@Body publicWorkRemote: PublicWorkRemote): ResponseRemote
 
@@ -81,4 +80,8 @@ interface MPApi {
         @Field("username") request: String,
         @Field("password") password: String
     ): TokenRemote
+
+    @GET("inspections/publicwork/{public_work_id}")
+    suspend fun retrieveInspectionsByPublicWorkId(@Path("public_work_id") public_work_id: String):
+            List<SurveyWorkRemote>
 }

@@ -94,6 +94,7 @@ class PublicWorkBaseFragment : Fragment() {
             R.id.publicWorkFilterFragment -> FILTER
             R.id.publicWorkListFragment -> LIST
             R.id.publicWorkMapFragment -> MAP
+            R.id.surveyWorkFragment -> SURVEY
             else -> HOME
         }
         viewModel.selectOption(icon, false)

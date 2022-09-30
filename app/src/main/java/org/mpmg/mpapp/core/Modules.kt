@@ -14,6 +14,8 @@ import org.mpmg.mpapp.domain.repositories.collect.CollectRepository
 import org.mpmg.mpapp.domain.repositories.collect.datasources.*
 import org.mpmg.mpapp.domain.repositories.config.datasources.LocalConfigDataSource
 import org.mpmg.mpapp.domain.repositories.config.datasources.RemoteConfigDataSource
+import org.mpmg.mpapp.domain.repositories.inspections.InspectionsRepository
+import org.mpmg.mpapp.domain.repositories.inspections.datasources.RemoteInspectionsDataSource
 import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.datasources.LocalPublicWorkDataSource
 import org.mpmg.mpapp.domain.repositories.publicwork.datasources.RemotePublicWorkDataSource
@@ -48,7 +50,7 @@ val viewModelModules = module {
     viewModel { MainActivityViewModel() }
 
     scope(named(PublicWorkListFragment::class.java.name)) {
-        scoped { PublicWorkListViewModel(get(), get(), get()) }
+        scoped { PublicWorkListViewModel(get(), get(), get(), get()) }
     }
 
     scope(named(CollectMainFragment::class.java.name)) {
@@ -78,6 +80,7 @@ val repositoriesModules = module {
     single { AssociationRepository(get()) }
     single { WorkStatusRepository(get()) }
     single { CityRepository(get()) }
+    single { InspectionsRepository(get()) }
 }
 
 val networkModule = module {
@@ -103,4 +106,6 @@ val dataSourceModules = module {
     single { RemoteCollectDataSource(get()) }
     single { RemotePhotoDataSource(get()) }
     single { RemoteUserDataSource(get()) }
+
+    single { RemoteInspectionsDataSource(get()) }
 }

@@ -2,8 +2,11 @@ package org.mpmg.mpapp.ui.screens.publicwork.viewmodels
 
 import android.location.Location
 import androidx.lifecycle.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
+import org.mpmg.mpapp.domain.repositories.inspections.InspectionsRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 import org.mpmg.mpapp.domain.repositories.typework.TypeWorkRepository
 import org.mpmg.mpapp.domain.repositories.workstatus.WorkStatusRepository
@@ -13,7 +16,8 @@ import org.mpmg.mpapp.ui.shared.filters.*
 class PublicWorkListViewModel(
     publicWorkRepository: PublicWorkRepository,
     typeWorkRepository: TypeWorkRepository,
-    workStatusRepository: WorkStatusRepository
+    workStatusRepository: WorkStatusRepository,
+    private val inspectionsRepository: InspectionsRepository
 ) : MVVMViewModel() {
 
     private val publicWorkList = publicWorkRepository.listAllPublicWorksLive().asLiveData()
@@ -36,7 +40,14 @@ class PublicWorkListViewModel(
     val sortedCheckedId: MutableLiveData<Int> = MutableLiveData<Int>()
 
     init {
-        filterManager.addFilters(listOf(filterWorkStatus,filterSyncStatus,filterByName,filterTypeWork))
+        filterManager.addFilters(
+            listOf(
+                filterWorkStatus,
+                filterSyncStatus,
+                filterByName,
+                filterTypeWork
+            )
+        )
 
         filterSyncStatus.addSyncStatus(SyncStatus.COLLECTED)
         filterSyncStatus.addSyncStatus(SyncStatus.TO_SEND)
@@ -61,7 +72,7 @@ class PublicWorkListViewModel(
         return isCheckedOption.toBooleanArray()
     }
 
-    fun getFilteredWorkStatus(options: Array<Int>): BooleanArray{
+    fun getFilteredWorkStatus(options: Array<Int>): BooleanArray {
         val isCheckedOption = mutableListOf<Boolean>()
         options.forEach { option ->
             isCheckedOption.add(filterWorkStatus.isWorkStatusChecked(option))
@@ -138,4 +149,6 @@ class PublicWorkListViewModel(
             _publicWorkMediatedList.postValue(filterManager.filter(it))
         }
     }
+
+    suspend fun retrieveInspections(publicWorkId: String) = inspectionsRepository.retrieveInspectionsByPublicWorkId(publicWorkId)
 }
