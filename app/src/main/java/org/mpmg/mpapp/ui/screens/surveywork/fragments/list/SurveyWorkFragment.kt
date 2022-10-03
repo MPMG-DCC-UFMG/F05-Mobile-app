@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,8 +17,10 @@ import kotlinx.coroutines.launch
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.ActivityMainBinding
 import org.mpmg.mpapp.databinding.FragmentSurveyWorkBinding
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.domain.repositories.config.ConfigRepository
 import org.mpmg.mpapp.ui.MainActivity
+import org.mpmg.mpapp.ui.screens.publicwork.fragments.PublicWorkBaseFragmentDirections
 import org.mpmg.mpapp.ui.screens.surveywork.adapters.ItemSurveyListAdapter
 import org.mpmg.mpapp.ui.screens.surveywork.fragments.BaseSurveyFragment
 import org.mpmg.mpapp.ui.screens.surveywork.models.ItemSurveyList
@@ -29,6 +32,7 @@ class SurveyWorkFragment : Fragment() {
     private lateinit var binding: FragmentSurveyWorkBinding
     private lateinit var data: ConfigRepository
     private lateinit var surveyListAdapter: ItemSurveyListAdapter
+    private lateinit var navigationController: NavController
     private val surveyList: MutableList<ItemSurveyList> = mutableListOf()
 
     override fun onCreateView(
@@ -49,7 +53,6 @@ class SurveyWorkFragment : Fragment() {
         recyclerViewSurvey.setHasFixedSize(true)
         surveyListAdapter = ItemSurveyListAdapter(requireContext(), surveyList)
         recyclerViewSurvey.adapter = surveyListAdapter
-
 
         itemsList()
 
@@ -72,5 +75,13 @@ class SurveyWorkFragment : Fragment() {
 
         val item5 = ItemSurveyList(surveyNumber = 12698, surveyAddress = "Av. Amazonas, 5154 - Nova Suíça Belo Horizonte - 30421-056", surveyStatus = false, surveySync = true, surveyTitle = "Tipo de vistoria: Pavimentação")
         surveyList.add(item5)
+        surveyList
+    }
+
+
+    fun onClicked(itemSurveyList: ItemSurveyList) {
+        val action =
+            PublicWorkBaseFragmentDirections.actionBaseFragmentToCollectMainFragment(itemSurveyList.surveyNumber.toString())
+        navigationController.navigate(action)
     }
 }

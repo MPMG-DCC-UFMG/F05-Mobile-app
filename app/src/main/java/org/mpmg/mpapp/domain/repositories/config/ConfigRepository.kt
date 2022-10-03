@@ -25,8 +25,8 @@ class ConfigRepository(
         return remoteConfigDataSource.getPublicWorkVersion()
     }
 
-    suspend fun getInspections(): List<SurveyWorkRemote> {
-        return remoteConfigDataSource.getInspections()
+    suspend fun loadInspections(): List<SurveyWorkRemote> {
+        return remoteConfigDataSource.loadInspections()
     }
 
     fun saveTypeWorksVersion(typeWorksVersion: Int) {

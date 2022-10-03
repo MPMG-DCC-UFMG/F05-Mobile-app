@@ -22,6 +22,7 @@
         android:name="org.mpmg.mpapp.ui.screens.publicwork.fragments.list.PublicWorkFilterFragment"
         android:label="fragment_public_work_filter"
         tools:layout="@layout/fragment_public_work_filter" />
+
     <fragment
         android:id="@+id/publicWorkMapFragment"
         android:name="org.mpmg.mpapp.ui.screens.publicwork.fragments.list.PublicWorkMapFragment"

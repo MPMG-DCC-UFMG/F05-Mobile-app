@@ -91,6 +91,7 @@ class PublicWorkBaseFragment : Fragment() {
 
     private fun handleDestinationChanges(destinationId: Int) {
         val icon = when (destinationId) {
+            R.id.surveyWorkFragment -> SURVEY
             R.id.publicWorkFilterFragment -> FILTER
             R.id.publicWorkListFragment -> LIST
             R.id.publicWorkMapFragment -> MAP

@@ -1,11 +1,14 @@
 package org.mpmg.mpapp.ui.screens.login.viewmodels
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
-import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
+import android.os.Environment
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.viewModelScope
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -20,23 +23,25 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.newCoroutineContext
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.events.SingleLiveEvent
-import org.mpmg.mpapp.domain.database.dao.UserDAO
 import org.mpmg.mpapp.domain.database.models.User
 import org.mpmg.mpapp.domain.repositories.config.ConfigRepository
-import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 import org.mpmg.mpapp.domain.repositories.user.UserRepository
 import org.mpmg.mpapp.ui.screens.base.MVVMViewModel
+import org.mpmg.mpapp.ui.screens.collect.fragments.CollectMainFragmentArgs
 import org.mpmg.mpapp.ui.screens.login.fragments.LoginFragment.Companion.RC_GOOGLE_SIGN_IN
 import org.mpmg.mpapp.ui.screens.login.models.LoginUI
-import org.mpmg.mpapp.ui.shared.models.RequestStatus
+import org.mpmg.mpapp.ui.screens.publicwork.fragments.crud.PublicWorkCrudFragmentArgs
 import java.io.File
 import java.io.FileWriter
+import java.nio.file.Paths
+import java.security.AccessController.getContext
+import android.content.Context as Context
 
 
-class LoginViewModel(
+abstract class LoginViewModel(
     private val userRepository: UserRepository,
     private val configRepository: ConfigRepository,
     //private val userDAO: UserDAO
@@ -46,7 +51,7 @@ class LoginViewModel(
     private val firebaseAuth = FirebaseAuth.getInstance()
 
     val isLoading = SingleLiveEvent<Boolean>()
-    val loginUI = LoginUI(_email = "crhistian@email.com", _password = "crhisn2572", _valid = true)
+    val loginUI = LoginUI(_email = "joao@email.com", _password = "85201145", _valid = true)
     val navigateToSetup = SingleLiveEvent<Boolean>()
 
 
@@ -133,10 +138,10 @@ class LoginViewModel(
     }
 
     fun singInMPServer() {
+
+        //getUser()
         viewModelScope.launch(Dispatchers.IO) {
             authWithMPServer(loginUI.email, loginUI.password)
-//            val file = File( "storage/emulated/0/", "${loginUI.email}.txt")
-//            FileWriter(file)
         }
     }
 
@@ -229,7 +234,26 @@ class LoginViewModel(
     fun storeUser(userEmail: String, userName: String) {
         logIn(userEmail)
         addUserToDb(userName, userEmail)
-
         navigateToSetup.postValue(true)
+    }
+
+    private fun getUser(context: Context) {
+
+
+/*        val message = "teste"
+        context.openFileOutput("texto", Context.MODE_PRIVATE).use {
+            it.write(message.toByteArray())
+        }
+
+        val file = File(context.filesDir, "myfile.txt")
+        val contents = file.readText() // Read file*/
+
+        val path = context.filesDir
+
+        val letDirectory = File(path, "")
+        letDirectory.mkdirs()
+        val file = File(letDirectory, "Records.txt")
+        file.appendText("${loginUI.email}")
+        FileWriter(file)
     }
 }

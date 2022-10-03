@@ -22,7 +22,7 @@ interface MPApi {
     //Vistorias
 
     @GET("inspections/")
-    suspend fun getInspections(): List<SurveyWorkRemote>
+    suspend fun loadInspections(): List<SurveyWorkRemote>
 
     @POST("inspections/add")
     suspend fun sendSurveyWork(@Body surveyWorkRemote: SurveyWorkRemote): ResponseRemote

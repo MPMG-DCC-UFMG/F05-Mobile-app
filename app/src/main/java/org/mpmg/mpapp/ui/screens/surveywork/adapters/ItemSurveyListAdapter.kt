@@ -10,6 +10,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.databinding.ItemPublicSurveyListBinding
+import org.mpmg.mpapp.ui.screens.publicwork.fragments.PublicWorkBaseFragment
+import org.mpmg.mpapp.ui.screens.publicwork.fragments.PublicWorkBaseFragmentDirections
 import org.mpmg.mpapp.ui.screens.surveywork.models.ItemSurveyList
 
 class ItemSurveyListAdapter(private val context: Context, private val surveyList: MutableList<ItemSurveyList>):
@@ -36,11 +38,12 @@ class ItemSurveyListAdapter(private val context: Context, private val surveyList
         val txtSurveyAddress = binding.textViewItemPublicSurveyListAddress
         val txtSurveyNumber = binding.textViewItemPublicSurveyListNumber
 
-        val root = binding.root.setOnClickListener {
+        /*val root = binding.root.setOnClickListener {
             Toast.makeText(context, "envio ", Toast.LENGTH_LONG).show()
 
+            navigationController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
-        }
+        }*/
 
     }
 }
