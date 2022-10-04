@@ -46,6 +46,7 @@ class LoginViewModel(
     private val firebaseAuth = FirebaseAuth.getInstance()
 
     val isLoading = SingleLiveEvent<Boolean>()
+
     val loginUI = LoginUI(_email = "joao@email.com", _password = "85201145", _valid = true)
     val navigateToSetup = SingleLiveEvent<Boolean>()
 
