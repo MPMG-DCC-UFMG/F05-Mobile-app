@@ -6,8 +6,8 @@ import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
 
 data class LoginUI(
-    private var _email: String = "",
-    private var _password: String = "",
+    private var _email: String = "crhistian@email.com",
+    private var _password: String = "crhisn2572",
     private var _valid: Boolean = false
 ) : BaseObservable() {
     var email: String

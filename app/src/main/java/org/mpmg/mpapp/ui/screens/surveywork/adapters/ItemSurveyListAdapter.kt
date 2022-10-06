@@ -1,49 +1,115 @@
 package org.mpmg.mpapp.ui.screens.surveywork.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import org.mpmg.mpapp.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import org.mpmg.mpapp.databinding.ItemInspectionListBinding
 import org.mpmg.mpapp.databinding.ItemPublicSurveyListBinding
-import org.mpmg.mpapp.ui.screens.publicwork.fragments.PublicWorkBaseFragment
-import org.mpmg.mpapp.ui.screens.publicwork.fragments.PublicWorkBaseFragmentDirections
+import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
+import org.mpmg.mpapp.domain.network.models.SurveyWorkRemote
+import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.PublicWorkListViewModel
 import org.mpmg.mpapp.ui.screens.surveywork.models.ItemSurveyList
 
-class ItemSurveyListAdapter(private val context: Context, private val surveyList: MutableList<ItemSurveyList>):
+class ItemSurveyListAdapter(
+    private val fragmentActivity: FragmentActivity,
+    private val surveyList: MutableList<ItemSurveyList>,
+    private val viewModel: PublicWorkListViewModel
+) :
     RecyclerView.Adapter<ItemSurveyListAdapter.ItemSurveyListViewHolder>() {
 
     private lateinit var navigationController: NavController
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemSurveyListViewHolder {
-        val listItem = ItemPublicSurveyListBinding.inflate(LayoutInflater.from(context), parent, false)
+        val listItem =
+            ItemPublicSurveyListBinding.inflate(
+                LayoutInflater.from(fragmentActivity),
+                parent,
+                false
+            )
         return ItemSurveyListViewHolder(listItem)
     }
 
     override fun onBindViewHolder(holder: ItemSurveyListViewHolder, position: Int) {
-        holder.txtSurveyTitle.text = surveyList[position].surveyTitle
-        holder.txtSurveyAddress.text = surveyList[position].surveyAddress
-        holder.txtSurveyNumber.text = surveyList[position].surveyNumber.toString()
+        CoroutineScope(Dispatchers.Main).launch {
+            val survey = surveyList[position]
+            viewModel.retrieveInspections(survey.publicWorkId)
+                .catch {
+                    Log.i("crhisn", it.message, it)
+                }
+                .collect {
+                    fragmentActivity.runOnUiThread {
+                        holder.bind(survey, it)
+                    }
+                }
+        }
+
     }
 
     override fun getItemCount() = surveyList.size
+    fun updatePublicWorksList(publicWorkList: List<PublicWorkAndAddress>) {
+        surveyList.clear()
+        surveyList.addAll(publicWorkList.map {
+            ItemSurveyList(
+                surveyTitle = it.publicWork.name,
+                surveyAddress = it.address.street,
+                surveyNumber = 0,
+                surveyStatus = false,
+                surveySync = false,
+                publicWorkId = it.publicWork.id
+            )
+        })
+    }
 
-    inner class ItemSurveyListViewHolder(binding: ItemPublicSurveyListBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ItemSurveyListViewHolder(val binding: ItemPublicSurveyListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        val txtSurveyTitle = binding.itemSurveyListName
-        val txtSurveyAddress = binding.textViewItemPublicSurveyListAddress
-        val txtSurveyNumber = binding.textViewItemPublicSurveyListNumber
+        fun bind(item: ItemSurveyList, list: List<SurveyWorkRemote>) {
+            binding.itemSurveyListName.text = item.surveyTitle
+            binding.textViewItemPublicSurveyListAddress.text = item.surveyAddress
+            binding.textViewItemPublicSurveyListNumber.text = item.surveyNumber.toString()
 
-        /*val root = binding.root.setOnClickListener {
-            Toast.makeText(context, "envio ", Toast.LENGTH_LONG).show()
+            binding.inspectionsList.apply {
+                layoutManager =
+                    LinearLayoutManager(binding.root.context, RecyclerView.VERTICAL, false)
+                adapter = object : RecyclerView.Adapter<ItemInspectionViewHolder>() {
+                    override fun onCreateViewHolder(
+                        parent: ViewGroup,
+                        viewType: Int
+                    ) = ItemInspectionViewHolder(
+                        ItemInspectionListBinding.inflate(
+                            LayoutInflater.from(fragmentActivity),
+                            parent,
+                            false
+                        )
+                    )
 
-            navigationController = Navigation.findNavController(this, R.id.nav_host_fragment)
+                    override fun onBindViewHolder(holder: ItemInspectionViewHolder, position: Int) {
+                        holder.bind(list[position])
+                    }
 
-        }*/
+                    override fun getItemCount() = list.size
 
+                }
+            }
+        }
+    }
+
+    inner class ItemInspectionViewHolder(val binding: ItemInspectionListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(survey: SurveyWorkRemote) {
+            binding.inspectionName.text = "${survey.name} ${survey.description}"
+        }
     }
 }

@@ -15,7 +15,8 @@ data class ItemSurveyList(
     val surveyNumber: Number,
     val surveyAddress: String,
     val surveyStatus: Boolean,
-    val surveySync: Boolean
+    val surveySync: Boolean,
+    val publicWorkId: String
 )
 
 class SurveyDataBuilder {
@@ -24,11 +25,21 @@ class SurveyDataBuilder {
     var surveyAddress: String = ""
     var surveyStatus: Boolean = false
     var surveySync: Boolean = false
+    var publicWorkId: String = ""
 
-    fun build(): ItemSurveyList = ItemSurveyList(surveyTitle, surveyNumber, surveyAddress, surveyStatus, surveySync)
+    fun build(): ItemSurveyList =
+        ItemSurveyList(
+            surveyTitle,
+            surveyNumber,
+            surveyAddress,
+            surveyStatus,
+            surveySync,
+            publicWorkId
+        )
 }
 
-fun itemSurveyList(block: SurveyDataBuilder.() -> Unit): ItemSurveyList = SurveyDataBuilder().apply(block).build()
+fun itemSurveyList(block: SurveyDataBuilder.() -> Unit): ItemSurveyList =
+    SurveyDataBuilder().apply(block).build()
 
 fun fakeSurveys(): MutableList<ItemSurveyList> = mutableListOf(
     itemSurveyList {
@@ -74,4 +85,4 @@ fun fakeSurveys(): MutableList<ItemSurveyList> = mutableListOf(
         surveySync = true
     },
 
-)
+    )
