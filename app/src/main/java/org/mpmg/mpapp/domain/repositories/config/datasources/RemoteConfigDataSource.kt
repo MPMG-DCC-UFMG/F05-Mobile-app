@@ -22,10 +22,14 @@ class RemoteConfigDataSource(private val mpApi: MPApi) {
     suspend fun getPublicWorkVersion(): EntityVersion {
         return mpApi.getPublicWorkVersion()
     }
-    //Vistorias
-    suspend fun loadInspections(): List<SurveyWorkRemote> {
-        return mpApi.loadInspections()
+
+    suspend fun getInspectionVersion(): EntityVersion {
+        return mpApi.getInspectionVersion()
     }
+    //Vistorias
+//    suspend fun loadInspections(): List<SurveyWorkRemote> {
+//        return mpApi.loadInspections()
+//    }
 
     /*suspend fun getInspectionsAdd(): List<SurveyWorkRemote> {
         return mpApi.getInspections()
@@ -42,6 +46,13 @@ class RemoteConfigDataSource(private val mpApi: MPApi) {
     suspend fun loadPublicWorksDiff(version: Int): List<PublicWorkRemote> {
         return mpApi.getPublicWorksChange(version)
     }
+
+    suspend fun loadInspections(): List<InspectionRemote> {
+        return mpApi.loadInspections()
+    }
+//    suspend fun loadInspectionsDiff(version: Int): List<InspectionRemote> {
+//        return mpApi.getInspectionsChange(version)
+//    }
 
     suspend fun getAssociationsVersion(): EntityVersion {
         return mpApi.getAssociationsVersion()

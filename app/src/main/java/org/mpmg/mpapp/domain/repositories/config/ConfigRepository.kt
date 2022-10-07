@@ -25,7 +25,11 @@ class ConfigRepository(
         return remoteConfigDataSource.getPublicWorkVersion()
     }
 
-    suspend fun loadInspections(): List<SurveyWorkRemote> {
+    suspend fun getInspectionVersion(): EntityVersion {
+        return remoteConfigDataSource.getInspectionVersion()
+    }
+
+    suspend fun loadInspections(): List<InspectionRemote> {
         return remoteConfigDataSource.loadInspections()
     }
 
@@ -49,8 +53,16 @@ class ConfigRepository(
         localConfigDataSource.savePublicWorkVersion(publicWorkVersion)
     }
 
+    fun saveInspectionVersion(inspectionVersion: Int) {
+        localConfigDataSource.saveInspectionVersion(inspectionVersion)
+    }
+
     fun currentPublicWorkVersion(): Int {
         return localConfigDataSource.currentPublicWorkVersion()
+    }
+
+    fun currentInspectionVersion(): Int {
+        return localConfigDataSource.currentInspectionVersion()
     }
 
     suspend fun loadTypePhotos(): List<TypePhotoRemote> {
@@ -72,6 +84,13 @@ class ConfigRepository(
     suspend fun loadPublicWorksDiff(version: Int): List<PublicWorkRemote> {
         return remoteConfigDataSource.loadPublicWorksDiff(version)
     }
+
+    suspend fun loadInspectionsDiff(): List<InspectionRemote> {
+        return remoteConfigDataSource.loadInspections()
+    }
+//    suspend fun loadInspectionsDiff(version: Int): List<InspectionRemote> {
+//        return remoteConfigDataSource.loadInspectionsDiff(version)
+//    }
 
     suspend fun getAssociationsVersion(): EntityVersion {
         return remoteConfigDataSource.getAssociationsVersion()

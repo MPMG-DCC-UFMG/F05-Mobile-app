@@ -20,6 +20,18 @@ object DatabaseConstants {
         const val userStatusFlag = "public_work_user_status_flag"
     }
 
+    object Inspection {
+        const val tableName = "inspection_table"
+        const val id = "inspection_id"
+        const val flag = "inspection_flag"
+        const val name = "inspection_name"
+        const val description = "inspection_description"
+        const val publicWorkId = "inspection_public_work_id"
+        const val collectId = "inspection_collect_id"
+        const val status = "inspection_status"
+        const val userStatus = "inspection_user_status"
+    }
+
     object TypeWork {
         const val tableName = "type_work_table"
         const val flag = "type_work_flag"

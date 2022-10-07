@@ -16,7 +16,9 @@ import org.mpmg.mpapp.domain.repositories.config.datasources.LocalConfigDataSour
 import org.mpmg.mpapp.domain.repositories.config.datasources.RemoteConfigDataSource
 import org.mpmg.mpapp.domain.repositories.inspections.InspectionsRepository
 import org.mpmg.mpapp.domain.repositories.inspections.datasources.RemoteInspectionsDataSource
+import org.mpmg.mpapp.domain.repositories.publicwork.InspectionRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
+import org.mpmg.mpapp.domain.repositories.publicwork.datasources.LocalInspectionDataSource
 import org.mpmg.mpapp.domain.repositories.publicwork.datasources.LocalPublicWorkDataSource
 import org.mpmg.mpapp.domain.repositories.publicwork.datasources.RemotePublicWorkDataSource
 import org.mpmg.mpapp.domain.repositories.typephoto.TypePhotoRepository
@@ -80,6 +82,7 @@ val repositoriesModules = module {
     single { AssociationRepository(get()) }
     single { WorkStatusRepository(get()) }
     single { CityRepository(get()) }
+    single { InspectionRepository(get()) }
     single { InspectionsRepository(get()) }
 }
 
@@ -91,6 +94,7 @@ val networkModule = module {
 
 val dataSourceModules = module {
     single { LocalPublicWorkDataSource(androidApplication()) }
+    single { LocalInspectionDataSource(androidApplication()) }
     single { LocalTypeWorkDataSource(androidApplication()) }
     single { LocalPhotoDataSource(androidApplication()) }
     single { LocalCollectDataSource(androidApplication()) }

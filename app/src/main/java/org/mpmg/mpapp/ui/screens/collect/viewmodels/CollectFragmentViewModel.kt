@@ -15,11 +15,11 @@ import org.mpmg.mpapp.domain.database.models.WorkStatus
 import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.domain.repositories.collect.CollectRepository
 import org.mpmg.mpapp.domain.repositories.config.ConfigRepository
+import org.mpmg.mpapp.domain.repositories.publicwork.InspectionRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 import org.mpmg.mpapp.domain.repositories.typework.TypeWorkRepository
 import org.mpmg.mpapp.domain.repositories.workstatus.WorkStatusRepository
 import org.mpmg.mpapp.ui.screens.base.MVVMViewModel
-import org.mpmg.mpapp.ui.screens.photo.models.PhotoActions
 import org.mpmg.mpapp.ui.screens.photo.models.PhotoActions.*
 import org.mpmg.mpapp.ui.screens.photo.models.PhotoBundle
 import org.mpmg.mpapp.ui.shared.animation.AnimationHelper

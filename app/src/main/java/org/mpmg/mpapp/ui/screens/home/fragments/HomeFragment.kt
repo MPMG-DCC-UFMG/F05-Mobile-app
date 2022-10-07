@@ -29,7 +29,7 @@ class HomeFragment : MVVMFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     override fun initObservers() {
-        observe(viewModel.countToSendLive) { dataToSend ->
+        observe(viewModel.countToSendLive) { dataToSend: Int ->
             try {
                 optionsList[2].eventCount = dataToSend
             } catch (e: Exception) {

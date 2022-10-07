@@ -4,6 +4,7 @@ import org.koin.core.component.inject
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.domain.network.models.EntityVersion
 import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
+import org.mpmg.mpapp.domain.repositories.publicwork.InspectionRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 
 class DownloadPublicWork : BaseDownloadInfo<PublicWorkRemote>() {

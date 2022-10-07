@@ -8,7 +8,7 @@ import org.mpmg.mpapp.domain.database.dao.*
 import org.mpmg.mpapp.domain.database.models.*
 
 @Database(
-    entities = [User::class, TypeWork::class, PublicWork::class, Collect::class,
+    entities = [User::class, TypeWork::class, PublicWork::class, Inspection::class, Collect::class,
         Photo::class, Address::class, TypePhoto::class, AssociationTWTP::class,
         WorkStatus::class, City::class],
     version = 1,
@@ -19,6 +19,7 @@ abstract class MPDatabase : RoomDatabase() {
     abstract fun userDAO(): UserDAO
     abstract fun typeWorkDAO(): TypeWorkDAO
     abstract fun publicWorkDAO(): PublicWorkDAO
+    abstract fun inspectionDAO(): InspectionDAO
     abstract fun collectDAO(): CollectDAO
     abstract fun photoDAO(): PhotoDAO
     abstract fun addressDAO(): AddressDAO

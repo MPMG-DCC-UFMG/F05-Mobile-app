@@ -19,16 +19,18 @@ interface MPApi {
 
     @GET("publicworks/version")
     suspend fun getPublicWorkVersion(): EntityVersion
-    //Vistorias
+
+    @GET("inspection/version") //TODO create endpoint in the server
+    suspend fun getInspectionVersion(): EntityVersion
 
     @GET("inspections/")
-    suspend fun loadInspections(): List<SurveyWorkRemote>
+    suspend fun loadInspections(): List<InspectionRemote>
 
-    @POST("inspections/add")
-    suspend fun sendSurveyWork(@Body surveyWorkRemote: SurveyWorkRemote): ResponseRemote
-
-    @PUT("inspections/update")
-    suspend fun sendSurveyWork(): List<SurveyWorkRemote>
+//    @POST("inspections/add")
+//    suspend fun sendSurveyWork(@Body surveyWorkRemote: SurveyWorkRemote): ResponseRemote
+//
+//    @PUT("inspections/update")
+//    suspend fun sendSurveyWork(): List<SurveyWorkRemote>
 
 
     @POST("queue/publicwork/add")
@@ -36,6 +38,9 @@ interface MPApi {
 
     @GET("publicworks/changes")
     suspend fun getPublicWorksChange(@Query("version") version: Int): List<PublicWorkRemote>
+
+//    @GET("inspections/changes") //TODO create endpoint in the server
+//    suspend fun getInspectionsChange(@Query("version") version: Int): List<InspectionRemote>
 
     @POST("queue/collect/add")
     suspend fun sendCollect(@Body collectRemote: CollectRemote): ResponseRemote

@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.Constants.WORKER_PARAMETER_PUBLIC_WORK_ID
 import org.mpmg.mpapp.domain.database.models.PublicWork
+import org.mpmg.mpapp.domain.repositories.publicwork.InspectionRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 import org.mpmg.mpapp.ui.screens.base.MVVMViewModel
 import org.mpmg.mpapp.ui.screens.upload.models.PublicWorkUploadUI

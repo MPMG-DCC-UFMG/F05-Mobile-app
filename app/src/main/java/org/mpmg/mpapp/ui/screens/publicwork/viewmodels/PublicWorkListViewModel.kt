@@ -2,11 +2,10 @@ package org.mpmg.mpapp.ui.screens.publicwork.viewmodels
 
 import android.location.Location
 import androidx.lifecycle.*
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.launch
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.domain.repositories.inspections.InspectionsRepository
+import org.mpmg.mpapp.domain.repositories.publicwork.InspectionRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 import org.mpmg.mpapp.domain.repositories.typework.TypeWorkRepository
 import org.mpmg.mpapp.domain.repositories.workstatus.WorkStatusRepository

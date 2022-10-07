@@ -19,6 +19,7 @@ import org.mpmg.mpapp.domain.network.models.CollectRemote
 import org.mpmg.mpapp.domain.network.models.PhotoRemote
 import org.mpmg.mpapp.domain.network.models.PublicWorkRemote
 import org.mpmg.mpapp.domain.repositories.collect.CollectRepository
+import org.mpmg.mpapp.domain.repositories.publicwork.InspectionRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
 import java.io.File
 import java.lang.NullPointerException

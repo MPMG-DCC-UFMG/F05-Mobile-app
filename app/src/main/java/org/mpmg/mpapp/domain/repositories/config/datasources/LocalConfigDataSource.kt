@@ -6,6 +6,7 @@ import org.mpmg.mpapp.core.Constants.PREFERENCES_ASSOCIATION_VERSION_KEY
 import org.mpmg.mpapp.core.Constants.PREFERENCES_CITY_VERSION_KEY
 import org.mpmg.mpapp.core.Constants.PREFERENCES_LOGGED_USER_EMAIL
 import org.mpmg.mpapp.core.Constants.PREFERENCES_PUBLIC_WORK_VERSION_KEY
+import org.mpmg.mpapp.core.Constants.PREFERENCES_INSPECTION_VERSION_KEY
 import org.mpmg.mpapp.core.Constants.PREFERENCES_TYPE_PHOTOS_VERSION_KEY
 import org.mpmg.mpapp.core.Constants.PREFERENCES_TYPE_WORKS_VERSION_KEY
 import org.mpmg.mpapp.core.Constants.PREFERENCES_WORK_STATUS_VERSION_KEY
@@ -43,6 +44,10 @@ class LocalConfigDataSource(val applicationContext: Context) {
         return sharedPreferences.getInt(PREFERENCES_PUBLIC_WORK_VERSION_KEY, -1)
     }
 
+    fun currentInspectionVersion(): Int {
+        return sharedPreferences.getInt(PREFERENCES_INSPECTION_VERSION_KEY, -1)
+    }
+
     fun currentTypePhotosVersion(): Int {
         return sharedPreferences.getInt(PREFERENCES_TYPE_PHOTOS_VERSION_KEY, -1)
     }
@@ -73,6 +78,10 @@ class LocalConfigDataSource(val applicationContext: Context) {
 
     fun savePublicWorkVersion(publicWorkVersion: Int) {
         saveVersion(PREFERENCES_PUBLIC_WORK_VERSION_KEY, publicWorkVersion)
+    }
+
+    fun saveInspectionVersion(inspectionVersion: Int) {
+        saveVersion(PREFERENCES_INSPECTION_VERSION_KEY, inspectionVersion)
     }
 
     fun saveWorkStatusVersion(workStatusVersion: Int) {
