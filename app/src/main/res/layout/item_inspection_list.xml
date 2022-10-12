@@ -4,7 +4,7 @@
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/cardView_itemPublicSurveyList_mainContainer"
+        android:id="@+id/cardView_itemPublicInspectionList_mainContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/margin_small"
@@ -34,7 +34,7 @@
                 tools:text="Tipo de vistoria: Pavimentação" />
 
             <ImageView
-                android:id="@+id/imageView_itemPublicSurveyList_sent"
+                android:id="@+id/imageView_itemPublicInspectionList_sent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
@@ -45,15 +45,15 @@
                 app:tint="@color/colorBlue1" />
 
             <ImageView
-                android:id="@+id/imageView_itemPublicSurveyList_check"
+                android:id="@+id/imageView_itemPublicInspectionList_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_xsmall"
                 android:layout_marginBottom="@dimen/margin_medium"
                 android:src="@drawable/ic_check"
-                app:layout_constraintEnd_toEndOf="@id/imageView_itemPublicSurveyList_sent"
-                app:layout_constraintStart_toStartOf="@id/imageView_itemPublicSurveyList_sent"
-                app:layout_constraintTop_toBottomOf="@id/imageView_itemPublicSurveyList_sent"
+                app:layout_constraintEnd_toEndOf="@id/imageView_itemPublicInspectionList_sent"
+                app:layout_constraintStart_toStartOf="@id/imageView_itemPublicInspectionList_sent"
+                app:layout_constraintTop_toBottomOf="@id/imageView_itemPublicInspectionList_sent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:tint="@color/colorGreenMP" />
         </androidx.constraintlayout.widget.ConstraintLayout>

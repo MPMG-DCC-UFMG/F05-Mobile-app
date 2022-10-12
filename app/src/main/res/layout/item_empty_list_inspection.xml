@@ -11,7 +11,7 @@
         android:gravity="center"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="@string/text_empty_public_survey_list"
+        android:text="@string/text_empty_public_inspection_list"
         android:layout_marginStart="@dimen/margin_xxlarge"
         android:layout_marginEnd="@dimen/margin_xxlarge"
         app:layout_constraintBottom_toBottomOf="parent"

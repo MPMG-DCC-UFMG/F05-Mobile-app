@@ -5,7 +5,7 @@
     <string name="title_survey_details_list">Nº 1222258</string>
     <string name="title_survey_type_list">Tipo de vistoria: Pavimentação</string>
     <string name="title_survey_type_name">Pavimentação</string>
-    <string name="title_public_survey_list">Lista de vistorias</string>
+    <string name="title_public_inspection_list">Lista de vistorias</string>
     <string name="title_public_work_filter">Filtrar</string>
     <string name="title_public_work_add">Adicionar obra</string>
     <string name="title_public_work_edit">Editar obra</string>
@@ -87,7 +87,7 @@
     <string name="checkbox_sent">Informações para atualizar</string>
 
     <string name="text_empty_public_work_list">Lista de obras vazia, tente adicionar uma nova obra manualmente.</string>
-    <string name="text_empty_public_survey_list">Lista de vistorias vazia, clique no + para adicionar uma nova.</string>
+    <string name="text_empty_public_inspection_list">Lista de vistorias vazia, clique no + para adicionar uma nova.</string>
     <string name="text_empty_collect_list">Lista de dados para enviar vazia, tente realizar coletas ou atualizar informações das obras</string>
     <string name="text_welcome">Bem-vindo(a) ao TRENA, o aplicativo de fiscalização de obras do Ministério Público do Estado de Minas Gerais</string>
     <string name="text_loading_login">Realizando login …</string>

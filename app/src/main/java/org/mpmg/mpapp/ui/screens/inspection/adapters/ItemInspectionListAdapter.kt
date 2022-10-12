@@ -1,10 +1,8 @@
-package org.mpmg.mpapp.ui.screens.surveywork.adapters
+package org.mpmg.mpapp.ui.screens.inspection.adapters
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,27 +10,26 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.mpmg.mpapp.databinding.ItemInspectionListBinding
-import org.mpmg.mpapp.databinding.ItemPublicSurveyListBinding
+import org.mpmg.mpapp.databinding.ItemPublicInspectionListBinding
 import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.domain.network.models.SurveyWorkRemote
 import org.mpmg.mpapp.ui.screens.publicwork.viewmodels.PublicWorkListViewModel
-import org.mpmg.mpapp.ui.screens.surveywork.models.ItemSurveyList
+import org.mpmg.mpapp.ui.screens.inspection.models.ItemInspectionList
 
-class ItemSurveyListAdapter(
+class ItemInspectionListAdapter(
     private val fragmentActivity: FragmentActivity,
-    private val surveyList: MutableList<ItemSurveyList>,
+    private val inspectionList: MutableList<ItemInspectionList>,
     private val viewModel: PublicWorkListViewModel
 ) :
-    RecyclerView.Adapter<ItemSurveyListAdapter.ItemSurveyListViewHolder>() {
+    RecyclerView.Adapter<ItemInspectionListAdapter.ItemSurveyListViewHolder>() {
 
     private lateinit var navigationController: NavController
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemSurveyListViewHolder {
         val listItem =
-            ItemPublicSurveyListBinding.inflate(
+            ItemPublicInspectionListBinding.inflate(
                 LayoutInflater.from(fragmentActivity),
                 parent,
                 false
@@ -42,7 +39,7 @@ class ItemSurveyListAdapter(
 
     override fun onBindViewHolder(holder: ItemSurveyListViewHolder, position: Int) {
         CoroutineScope(Dispatchers.Main).launch {
-            val survey = surveyList[position]
+            val survey = inspectionList[position]
             viewModel.retrieveInspections(survey.publicWorkId)
                 .catch {
                     Log.i("crhisn", it.message, it)
@@ -56,28 +53,28 @@ class ItemSurveyListAdapter(
 
     }
 
-    override fun getItemCount() = surveyList.size
+    override fun getItemCount() = inspectionList.size
     fun updatePublicWorksList(publicWorkList: List<PublicWorkAndAddress>) {
-        surveyList.clear()
-        surveyList.addAll(publicWorkList.map {
-            ItemSurveyList(
-                surveyTitle = it.publicWork.name,
-                surveyAddress = it.address.street,
-                surveyNumber = 0,
-                surveyStatus = false,
-                surveySync = false,
+        inspectionList.clear()
+        inspectionList.addAll(publicWorkList.map {
+            ItemInspectionList(
+                inspectionTitle = it.publicWork.name,
+                inspectionAddress = it.address.street,
+                inspectionNumber = 0,
+                inspectionStatus = false,
+                inspectionSync = false,
                 publicWorkId = it.publicWork.id
             )
         })
     }
 
-    inner class ItemSurveyListViewHolder(val binding: ItemPublicSurveyListBinding) :
+    inner class ItemSurveyListViewHolder(val binding: ItemPublicInspectionListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ItemSurveyList, list: List<SurveyWorkRemote>) {
-            binding.itemSurveyListName.text = item.surveyTitle
-            binding.textViewItemPublicSurveyListAddress.text = item.surveyAddress
-            binding.textViewItemPublicSurveyListNumber.text = item.surveyNumber.toString()
+        fun bind(item: ItemInspectionList, list: List<SurveyWorkRemote>) {
+            binding.itemInspectionListName.text = item.inspectionTitle
+            binding.textViewItemPublicInspectionListAddress.text = item.inspectionAddress
+            binding.textViewItemPublicInspectionListNumber.text = item.inspectionNumber.toString()
 
             binding.inspectionsList.apply {
                 layoutManager =

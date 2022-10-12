@@ -16,14 +16,14 @@ import org.mpmg.mpapp.R
 import org.mpmg.mpapp.core.extensions.observe
 import org.mpmg.mpapp.databinding.ActivityMainBinding
 import org.mpmg.mpapp.services.LocationService
-import org.mpmg.mpapp.ui.screens.surveywork.adapters.ItemSurveyListAdapter
+import org.mpmg.mpapp.ui.screens.inspection.adapters.ItemInspectionListAdapter
 import org.mpmg.mpapp.ui.viewmodels.LocationViewModel
 import org.mpmg.mpapp.ui.viewmodels.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var navController: NavController
-    lateinit var surveyListAdapter: ItemSurveyListAdapter
+    lateinit var inspectionListAdapter: ItemInspectionListAdapter
 
     private var mLocationService: LocationService? = null
     private var isBoundToLocationService: Boolean = false

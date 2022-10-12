@@ -1,5 +1,6 @@
 package org.mpmg.mpapp.workers.models
 
+import android.util.Log
 import org.koin.core.component.inject
 import org.mpmg.mpapp.R
 import org.mpmg.mpapp.domain.network.models.EntityVersion

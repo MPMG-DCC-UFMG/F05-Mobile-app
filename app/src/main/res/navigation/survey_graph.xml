@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/survey_graph"
+    android:id="@+id/inspection_graph"
     app:startDestination="@id/homeFragment">
 
     <fragment
@@ -11,22 +11,22 @@
         android:label="HomeFragment" />
     <fragment
         android:id="@+id/surveyWorkFragment"
-        android:name="org.mpmg.mpapp.ui.screens.surveywork.fragments.list.SurveyWorkFragment"
-        android:label="SurveyWorkFragment"
-        tools:layout="@layout/fragment_survey_work" />
+        android:name="org.mpmg.mpapp.ui.screens.inspection.fragments.list.InspectionWorkFragment"
+        android:label="InspectionWorkFragment"
+        tools:layout="@layout/fragment_inspection_work" />
     <fragment
-        android:id="@+id/surveyMapFragment"
-        android:name="org.mpmg.mpapp.ui.screens.surveywork.fragments.list.SurveyMapFragment"
-        android:label="SurveyMapFragment"
-        tools:layout="@layout/fragment_survey_map"/>
+        android:id="@+id/inspectionMapFragment"
+        android:name="org.mpmg.mpapp.ui.screens.inspection.fragments.list.InspectionMapFragment"
+        android:label="InspectionMapFragment"
+        tools:layout="@layout/fragment_inspection_map"/>
     <fragment
-        android:id="@+id/surveyFilterFragment"
-        android:name="org.mpmg.mpapp.ui.screens.surveywork.fragments.list.SurveyFilterFragment"
-        android:label="fragment_survey_filter"
-        tools:layout="@layout/fragment_survey_filter" />
+        android:id="@+id/inspectionFilterFragment"
+        android:name="org.mpmg.mpapp.ui.screens.inspection.fragments.list.InspectionFilterFragment"
+        android:label="fragment_inspection_filter"
+        tools:layout="@layout/fragment_inspection_filter" />
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="org.mpmg.mpapp.ui.screens.surveywork.fragments.list.MapsFragment"
+        android:name="org.mpmg.mpapp.ui.screens.inspection.fragments.list.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
     <fragment
@@ -34,23 +34,23 @@
         android:name="org.mpmg.mpapp.ui.screens.publicwork.fragments.crud.PublicWorkCrudMapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
+<!--    <fragment-->
+<!--        android:id="@+id/itemInspectionList"-->
+<!--        android:name="org.mpmg.mpapp.ui.screens.inspection.models.ItemInspectionList"-->
+<!--        android:label="fragment_item_inspection_list"-->
+<!--        tools:layout="@layout/fragment_item_inspection_list" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_ItemSurveyList_to_InspectionWorkFragment"-->
+<!--            app:destination="@id/surveyWorkFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_ItemSurveyList_to_SurveyDetailsFragment"-->
+<!--            app:destination="@id/surveyDetailsFragment" />-->
+<!--    </fragment>-->
     <fragment
-        android:id="@+id/itemSurveyList"
-        android:name="org.mpmg.mpapp.ui.screens.surveywork.models.ItemSurveyList"
-        android:label="fragment_item_survey_list"
-        tools:layout="@layout/fragment_item_survey_list" >
-        <action
-            android:id="@+id/action_ItemSurveyList_to_SurveyWorkFragment"
-            app:destination="@id/surveyWorkFragment" />
-        <action
-            android:id="@+id/action_ItemSurveyList_to_SurveyDetailsFragment"
-            app:destination="@id/surveyDetailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/surveyDetailsFragment"
-        android:name="org.mpmg.mpapp.ui.screens.surveywork.fragments.list.SurveyDetailsFragment"
+        android:id="@+id/inspectionDetailsFragment"
+        android:name="org.mpmg.mpapp.ui.screens.inspection.fragments.list.InspectionDetailsFragment"
         android:label="fragment_survey_details"
-        tools:layout="@layout/fragment_survey_details" />
+        tools:layout="@layout/fragment_inspection_details" />
 
 
 </navigation>

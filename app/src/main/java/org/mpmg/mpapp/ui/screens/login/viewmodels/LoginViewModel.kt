@@ -47,7 +47,7 @@ class LoginViewModel(
 
     val isLoading = SingleLiveEvent<Boolean>()
 
-    val loginUI = LoginUI(_email = "joao@email.com", _password = "85201145", _valid = true)
+    val loginUI = LoginUI(_email = "george2@teste.com", _password = "12345678aA", _valid = true)
     val navigateToSetup = SingleLiveEvent<Boolean>()
 
 

@@ -1,4 +1,4 @@
-package org.mpmg.mpapp.ui.screens.surveywork.fragments
+package org.mpmg.mpapp.ui.screens.inspection.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.mpmg.mpapp.R
 
 
-class BaseSurveyFragment : Fragment() {
+class BaseInspectionFragment : Fragment() {
 
     lateinit var bottomNavigationView: BottomNavigationView
     lateinit var navController: NavController
@@ -22,7 +22,7 @@ class BaseSurveyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_base_survey, container, false)
+        return inflater.inflate(R.layout.fragment_base_inspection, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

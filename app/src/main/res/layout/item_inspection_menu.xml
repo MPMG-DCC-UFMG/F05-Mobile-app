@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="menuSurveyItem"
-            type="org.mpmg.mpapp.ui.components.MenuSurveyItemModel" />
+            name="menuInspectionItem"
+            type="org.mpmg.mpapp.ui.components.MenuInspectionItemModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,7 +16,7 @@
         android:gravity="center"
         android:clickable="true"
         android:focusable="true"
-        android:id="@+id/menuItemContainerSurvey"
+        android:id="@+id/menuItemContainerInspection"
         android:foreground="?android:attr/selectableItemBackground"
         android:orientation="vertical">
 
@@ -24,16 +24,16 @@
             android:id="@+id/imageView_menuItem_icon_survey"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@{menuSurveyItem.icon}"
-            mp:tint="@{menuSurveyItem.itemColor}"
+            android:src="@{menuInspectionItem.icon}"
+            mp:tint="@{menuInspectionItem.itemColor}"
             tools:src="@drawable/ic_home" />
 
         <TextView
             android:id="@+id/textView_menuItem_title_survey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{menuSurveyItem.title}"
-            mp:textColor="@{menuSurveyItem.itemColor}"
+            android:text="@{menuInspectionItem.title}"
+            mp:textColor="@{menuInspectionItem.itemColor}"
             tools:text="Home" />
 
     </LinearLayout>

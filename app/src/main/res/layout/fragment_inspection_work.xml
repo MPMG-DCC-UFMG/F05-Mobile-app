@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.screens.surveywork.fragments.list.surveyWorkFragment">
+    tools:context=".ui.screens.inspection.fragments.list.surveyWorkFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,7 +11,7 @@
         android:background="@drawable/background_main">
 
         <EditText
-            android:id="@+id/editText_publicSurveyListFragment_search"
+            android:id="@+id/editText_publicInspectionListFragment_search"
             style="@style/MPAppTheme.EditText2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -34,12 +34,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_default"
             android:layout_marginTop="@dimen/margin_large"
-            android:text="@string/title_public_survey_list"
+            android:text="@string/title_public_inspection_list"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editText_publicSurveyListFragment_search" />
+            app:layout_constraintTop_toBottomOf="@id/editText_publicInspectionListFragment_search" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_SurveyList"
+            android:id="@+id/recyclerView_InspectionList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_medium"

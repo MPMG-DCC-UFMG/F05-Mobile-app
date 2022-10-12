@@ -8,10 +8,10 @@ import androidx.databinding.Bindable
 import org.mpmg.mpapp.BR
 import org.mpmg.mpapp.R
 
-data class MenuSurveyItemModel(
+data class MenuInspectionItemModel(
     @DrawableRes val icon: Int,
     @StringRes val title: Int,
-    val type: org.mpmg.mpapp.ui.screens.surveywork.models.BottomSurveyMenu
+    val type: org.mpmg.mpapp.ui.screens.inspection.models.BottomInspectionMenu
 ) : BaseObservable() {
 
     @get:Bindable

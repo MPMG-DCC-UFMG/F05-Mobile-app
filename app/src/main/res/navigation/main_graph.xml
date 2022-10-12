@@ -184,9 +184,9 @@
     </fragment>
     <fragment
         android:id="@+id/baseSurveyFragment"
-        android:name="org.mpmg.mpapp.ui.screens.surveywork.fragments.BaseSurveyFragment"
+        android:name="org.mpmg.mpapp.ui.screens.inspection.fragments.BaseInspectionFragment"
         android:label="fragment_base_survey"
-        tools:layout="@layout/fragment_base_survey" />
+        tools:layout="@layout/fragment_base_inspection" />
 
 
 </navigation>

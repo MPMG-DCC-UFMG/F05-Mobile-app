@@ -83,7 +83,7 @@ val repositoriesModules = module {
     single { WorkStatusRepository(get()) }
     single { CityRepository(get()) }
     single { InspectionRepository(get()) }
-    single { InspectionsRepository(get()) }
+//    single { InspectionsRepository(get()) }
 }
 
 val networkModule = module {
@@ -111,5 +111,5 @@ val dataSourceModules = module {
     single { RemotePhotoDataSource(get()) }
     single { RemoteUserDataSource(get()) }
 
-    single { RemoteInspectionsDataSource(get()) }
+//    single { RemoteInspectionsDataSource(get()) }
 }

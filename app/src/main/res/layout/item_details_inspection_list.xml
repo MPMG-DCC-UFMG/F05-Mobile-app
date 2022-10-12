@@ -4,7 +4,7 @@
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/cardView_itemPublicSurveyList_mainContainer"
+        android:id="@+id/cardView_itemPublicInspectionList_mainContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_default"
@@ -35,7 +35,7 @@
 
 
             <TextView
-                android:id="@+id/textView_itemPublicSurveyList_address"
+                android:id="@+id/textView_itemPublicInspectionList_address"
                 style="@style/MPAppTheme.PublicWorkAddress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

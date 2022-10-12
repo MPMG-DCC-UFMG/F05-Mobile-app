@@ -20,7 +20,7 @@ interface MPApi {
     @GET("publicworks/version")
     suspend fun getPublicWorkVersion(): EntityVersion
 
-    @GET("inspection/version") //TODO create endpoint in the server
+    @GET("inspections/version") //TODO create endpoint in the server
     suspend fun getInspectionVersion(): EntityVersion
 
     @GET("inspections/")
@@ -39,8 +39,8 @@ interface MPApi {
     @GET("publicworks/changes")
     suspend fun getPublicWorksChange(@Query("version") version: Int): List<PublicWorkRemote>
 
-//    @GET("inspections/changes") //TODO create endpoint in the server
-//    suspend fun getInspectionsChange(@Query("version") version: Int): List<InspectionRemote>
+    @GET("inspections/changes") //TODO create endpoint in the server
+    suspend fun getInspectionsChange(@Query("version") version: Int): List<InspectionRemote>
 
     @POST("queue/collect/add")
     suspend fun sendCollect(@Body collectRemote: CollectRemote): ResponseRemote

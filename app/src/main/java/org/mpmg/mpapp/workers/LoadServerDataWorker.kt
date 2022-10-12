@@ -20,7 +20,7 @@ class LoadServerDataWorker(applicationContext: Context, parameters: WorkerParame
                 DownloadWorkStatus(),
                 DownloadPublicWork(),
                 DownloadCity(),
-//                DownloadInspections()
+                DownloadInspections()
             )
 
         for (call in downloadCalls) {

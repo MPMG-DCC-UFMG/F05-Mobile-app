@@ -1,4 +1,4 @@
-package org.mpmg.mpapp.ui.screens.surveywork.fragments.list
+package org.mpmg.mpapp.ui.screens.inspection.fragments.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,15 +8,13 @@ import android.view.ViewGroup
 import org.mpmg.mpapp.R
 
 
-class SurveyDetailsFragment : Fragment() {
+class InspectionMapFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_survey_details, container, false)
+        return inflater.inflate(R.layout.fragment_inspection_map, container, false)
     }
-
-
 }

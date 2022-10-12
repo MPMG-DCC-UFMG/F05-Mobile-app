@@ -16,10 +16,12 @@ class PublicWorkListViewModel(
     publicWorkRepository: PublicWorkRepository,
     typeWorkRepository: TypeWorkRepository,
     workStatusRepository: WorkStatusRepository,
-    private val inspectionsRepository: InspectionsRepository
+//    private var inspectionsRepository: InspectionRepository
+    private var inspectionsRepository: InspectionsRepository
 ) : MVVMViewModel() {
 
     private val publicWorkList = publicWorkRepository.listAllPublicWorksLive().asLiveData()
+//    private val inspectionList = inspectionsRepository.listAllInspectionsLive().asLiveData()
 
     var typeWorkList = typeWorkRepository.listAllTypeWorksLive().asLiveData()
     var workStatusList = workStatusRepository.listAllWorkStatus().asLiveData()
@@ -149,5 +151,6 @@ class PublicWorkListViewModel(
         }
     }
 
+//    suspend fun retrieveInspections(publicWorkId: String) = inspectionsRepository.listAllInspections()//retrieveInspectionsByPublicWorkId(publicWorkId)
     suspend fun retrieveInspections(publicWorkId: String) = inspectionsRepository.retrieveInspectionsByPublicWorkId(publicWorkId)
 }

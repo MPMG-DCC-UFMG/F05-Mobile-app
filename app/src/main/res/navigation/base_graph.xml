@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/surveyWorkFragment"
-        android:name="org.mpmg.mpapp.ui.screens.surveywork.fragments.list.SurveyWorkFragment"
+        android:name="org.mpmg.mpapp.ui.screens.inspection.fragments.list.InspectionWorkFragment"
         android:label="SurveyWorkFragment"
-        tools:layout="@layout/fragment_survey_work" />
+        tools:layout="@layout/fragment_inspection_work" />
 
     <fragment
         android:id="@+id/publicWorkFilterFragment"
