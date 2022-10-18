@@ -109,7 +109,8 @@ class ItemSurveyListAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(survey: SurveyWorkRemote) {
-            binding.inspectionName.text = "${survey.name} ${survey.description}"
+            binding.inspectionName.text = "${survey.description}"
+            //binding.inspectionName.text = "${survey.public_work_id} ${survey.statusList}"
         }
     }
 }

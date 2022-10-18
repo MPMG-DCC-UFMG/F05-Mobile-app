@@ -12,7 +12,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

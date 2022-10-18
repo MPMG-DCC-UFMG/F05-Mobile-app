@@ -22,6 +22,7 @@
                 android:id="@+id/inspectionName"
                 style="@style/MPAppTheme.PublicWorkName"
                 android:layout_width="0dp"
+                android:textColor="@color/colorWhite"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginVertical="@dimen/margin_small"
