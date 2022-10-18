@@ -88,5 +88,5 @@ interface MPApi {
 
     @GET("inspections/publicwork/{public_work_id}")
     suspend fun retrieveInspectionsByPublicWorkId(@Path("public_work_id") public_work_id: String):
-            List<SurveyWorkRemote>
+            List<InspectionRemote>
 }

@@ -1,12 +1,14 @@
 package org.mpmg.mpapp.domain.repositories.publicwork
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import org.mpmg.mpapp.domain.database.models.Inspection
-import org.mpmg.mpapp.domain.repositories.publicwork.datasources.LocalInspectionDataSource
+import org.mpmg.mpapp.domain.repositories.inspection.datasources.RemoteInspectionsDataSource
+import org.mpmg.mpapp.domain.repositories.inspection.datasources.LocalInspectionDataSource
 
 class InspectionRepository(
     private val localInspectionDataSource: LocalInspectionDataSource,
-//    private val remoteInspectionDataSource: RemoteInspectionDataSource
+    private val remoteInspectionDataSource: RemoteInspectionsDataSource
 ) {
 
     private val TAG: String = InspectionRepository::class.java.simpleName
@@ -31,6 +33,9 @@ class InspectionRepository(
         return localInspectionDataSource.getInspectionByName(inspectionName)
     }
 
+    suspend fun retrieveInspectionsByPublicWorkId(publicWorkId: String) = flow {
+        emit(remoteInspectionDataSource.retrieveInspectionsByPublicWorkId(publicWorkId))
+    }
 //    fun listPublicWorksByStatus(toSend: Boolean): List<PublicWorkAndAddress> {
 //        return localInspectionDataSource.listPublicWorksByStatus(toSend)
 //    }

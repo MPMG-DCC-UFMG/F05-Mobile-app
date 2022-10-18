@@ -14,11 +14,10 @@ import org.mpmg.mpapp.domain.repositories.collect.CollectRepository
 import org.mpmg.mpapp.domain.repositories.collect.datasources.*
 import org.mpmg.mpapp.domain.repositories.config.datasources.LocalConfigDataSource
 import org.mpmg.mpapp.domain.repositories.config.datasources.RemoteConfigDataSource
-import org.mpmg.mpapp.domain.repositories.inspections.InspectionsRepository
-import org.mpmg.mpapp.domain.repositories.inspections.datasources.RemoteInspectionsDataSource
+import org.mpmg.mpapp.domain.repositories.inspection.datasources.RemoteInspectionsDataSource
 import org.mpmg.mpapp.domain.repositories.publicwork.InspectionRepository
 import org.mpmg.mpapp.domain.repositories.publicwork.PublicWorkRepository
-import org.mpmg.mpapp.domain.repositories.publicwork.datasources.LocalInspectionDataSource
+import org.mpmg.mpapp.domain.repositories.inspection.datasources.LocalInspectionDataSource
 import org.mpmg.mpapp.domain.repositories.publicwork.datasources.LocalPublicWorkDataSource
 import org.mpmg.mpapp.domain.repositories.publicwork.datasources.RemotePublicWorkDataSource
 import org.mpmg.mpapp.domain.repositories.typephoto.TypePhotoRepository
@@ -82,8 +81,7 @@ val repositoriesModules = module {
     single { AssociationRepository(get()) }
     single { WorkStatusRepository(get()) }
     single { CityRepository(get()) }
-    single { InspectionRepository(get()) }
-//    single { InspectionsRepository(get()) }
+    single { InspectionRepository(get(), get()) }
 }
 
 val networkModule = module {
@@ -110,6 +108,5 @@ val dataSourceModules = module {
     single { RemoteCollectDataSource(get()) }
     single { RemotePhotoDataSource(get()) }
     single { RemoteUserDataSource(get()) }
-
-//    single { RemoteInspectionsDataSource(get()) }
+    single { RemoteInspectionsDataSource(get()) }
 }

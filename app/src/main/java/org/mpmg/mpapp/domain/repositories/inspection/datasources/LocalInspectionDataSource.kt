@@ -1,27 +1,18 @@
-package org.mpmg.mpapp.domain.repositories.publicwork.datasources
+package org.mpmg.mpapp.domain.repositories.inspection.datasources
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
-import org.mpmg.mpapp.domain.database.models.Address
 import org.mpmg.mpapp.domain.database.models.Inspection
-import org.mpmg.mpapp.domain.database.models.PublicWork
-import org.mpmg.mpapp.domain.database.models.relations.PublicWorkAndAddress
 import org.mpmg.mpapp.domain.repositories.shared.BaseDataSource
 
 class LocalInspectionDataSource(applicationContext: Context) : BaseDataSource(applicationContext){
 
     @Transaction
     fun insertInspection(inspection: Inspection) {
+        Log.d("INSPECTION", inspection.toString())
         mpDatabase()!!.inspectionDAO().insert(inspection)
-//        val oldPublicWork = mpDatabase()!!.publicWorkDAO().getPublicWorkById(publicWork.id)
-//        oldPublicWork?.let {
-//            publicWork.idCollect = oldPublicWork.idCollect ?: publicWork.idCollect
-//            mpDatabase()!!.publicWorkDAO().update(publicWork)
-//        }?: kotlin.run {
-//            mpDatabase()!!.publicWorkDAO().insert(publicWork)
-//        }
-//        mpDatabase()!!.addressDAO().insert(address)
     }
 
     fun getInspectionByName(inspectionName: String): Inspection? {
